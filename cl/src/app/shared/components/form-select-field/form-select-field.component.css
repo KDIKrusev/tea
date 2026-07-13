@@ -1,0 +1,4 @@
+/* Component inherits styles from parent */
+mat-form-field {
+  width: 100%;
+}

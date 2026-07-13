@@ -1,0 +1,92 @@
+<!-- Wind Assisted Propulsion (Sails) Section -->
+<div class="input-group" [formGroup]="parentForm">
+  <mat-expansion-panel [expanded]="true" class="config-panel">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <mat-icon class="panel-icon">sailing</mat-icon>
+        Wind Assisted Propulsion (sails)
+      </mat-panel-title>
+      <mat-panel-description>
+        @if (isSailEnabled && trueWindSpeed?.value != null && windAngleRelVessel?.value != null) {
+          <span class="info-badge sail-active">
+            <mat-icon class="badge-icon">sailing</mat-icon>
+            Wind: {{ trueWindSpeed?.value }} m/s at {{ windAngleRelVessel?.value }}°
+          </span>
+        } @else if (isSailEnabled) {
+          <span class="hint-text">Enter wind conditions for sail contribution</span>
+        } @else {
+          <span class="info-badge sail-disabled">Sails disabled</span>
+        }
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <!-- Sail Enable/Disable Checkbox -->
+    <div class="sail-toggle">
+      <mat-checkbox formControlName="sailEnabled"
+                    color="primary"
+                    (change)="onSailToggle($event)">
+        <span class="sail-toggle-label">
+          <mat-icon class="sail-toggle-icon">sailing</mat-icon>
+          Enable Sail Contribution
+        </span>
+      </mat-checkbox>
+      <span class="sail-toggle-hint">
+        When enabled, sail propulsion contribution will be included in Transit Mode calculations
+      </span>
+    </div>
+
+    <!-- Wind Parameters (visible only when sail is enabled) -->
+    @if (isSailEnabled) {
+      <mat-accordion multi>
+        <mat-expansion-panel [expanded]="true" class="subsection-panel sail-subsection">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-icon class="subsection-icon">air</mat-icon>
+              Wind Parameters
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <div class="input-grid">
+            <!-- True Wind Speed Dropdown -->
+            <mat-form-field appearance="fill" [class.field-edited]="isFieldEdited('trueWindSpeed')">
+              <mat-label>
+                True Wind Speed (m/s)
+                @if (isFieldEdited('trueWindSpeed')) {
+                  <span class="edited-label">(edited)</span>
+                }
+              </mat-label>
+              <mat-select formControlName="trueWindSpeed" (selectionChange)="onFieldChange()">
+                @for (speed of windSpeedOptions; track speed) {
+                  <mat-option [value]="speed">{{ speed }}</mat-option>
+                }
+              </mat-select>
+              <mat-hint>Speed of the wind relative to ground</mat-hint>
+              @if (trueWindSpeed?.invalid && trueWindSpeed?.touched) {
+                <mat-error>{{ getValidationError('trueWindSpeed') }}</mat-error>
+              }
+            </mat-form-field>
+
+            <!-- Wind Angle Relative to Vessel -->
+            <mat-form-field appearance="fill" [class.field-edited]="isFieldEdited('windAngleRelVessel')">
+              <mat-label>
+                Wind Angle Relative to Vessel (°)
+                @if (isFieldEdited('windAngleRelVessel')) {
+                  <span class="edited-label">(edited)</span>
+                }
+              </mat-label>
+              <input matInput type="number" formControlName="windAngleRelVessel"
+                     min="0" max="360" step="1"
+                     (change)="onFieldChange()">
+              <mat-hint>Angle between wind direction and vessel heading</mat-hint>
+              @if (windAngleRelVessel?.invalid && windAngleRelVessel?.touched) {
+                <mat-error>{{ getValidationError('windAngleRelVessel') }}</mat-error>
+              }
+            </mat-form-field>
+          </div>
+
+          <!-- Sail results are displayed in the results panel -->
+        </mat-expansion-panel>
+      </mat-accordion>
+    }
+  </mat-expansion-panel>
+</div>

@@ -1,0 +1,369 @@
+<div class="min-h-screen bg-gray-50">
+  <div class="container mx-auto px-6 py-2 max-w-[1920px]">
+    <!-- Header -->
+    <header class="header-container">
+      <div class="header-content">
+        <div class="title-section">
+          <h1 class="text-2xl font-bold text-maritime-primary">Energy Savings Calculator</h1>
+        </div>
+        <div class="logo-section">
+          <img src="images/km-logo.png" alt="Kongsberg Maritime" class="km-logo" />
+        </div>
+      </div>
+    </header>
+
+    <!-- Error Message -->
+    <div *ngIf="error" class="mb-6">
+      <mat-card class="bg-red-50 border-l-4 border-red-500 p-4">
+        <p class="text-red-700">{{ error }}</p>
+      </mat-card>
+    </div>
+
+    <!-- Validation Errors -->
+    <div *ngIf="validationErrors.length > 0" class="mb-6">
+      <mat-card class="validation-error-card">
+        <div class="validation-error-header">
+          <mat-icon>error_outline</mat-icon>
+          <span>Validation Failed</span>
+        </div>
+        <ul class="validation-error-list">
+          <li *ngFor="let err of validationErrors">
+            <mat-icon>warning</mat-icon>
+            <span>{{ err }}</span>
+          </li>
+        </ul>
+      </mat-card>
+    </div>
+
+    <!-- Main Layout: Two Columns - Inputs Left, Results Right -->
+    <div class="calculator-layout-two-column">
+      
+      <!-- LEFT COLUMN: Input Form - Always Visible -->
+      <div class="input-column">
+
+        <!-- Profile Manager -->
+        <app-profile-manager
+          (saveRequest)="onSaveRequest($event)"
+          (profileLoadRequested)="onProfileLoadRequested($event)">
+        </app-profile-manager>
+
+        <app-vessel-input-form 
+        [isCalculating]="isCalculating"
+        [sailContribution]="sailContribution"
+        (formChanged)="onFormChange($event)">
+      </app-vessel-input-form>
+      </div>
+
+      <!-- RIGHT COLUMN: Results Section -->
+      <div class="results-column">
+        
+        <!-- Loading State -->
+        <div *ngIf="isCalculating" class="flex justify-center items-center py-12">
+          <mat-card class="p-8 text-center w-full">
+            <mat-spinner class="mx-auto mb-4"></mat-spinner>
+            <p class="text-gray-600">Calculating all variants...</p>
+          </mat-card>
+        </div>
+
+        <!-- Results Section with Accordion -->
+        <!-- Results Section with Accordion -->
+        <div *ngIf="allResults.Premium && !isCalculating" class="results-accordion">
+          
+          <mat-accordion multi>
+
+            <!-- Validation Warnings -->
+            <mat-expansion-panel *ngIf="validationWarnings.length > 0" [expanded]="true" class="warnings-panel">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <mat-icon class="warning-icon">warning</mat-icon>
+                  Configuration Warnings ({{ validationWarnings.length }})
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <app-validation-warnings [warnings]="validationWarnings"></app-validation-warnings>
+            </mat-expansion-panel>
+
+            <!-- Power Demands Panel -->
+            <mat-expansion-panel [expanded]="false" class="power-demands-panel">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <mat-icon>bolt</mat-icon>
+                  Power Demands
+                </mat-panel-title>
+                <mat-panel-description>
+                  Main Engine: {{ powerDemands?.mainEnginePowerKw | number:'1.0-0' }} kW | 
+                  Auxiliary Engine: {{ powerDemands?.auxiliaryEnginePowerKw | number:'1.0-0' }} kW
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              
+              <app-power-demands-panel [powerDemands]="powerDemands!"></app-power-demands-panel>
+            </mat-expansion-panel>
+
+            <!-- Baseline Panel -->
+            <mat-expansion-panel [expanded]="false" class="baseline-panel">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <mat-icon>assessment</mat-icon>
+                  Baseline (No iEMS)
+                  <mat-icon 
+                    class="info-icon" 
+                    matTooltip="Baseline scenario represents current vessel operation without iEMS integration. Shows total fuel consumption and emissions based on configured power demands."
+                    matTooltipPosition="above">
+                    info
+                  </mat-icon>
+                </mat-panel-title>
+                <mat-panel-description>
+                  FOC: {{ baselineData?.totalFuelConsumptionTons | number:'1.0-0' }} ton/yr |
+                  CO₂: {{ baselineData?.totalCO2EmissionsTons | number:'1.0-0' }} ton/yr
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              
+              <app-baseline-panel
+              [baseline]="baselineData!"
+              [baselineME]="allVariantsResult?.baselineME || 0"
+              [baselineAE]="allVariantsResult?.baselineAE || 0"
+              [currentInput]="currentInput!"
+              [level1Details]="allVariantsResult?.level1Details"
+              (baselineIndexChanged)="onBaselineIndexChanged($event)">
+            </app-baseline-panel>
+            </mat-expansion-panel>
+
+            <!-- Report + Expand/Collapse All Buttons -->
+            <div style="display: flex; justify-content: flex-end; gap: 8px; margin: 8px 0;">
+              <button mat-stroked-button color="primary" (click)="openReportDialog()"
+                      *ngIf="allVariantsResult"
+                      matTooltip="Generate a one-page savings report to share with the client">
+                <mat-icon>description</mat-icon>
+                Client Report
+              </button>
+              <button mat-button (click)="toggleAllPanels()" color="primary">
+                <mat-icon>{{ allExpanded ? 'unfold_less' : 'unfold_more' }}</mat-icon>
+                {{ allExpanded ? 'Collapse All' : 'Expand All' }}
+              </button>
+            </div>
+
+                 <!-- Advanced Results -->
+            <mat-expansion-panel
+              [expanded]="advancedExpanded"
+              (opened)="advancedExpanded = true"
+              (closed)="advancedExpanded = false"
+              [class.recommended-panel]="isRecommended('Advanced')"
+              class="variant-panel advanced-panel">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <div style="display: flex; flex-direction: column; gap: 0.25rem;">
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                      <mat-icon>bolt</mat-icon>
+                      <span style="font-weight: 600;">Integration level 1</span>
+                      <mat-icon 
+                        class="info-icon" 
+                        matTooltip="Integration Level 1: Entry-level iEMS with 3% fuel consumption reduction through basic power optimization and load balancing."
+                        matTooltipPosition="above">
+                        info
+                      </mat-icon>
+                    </div>
+                    <span style="font-size: 0.75rem; color: #6b7280; font-weight: 400; margin-left: 2rem;">Optimal power system recommendation</span>
+                  </div>
+                </mat-panel-title>
+                <mat-panel-description>
+                  <span class="description-highlight savings">
+                    Savings: {{ allResults.Advanced!.fuelSavings | number:'1.0-1' }} ton/yr | ${{ allResults.Advanced!.annualCostSavings | number:'1.0-0' }}/yr
+                  </span>
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+
+              <app-variant-detail-panel
+                variant="Advanced"
+                [result]="allResults.Advanced!"
+                [currentInput]="currentInput!"
+                [level1Details]="allVariantsResult?.level1Details"
+                [sailContribution]="sailContribution ?? undefined"
+                [isRecommended]="isRecommended('Advanced')">
+              </app-variant-detail-panel>
+            </mat-expansion-panel>
+
+            
+            <!-- Pro Results -->
+            <mat-expansion-panel
+              [expanded]="proExpanded"
+              (opened)="proExpanded = true"
+              (closed)="proExpanded = false"
+              [class.recommended-panel]="isRecommended('Pro')"
+              class="variant-panel pro-panel">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <div style="display: flex; flex-direction: column; gap: 0.25rem;">
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                      <mat-icon>stars</mat-icon>
+                      <span style="font-weight: 600;">Integration level 2</span>
+                      <mat-icon 
+                        class="info-icon" 
+                        matTooltip="Integration Level 2: Mid-tier iEMS with 4.5% fuel consumption reduction through enhanced load optimization and intelligent energy control functions."
+                        matTooltipPosition="above">
+                        info
+                      </mat-icon>
+                    </div>
+                    <span style="font-size: 0.75rem; color: #6b7280; font-weight: 400; margin-left: 2rem;">Optimal power system recommendation + Continuous optimization</span>
+                  </div>
+                </mat-panel-title>
+                <mat-panel-description>
+                  <span class="description-highlight savings">
+                    Savings: {{ allResults.Pro!.fuelSavings | number:'1.0-1' }} ton/yr | ${{ allResults.Pro!.annualCostSavings | number:'1.0-0' }}/yr
+                  </span>
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              
+              <app-variant-detail-panel
+                variant="Pro"
+                [result]="allResults.Pro!"
+                [currentInput]="currentInput!"
+                [level1Details]="allVariantsResult?.level1Details"
+                [sailContribution]="sailContribution ?? undefined"
+                [isRecommended]="isRecommended('Pro')">
+              </app-variant-detail-panel>
+            </mat-expansion-panel>
+            
+            <!-- Premium Results -->
+            <mat-expansion-panel
+              [expanded]="premiumExpanded"
+              (opened)="premiumExpanded = true"
+              (closed)="premiumExpanded = false"
+              [class.recommended-panel]="isRecommended('Premium')"
+              class="variant-panel premium-panel">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <div style="display: flex; flex-direction: column; gap: 0.25rem;">
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                      <mat-icon>diamond</mat-icon>
+                      <span style="font-weight: 600;">Integration level 3</span>
+                      <mat-icon 
+                        class="info-icon" 
+                        matTooltip="Integration Level 3: Premium iEMS with 6% fuel consumption reduction through AI-driven continuous optimization integrated with weather forecast and mission planning."
+                        matTooltipPosition="above">
+                        info
+                      </mat-icon>
+                    </div>
+                    <span style="font-size: 0.75rem; color: #6b7280; font-weight: 400; margin-left: 2rem;">IL1 + IL2 + Energy control functions + Integration with weather forecast and mission plan</span>
+                  </div>
+                </mat-panel-title>
+                <mat-panel-description>
+                  <span class="description-highlight savings">
+                    Savings: {{ allResults.Premium!.fuelSavings | number:'1.0-1' }} ton/yr | ${{ allResults.Premium!.annualCostSavings | number:'1.0-0' }}/yr
+                  </span>
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              
+              <app-variant-detail-panel
+                variant="Premium"
+                [result]="allResults.Premium!"
+                [currentInput]="currentInput!"
+                [level1Details]="allVariantsResult?.level1Details"
+                [sailContribution]="sailContribution ?? undefined"
+                [isRecommended]="isRecommended('Premium')">
+              </app-variant-detail-panel>
+            </mat-expansion-panel>
+
+
+       
+
+            <!-- Sail Contribution Details -->
+            <mat-expansion-panel [expanded]="false" *ngIf="sailContribution" class="sail-panel">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <mat-icon>sailing</mat-icon>
+                  Sail Contribution
+                </mat-panel-title>
+                <mat-panel-description>
+                  Propulsion reduced by {{ sailContribution.sailPowerKw | number:'1.0-0' }} kW ({{ sailContribution.sailSavingsPercent | number:'1.0-1' }}%)
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div style="padding: 16px;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 500px;">
+                  <div><strong>Wind Speed:</strong> {{ sailContribution.trueWindSpeed | number:'1.0-1' }} m/s</div>
+                  <div><strong>Wind Angle:</strong> {{ sailContribution.windAngleRelVessel | number:'1.0-0' }}°</div>
+                  <div><strong>Sail Power:</strong> {{ sailContribution.sailPowerKw | number:'1.0-0' }} kW</div>
+                  <div><strong>Sail Force:</strong> {{ sailContribution.sailForceKn | number:'1.0-1' }} kN</div>
+                  <div><strong>Propulsion Before:</strong> {{ sailContribution.transitPropulsionBeforeKw | number:'1.0-0' }} kW</div>
+                  <div><strong>Propulsion After:</strong> {{ sailContribution.transitPropulsionAfterKw | number:'1.0-0' }} kW</div>
+                </div>
+              </div>
+            </mat-expansion-panel>
+
+            <!-- Tier Comparison Table -->
+            <mat-expansion-panel [expanded]="false" class="comparison-table-panel" *ngIf="allVariantsResult">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <mat-icon>compare_arrows</mat-icon>
+                  Integration Level Comparison
+                </mat-panel-title>
+                <mat-panel-description>
+                  Side-by-side comparison of all three tiers
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <app-tier-comparison [results]="allVariantsResult!" [baseline]="baselineData" [recommendedTier]="recommendedTier"></app-tier-comparison>
+            </mat-expansion-panel>
+
+            <!-- Comparison Chart - FOC -->
+            <mat-expansion-panel [expanded]="true" class="chart-panel">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <mat-icon>bar_chart</mat-icon>
+                  Comparison Chart - Fuel Oil Consumption (FOC) - All Variants
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              
+              <app-savings-chart 
+                [baseline]="baselineData!"
+                [premiumResult]="allResults.Premium!"
+                [proResult]="allResults.Pro!"
+                [advancedResult]="allResults.Advanced!"
+                [chartType]="'foc'">
+              </app-savings-chart>
+            </mat-expansion-panel>
+
+            <!-- Comparison Chart - CO2 -->
+            <mat-expansion-panel [expanded]="true" class="chart-panel">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <mat-icon>eco</mat-icon>
+                  Comparison Chart - CO₂ Emissions - All Variants
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              
+              <app-savings-chart 
+                [baseline]="baselineData!"
+                [premiumResult]="allResults.Premium!"
+                [proResult]="allResults.Pro!"
+                [advancedResult]="allResults.Advanced!"
+                [chartType]="'co2'">
+              </app-savings-chart>
+            </mat-expansion-panel>
+
+          </mat-accordion>
+        </div>
+
+        <!-- No Results Message -->
+        <div *ngIf="!allResults.Premium && !isCalculating && !error" class="text-center py-12">
+          <mat-card class="p-8">
+            <div class="text-gray-400 mb-4">
+              <svg class="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                  d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z">
+                </path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-700 mb-2">Results will appear here</h3>
+            <p class="text-gray-500">Configure your vessel parameters to see comprehensive savings analysis for all iEMS variants.</p>
+          </mat-card>
+        </div>
+        
+      </div>
+      
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-12 pt-8 border-t border-gray-200 text-center text-gray-500 text-sm">
+      <p>Energy Savings Calculator v1.0 | Maritime iEMS Savings Analysis Tool</p>
+    </footer>
+  </div>
+</div>

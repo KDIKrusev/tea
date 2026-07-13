@@ -1,0 +1,47 @@
+trigger:
+  branches:
+    include:
+      - main 
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  - group: acr-secrets
+  - name: dockerRegistry
+    value: 'kmviregistry.azurecr.io'
+  - name: frontendImage
+    value: 'ksailcalc-frontend'
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '22.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    echo "📦 Installing npm dependencies..."
+    npm install
+  displayName: 'Install npm dependencies'
+
+- script: |
+    npm run build
+  displayName: 'Build Angular app'
+
+- script: |
+    echo "🔐 Logging in to Azure Container Registry"
+    echo "$(ACR_PASSWORD)" | docker login $(dockerRegistry) -u $(ACR_USERNAME) --password-stdin
+  displayName: "Login to ACR"
+
+- script: |
+    echo "🔨 Building Angular frontend image"
+    docker build -t $(dockerRegistry)/$(frontendImage):$(Build.SourceBranchName)-$(Build.BuildId) \
+                 -t $(dockerRegistry)/$(frontendImage):latest \
+                 -f Dockerfile .
+  displayName: "Build Frontend Docker Image"
+
+- script: |
+    echo "📦 Pushing Angular frontend image to ACR"
+    docker push $(dockerRegistry)/$(frontendImage):$(Build.SourceBranchName)-$(Build.BuildId)
+    docker push $(dockerRegistry)/$(frontendImage):latest
+  displayName: "Push Frontend Image to ACR"

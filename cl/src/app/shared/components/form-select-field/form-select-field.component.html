@@ -1,0 +1,13 @@
+<div [formGroup]="formGroup">
+  <mat-form-field appearance="fill">
+    <mat-label>{{ label }}{{ required ? ' *' : '' }}</mat-label>
+    <mat-select [formControlName]="controlName" [required]="required">
+      @for (option of options; track option.value) {
+        <mat-option [value]="option.value">{{ option.label }}</mat-option>
+      }
+    </mat-select>
+    @if (control?.invalid && control?.touched) {
+      <mat-error>{{ getValidationError() }}</mat-error>
+    }
+  </mat-form-field>
+</div>

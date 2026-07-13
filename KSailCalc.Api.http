@@ -1,0 +1,251 @@
+@KSailCalc.Api_HostAddress = http://localhost:5164
+
+###############################################################################
+# EXAMPLE 1: Bulk Carrier — Transit Only (от скрийншота)
+#
+# Vessel:  Bulk Carrier 10,000 dwt, 13 knots, Sea Margin 20%
+# ME:      2 × 12,000 kW  (Diesel 4-stroke Medium, ID=4)
+# SG:      1,500 kW per ME
+# AE:      3 × 500 kW     (Auxiliary Diesel 4-stroke Small, ID=6)
+# Transit: 1,895 kW propulsion, 165 kW hotel, 5,717 h/yr
+# DP:      disabled
+#
+# ── LEVEL 1 (очакван ход на калкулацията) ──
+#   propulsion = 1895 × 1.20 = 2274 kW,  hotel = 165 kW
+#   24 total combos → 8 valid (ME=0 rejected, SG ON+AE>0 rejected when hotel<SG)
+#   Key combos:
+#     ME=1,SG=off,AE=1: ME=2274 kW (19.0%), AE=165 kW (33%)
+#     ME=1,SG=on, AE=0: ME=2439 kW (20.3%), SG=165 kW
+#     ME=2,SG=off,AE=1: ME=2274 kW (9.5%),  AE=165 kW (33%)
+#     ME=2,SG=on, AE=0: ME=2439 kW (10.2%), SG=165 kW
+#   Optimal = lowest FOC,  Baseline = second-highest FOC
+#
+# ── LEVEL 2 ──
+#   От оптималната L1 комбинация — ако има ≤1 генератор → savings=0
+#   Ако има ≥2 генератора → sweep 15%-90% / 5% стъпка → min Total SFOC
+#
+# ── LEVEL 3 ──
+#   Bulk Carrier → ±250 kW variation, DRC намалява с 20%
+#   Cycle: 2 min (1 min up + 1 min down), 30 cycles/h
+###############################################################################
+POST {{KSailCalc.Api_HostAddress}}/api/calculator/calculate-all-variants
+Content-Type: application/json
+
+{
+  "propulsionPower": 1895,
+  "hotelLoad": 165,
+  "seaMargin": 20,
+
+  "meCapacityPerEngine": 12000,
+  "meCount": 2,
+  "sgCapacityPerEngine": 1500,
+  "aeCapacityPerEngine": 500,
+  "aeCount": 3,
+
+  "mainEngineTypeId": 4,
+  "auxEngineTypeId": 6,
+
+  "sailInstalled": false,
+  "sailEnabled": false,
+  "batteryCapacity": 0,
+
+  "fuelPrice": 600,
+  "annualHours": 8760,
+
+  "portHours": 0,
+  "portPowerKW": 0,
+  "anchorHours": 0,
+  "anchorPowerKW": 0,
+  "maneuveringHours": 0,
+  "maneuveringPowerKW": 0,
+  "maneuveringPropulsionPowerKW": 0,
+
+  "transitHours": 5717,
+  "transitHotelPowerKW": 165,
+
+  "dpEnabled": false,
+
+  "vesselTypeName": "Bulk Carrier",
+  "vesselSpeedKnots": 13
+}
+
+###############################################################################
+# EXAMPLE 2: Bulk Carrier — Transit + DP Mode
+#
+# Същия vessel, но с DP mode включен (специализиран оффшор сценарий)
+# DP: 1,200 kW thruster, 300 kW hotel, 1,200 h/yr
+# Transit: 4,517 h/yr (5717 - 1200)
+#
+# ── Какво се тества ──
+#   L1 се пуска 2 пъти: веднъж за Transit, веднъж за DP
+#   DP mode: ME=0 невалиден (propulsion > 0), SG+AE покриват hotel
+#   Baseline FOC = transit L1 baseline × transit_hours + dp L1 baseline × dp_hours
+#   Savings натрупващи се: L1 → L2 → L3 за всеки режим
+###############################################################################
+POST {{KSailCalc.Api_HostAddress}}/api/calculator/calculate-all-variants
+Content-Type: application/json
+
+{
+  "propulsionPower": 1895,
+  "hotelLoad": 165,
+  "seaMargin": 20,
+
+  "meCapacityPerEngine": 12000,
+  "meCount": 2,
+  "sgCapacityPerEngine": 1500,
+  "aeCapacityPerEngine": 500,
+  "aeCount": 3,
+
+  "mainEngineTypeId": 4,
+  "auxEngineTypeId": 6,
+
+  "sailInstalled": false,
+  "sailEnabled": false,
+  "batteryCapacity": 0,
+
+  "fuelPrice": 600,
+  "annualHours": 8760,
+
+  "portHours": 0,
+  "portPowerKW": 0,
+  "anchorHours": 0,
+  "anchorPowerKW": 0,
+  "maneuveringHours": 0,
+  "maneuveringPowerKW": 0,
+  "maneuveringPropulsionPowerKW": 0,
+
+  "transitHours": 4517,
+  "transitHotelPowerKW": 165,
+
+  "dpEnabled": true,
+  "dpHours": 1200,
+  "dpHotelPowerKW": 300,
+  "requiredDPPowerKW": 1200,
+  "dpWeatherCondition": "Moderate",
+
+  "vesselTypeName": "Bulk Carrier",
+  "vesselSpeedKnots": 13
+}
+
+###############################################################################
+# EXAMPLE 3: Container — Голям hotel load, принуждава 2+ AE (Level 2 sweep)
+#
+# Vessel:  Container, 13 knots, Sea Margin 15%
+# ME:      1 × 15,000 kW  (Diesel 2-stroke Medium, ID=2)
+# SG:      2,000 kW per ME
+# AE:      3 × 2,000 kW   (Auxiliary Diesel 4-stroke Large, ID=8)
+# Transit: 5,000 kW propulsion, 5,500 kW hotel, 5,000 h/yr
+#
+# ── LEVEL 1 ──
+#   propulsion = 5000 × 1.15 = 5750 kW,  hotel = 5500 kW
+#   Hotel > SG capacity (2000) → AE трябва да покрият 3500 kW
+#   Requires ≥2 AE (2×2000=4000 ≥ 3500)
+#   SG ON: SG=2000, AE=3500 → at least 2 AE needed
+#   Optimal combo likely: ME=1, SG=on, AE=2 (or AE=3)
+#
+# ── LEVEL 2 ──
+#   3 generators (1 SG + 2 AE), sweep 15-90%/5%
+#   Demand = SG_power + AE_power = 5500 kW
+#   16×16×16 = 4096 combinations → min Total SFOC
+#   Тук трябва да видиш реална разлика — различни SFOC криви за SG и AE!
+#
+# ── LEVEL 3 ──
+#   Container → ±1500 kW variation (голяма!)
+#   Variation per generator = 1500/3 = 500 kW → DRC reduces to 400 kW
+#   Очаквай по-голям DRC savings от Bulk Carrier
+###############################################################################
+POST {{KSailCalc.Api_HostAddress}}/api/calculator/calculate-all-variants
+Content-Type: application/json
+
+{
+  "propulsionPower": 5000,
+  "hotelLoad": 5500,
+  "seaMargin": 15,
+
+  "meCapacityPerEngine": 15000,
+  "meCount": 1,
+  "sgCapacityPerEngine": 2000,
+  "aeCapacityPerEngine": 2000,
+  "aeCount": 3,
+
+  "mainEngineTypeId": 2,
+  "auxEngineTypeId": 8,
+
+  "sailInstalled": false,
+  "sailEnabled": false,
+  "batteryCapacity": 0,
+
+  "fuelPrice": 600,
+  "annualHours": 8760,
+
+  "portHours": 0,
+  "portPowerKW": 0,
+  "anchorHours": 0,
+  "anchorPowerKW": 0,
+  "maneuveringHours": 0,
+  "maneuveringPowerKW": 0,
+  "maneuveringPropulsionPowerKW": 0,
+
+  "transitHours": 5000,
+  "transitHotelPowerKW": 5500,
+
+  "dpEnabled": false,
+
+  "vesselTypeName": "Container",
+  "vesselSpeedKnots": 13
+}
+
+###############################################################################
+# EXAMPLE 4: Container + DP — Максимално натоварен сценарий
+#
+# Transit 4000 h + DP 1000 h
+# DP: 2000 kW thrust, 4000 kW hotel (тежък DP сценарий)
+# Тества: двойно пускане на L1→L2→L3 pipeline (Transit + DP)
+# Очаквани ефекти: DP mode с ME+SG+AE всички работят
+###############################################################################
+POST {{KSailCalc.Api_HostAddress}}/api/calculator/calculate-all-variants
+Content-Type: application/json
+
+{
+  "propulsionPower": 5000,
+  "hotelLoad": 5500,
+  "seaMargin": 15,
+
+  "meCapacityPerEngine": 15000,
+  "meCount": 1,
+  "sgCapacityPerEngine": 2000,
+  "aeCapacityPerEngine": 2000,
+  "aeCount": 3,
+
+  "mainEngineTypeId": 2,
+  "auxEngineTypeId": 8,
+
+  "sailInstalled": false,
+  "sailEnabled": false,
+  "batteryCapacity": 0,
+
+  "fuelPrice": 600,
+  "annualHours": 8760,
+
+  "portHours": 0,
+  "portPowerKW": 0,
+  "anchorHours": 0,
+  "anchorPowerKW": 0,
+  "maneuveringHours": 0,
+  "maneuveringPowerKW": 0,
+  "maneuveringPropulsionPowerKW": 0,
+
+  "transitHours": 4000,
+  "transitHotelPowerKW": 5500,
+
+  "dpEnabled": true,
+  "dpHours": 1000,
+  "dpHotelPowerKW": 4000,
+  "requiredDPPowerKW": 2000,
+  "dpWeatherCondition": "Rough",
+
+  "vesselTypeName": "Container",
+  "vesselSpeedKnots": 13
+}
+
+###

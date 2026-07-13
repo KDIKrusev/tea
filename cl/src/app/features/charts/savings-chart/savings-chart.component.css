@@ -1,0 +1,263 @@
+/* Container */
+.savings-chart-container {
+  width: 100%;
+  margin: 0 0 1rem 0;
+  padding: 1rem;
+  background-color: #FFFFFF;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Chart Wrapper */
+.chart-wrapper {
+  position: relative;
+  width: 100%;
+  height: 60vh;
+  min-height: 400px;
+  max-height: 600px;
+  margin-bottom: 1.5rem;
+}
+
+/* Export Section */
+.export-section {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.export-button {
+  background-color: #1E3A8A !important;
+  color: white !important;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  padding: 0.75rem 2rem;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.export-button:hover {
+  background-color: #1E40AF !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.export-button mat-icon {
+  margin-right: 0.5rem;
+}
+
+/* Chart Summary */
+.chart-summary {
+  background-color: #F9FAFB;
+  border-left: 4px solid #1E3A8A;
+  padding: 1.5rem;
+  margin-top: 2rem;
+  border-radius: 4px;
+}
+
+.chart-summary h3 {
+  margin: 0 0 1rem 0;
+  color: #1E3A8A;
+  font-size: 1.125rem;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+}
+
+.chart-summary p {
+  margin: 0 0 1rem 0;
+  color: #374151;
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+.chart-summary ul {
+  margin: 0;
+  padding-left: 1.5rem;
+  color: #374151;
+}
+
+.chart-summary li {
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+}
+
+.chart-summary strong {
+  color: #1E3A8A;
+  font-weight: 600;
+}
+
+/* Screen Reader Only Table */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* No Data Message */
+.no-data-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  background-color: #F9FAFB;
+  border-radius: 8px;
+  border: 2px dashed #D1D5DB;
+  text-align: center;
+}
+
+.no-data-icon {
+  font-size: 4rem;
+  width: 4rem;
+  height: 4rem;
+  color: #D1D5DB;
+  margin-bottom: 1rem;
+}
+
+.no-data-message h3 {
+  margin: 0 0 0.5rem 0;
+  color: #6B7280;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.no-data-message p {
+  margin: 0;
+  color: #9CA3AF;
+  font-size: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .savings-chart-container {
+    padding: 1rem;
+  }
+
+  .chart-wrapper {
+    height: 50vh;
+    min-height: 300px;
+  }
+
+  .export-button {
+    width: 100%;
+    padding: 0.75rem 1rem;
+  }
+
+  .chart-summary {
+    padding: 1rem;
+  }
+
+  .chart-summary h3 {
+    font-size: 1rem;
+  }
+
+  .chart-summary p,
+  .chart-summary li {
+    font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .chart-wrapper {
+    height: 40vh;
+    min-height: 250px;
+  }
+
+  .chart-summary ul {
+    padding-left: 1rem;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .savings-chart-container {
+    box-shadow: none;
+    border: 1px solid #E5E7EB;
+    page-break-inside: avoid;
+  }
+
+  .chart-wrapper {
+    height: 400px !important;
+    min-height: 400px !important;
+    max-height: 400px !important;
+    page-break-inside: avoid;
+  }
+
+  canvas {
+    max-width: 100%;
+    height: auto !important;
+  }
+
+  .export-section {
+    display: none;
+  }
+
+  .export-button {
+    display: none;
+  }
+
+  .chart-summary {
+    background-color: white;
+    border-color: #000;
+    page-break-inside: avoid;
+  }
+
+  .chart-summary h3,
+  .chart-summary strong {
+    color: #000 !important;
+  }
+
+  .chart-summary p,
+  .chart-summary li {
+    color: #000 !important;
+  }
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  .savings-chart-container {
+    border: 2px solid #000;
+  }
+
+  .chart-summary {
+    border-left-width: 6px;
+  }
+
+  .export-button {
+    border: 2px solid #000;
+  }
+}
+
+/* Focus Styles for Accessibility */
+.export-button:focus-visible {
+  outline: 3px solid #1E3A8A;
+  outline-offset: 2px;
+}
+
+/* Loading State (optional for future enhancement) */
+.chart-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+  min-height: 400px;
+}
+
+.chart-loading mat-icon {
+  font-size: 3rem;
+  width: 3rem;
+  height: 3rem;
+  color: #1E3A8A;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

@@ -1,0 +1,199 @@
+<!-- Engine Configuration Group -->
+<div class="input-group" [formGroup]="parentForm">
+  <mat-expansion-panel [expanded]="true" class="config-panel">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <mat-icon class="panel-icon">precision_manufacturing</mat-icon>
+        Engine Configuration 
+      </mat-panel-title>
+      <mat-panel-description>
+        @if (getSelectedMainEngineName() || getSelectedAuxiliaryEngineName()) {
+          <span class="info-badge">
+            @if (getSelectedMainEngineName()) {
+              <span>ME: {{ getSelectedMainEngineName() }}@if (selectedMainFuel()) { <span> · {{ selectedMainFuel() }}</span> }</span>
+            }
+            @if (getSelectedMainEngineName() && getSelectedAuxiliaryEngineName()) {
+              <span class="separator">|</span>
+            }
+            @if (getSelectedAuxiliaryEngineName()) {
+              <span>AE: {{ getSelectedAuxiliaryEngineName() }}@if (selectedAuxFuel()) { <span> · {{ selectedAuxFuel() }}</span> }</span>
+            }
+          </span>
+        } @else {
+          <span class="hint-text">Configure engine specifications</span>
+        }
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+  <mat-accordion multi>
+  <!-- Main Engine Configuration -->
+  <mat-expansion-panel [expanded]="true" class="subsection-panel">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <mat-icon class="subsection-icon">precision_manufacturing</mat-icon>
+        Main Engine Configuration
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    
+    <div class="input-grid">
+    
+    <!-- Main Engine Type and Capacity Row -->
+    <div class="engine-type-row">
+      <mat-form-field appearance="fill">
+        <mat-label>Main Engine Type</mat-label>
+        <mat-select [(value)]="selectedMainEngineTypeId"
+                    (selectionChange)="onMainEngineTypeChange($event.value)">
+          <mat-select-trigger>{{ getSelectedMainEngineName() }}</mat-select-trigger>
+          <div class="select-search">
+            <input matInput placeholder="Search maker, model or fuel (e.g. LNG)…"
+                   [(ngModel)]="mainEngineSearch" [ngModelOptions]="{ standalone: true }"
+                   (ngModelChange)="applyMainFilter()" (keydown)="$event.stopPropagation()">
+          </div>
+          <mat-optgroup *ngFor="let group of filteredMainEngineGroups" [label]="group.maker">
+            <mat-option *ngFor="let engineType of group.engines; trackBy: trackByEngineType" [value]="engineType.id">
+              <span class="engine-option">
+                <strong>{{ mainEngineLabel(engineType) }}</strong>
+                <small class="engine-capacity">{{ engineSubtitle(engineType) }}</small>
+              </span>
+            </mat-option>
+          </mat-optgroup>
+        </mat-select>
+        <mat-hint>Search by maker, model or fuel — pick a Gas model for LNG, Ammonia for NH₃</mat-hint>
+      </mat-form-field>
+      
+      <mat-form-field appearance="fill" [class.field-edited]="isFieldEdited('meCapacityPerEngine')">
+        <mat-label>
+          Main Engine Rated Power (kW)
+          @if (isFieldEdited('meCapacityPerEngine')) {
+            <span class="edited-label">(edited)</span>
+          }
+        </mat-label>
+        <input matInput type="number" formControlName="meCapacityPerEngine" step="1">
+        <mat-hint>Actual rated power per main engine — pre-filled from the model; edit to match the ship</mat-hint>
+        @if (meCapacityPerEngine?.invalid && meCapacityPerEngine?.touched) {
+          <mat-error>{{ getValidationError('meCapacityPerEngine') }}</mat-error>
+        }
+      </mat-form-field>
+    </div>
+
+    <!-- Main Engine Fuel -->
+    <mat-form-field appearance="fill">
+      <mat-label>Main Engine Fuel</mat-label>
+      <mat-select formControlName="mainFuelType" (selectionChange)="onMainFuelChange()">
+        <mat-option *ngFor="let f of mainFuelOptions()" [value]="f">{{ f }}</mat-option>
+      </mat-select>
+      <mat-hint>{{ mainFuelHint() }}</mat-hint>
+    </mat-form-field>
+
+    <!-- Number of Main Engines -->
+    <mat-form-field appearance="fill" [class.field-edited]="isFieldEdited('meCount')">
+      <mat-label>
+        Number of Main Engines
+        @if (isFieldEdited('meCount')) {
+          <span class="edited-label">(edited)</span>
+        }
+      </mat-label>
+      <input matInput type="number" formControlName="meCount" step="1" min="1">
+      <mat-hint>Total installed main engines</mat-hint>
+      @if (meCount?.invalid && meCount?.touched) {
+        <mat-error>{{ getValidationError('meCount') }}</mat-error>
+      }
+    </mat-form-field>
+
+    <!-- Shaft Generator Capacity Per Engine -->
+    <mat-form-field appearance="fill" [class.field-edited]="isFieldEdited('sgCapacityPerEngine')">
+      <mat-label>
+        Shaft Generator Max Capacity (kW)
+        @if (isFieldEdited('sgCapacityPerEngine')) {
+          <span class="edited-label">(edited)</span>
+        }
+      </mat-label>
+      <input matInput type="number" formControlName="sgCapacityPerEngine" step="1">
+      <mat-hint>Max shaft generator capacity per main engine</mat-hint>
+      @if (sgCapacityPerEngine?.invalid && sgCapacityPerEngine?.touched) {
+        <mat-error>{{ getValidationError('sgCapacityPerEngine') }}</mat-error>
+      }
+    </mat-form-field>
+
+  </div>
+  </mat-expansion-panel>
+
+<!-- Auxiliary Engine Configuration -->
+<mat-expansion-panel [expanded]="true" class="subsection-panel">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <mat-icon class="subsection-icon">electrical_services</mat-icon>
+      Auxiliary Engine Configuration
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  
+  <div class="input-grid">
+    
+    <!-- Auxiliary Engine Type and Capacity Row -->
+    <div class="engine-type-row">
+      <mat-form-field appearance="fill">
+        <mat-label>Auxiliary Engine Type</mat-label>
+        <mat-select [(value)]="selectedAuxiliaryEngineTypeId"
+                    (selectionChange)="onAuxiliaryEngineTypeChange($event.value)">
+          <mat-select-trigger>{{ getSelectedAuxiliaryEngineName() }}</mat-select-trigger>
+          <div class="select-search">
+            <input matInput placeholder="Search maker, model or fuel (e.g. LNG)…"
+                   [(ngModel)]="auxEngineSearch" [ngModelOptions]="{ standalone: true }"
+                   (ngModelChange)="applyAuxFilter()" (keydown)="$event.stopPropagation()">
+          </div>
+          <mat-optgroup *ngFor="let group of filteredAuxEngineGroups" [label]="group.maker">
+            <mat-option *ngFor="let engineType of group.engines; trackBy: trackByEngineType" [value]="engineType.id">
+              <span class="engine-option">
+                <strong>{{ auxEngineLabel(engineType) }}</strong>
+                <small class="engine-capacity">{{ engineSubtitle(engineType) }}</small>
+              </span>
+            </mat-option>
+          </mat-optgroup>
+        </mat-select>
+        <mat-hint>Search by maker, model or fuel — pick a Gas model for LNG, Ammonia for NH₃</mat-hint>
+      </mat-form-field>
+      
+      <mat-form-field appearance="fill" [class.field-edited]="isFieldEdited('aeCapacityPerEngine')">
+        <mat-label>
+          Auxiliary Engine Rated Power (kW)
+          @if (isFieldEdited('aeCapacityPerEngine')) {
+            <span class="edited-label">(edited)</span>
+          }
+        </mat-label>
+        <input matInput type="number" formControlName="aeCapacityPerEngine" step="1">
+        <mat-hint>Actual rated power per auxiliary engine — pre-filled from the model; edit to match the ship</mat-hint>
+        @if (aeCapacityPerEngine?.invalid && aeCapacityPerEngine?.touched) {
+          <mat-error>{{ getValidationError('aeCapacityPerEngine') }}</mat-error>
+        }
+      </mat-form-field>
+    </div>
+
+    <!-- Auxiliary Engine Fuel -->
+    <mat-form-field appearance="fill">
+      <mat-label>Auxiliary Engine Fuel</mat-label>
+      <mat-select formControlName="auxFuelType" (selectionChange)="onAuxFuelChange()">
+        <mat-option *ngFor="let f of auxFuelOptions()" [value]="f">{{ f }}</mat-option>
+      </mat-select>
+      <mat-hint>{{ isAuxFuelLocked() ? 'Only one fuel is allowed for this engine type' : 'MGO / MDO / HFO' }}</mat-hint>
+    </mat-form-field>
+
+    <!-- No. Aux Engines (Installed) -->
+    <mat-form-field appearance="fill" [class.field-edited]="isFieldEdited('aeCount')">
+      <mat-label>
+        Number of Auxiliary Engines
+        @if (isFieldEdited('aeCount')) {
+          <span class="edited-label">(edited)</span>
+        }
+      </mat-label>
+      <input matInput type="number" formControlName="aeCount" step="1" min="1">
+      <mat-hint>Total installed auxiliary engines</mat-hint>
+      @if (aeCount?.invalid && aeCount?.touched) {
+        <mat-error>{{ getValidationError('aeCount') }}</mat-error>
+      }
+    </mat-form-field>
+
+  </div>
+  </mat-expansion-panel>
+  </mat-accordion>
+  </mat-expansion-panel>
+</div>

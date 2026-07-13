@@ -1,0 +1,33 @@
+<div [formGroup]="formGroup">
+  <mat-form-field appearance="fill" 
+                  [class.field-edited]="isFieldEdited()"
+                  [class.auto-calculated-field]="isDisabled()">
+    <mat-label>
+      {{ label }}
+      @if (isFieldEdited()) {
+        <span class="edited-label">(edited)</span>
+      }
+    </mat-label>
+    <input 
+      matInput 
+      [type]="type" 
+      [formControlName]="controlName" 
+      [step]="step"
+      [min]="min"
+      [max]="max"
+      [required]="required"
+      [attr.readonly]="readonly ? true : null"
+      [disabled]="disabled"
+      [class.readonly-field]="readonly"
+      [class.disabled-field]="disabled">
+    @if (prefix) {
+      <span matTextPrefix class="field-prefix">{{ prefix }}&nbsp;</span>
+    }
+    @if (hint) {
+      <mat-hint>{{ hint }}</mat-hint>
+    }
+    @if (control?.invalid && control?.touched) {
+      <mat-error>{{ getValidationError() }}</mat-error>
+    }
+  </mat-form-field>
+</div>

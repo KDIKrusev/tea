@@ -1,0 +1,222 @@
+/* Container */
+.power-demands-container {
+  padding: 0;
+}
+
+/* Breakdown Tables Layout */
+.breakdown-tables {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Expansion Panel Styling - Light blue theme matching Financial sections */
+.breakdown-section {
+  margin-bottom: 0 !important;
+}
+
+.breakdown-section ::ng-deep .mat-expansion-panel-header {
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  border-left: 4px solid #3b82f6;
+  border-radius: 8px;
+}
+
+.breakdown-section ::ng-deep .mat-expansion-panel-header:hover {
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+}
+
+.breakdown-section ::ng-deep .mat-expansion-panel-body {
+  padding: 1rem;
+  background: #ffffff;
+}
+
+.breakdown-section ::ng-deep mat-panel-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1e40af;
+}
+
+.breakdown-section ::ng-deep mat-panel-title mat-icon {
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+  color: #3b82f6;
+}
+
+/* Table Styles */
+.table-wrapper {
+  overflow-x: auto;
+  border-radius: 6px;
+  background: white;
+  border: 1px solid #e2e8f0;
+}
+
+.breakdown-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+}
+
+.breakdown-table thead {
+  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+  color: #475569;
+}
+
+.breakdown-table th {
+  padding: 0.875rem 1rem;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.breakdown-table th:not(:first-child) {
+  text-align: right;
+}
+
+.breakdown-table tbody tr {
+  border-bottom: 1px solid #e2e8f0;
+  transition: background-color 0.15s ease;
+}
+
+.breakdown-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.breakdown-table tbody tr:hover {
+  background-color: #f1f5f9;
+}
+
+.breakdown-table td {
+  padding: 0.875rem 1rem;
+  color: #334155;
+}
+
+.breakdown-table td.mode-name {
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.breakdown-table td.numeric {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+.breakdown-table td.total-cell {
+  font-weight: 700;
+  color: #0369a1;
+  background-color: #f0f9ff;
+}
+
+.breakdown-table td.sail-cell.has-sail {
+  color: #059669;
+  font-weight: 600;
+  background-color: #f0fdf4;
+}
+
+/* Legacy Grid Layout (Fallback) */
+.power-grid-legacy {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  padding: 0;
+}
+
+.power-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  transition: all 0.2s ease;
+}
+
+.power-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.power-icon {
+  color: #0369a1;
+  font-size: 28px;
+  width: 28px;
+  height: 28px;
+}
+
+.power-details {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.power-label {
+  font-size: 0.875rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.power-value {
+  font-size: 1.125rem;
+  color: #0f172a;
+  font-weight: 700;
+}
+
+.power-description {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  font-style: italic;
+  margin-top: 0.125rem;
+  line-height: 1.2;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .power-demands-container {
+    padding: 1rem;
+  }
+
+  .panel-title {
+    font-size: 1.25rem;
+  }
+
+  .breakdown-section {
+    padding: 1rem;
+  }
+
+  .section-title {
+    font-size: 1rem;
+  }
+
+  .breakdown-table {
+    font-size: 0.875rem;
+  }
+
+  .breakdown-table th,
+  .breakdown-table td {
+    padding: 0.625rem 0.75rem;
+  }
+
+  .breakdown-table th {
+    font-size: 0.8125rem;
+  }
+
+  .power-grid-legacy {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .breakdown-table th,
+  .breakdown-table td {
+    padding: 0.5rem;
+    font-size: 0.8125rem;
+  }
+}
+

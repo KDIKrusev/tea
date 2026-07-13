@@ -1,0 +1,127 @@
+<div class="power-demands-container" *ngIf="powerDemands">
+  <!-- Show breakdown tables if mode data is available -->
+  <div *ngIf="powerDemands.modeBreakdowns && powerDemands.modeBreakdowns.length > 0" class="breakdown-tables">
+    <mat-accordion multi>
+    
+    <!-- Table 1: Propulsion Power -->
+    <mat-expansion-panel [expanded]="true" class="breakdown-section">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>flight_takeoff</mat-icon>
+          Propulsion Power (kW)
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="table-wrapper">
+        <table class="breakdown-table">
+          <thead>
+            <tr>
+              <th>Operational Mode</th>
+              <th>Main Engines</th>
+              <th *ngIf="hasSail">Sail Reduction</th>
+              <th>Total Propulsion</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let mode of powerDemands.modeBreakdowns; trackBy: trackByMode">
+              <td class="mode-name">{{ mode.mode }}</td>
+              <td class="numeric">{{ (mode.propulsionMainEngineKw + mode.propulsionSailKw) | number:'1.0-0' }}</td>
+              <td class="numeric sail-cell" *ngIf="hasSail">
+                <span *ngIf="mode.propulsionSailKw > 0" class="sail-reduction">-{{ mode.propulsionSailKw | number:'1.0-0' }}</span>
+                <span *ngIf="mode.propulsionSailKw === 0">—</span>
+              </td>
+              <td class="numeric total-cell">
+                {{ mode.propulsionMainEngineKw | number:'1.0-0' }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Table 2: Hotel/Mission Power -->
+    <mat-expansion-panel [expanded]="true" class="breakdown-section">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>hotel</mat-icon>
+          Hotel/Mission Power (kW)
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="table-wrapper">
+        <table class="breakdown-table">
+          <thead>
+            <tr>
+              <th>Operational Mode</th>
+              <th>Shaft Generators</th>
+              <th>Auxiliary Generators</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let mode of powerDemands.modeBreakdowns; trackBy: trackByMode">
+              <td class="mode-name">{{ mode.mode }}</td>
+              <td class="numeric">{{ mode.hotelShaftGenKw | number:'1.0-0' }}</td>
+              <td class="numeric">{{ mode.hotelAuxGenKw | number:'1.0-0' }}</td>
+              <td class="numeric total-cell">
+                {{ (mode.hotelShaftGenKw + mode.hotelAuxGenKw) | number:'1.0-0' }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Table 3: Engine Energy Demands -->
+    <mat-expansion-panel [expanded]="true" class="breakdown-section">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>battery_charging_full</mat-icon>
+          Engine Energy Demands (kWh/year)
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="table-wrapper">
+        <table class="breakdown-table">
+          <thead>
+            <tr>
+              <th>Operational Mode</th>
+              <th>Main Engines</th>
+              <th>Auxiliary Generators</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let mode of powerDemands.modeBreakdowns; trackBy: trackByMode">
+              <td class="mode-name">{{ mode.mode }}</td>
+              <td class="numeric">{{ mode.energyMainEngineKwh | number:'1.0-0' }}</td>
+              <td class="numeric">{{ mode.energyAuxGenKwh | number:'1.0-0' }}</td>
+              <td class="numeric total-cell">
+                {{ (mode.energyMainEngineKwh + mode.energyAuxGenKwh) | number:'1.0-0' }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+
+  <!-- Fallback: Show old layout if breakdown data not available -->
+  <div *ngIf="!powerDemands.modeBreakdowns || powerDemands.modeBreakdowns.length === 0" class="power-grid-legacy">
+    <div class="power-item main-engine">
+      <mat-icon class="power-icon">engineering</mat-icon>
+      <div class="power-details">
+        <span class="power-label">Main Engine Power</span>
+        <span class="power-value">{{ powerDemands.mainEnginePowerKw | number:'1.0-0' }} kW</span>
+        <span class="power-description">(Average across all modes)</span>
+      </div>
+    </div>
+
+    <div class="power-item aux-engine">
+      <mat-icon class="power-icon">power</mat-icon>
+      <div class="power-details">
+        <span class="power-label">Auxiliary Engine Power</span>
+        <span class="power-value">{{ powerDemands.auxiliaryEnginePowerKw | number:'1.0-0' }} kW</span>
+        <span class="power-description">(Average across all modes)</span>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,84 @@
+<div class="savings-chart-container" *ngIf="baseline && premiumResult && proResult && advancedResult; else noData">
+  <!-- Chart Canvas -->
+  <div class="chart-wrapper">
+    <canvas #chartCanvas 
+            role="img" 
+            aria-label="Bar chart comparing baseline fuel consumption with iEMS Premium, Pro, and Advanced variants">
+    </canvas>
+  </div>
+
+  <!-- Export Button -->
+  <div class="export-section">
+    <button mat-raised-button 
+            color="primary"
+            (click)="exportChart()"
+            class="export-button"
+            aria-label="Download chart as PNG image">
+      <mat-icon>download</mat-icon>
+      Export Chart
+    </button>
+  </div>
+
+  <!-- Text Summary for Accessibility -->
+  <section class="chart-summary" aria-live="polite">
+    <h3>Chart Summary</h3>
+    <p>
+      The chart compares baseline performance (no iEMS) with three iEMS variants: Integration level 1, Integration level 2, and Integration level 3.
+    </p>
+    <ul *ngIf="chartType === 'foc' || chartType === 'both'">
+      <li>
+        <strong>Baseline (No iEMS):</strong> 
+        {{ baseline.totalFuelConsumptionTons | number:'1.0-0' }} tons/year FOC
+      </li>
+      <li>
+        <strong>Integration level 3:</strong> 
+        {{ premiumResult.optimizedFOC | number:'1.0-0' }} tons/year FOC 
+        ({{ premiumResult.fuelSavingsPercentage | number:'1.1-1' }}% savings)
+      </li>
+      <li>
+        <strong>Integration level 2:</strong> 
+        {{ proResult.optimizedFOC | number:'1.0-0' }} tons/year FOC 
+        ({{ proResult.fuelSavingsPercentage | number:'1.1-1' }}% savings)
+      </li>
+      <li>
+        <strong>Integration level 1:</strong> 
+        {{ advancedResult.optimizedFOC | number:'1.0-0' }} tons/year FOC 
+        ({{ advancedResult.fuelSavingsPercentage | number:'1.1-1' }}% savings)
+      </li>
+    </ul>
+    <ul *ngIf="chartType === 'co2' || chartType === 'both'">
+      <li *ngIf="chartType === 'both'">
+        <strong>Baseline (No iEMS):</strong> 
+        {{ baseline.totalCO2EmissionsTons | number:'1.0-0' }} tons/year CO₂
+      </li>
+      <li *ngIf="chartType === 'co2'">
+        <strong>Baseline (No iEMS):</strong> 
+        {{ baseline.totalCO2EmissionsTons | number:'1.0-0' }} tons/year CO₂
+      </li>
+      <li>
+        <strong>Integration level 3:</strong> 
+        {{ premiumResult.optimizedCO2 | number:'1.0-0' }} tons/year CO₂
+        ({{ premiumResult.co2ReductionPercentage | number:'1.1-1' }}% reduction)
+      </li>
+      <li>
+        <strong>Integration level 2:</strong> 
+        {{ proResult.optimizedCO2 | number:'1.0-0' }} tons/year CO₂
+        ({{ proResult.co2ReductionPercentage | number:'1.1-1' }}% reduction)
+      </li>
+      <li>
+        <strong>Integration level 1:</strong> 
+        {{ advancedResult.optimizedCO2 | number:'1.0-0' }} tons/year CO₂
+        ({{ advancedResult.co2ReductionPercentage | number:'1.1-1' }}% reduction)
+      </li>
+    </ul>
+  </section>
+</div>
+
+<!-- No Data Message -->
+<ng-template #noData>
+  <div class="no-data-message">
+    <mat-icon class="no-data-icon">bar_chart</mat-icon>
+    <h3>No Data Available</h3>
+    <p>Please run a calculation first to see the fuel savings chart.</p>
+  </div>
+</ng-template>

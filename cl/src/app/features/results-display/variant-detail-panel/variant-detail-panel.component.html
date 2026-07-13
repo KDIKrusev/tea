@@ -1,0 +1,163 @@
+<div class="variant-detail" [ngClass]="getVariantColor()" *ngIf="result">
+  
+  <!-- Main Metrics Grid -->
+  <div class="metrics-grid">
+    
+    <!-- Fuel & Emissions Section -->
+    <div class="metric-section fuel-emissions">
+      <h3 class="section-title">
+        <mat-icon>local_gas_station</mat-icon>
+        Total Fuel & Emissions
+      </h3>
+      <div class="metric-row">
+        <span class="metric-label">Fuel Consumption:</span>
+        <span class="metric-value">{{ result.optimizedFOC | number:'1.0-1' }} ton/yr</span>
+      </div>
+      <div class="metric-row">
+        <span class="metric-label">CO₂ Emissions:</span>
+        <span class="metric-value">{{ result.optimizedCO2 | number:'1.0-1' }} ton/yr</span>
+      </div>
+      <div class="metric-row highlight">
+        <span class="metric-label">Fuel Savings:</span>
+        <span class="metric-value savings">
+          {{ result.fuelSavings | number:'1.0-1' }} ton/yr
+          <span class="percentage">({{ result.fuelSavingsPercentage | number:'1.1-1' }}%)</span>
+        </span>
+      </div>
+    </div>
+
+    <!-- Financial Section -->
+    <div class="metric-section financial">
+      <h3 class="section-title">
+        <mat-icon>payments</mat-icon>
+        Financial
+      </h3>
+      <div class="metric-row">
+        <span class="metric-label">Fuel Cost:</span>
+        <span class="metric-value">${{ fuelCost | number:'1.0-0' }}/year</span>
+      </div>
+      <div class="metric-row">
+        <span class="metric-label">Cost Savings:</span>
+        <span class="metric-value">${{ result.annualCostSavings | number:'1.0-0' }}/year</span>
+      </div>
+      <div class="metric-row">
+        <span class="metric-label">Initial Investment:</span>
+        <span class="metric-value">${{ result.totalInvestment | number:'1.0-0' }}</span>
+      </div>
+    </div>
+
+    <!-- Main Engine Section -->
+    <div class="metric-section engine-main">
+      <h3 class="section-title">
+        <mat-icon>engineering</mat-icon>
+        Main Engines
+      </h3>
+      <div class="metric-row">
+        <span class="metric-label">Average Load:</span>
+        <span class="metric-value">{{ meLoadPercentage | number:'1.1-1' }}%</span>
+      </div>
+      <div class="metric-row">
+        <span class="metric-label">CO₂ Emissions:</span>
+        <span class="metric-value">{{ result.optimizedME * co2Factor | number:'1.0-1' }} ton/yr</span>
+      </div>
+      <div class="metric-row">
+        <span class="metric-label">Fuel Consumption:</span>
+        <span class="metric-value">{{ result.optimizedME | number:'1.0-1' }} ton/yr</span>
+      </div>
+    </div>
+
+    <!-- Auxiliary Engine Section -->
+    <div class="metric-section engine-aux">
+      <h3 class="section-title">
+        <mat-icon>power</mat-icon>
+        Auxiliary Engines
+      </h3>
+      <div class="metric-row">
+        <span class="metric-label">Average Load:</span>
+        <span class="metric-value">{{ aeLoadPercentage | number:'1.1-1' }}%</span>
+      </div>
+      <div class="metric-row">
+        <span class="metric-label">CO₂ Emissions:</span>
+        <span class="metric-value">{{ result.optimizedAE * co2Factor | number:'1.0-1' }} ton/yr</span>
+      </div>
+      <div class="metric-row">
+        <span class="metric-label">Fuel Consumption:</span>
+        <span class="metric-value">{{ result.optimizedAE | number:'1.0-1' }} ton/yr</span>
+      </div>
+      <div class="metric-note" *ngIf="!aeIsRunning">
+        <mat-icon>info</mat-icon>
+        Auxiliary engines not required
+      </div>
+    </div>
+
+    <!-- Optimization Details -->
+    <div class="metric-section" *ngIf="level1Details">
+      <h3 class="section-title">
+        <mat-icon>settings_suggest</mat-icon>
+        Optimization Details
+      </h3>
+
+      <!-- L1: Optimal Engine Setup (Advanced only) -->
+      <ng-container *ngIf="variant === 'Advanced'">
+        <div class="metric-row">
+          <span class="metric-label">Main Engines:</span>
+          <span class="metric-value">{{ level1Details!.activeMeCount }} of {{ currentInput.meCount }} running</span>
+        </div>
+        <div class="metric-row">
+          <span class="metric-label">Shaft Generator:</span>
+          <span class="metric-value">{{ level1Details!.sgEnabled ? 'ON' : 'OFF' }}</span>
+        </div>
+        <div class="metric-row">
+          <span class="metric-label">Auxiliary Engines:</span>
+          <span class="metric-value">{{ level1Details!.activeAeCount }} of {{ currentInput.aeCount }} running</span>
+        </div>
+        <div class="metric-row highlight">
+          <span class="metric-label">Fuel Saved:</span>
+          <span class="metric-value savings">{{ result.fuelSavings | number:'1.0-1' }} ton/yr</span>
+        </div>
+      </ng-container>
+
+      <!-- L2: Optimal Load Setpoints (Pro only) -->
+      <ng-container *ngIf="variant === 'Pro' && result.level2Details">
+        <div class="metric-row" *ngFor="let sp of result.level2Details.optimalSetpoints">
+          <span class="metric-label">{{ sp.generatorType === 'SG' ? 'Shaft Generator' : 'Aux Engine' }}:</span>
+          <span class="metric-value">{{ sp.loadPercent * 100 | number:'1.0-1' }}% ({{ sp.powerKw | number:'1.0-0' }} kW)</span>
+        </div>
+        <div class="metric-row highlight">
+          <span class="metric-label">Fuel Saved:</span>
+          <span class="metric-value savings">{{ result.fuelSavings | number:'1.0-1' }} ton/yr</span>
+        </div>
+      </ng-container>
+
+      <!-- L3: Dynamic Ramp Control (Premium only) -->
+      <ng-container *ngIf="variant === 'Premium' && result.level3Details">
+        <div class="metric-row">
+          <span class="metric-label">Variation:</span>
+          <span class="metric-value">±{{ result.level3Details.variationPerGeneratorKw | number:'1.0-0' }} kW → ±{{ result.level3Details.reducedVariationPerGeneratorKw | number:'1.0-0' }} kW</span>
+        </div>
+        <div class="metric-row">
+          <span class="metric-label">Active Generators:</span>
+          <span class="metric-value">{{ result.level3Details.activeGeneratorCount }}</span>
+        </div>
+        <div class="metric-row highlight">
+          <span class="metric-label">Fuel Saved:</span>
+          <span class="metric-value savings">{{ result.fuelSavings | number:'1.0-1' }} ton/yr</span>
+        </div>
+      </ng-container>
+
+      <!-- Sail Contribution -->
+      <div class="config-subsection" *ngIf="sailContribution">
+        <div class="subsection-header">Sail Contribution</div>
+        <div class="metric-row">
+          <span class="metric-label">Propulsion Reduction:</span>
+          <span class="metric-value">{{ sailContribution.transitPropulsionBeforeKw | number:'1.0-0' }} → {{ sailContribution.transitPropulsionAfterKw | number:'1.0-0' }} kW</span>
+        </div>
+        <div class="metric-row">
+          <span class="metric-label">Sail Power:</span>
+          <span class="metric-value">{{ sailContribution.sailPowerKw | number:'1.0-0' }} kW ({{ sailContribution.sailSavingsPercent | number:'1.0-1' }}%)</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,130 @@
+<div class="variant-detail baseline-variant" *ngIf="baseline">
+  
+  <!-- Main Metrics Grid -->
+  <div class="metrics-grid baseline-grid-with-financial">
+
+    <!-- Fuel & Emissions Section -->
+    <div class="metric-section fuel-emissions">
+      <h3 class="section-title">
+        <mat-icon>local_gas_station</mat-icon>
+        Total Fuel & Emissions
+      </h3>
+      <div class="metric-row">
+        <span class="metric-label">Fuel Consumption:</span>
+        <span class="metric-value">{{ baseline.totalFuelConsumptionTons | number:'1.0-1' }} ton/yr</span>
+      </div>
+      <div class="metric-row">
+        <span class="metric-label">CO₂ Emissions:</span>
+        <span class="metric-value">{{ baseline.totalCO2EmissionsTons | number:'1.0-1' }} ton/yr</span>
+      </div>
+    </div>
+
+    <!-- Financial Section -->
+    <div class="metric-section financial">
+      <h3 class="section-title">
+        <mat-icon>payments</mat-icon>
+        Financial
+      </h3>
+      <div class="metric-row">
+        <span class="metric-label">Fuel Cost:</span>
+        <span class="metric-value">${{ fuelCost | number:'1.0-0' }}/year</span>
+      </div>
+    </div>
+
+    <!-- Main Engine Section -->
+    <div class="metric-section engine-main">
+      <h3 class="section-title">
+        <mat-icon>engineering</mat-icon>
+        Main Engines
+      </h3>
+      <div class="metric-row">
+        <span class="metric-label">Average Load:</span>
+        <span class="metric-value">{{ meLoadPercentage | number:'1.1-1' }}%</span>
+      </div>
+      <div class="metric-row">
+        <span class="metric-label">CO₂ Emissions:</span>
+        <span class="metric-value">{{ baselineME * co2Factor | number:'1.0-1' }} ton/yr</span>
+      </div>
+      <div class="metric-row">
+        <span class="metric-label">Fuel Consumption:</span>
+        <span class="metric-value">{{ baselineME | number:'1.0-1' }} ton/yr</span>
+      </div>
+    </div>
+
+    <!-- Auxiliary Engine Section -->
+    <div class="metric-section engine-aux">
+      <h3 class="section-title">
+        <mat-icon>power</mat-icon>
+        Auxiliary Engines
+      </h3>
+      <div class="metric-row">
+        <span class="metric-label">Average Load:</span>
+        <span class="metric-value">{{ aeLoadPercentage | number:'1.1-1' }}%</span>
+      </div>
+      <div class="metric-row">
+        <span class="metric-label">CO₂ Emissions:</span>
+        <span class="metric-value">{{ baselineAE * co2Factor | number:'1.0-1' }} ton/yr</span>
+      </div>
+      <div class="metric-row">
+        <span class="metric-label">Fuel Consumption:</span>
+        <span class="metric-value">{{ baselineAE | number:'1.0-1' }} ton/yr</span>
+      </div>
+      <div class="metric-note" *ngIf="!aeIsRunning">
+        <mat-icon>info</mat-icon>
+        Auxiliary engines not required
+      </div>
+    </div>
+
+    <!-- Assumed Configuration with Baseline Selector -->
+    <div class="metric-section config-section" *ngIf="level1Details">
+      <h3 class="section-title">
+        <mat-icon>settings_suggest</mat-icon>
+        Assumed Configuration
+      </h3>
+
+      <!-- Baseline Selector as table -->
+      <div class="combo-table" *ngIf="validCombinations.length > 1">
+        <div class="combo-table-header">
+          <span class="combo-col-radio"></span>
+          <span class="combo-col">ME</span>
+          <span class="combo-col">SG</span>
+          <span class="combo-col">AE</span>
+          <span class="combo-col combo-col-foc">FOC (ton/hr)</span>
+        </div>
+        <div
+          *ngFor="let combo of validCombinations"
+          class="combo-table-row"
+          [class.combo-selected]="combo.index === selectedBaselineIndex"
+          (click)="onBaselineSelectionChange(combo.index)">
+          <span class="combo-col-radio">
+            <span class="radio-dot" [class.active]="combo.index === selectedBaselineIndex"></span>
+          </span>
+          <span class="combo-col">{{ combo.activeMeCount }}</span>
+          <span class="combo-col">{{ combo.sgEnabled ? 'ON' : '—' }}</span>
+          <span class="combo-col">{{ combo.activeAeCount }}</span>
+          <span class="combo-col combo-col-foc">{{ combo.focTonPerHour | number:'1.4-4' }}</span>
+        </div>
+      </div>
+      <div class="baseline-hint" *ngIf="!isDefaultBaseline">
+        <mat-icon>info_outline</mat-icon>
+        <span>Custom baseline — savings may differ from standard estimate</span>
+      </div>
+
+      <div class="config-summary">
+        <div class="metric-row">
+          <span class="metric-label">Main Engines:</span>
+          <span class="metric-value">{{ level1Details.baselineMeCount }} of {{ currentInput.meCount }} running</span>
+        </div>
+        <div class="metric-row">
+          <span class="metric-label">Shaft Generator:</span>
+          <span class="metric-value">{{ level1Details.baselineSgEnabled ? 'ON' : 'OFF' }}</span>
+        </div>
+        <div class="metric-row">
+          <span class="metric-label">Auxiliary Engines:</span>
+          <span class="metric-value">{{ level1Details.baselineAeCount }} of {{ currentInput.aeCount }} running</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

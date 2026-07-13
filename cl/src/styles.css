@@ -1,0 +1,13 @@
+/* Maritime iEMS Calculator Global Styles */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* @import './themes/maritime-theme.scss'; - Temporarily disabled for testing */
+
+html, body { height: 100%; }
+body { 
+  margin: 0; 
+  font-family: 'Inter', 'Roboto', "Helvetica Neue", sans-serif; 
+  background-color: #f8fafc;
+}

@@ -1,0 +1,497 @@
+/* Container Styles */
+.container {
+  max-width: 100%;
+}
+
+/* Header Styles */
+header {
+  text-align: center;
+}
+
+.header-container {
+  margin-bottom: 1.5rem;
+}
+
+.header-content {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 0.5rem 0;
+}
+
+.title-section {
+  grid-column: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.title-section h1 {
+  margin: 0;
+}
+
+.logo-section {
+  grid-column: 3;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.km-logo {
+  max-height: 60px;
+  height: auto;
+  width: auto;
+  max-width: 120px;
+  object-fit: contain;
+}
+
+/* Responsive header for tablets */
+@media (max-width: 1024px) {
+  .title-section h1 {
+    font-size: 1.25rem;
+  }
+  
+  .km-logo {
+    max-height: 50px;
+  }
+}
+
+/* Responsive header for mobile */
+@media (max-width: 768px) {
+  .header-content {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .title-section {
+    justify-content: center;
+  }
+  
+  .logo-section {
+    justify-content: center;
+  }
+  
+  .title-section h1 {
+    font-size: 1.125rem;
+    text-align: center;
+  }
+  
+  .km-logo {
+    max-height: 40px;
+  }
+}
+
+/* Two-Column Layout: Inputs Left, Results Right */
+.calculator-layout-two-column {
+  display: grid;
+  grid-template-columns: 45% 55%;
+  gap: 2rem;
+  align-items: start;
+  max-width: 100%;
+}
+
+/* Input Column - Left Side, Sticky */
+.calculator-layout-two-column .input-column {
+  position: sticky;
+  top: 0;
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Custom scrollbar for input column */
+.calculator-layout-two-column .input-column::-webkit-scrollbar {
+  width: 8px;
+}
+
+.calculator-layout-two-column .input-column::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.calculator-layout-two-column .input-column::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.calculator-layout-two-column .input-column::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Results Column - Right Side */
+.calculator-layout-two-column .results-column {
+  position: relative;
+  min-height: 500px;
+  overflow-y: auto;
+  max-height: calc(100vh - 120px);
+  padding-left: 0.5rem;
+}
+
+/* Custom scrollbar for results column */
+.calculator-layout-two-column .results-column::-webkit-scrollbar {
+  width: 8px;
+}
+
+.calculator-layout-two-column .results-column::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.calculator-layout-two-column .results-column::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.calculator-layout-two-column .results-column::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Tablet Layout */
+@media (max-width: 1280px) {
+  .calculator-layout-two-column {
+    grid-template-columns: 50% 50%;
+    gap: 1.5rem;
+  }
+}
+
+/* Mobile Layout - Stack vertically with Inputs on Top */
+@media (max-width: 968px) {
+  .calculator-layout-two-column {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  /* On mobile, reverse the order so inputs appear first */
+  .calculator-layout-two-column .input-column {
+    order: 1;
+    position: relative;
+    top: 0;
+    max-height: none;
+    overflow-y: visible;
+  }
+
+  .calculator-layout-two-column .results-column {
+
+/* Integration Level Hint Styling - Force Material Design hint style */
+::ng-deep .mat-expansion-panel-header-title .integration-hint,
+::ng-deep mat-panel-title .integration-hint,
+.integration-hint {
+  all: unset !important;
+  display: block !important;
+  font-size: 12px !important;
+  line-height: 14px !important;
+  font-weight: 400 !important;
+  font-family: Roboto, "Helvetica Neue", sans-serif !important;
+  color: rgba(0, 0, 0, 0.6) !important;
+  letter-spacing: 0.0333333333em !important;
+  margin-top: 3px !important;
+  margin-left: 28px !important;
+  margin-bottom: 0 !important;
+  padding: 0 !important;
+  text-transform: none !important;
+  font-style: normal !important;
+  text-decoration: none !important;
+}
+
+    order: 2;
+    max-height: none;
+    overflow-y: visible;
+    padding-right: 0;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 640px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .calculator-layout {
+    gap: 1.5rem;
+  }
+}
+
+/* Loading Spinner Container */
+mat-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Error Card */
+.bg-red-50 {
+  background-color: #fef2f2;
+}
+
+/* ============================================ */
+/* NEW: Full-Width Accordion Layout Styles     */
+/* ============================================ */
+
+/* Full-Width Layout for Accordion */
+.calculator-layout-full {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Results Accordion Styling */
+.results-accordion {
+  margin-top: 1rem;
+}
+
+/* Expansion Panel Customization */
+::ng-deep .mat-expansion-panel {
+  margin-bottom: 1rem !important;
+  border-radius: 8px !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+  transition: all 0.3s ease !important;
+}
+
+::ng-deep .mat-expansion-panel:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15) !important;
+}
+
+::ng-deep .mat-expansion-panel-header {
+  padding: 1rem 1.5rem !important;
+  height: auto !important;
+  min-height: 64px !important;
+}
+
+::ng-deep .mat-expansion-panel-header-title {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.75rem !important;
+  font-size: 1.125rem !important;
+  font-weight: 600 !important;
+  color: #1e293b !important;
+}
+
+::ng-deep .mat-expansion-panel-header-description {
+  display: flex !important;
+  align-items: center !important;
+  gap: 1rem !important;
+  flex-wrap: wrap !important;
+  margin-top: 0.25rem !important;
+  color: #64748b !important;
+  font-size: 0.875rem !important;
+}
+
+/* Input Panel Styling */
+::ng-deep .input-panel {
+  border-left: 4px solid #3b82f6 !important;
+}
+
+/* Warnings Panel Styling */
+::ng-deep .warnings-panel {
+  border-left: 4px solid #f59e0b !important;
+}
+
+::ng-deep .warnings-panel .mat-expansion-panel-header-title .warning-icon {
+  color: #f59e0b !important;
+}
+
+/* Power Panel Styling */
+::ng-deep .power-panel {
+  border-left: 4px solid #0ea5e9 !important;
+}
+
+/* Baseline Panel Styling */
+::ng-deep .baseline-panel {
+  border-left: 4px solid #f97316 !important;
+}
+
+/* Variant Panel Styling */
+::ng-deep .variant-panel {
+  transition: all 0.3s ease !important;
+}
+
+::ng-deep .premium-panel {
+  border-left: 4px solid #10b981 !important;
+}
+
+::ng-deep .pro-panel {
+  border-left: 4px solid #3b82f6 !important;
+}
+
+::ng-deep .advanced-panel {
+  border-left: 4px solid #8b5cf6 !important;
+}
+
+::ng-deep .recommended-panel {
+  /* Removed yellow background for best ROI */
+}
+
+/* Chart Panel Styling */
+::ng-deep .chart-panel {
+  border-left: 4px solid #6366f1 !important;
+}
+
+/* Info Icon Styling */
+.info-icon {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+  color: #64748b;
+  cursor: help;
+  margin-left: 6px;
+  transition: color 0.2s ease;
+}
+
+.info-icon:hover {
+  color: #1E3A8A;
+}
+
+/* Description Highlights */
+.description-highlight {
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.8125rem;
+}
+
+.description-highlight.savings {
+  background-color: #d1fae5;
+  color: #059669;
+}
+
+.description-highlight.payback {
+  background-color: #dbeafe;
+  color: #0284c7;
+}
+
+.best-roi-badge {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  color: #78350f;
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 0.8125rem;
+}
+
+/* Utility Classes */
+.flex {
+  display: flex;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.py-12 {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+.p-8 {
+  padding: 2rem;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
+.text-gray-600 {
+  color: #4b5563;
+}
+
+.text-gray-400 {
+  color: #9ca3af;
+}
+
+.text-gray-700 {
+  color: #374151;
+}
+
+.text-gray-500 {
+  color: #6b7280;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+.font-semibold {
+  font-weight: 600;
+}
+
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+
+.w-16 {
+  width: 4rem;
+}
+
+.h-16 {
+  height: 4rem;
+}
+
+.space-y-4 > * + * {
+  margin-top: 1rem;
+}
+
+/* Validation Error Card */
+.validation-error-card {
+  background: #fef2f2 !important;
+  border: 1px solid #fecaca;
+  border-left: 4px solid #dc2626;
+  border-radius: 8px;
+  padding: 1.25rem 1.5rem;
+}
+
+.validation-error-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #991b1b;
+  margin-bottom: 0.75rem;
+}
+
+.validation-error-header mat-icon {
+  color: #dc2626;
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
+}
+
+.validation-error-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.validation-error-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: #7f1d1d;
+  line-height: 1.5;
+}
+
+.validation-error-list li mat-icon {
+  color: #f59e0b;
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}

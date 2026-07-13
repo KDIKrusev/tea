@@ -1,0 +1,522 @@
+/* Component-specific styles */
+/* Most styles are inherited from parent and global Material theme */
+
+/* Group Wrapper - Light grey/white background for input sections */
+.input-group {
+  margin-bottom: 0;
+  padding: 0.75rem;
+  background-color: #f9fafb; /* Light grey for inputs */
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
+}
+
+/* Expansion Panel Customization */
+.operational-profile-panel {
+  box-shadow: none;
+  background: transparent;
+}
+
+.operational-profile-panel .mat-expansion-panel-header {
+  padding: 0 16px;
+  height: 56px;
+}
+
+.operational-profile-panel .mat-expansion-panel-body {
+  padding: 16px 0;
+}
+
+/* Panel Title Styling */
+::ng-deep .operational-profile-panel .mat-expansion-panel-header-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1E3A8A;
+  align-items: center;
+  display: flex;
+  gap: 0.5rem;
+}
+
+::ng-deep .operational-profile-panel .mat-expansion-panel-header-description {
+  color: #64748b;
+  font-size: 0.875rem;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.panel-icon {
+  color: #1E3A8A;
+  font-size: 1.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.info-badge {
+  background: #e3f2fd;
+  padding: 6px 12px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #1976d2;
+  white-space: nowrap;
+}
+
+.hint-text {
+  color: #94a3b8;
+  font-size: 0.875rem;
+  font-style: italic;
+}
+
+.loading-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: #666;
+}
+
+/* Disabled fields overlay */
+.fields-disabled {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+/* Checkbox without label - tighter spacing */
+.dp-checkbox {
+  margin-left: 0;
+  margin-right: 4px;
+}
+
+.loading-state mat-progress-bar {
+  margin-bottom: 16px;
+}
+
+.modes-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.mode-panel {
+  background: #ffffff; /* White background for mode panels */
+  border-radius: 8px;
+  margin-bottom: 16px;
+  border-left: 4px solid #94a3b8; /* Unified light blue-grey for all input sections */
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.mode-panel:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* DP Mode Checkbox Styling */
+.dp-checkbox {
+  margin-left: 12px;
+}
+
+::ng-deep .dp-checkbox .mat-mdc-checkbox-label {
+  font-size: 0.875rem;
+  color: #64748b;
+}
+
+/* DP Mode Disabled Message */
+.dp-disabled-message {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background-color: #f3f4f6;
+  border-radius: 8px;
+  color: #6b7280;
+  font-size: 0.875rem;
+  margin-bottom: 16px;
+}
+
+.dp-disabled-message mat-icon {
+  color: #9ca3af;
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+}
+
+.dp-disabled-message p {
+  margin: 0;
+}
+
+/* All operational modes use the same unified color */
+.mode-panel.transit-mode {
+  border-left-color: #94a3b8;
+}
+
+.mode-panel.dp-mode {
+  border-left-color: #94a3b8;
+}
+
+.mode-panel.port-mode {
+  border-left-color: #94a3b8;
+}
+
+.mode-panel.anchor-mode {
+  border-left-color: #94a3b8;
+}
+
+.mode-panel.maneuvering-mode {
+  border-left-color: #94a3b8;
+}
+
+/* DP Mode Toggle Section */
+.dp-mode-toggle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+  border-radius: 8px;
+  border-left: 4px solid #94a3b8; /* Unified light blue-grey for all input sections */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.dp-toggle-checkbox {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.dp-info-hint {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #f57c00;
+  font-size: 0.875rem;
+  font-style: italic;
+  margin-left: auto;
+}
+
+.dp-info-hint .info-icon {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+  color: #ff9800;
+}
+
+::ng-deep .mode-panel .mat-expansion-panel-header {
+  padding: 0 16px;
+  height: 56px;
+}
+
+::ng-deep .mode-panel .mat-expansion-panel-body {
+  padding: 16px;
+}
+
+::ng-deep .mode-panel .mat-expansion-panel-header-title {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #333;
+  align-items: center;
+  display: flex;
+  gap: 12px;
+}
+
+::ng-deep .mode-panel .mat-expansion-panel-header-description {
+  justify-content: flex-end;
+}
+
+.mode-icon {
+  color: #1976d2;
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
+}
+
+.percentage-badge {
+  background: #e3f2fd;
+  padding: 6px 16px;
+  border-radius: 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1976d2;
+}
+
+.mode-fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+/* 3-column grid for Transit Mode (with readonly calm water power) */
+.mode-fields-grid-3 {
+  grid-template-columns: repeat(1, 1fr);
+}
+
+@media (min-width: 768px) {
+  .mode-fields-grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .mode-fields-grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Readonly field styling */
+.readonly-field {
+  opacity: 0.85;
+}
+
+.readonly-field input {
+  cursor: default;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.readonly-field .mat-mdc-form-field-focus-overlay {
+  display: none;
+}
+
+.mode-progress {
+  height: 8px;
+  border-radius: 4px;
+  margin-top: 12px;
+}
+
+.port-progress::ng-deep .mat-mdc-progress-bar-fill::after {
+  background-color: #2196f3;
+}
+
+.anchor-progress::ng-deep .mat-mdc-progress-bar-fill::after {
+  background-color: #9c27b0;
+}
+
+.maneuvering-progress::ng-deep .mat-mdc-progress-bar-fill::after {
+  background-color: #ff5722;
+}
+
+.transit-progress::ng-deep .mat-mdc-progress-bar-fill::after {
+  background-color: #4caf50;
+}
+
+.dp-progress::ng-deep .mat-mdc-progress-bar-fill::after {
+  background-color: #ff9800;
+}
+
+.info-note {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  background: #fff3e0;
+  border-radius: 4px;
+  margin-top: 12px;
+  color: #e65100;
+  font-size: 13px;
+}
+
+.info-note mat-icon {
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+}
+
+.total-summary-panel {
+  background: #ffffff;
+  border-radius: 8px;
+  margin-top: 24px;
+  border: 2px solid #e0e0e0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.total-summary-panel.valid {
+  border-color: #4caf50;
+  background: linear-gradient(135deg, #e8f5e9 0%, #f1f8f4 100%);
+}
+
+.total-summary-panel.invalid {
+  border-color: #f44336;
+  background: linear-gradient(135deg, #ffebee 0%, #fff5f5 100%);
+}
+
+::ng-deep .total-summary-panel .mat-expansion-panel-header {
+  padding: 0 16px;
+  height: 64px;
+}
+
+::ng-deep .total-summary-panel .mat-expansion-panel-body {
+  padding: 16px;
+}
+
+::ng-deep .total-summary-panel .mat-expansion-panel-header-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1976d2;
+  align-items: center;
+  display: flex;
+  gap: 12px;
+}
+
+::ng-deep .total-summary-panel .mat-expansion-panel-header-description {
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.summary-icon {
+  color: #1976d2;
+  font-size: 28px;
+  width: 28px;
+  height: 28px;
+}
+
+.coverage-badge {
+  background: #e3f2fd;
+  padding: 8px 16px;
+  border-radius: 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1976d2;
+}
+
+.coverage-badge.valid {
+  background: #c8e6c9;
+  color: #2e7d32;
+}
+
+.coverage-badge.invalid {
+  background: #ffcdd2;
+  color: #c62828;
+}
+
+.summary-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 4px;
+}
+
+.summary-row .label {
+  font-weight: 500;
+  color: #666;
+}
+
+.summary-row .value {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+.validation-message {
+  margin: 8px 0 0 0;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 4px;
+  text-align: center;
+  font-weight: 500;
+  color: #f44336;
+}
+
+.validation-message.valid {
+  color: #4caf50;
+}
+
+.no-data-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #999;
+}
+
+.no-data-state mat-icon {
+  font-size: 64px;
+  width: 64px;
+  height: 64px;
+  color: #ccc;
+  margin-bottom: 16px;
+}
+
+.no-data-state p {
+  font-size: 16px;
+  margin: 0;
+}
+
+/* === TOTAL HOURS VALIDATION (Inline) === */
+.total-hours-validation {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  margin-top: 1.5rem;
+  border-radius: 8px;
+  background-color: #f0f9ff;
+  border: 2px solid #3b82f6;
+  transition: all 0.3s ease;
+}
+
+.total-hours-validation.warning {
+  background-color: #fef3c7;
+  border-color: #f59e0b;
+}
+
+.total-hours-validation .validation-icon {
+  font-size: 2rem;
+  color: #3b82f6;
+}
+
+.total-hours-validation.warning .validation-icon {
+  color: #f59e0b;
+}
+
+.total-hours-validation .validation-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
+}
+
+.total-hours-validation .total-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #475569;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+}
+
+.total-hours-validation .total-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #3b82f6;
+}
+
+.total-hours-validation .total-value.invalid {
+  color: #f59e0b;
+}
+
+.total-hours-validation .validation-message {
+  font-size: 0.875rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .total-hours-validation {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+  
+  .mode-fields {
+    grid-template-columns: 1fr;
+  }
+  
+  .section-title {
+    font-size: 20px;
+  }
+}

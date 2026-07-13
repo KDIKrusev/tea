@@ -1,0 +1,347 @@
+/* Group Wrapper */
+.input-group {
+  margin-bottom: 0;
+  padding: 0.75rem;
+  background-color: #f9fafb;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
+}
+
+/* Expansion Panel Customization */
+.config-panel {
+  box-shadow: none;
+  background: transparent;
+}
+
+.config-panel .mat-expansion-panel-header {
+  padding: 0 16px;
+  height: 56px;
+}
+
+.config-panel .mat-expansion-panel-body {
+  padding: 16px 0;
+}
+
+::ng-deep .config-panel .mat-expansion-panel-header-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1E3A8A;
+  align-items: center;
+  display: flex;
+  gap: 0.5rem;
+}
+
+::ng-deep .config-panel .mat-expansion-panel-header-description {
+  color: #64748b;
+  font-size: 0.875rem;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.panel-icon {
+  color: #1E3A8A;
+  font-size: 1.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.info-badge {
+  padding: 6px 12px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.info-badge.sail-active {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.info-badge.sail-disabled {
+  background: #f5f5f5;
+  color: #9e9e9e;
+}
+
+.badge-icon {
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+}
+
+.hint-text {
+  color: #94a3b8;
+  font-size: 0.875rem;
+  font-style: italic;
+}
+
+/* Sail Toggle */
+.sail-toggle {
+  padding: 16px;
+  margin-bottom: 12px;
+  background: #ffffff;
+  border-radius: 8px;
+  border-left: 4px solid #1976d2;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.sail-toggle-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #1E3A8A;
+}
+
+.sail-toggle-icon {
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+  color: #1976d2;
+}
+
+.sail-toggle-hint {
+  display: block;
+  margin-top: 6px;
+  margin-left: 32px;
+  font-size: 0.8rem;
+  color: #94a3b8;
+  font-style: italic;
+}
+
+/* Subsection Panels */
+.subsection-panel {
+  background: #ffffff;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  border-left: 4px solid #94a3b8;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.subsection-panel.sail-subsection {
+  border-left-color: #2e7d32;
+}
+
+.subsection-panel:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+::ng-deep .subsection-panel .mat-expansion-panel-header {
+  padding: 0 16px;
+  height: 48px;
+}
+
+::ng-deep .subsection-panel .mat-expansion-panel-body {
+  padding: 16px;
+}
+
+::ng-deep .subsection-panel .mat-expansion-panel-header-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1E3A8A;
+  align-items: center;
+  display: flex;
+  gap: 12px;
+}
+
+.subsection-icon {
+  color: #1976d2;
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+}
+
+/* Input Grid */
+.input-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 6px;
+  max-width: 100%;
+}
+
+@media (max-width: 1024px) {
+  .input-grid {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .input-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================
+   SAIL CONTRIBUTION RESULTS
+   ============================================ */
+
+.sail-results {
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.sail-results.sail-assisting {
+  background: #f0fdf4;
+  border-left: 4px solid #16a34a;
+}
+
+.sail-results.sail-resisting {
+  background: #fef2f2;
+  border-left: 4px solid #dc2626;
+}
+
+.sail-results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.sail-results-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.sail-assisting .sail-results-title {
+  color: #16a34a;
+}
+
+.sail-resisting .sail-results-title {
+  color: #dc2626;
+}
+
+.sail-results-title mat-icon {
+  font-size: 22px;
+  width: 22px;
+  height: 22px;
+}
+
+.sail-results-badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.badge-positive {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.badge-negative {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+/* Metrics Grid */
+.sail-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.sail-metric-card {
+  text-align: center;
+  background: white;
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+}
+
+.sail-metric-card:hover {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.sail-metric-card.primary-metric {
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  border: 2px solid #16a34a;
+}
+
+.sail-resisting .sail-metric-card.primary-metric {
+  background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+  border: 2px solid #dc2626;
+}
+
+.metric-label {
+  font-size: 11px;
+  color: #666;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  font-weight: 600;
+}
+
+.metric-value {
+  font-weight: 700;
+  font-size: 18px;
+  color: #1E3A8A;
+}
+
+.metric-value.savings {
+  color: #16a34a;
+  font-size: 20px;
+}
+
+.sail-resisting .metric-value.savings {
+  color: #dc2626;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .sail-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .sail-results-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
+
+/* Edited Field Styling */
+.field-edited {
+  position: relative;
+}
+
+.field-edited::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(to bottom, #F59E0B, #D97706);
+  border-radius: 2px 0 0 2px;
+  z-index: 1;
+}
+
+.field-edited ::ng-deep .mat-mdc-text-field-wrapper {
+  background-color: #FFFBEB;
+  border-left: 2px solid #F59E0B;
+}
+
+.field-edited ::ng-deep .mat-mdc-form-field-focus-overlay {
+  background-color: #FEF3C7;
+}
+
+.edited-label {
+  font-size: 0.75em;
+  color: #D97706;
+  font-weight: 600;
+  margin-left: 6px;
+  font-style: italic;
+}

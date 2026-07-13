@@ -1,0 +1,32 @@
+# Files to ignore for Prettier formatting
+
+# Dependencies
+node_modules/
+dist/
+coverage/
+
+# Build outputs
+*.tsbuildinfo
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+
+# Generated files
+*.generated.ts
+
+# Package files
+package-lock.json
+yarn.lock
+
+# Environment files
+.env
+.env.local
+.env.production
+
+# Angular specific
+.angular/

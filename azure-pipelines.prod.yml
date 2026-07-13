@@ -1,0 +1,58 @@
+trigger:
+  branches:
+    include:
+      - main 
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  - group: acr-secrets
+  - name: dockerRegistry
+    value: 'kmviregistry.azurecr.io'
+  - name: backendImage
+    value: 'ksailcalc-backend'
+
+steps:
+- task: UseDotNet@2
+  inputs:
+    packageType: 'sdk'
+    version: '10.x'
+
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet restore'
+  inputs:
+    command: 'restore'
+    projects: 'KSailCalc.sln'
+
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet build (zero warnings enforced)'
+  inputs:
+    command: 'build'
+    projects: 'KSailCalc.sln'
+    arguments: '--no-restore --configuration Release /p:TreatWarningsAsErrors=true'
+
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet test'
+  inputs:
+    command: 'test'
+    projects: 'KSailCalc.sln'
+    arguments: '--no-build --configuration Release'
+
+- script: |
+    echo "🔐 Logging in to Azure Container Registry"
+    echo "$(ACR_PASSWORD)" | docker login $(dockerRegistry) -u $(ACR_USERNAME) --password-stdin
+  displayName: "Login to ACR"
+
+- script: |
+    echo "🔨 Building image from Dockerfile"
+    docker build -t $(dockerRegistry)/$(backendImage):$(Build.SourceBranchName)-$(Build.BuildId) \
+                 -t $(dockerRegistry)/$(backendImage):latest \
+                 -f Dockerfile .
+  displayName: "Build Docker Image"
+
+- script: |
+    echo "📦 Pushing image to ACR"
+    docker push $(dockerRegistry)/$(backendImage):$(Build.SourceBranchName)-$(Build.BuildId)
+    docker push $(dockerRegistry)/$(backendImage):latest
+  displayName: "Push Docker Image"

@@ -1,0 +1,36 @@
+<mat-card class="vessel-input-card">
+  <mat-card-content>
+    <form [formGroup]="vesselForm" class="calculator-form">
+      
+      <app-vessel-config-section 
+        [parentForm]="vesselForm"
+        (vesselEngineConfigSelected)="onVesselEngineConfigSelected($event)"
+        (operationalProfileLoaded)="onOperationalProfileLoaded($event)">
+      </app-vessel-config-section>
+
+      <app-engine-config-section 
+        #engineConfigSection
+        [parentForm]="vesselForm">
+      </app-engine-config-section>
+
+      <app-operational-modes-section
+        [parentForm]="vesselForm"
+        [vesselTypeName]="vesselTypeName">
+      </app-operational-modes-section>
+
+      <app-additional-config-section 
+        [parentForm]="vesselForm" 
+        [sailOptions]="sailOptions"
+        [totalHours]="getTotalHours()">
+      </app-additional-config-section>
+
+      <!-- Weather Input Section (last) -->
+<app-weather-input-section
+  [parentForm]="vesselForm"
+  [sailContribution]="sailContribution"
+  (weatherChanged)="onWeatherChanged($event)">
+</app-weather-input-section>
+
+    </form>
+  </mat-card-content>
+</mat-card>

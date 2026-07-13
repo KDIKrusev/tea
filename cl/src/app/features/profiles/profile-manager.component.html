@@ -1,0 +1,125 @@
+<mat-expansion-panel class="profile-panel">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <mat-icon class="panel-icon">bookmark</mat-icon>
+      Saved Scenarios
+    </mat-panel-title>
+    <mat-panel-description>
+      <span *ngIf="profiles.length > 0" class="profile-count">{{ profiles.length }} saved</span>
+      <span *ngIf="profiles.length === 0" class="no-profiles-hint">No saved scenarios</span>
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+
+  <!-- Toolbar: Save + Import -->
+  <div class="profile-toolbar">
+    <button mat-raised-button color="primary" class="toolbar-btn" (click)="openSaveDialog()">
+      <mat-icon>save</mat-icon>
+      Save Current
+    </button>
+    <button mat-stroked-button class="toolbar-btn" (click)="triggerImport()"
+            matTooltip="Import a scenario from a .json file">
+      <mat-icon>upload_file</mat-icon>
+      Import
+    </button>
+    <input #importInput type="file" accept=".json" class="hidden-file-input"
+           (change)="onFileSelected($event)" />
+  </div>
+
+  <!-- Save dialog -->
+  <div *ngIf="saveDialogOpen" class="save-dialog">
+    <mat-form-field appearance="outline" class="name-field">
+      <mat-label>Scenario name</mat-label>
+      <input matInput [(ngModel)]="newProfileName"
+             placeholder="e.g. Bulk Carrier 14kn Summer"
+             (keydown.enter)="$event.preventDefault()"
+             maxlength="80" />
+    </mat-form-field>
+    <div class="save-dialog-actions">
+      <button mat-raised-button color="primary"
+              [disabled]="!newProfileName.trim()"
+              (click)="saveRequested()">
+        <mat-icon>check</mat-icon>
+        Save
+      </button>
+      <button mat-button (click)="cancelSave()">Cancel</button>
+    </div>
+  </div>
+
+  <!-- Profile list -->
+  <div *ngIf="profiles.length === 0 && !saveDialogOpen" class="empty-state">
+    <mat-icon class="empty-icon">inventory_2</mat-icon>
+    <p>No saved scenarios yet.<br>Fill in the calculator and click <strong>Save Current</strong>.</p>
+  </div>
+
+  <div class="profile-list" *ngIf="profiles.length > 0">
+    <div *ngFor="let profile of profiles; trackBy: trackById"
+         class="profile-row"
+         [class.renaming]="renamingId === profile.id">
+
+      <!-- Delete confirmation overlay -->
+      <div *ngIf="deleteConfirmId === profile.id" class="delete-confirm">
+        <span>Delete <strong>{{ profile.name }}</strong>?</span>
+        <button mat-button color="warn" (click)="confirmDelete()">
+          <mat-icon>delete</mat-icon> Delete
+        </button>
+        <button mat-button (click)="cancelDelete()">Cancel</button>
+      </div>
+
+      <!-- Normal row -->
+      <ng-container *ngIf="deleteConfirmId !== profile.id">
+
+        <!-- Rename inline -->
+        <div *ngIf="renamingId === profile.id" class="rename-row">
+          <mat-form-field appearance="outline" class="rename-field">
+            <input matInput [(ngModel)]="renameValue"
+                   (keydown.enter)="confirmRename()"
+                   (keydown.escape)="cancelRename()"
+                   maxlength="80" />
+          </mat-form-field>
+          <button mat-icon-button color="primary" (click)="confirmRename()"
+                  matTooltip="Confirm rename">
+            <mat-icon>check</mat-icon>
+          </button>
+          <button mat-icon-button (click)="cancelRename()" matTooltip="Cancel">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+
+        <!-- Normal display -->
+        <div *ngIf="renamingId !== profile.id" class="profile-info">
+          <div class="profile-name">{{ profile.name }}</div>
+          <div class="profile-meta">
+            {{ profile.vesselTypeName }} &bull; {{ profile.vesselSpeed }} kn &bull;
+            {{ formatDate(profile.updatedAt) }}
+          </div>
+        </div>
+
+        <!-- Action buttons -->
+        <div class="profile-actions" *ngIf="renamingId !== profile.id">
+          <button mat-icon-button color="primary"
+                  matTooltip="Load this scenario"
+                  (click)="loadProfile(profile)">
+            <mat-icon>open_in_browser</mat-icon>
+          </button>
+          <button mat-icon-button
+                  matTooltip="Export to JSON"
+                  (click)="exportProfile(profile, $event)">
+            <mat-icon>download</mat-icon>
+          </button>
+          <button mat-icon-button
+                  matTooltip="Rename"
+                  (click)="startRename(profile)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn"
+                  matTooltip="Delete"
+                  (click)="requestDelete(profile.id)">
+            <mat-icon>delete_outline</mat-icon>
+          </button>
+        </div>
+      </ng-container>
+
+    </div>
+  </div>
+
+</mat-expansion-panel>

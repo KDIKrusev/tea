@@ -1,0 +1,249 @@
+<!-- Operational Profile Section -->
+<div class="input-group" [formGroup]="parentForm">
+  <mat-expansion-panel [expanded]="true" class="operational-profile-panel">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <mat-icon class="panel-icon">schedule</mat-icon>
+        Operating Power Demand
+      </mat-panel-title>
+      <mat-panel-description>
+        @if (operationalProfile) {
+          <span class="info-badge">{{ operationalProfile.vesselTypeName }}</span>
+        } @else {
+          <span class="hint-text">Select vessel to load profile</span>
+        }
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <div *ngIf="isLoading" class="loading-state">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      <p>Loading operational profile...</p>
+    </div>
+
+    <div *ngIf="!isLoading && operationalProfile" class="modes-container">
+    
+    <mat-accordion multi>
+    <!-- Transit Mode -->
+    <mat-expansion-panel [expanded]="true" class="mode-panel transit-mode">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon class="mode-icon">directions_boat</mat-icon>
+          Transit Mode
+        </mat-panel-title>
+        <mat-panel-description>
+          <span class="percentage-badge">{{ getPercentage(parentForm.get('transitHours')?.value || 0) | number:'1.1-1' }}%</span>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      
+      <div class="mode-fields mode-fields-grid-3">
+        <app-form-input-field
+          [formGroup]="parentForm"
+          controlName="propulsionPower"
+          label="Calm Water Resistance Power (kW)"
+          type="number"
+          [required]="true"
+          hint="Calm Water Resistance Power">
+        </app-form-input-field>
+        
+        <app-form-input-field
+          [formGroup]="parentForm"
+          controlName="transitHotelPowerKW"
+          label="Hotel/Mission Power (kW)"
+          type="number"
+          [required]="true"
+          hint="Hotel load during sea passage">
+        </app-form-input-field>
+        
+        <app-form-input-field
+          [formGroup]="parentForm"
+          controlName="transitHours"
+          label="Hours per Year"
+          type="number"
+          [required]="true"
+          hint="Time spent in normal sea passage">
+        </app-form-input-field>
+      </div>
+   
+      <mat-progress-bar 
+        mode="determinate" 
+        [value]="getPercentage(parentForm.get('transitHours')?.value || 0)"
+        class="mode-progress transit-progress">
+      </mat-progress-bar>
+    </mat-expansion-panel>
+
+   <!-- DP Mode (Dynamic Positioning) -->
+<mat-expansion-panel [expanded]="true" class="mode-panel dp-mode">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <mat-icon class="mode-icon">gps_fixed</mat-icon>
+      <mat-checkbox 
+        [(ngModel)]="dpModeEnabled" 
+        (change)="onDPModeToggle($event)"
+        [ngModelOptions]="{standalone: true}"
+        class="dp-checkbox"
+        (click)="$event.stopPropagation()">
+      </mat-checkbox>
+      DP Mode (Dynamic Positioning)
+    </mat-panel-title>
+    <mat-panel-description>
+      <span class="percentage-badge">{{ getPercentage(parentForm.get('dpHours')?.value || 0) | number:'1.1-1' }}%</span>
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  
+  <div class="mode-fields" [class.fields-disabled]="!dpModeEnabled">
+    <app-form-input-field
+      [formGroup]="parentForm"
+      controlName="dpHotelPowerKW"
+      label="Hotel/Mission Power (kW)"
+      type="number"
+      hint="Hotel load during DP operations">
+    </app-form-input-field>
+    
+    <app-form-input-field
+      [formGroup]="parentForm"
+      controlName="requiredDPPowerKW"
+      label="Required DP Power (kW)"
+      type="number"
+      hint="Thrust power for dynamic positioning">
+    </app-form-input-field>
+
+    <app-form-input-field
+      [formGroup]="parentForm"
+      controlName="dpHours"
+      label="Hours per Year"
+      type="number"
+      hint="Time spent in DP operations">
+    </app-form-input-field>
+  </div>
+
+  <mat-progress-bar 
+    mode="determinate" 
+    [value]="getPercentage(parentForm.get('dpHours')?.value || 0)"
+    class="mode-progress dp-progress">
+  </mat-progress-bar>
+</mat-expansion-panel>
+
+    <!-- Port Mode -->
+    <mat-expansion-panel [expanded]="true" class="mode-panel port-mode">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon class="mode-icon">anchor</mat-icon>
+          Port Mode
+        </mat-panel-title>
+        <mat-panel-description>
+          <span class="percentage-badge">{{ getPercentage(parentForm.get('portHours')?.value || 0) | number:'1.1-1' }}%</span>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      
+      <div class="mode-fields">
+        <app-form-input-field
+          [formGroup]="parentForm"
+          controlName="portHotelPowerKW"
+          label="Hotel/Mission Power (kW)"
+          type="number"
+          hint="Hotel load while in port">
+        </app-form-input-field>
+        
+        <app-form-input-field
+          [formGroup]="parentForm"
+          controlName="portHours"
+          label="Hours per Year"
+          type="number"
+          hint="Time spent in port">
+        </app-form-input-field>
+      </div>
+   
+      <mat-progress-bar 
+        mode="determinate" 
+        [value]="getPercentage(parentForm.get('portHours')?.value || 0)"
+        class="mode-progress port-progress">
+      </mat-progress-bar>
+    </mat-expansion-panel>
+
+    <!-- Anchor Mode -->
+    <mat-expansion-panel [expanded]="true" class="mode-panel anchor-mode">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon class="mode-icon">sailing</mat-icon>
+          Anchor Mode
+        </mat-panel-title>
+        <mat-panel-description>
+          <span class="percentage-badge">{{ getPercentage(parentForm.get('anchorHours')?.value || 0) | number:'1.1-1' }}%</span>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      
+      <div class="mode-fields">
+        <app-form-input-field
+          [formGroup]="parentForm"
+          controlName="anchorHotelPowerKW"
+          label="Hotel/Mission Power (kW)"
+          type="number"
+          hint="Hotel load while at anchor">
+        </app-form-input-field>
+        
+        <app-form-input-field
+          [formGroup]="parentForm"
+          controlName="anchorHours"
+          label="Hours per Year"
+          type="number"
+          hint="Time spent at anchor">
+        </app-form-input-field>
+      </div>
+   
+      <mat-progress-bar 
+        mode="determinate" 
+        [value]="getPercentage(parentForm.get('anchorHours')?.value || 0)"
+        class="mode-progress anchor-progress">
+      </mat-progress-bar>
+    </mat-expansion-panel>
+
+    <!-- Maneuvering Mode -->
+    <mat-expansion-panel [expanded]="true" class="mode-panel maneuvering-mode">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon class="mode-icon">swap_calls</mat-icon>
+          Maneuvering Mode
+        </mat-panel-title>
+        <mat-panel-description>
+          <span class="percentage-badge">{{ getPercentage(parentForm.get('maneuveringHours')?.value || 0) | number:'1.1-1' }}%</span>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      
+      <div class="mode-fields mode-fields-grid-3">
+        <app-form-input-field
+          [formGroup]="parentForm"
+          controlName="maneuveringPropulsionPowerKW"
+          label="Propulsion Power (kW)"
+          type="number"
+          hint="Propulsion power during maneuvering">
+        </app-form-input-field>
+
+        <app-form-input-field
+          [formGroup]="parentForm"
+          controlName="maneuveringHotelPowerKW"
+          label="Hotel/Mission Power (kW)"
+          type="number"
+          hint="Hotel load during maneuvering">
+        </app-form-input-field>
+        
+        <app-form-input-field
+          [formGroup]="parentForm"
+          controlName="maneuveringHours"
+          label="Hours per Year"
+          type="number"
+          hint="Time spent maneuvering">
+        </app-form-input-field>
+      </div>
+   
+      <mat-progress-bar 
+        mode="determinate" 
+        [value]="getPercentage(parentForm.get('maneuveringHours')?.value || 0)"
+        class="mode-progress maneuvering-progress">
+      </mat-progress-bar>
+    </mat-expansion-panel>
+
+    </mat-accordion>
+    </div>
+
+  </mat-expansion-panel>
+</div>

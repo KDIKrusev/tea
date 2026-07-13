@@ -1,0 +1,78 @@
+<!-- Additional Configuration Group -->
+<div class="input-group" [formGroup]="parentForm">
+  <mat-expansion-panel [expanded]="true" class="config-panel">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <mat-icon class="panel-icon">attach_money</mat-icon>
+        Financial
+      </mat-panel-title>
+      <mat-panel-description>
+        @if (parentForm.get('fuelPrice')?.value) {
+          <span class="info-badge">
+            ${{ parentForm.get('fuelPrice')?.value }}/ton
+          </span>
+        } @else {
+          <span class="hint-text">Configure cost parameters</span>
+        }
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+  <mat-accordion multi>
+  
+
+<!-- Financial Parameters -->
+<mat-expansion-panel [expanded]="true" class="subsection-panel">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <mat-icon class="subsection-icon">attach_money</mat-icon>
+      Financial Parameters
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  
+  <div class="input-grid">
+    
+    <!-- Fuel Price -->
+    <mat-form-field appearance="fill" [class.field-edited]="isFieldEdited('fuelPrice')">
+      <mat-label>
+        Fuel Price (USD/ton) 
+        @if (isFieldEdited('fuelPrice')) {
+          <span class="edited-label">(edited)</span>
+        }
+      </mat-label>
+      <input matInput type="number" formControlName="fuelPrice" step="1">
+      @if (fuelPrice?.invalid && fuelPrice?.touched) {
+        <mat-error>{{ getValidationError('fuelPrice') }}</mat-error>
+      }
+    </mat-form-field>
+    
+    <!-- Total Annual Hours (auto-calculated from operational modes) -->
+    <mat-form-field appearance="fill">
+      <mat-label>Total Annual Hours</mat-label>
+      <input matInput 
+             type="text" 
+             [value]="(totalHours | number:'1.0-0') + ' h/yr'"
+             readonly>
+      <mat-hint>Auto-calculated from operational modes</mat-hint>
+    </mat-form-field>
+  </div>
+</mat-expansion-panel>
+  </mat-accordion>
+
+  <!-- Level 3 DRC Parameters — rendered eagerly (not inside collapsible) so valueChanges fires reliably -->
+  <div class="drc-section">
+    <div class="drc-header">
+      <mat-icon class="subsection-icon">bolt</mat-icon>
+      <span>Level 3 — Dynamic Ramp Control</span>
+    </div>
+    <div class="input-grid">
+      <mat-form-field appearance="fill">
+        <mat-label>Load Variation (kW)</mat-label>
+        <span matTextPrefix>±&nbsp;</span>
+        <input matInput type="number" formControlName="hotelLoadVariationKw" min="0" step="1">
+        <mat-hint>Peak load spike per vessel. Bulk ±250 · Container ±1500 · LNG ±1000 · Default ±500</mat-hint>
+      </mat-form-field>
+    </div>
+  </div>
+
+  </mat-expansion-panel>
+</div>

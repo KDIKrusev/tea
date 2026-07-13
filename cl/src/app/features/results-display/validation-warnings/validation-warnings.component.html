@@ -1,0 +1,12 @@
+<div *ngFor="let warning of warnings; trackBy: trackByWarning" 
+     class="warning-banner" 
+     [class.error]="warning.severity === 'error'"
+     [class.warning]="warning.severity === 'warning'">
+  <mat-icon class="warning-icon">
+    {{ warning.severity === 'error' ? 'error' : 'warning' }}
+  </mat-icon>
+  <div class="warning-content">
+    <strong class="warning-title">{{ getWarningTitle(warning.type || warning.field) }}</strong>
+    <p class="warning-message">{{ warning.message }}</p>
+  </div>
+</div>

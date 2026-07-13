@@ -1,0 +1,336 @@
+import { Component, Input, OnInit, OnDestroy, inject, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { AppDataService } from '../../../../core/app-data.service';
+import { EngineType, AuxiliaryEngineType } from '../../../../core/engine-configuration.types';
+import { FormEditTrackerService } from '../form-edit-tracker.service';
+
+@Component({
+  selector: 'app-engine-config-section',
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    MatSelectModule,
+    MatExpansionModule
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: './engine-config-section.component.html',
+  styleUrl: './engine-config-section.component.css'
+})
+export class EngineConfigSectionComponent implements OnInit, OnDestroy {
+  @Input() parentForm!: FormGroup;
+
+  private destroy$ = new Subject<void>();
+  private appDataService = inject(AppDataService);
+  private cdr = inject(ChangeDetectorRef);
+  protected editTracker = inject(FormEditTrackerService);
+  private snackBar = inject(MatSnackBar);
+
+  // Engine type options
+  mainEngineTypes: EngineType[] = [];
+  auxiliaryEngineTypes: AuxiliaryEngineType[] = [];
+
+  // Selected engine type IDs (for tracking selections)
+  selectedMainEngineTypeId: number | null = null;
+  selectedAuxiliaryEngineTypeId: number | null = null;
+  
+  // Pending configuration to apply after engine types load
+  private pendingEngineConfig: { mainEngineId: number; auxiliaryEngineId: number } | null = null;
+
+  // Inline confirmation state when user changes engine type with edited capacity fields
+  pendingMainEngine: EngineType | null = null;
+  pendingAuxEngine: AuxiliaryEngineType | null = null;
+  showMainEngineConfirm = false;
+  showAuxEngineConfirm = false;
+
+  ngOnInit(): void {
+    this.loadEngineConfigurations();
+    
+    // Setup value change tracking after a small delay to ensure form is initialized
+    setTimeout(() => {
+      this.setupValueChangeTracking();
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  /**
+   * Setup value change tracking for edited fields
+   */
+  private setupValueChangeTracking(): void {
+    // Track changes for main engine capacity
+    this.parentForm.get('meCapacityPerEngine')?.valueChanges
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.cdr.markForCheck();
+      });
+
+    // Track changes for shaft generator capacity
+    this.parentForm.get('sgCapacityPerEngine')?.valueChanges
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.cdr.markForCheck();
+      });
+
+    // Track changes for auxiliary engine capacity
+    this.parentForm.get('aeCapacityPerEngine')?.valueChanges
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.cdr.markForCheck();
+      });
+  }
+
+  /**
+   * Load engine configurations from cached app data
+   * OPTIMIZED: Client-side filtering from cached data - no API call!
+   */
+  loadEngineConfigurations(): void {
+    // Load main engines from cached data
+    this.appDataService.getMainEngineTypes()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (mainEngines) => {
+          this.mainEngineTypes = mainEngines;
+
+          // Apply pending configuration if available
+          if (this.pendingEngineConfig && this.auxiliaryEngineTypes.length > 0) {
+            this.applyPendingEngineConfig();
+          }
+          // Only set default if no pending config
+          else if (this.mainEngineTypes.length > 0 && !this.selectedMainEngineTypeId && !this.pendingEngineConfig) {
+            this.selectedMainEngineTypeId = this.mainEngineTypes[0].id;
+            this.onMainEngineTypeChange(this.selectedMainEngineTypeId);
+          }
+          this.cdr.markForCheck();
+        },
+        error: (error) => {
+          this.snackBar.open(
+            'Unable to load main engine configurations. Please check your connection and try again.',
+            'Close',
+            { duration: 5000, panelClass: ['error-snackbar'] }
+          );
+        }
+      });
+
+    // Load auxiliary engines from cached data
+    this.appDataService.getAuxiliaryEngineTypes()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (auxEngines) => {
+          this.auxiliaryEngineTypes = auxEngines;
+
+          // Apply pending configuration if available
+          if (this.pendingEngineConfig && this.mainEngineTypes.length > 0) {
+            this.applyPendingEngineConfig();
+          }
+          // Only set default if no pending config
+          else if (this.auxiliaryEngineTypes.length > 0 && !this.selectedAuxiliaryEngineTypeId && !this.pendingEngineConfig) {
+            this.selectedAuxiliaryEngineTypeId = this.auxiliaryEngineTypes[0].id;
+            this.onAuxiliaryEngineTypeChange(this.selectedAuxiliaryEngineTypeId);
+          }
+          this.cdr.markForCheck();
+        },
+        error: (error) => {
+          this.snackBar.open(
+            'Unable to load auxiliary engine configurations. Please check your connection and try again.',
+            'Close',
+            { duration: 5000, panelClass: ['error-snackbar'] }
+          );
+        }
+      });
+  }
+
+  /**
+   * Handle main engine type selection
+   */
+  onMainEngineTypeChange(engineTypeId: number): void {
+    this.selectedMainEngineTypeId = engineTypeId;
+    const selectedEngine = this.mainEngineTypes.find(e => e.id === engineTypeId);
+    
+    if (selectedEngine) {
+      // Auto-populate the max capacity fields and engine type ID
+      this.parentForm.patchValue({
+        meCapacityPerEngine: selectedEngine.maxCapacityKW,
+        sgCapacityPerEngine: selectedEngine.shaftGeneratorMaxCapacityKW,
+        mainEngineTypeId: engineTypeId
+      });
+      
+      // Update original values in tracker
+      this.editTracker.updateOriginalValue('meCapacityPerEngine', selectedEngine.maxCapacityKW);
+      this.editTracker.updateOriginalValue('sgCapacityPerEngine', selectedEngine.shaftGeneratorMaxCapacityKW);
+      this.editTracker.updateOriginalValue('mainEngineTypeId', engineTypeId);
+    }
+  }
+
+  /**
+   * Handle auxiliary engine type selection
+   */
+  onAuxiliaryEngineTypeChange(engineTypeId: number): void {
+    const selectedEngine = this.mainEngineTypes.find(e => e.id === engineTypeId);
+    if (!selectedEngine) return;
+
+    const hasEditedCapacity =
+      this.editTracker.isFieldEdited('meCapacityPerEngine', this.parentForm.get('meCapacityPerEngine')?.value) ||
+      this.editTracker.isFieldEdited('sgCapacityPerEngine', this.parentForm.get('sgCapacityPerEngine')?.value);
+
+    if (hasEditedCapacity) {
+      // Show inline confirmation — update only engine type ID for now
+      this.pendingMainEngine = selectedEngine;
+      this.showMainEngineConfirm = true;
+      this.selectedMainEngineTypeId = engineTypeId;
+      this.parentForm.patchValue({ mainEngineTypeId: engineTypeId });
+      this.editTracker.updateOriginalValue('mainEngineTypeId', engineTypeId);
+    } else {
+      this.applyMainEngineChange(selectedEngine);
+
+    this.cdr.markForCheck();
+  // Getter methods for form controls - Main Engine
+  get meCapacityPerEngine() { return this.parentForm.get('meCapacityPerEngine'); }
+  /** User confirmed: reset capacity fields to new engine's defaults */
+  applyMainEngineDefaults(): void {
+    if (this.pendingMainEngine) {
+      this.applyMainEngineChange(this.pendingMainEngine);
+    }
+    this.pendingMainEngine = null;
+    this.showMainEngineConfirm = false;
+    this.cdr.markForCheck();
+  }
+
+  /** User chose to keep their custom values */
+  dismissMainEngineConfirm(): void {
+    this.pendingMainEngine = null;
+    this.showMainEngineConfirm = false;
+    this.cdr.markForCheck();
+  }
+
+  private applyMainEngineChange(engine: EngineType): void {
+    this.selectedMainEngineTypeId = engine.id;
+    this.parentForm.patchValue({
+      meCapacityPerEngine: engine.maxCapacityKW,
+      sgCapacityPerEngine: engine.shaftGeneratorMaxCapacityKW,
+      mainEngineTypeId: engine.id
+    });
+    this.editTracker.updateOriginalValue('meCapacityPerEngine', engine.maxCapacityKW);
+    this.editTracker.updateOriginalValue('sgCapacityPerEngine', engine.shaftGeneratorMaxCapacityKW);
+    this.editTracker.updateOriginalValue('mainEngineTypeId', engine.id);
+  }
+
+  get meCount() { return this.parentForm.get('meCount'); }
+  get sgCapacityPerEngine() { return this.parentForm.get('sgCapacityPerEngine'); }
+  
+  // Getter methods for form controls - Auxiliary Engine
+  get aeCapacityPerEngine() { return this.parentForm.get('aeCapacityPerEngine'); }
+  get aeCount() { return this.parentForm.get('aeCount'); }
+
+  // Get validation error message for form control
+  getValidationError(controlName: string): string {
+    const control = this.parentForm.get(controlName);
+    if (!control) return '';
+
+    if (control.hasError('required')) {
+      return 'This field is required';
+    }
+    if (control.hasError('min')) {
+      const min = control.errors?.['min'].min;
+      return `Minimum value is ${min}`;
+    }
+    if (control.hasError('max')) {
+      const max = control.errors?.['max'].max;
+      return `Maximum value is ${max}`;
+    }
+    return '';
+  }
+
+  /**
+   * Check if a field has been edited from its original backend value
+   */
+  isFieldEdited(fieldName: string): boolean {
+    const control = this.parentForm.get(fieldName);
+    if (!control) {
+      return false;
+    }
+    
+    return this.editTracker.isFieldEdited(fieldName, control.value);
+  }
+
+  /**
+   * Set engine configuration from vessel type selection
+   */
+  setEngineConfiguration(mainEngineId: number, auxiliaryEngineId: number): void {
+    // Check if engine types are loaded
+    if (this.mainEngineTypes.length > 0 && this.auxiliaryEngineTypes.length > 0) {
+      // Apply config immediately
+      this.selectedMainEngineTypeId = mainEngineId;
+      this.selectedAuxiliaryEngineTypeId = auxiliaryEngineId;
+      
+
+      // Trigger the change handlers to populate form fields
+      this.onMainEngineTypeChange(mainEngineId);
+      this.onAuxiliaryEngineTypeChange(auxiliaryEngineId);
+
+      // Update original values for number of engines
+      const meCount = this.parentForm.get('meCount')?.value;
+      this.editTracker.updateOriginalValue('meCount', meCount);
+      const aeCount = this.parentForm.get('aeCount')?.value;
+      this.editTracker.updateOriginalValue('aeCount', aeCount);
+      
+      // Clear any pending config
+      this.pendingEngineConfig = null;
+    } else {
+      this.pendingEngineConfig = { mainEngineId, auxiliaryEngineId };
+    }
+  }
+  
+  /**
+   * Apply pending engine configuration after engine types are loaded
+   */
+  private applyPendingEngineConfig(): void {
+    if (this.pendingEngineConfig) {
+      this.selectedMainEngineTypeId = this.pendingEngineConfig.mainEngineId;
+      this.selectedAuxiliaryEngineTypeId = this.pendingEngineConfig.auxiliaryEngineId;
+      
+      this.onMainEngineTypeChange(this.pendingEngineConfig.mainEngineId);
+      this.onAuxiliaryEngineTypeChange(this.pendingEngineConfig.auxiliaryEngineId);
+      
+      this.pendingEngineConfig = null;
+    }
+  }
+
+  /**
+   * Get selected main engine type name for display
+   */
+  getSelectedMainEngineName(): string {
+    if (!this.selectedMainEngineTypeId) return '';
+    const engine = this.mainEngineTypes.find(e => e.id === this.selectedMainEngineTypeId);
+    return engine?.name || '';
+  }
+
+  /**
+   * Get selected auxiliary engine type name for display
+   */
+  getSelectedAuxiliaryEngineName(): string {
+    if (!this.selectedAuxiliaryEngineTypeId) return '';
+    const engine = this.auxiliaryEngineTypes.find(e => e.id === this.selectedAuxiliaryEngineTypeId);
+    return engine?.name || '';
+  }
+
+  // TrackBy function for performance
+  trackByEngineType(index: number, engineType: { id: number; name: string }): number {
+    return engineType.id;
+  }
+}

@@ -1,0 +1,42 @@
+# Backend CI Pipeline (azure-pipelines.backend-ci.yml)
+trigger:
+  branches:
+    include:
+      - '*'
+    exclude:
+      - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: UseDotNet@2
+  inputs:
+    packageType: 'sdk'
+    version: '10.x'
+
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet restore'
+  inputs:
+    command: 'restore'
+    projects: 'KSailCalc.sln'
+
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet build (zero warnings enforced)'
+  inputs:
+    command: 'build'
+    projects: 'KSailCalc.sln'
+    arguments: '--no-restore --configuration Release /p:TreatWarningsAsErrors=true'
+
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet test'
+  inputs:
+    command: 'test'
+    projects: 'KSailCalc.sln'
+    arguments: '--no-build --configuration Release'
+
+- script: |
+    docker build -t ksail-backend:ci .
+  displayName: 'Build Backend Docker Image (local config)'
+
+# No push to ACR, no login

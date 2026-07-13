@@ -1,0 +1,39 @@
+# Node modules
+node_modules
+npm-debug.log
+
+# Angular build output
+dist
+.angular
+
+# IDE files
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# Git
+.git
+.gitignore
+
+# Tests
+coverage
+*.spec.ts
+karma.conf.js
+
+# Environment files
+.env
+.env.local
+
+# Documentation
+*.md
+!README.md
+
+# Logs
+*.log
+logs
+
+# OS files
+.DS_Store
+Thumbs.db

@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  backend:
+    image: ksail-backend:latest
+    container_name: ksail-backend
+    restart: always
+    ports:
+      - "5000:80"
+      - "5001:443"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Production"
+      ASPNETCORE_URLS: "http://+:80"
+      ConnectionStrings__DefaultConnection: "Server=host.docker.internal,1433;Database=VoyageEnergyDB;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;Encrypt=False;"
+    networks:
+      - ksail-network
+
+  frontend:
+    image: ksail-frontend:latest
+    container_name: ksail-frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    networks:
+      - ksail-network
+
+networks:
+  ksail-network:
+    driver: bridge

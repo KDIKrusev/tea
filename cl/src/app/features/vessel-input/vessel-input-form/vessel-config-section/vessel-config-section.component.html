@@ -1,0 +1,89 @@
+<!-- Vessel Configuration Group -->
+<div class="input-group" [formGroup]="parentForm">
+  <mat-expansion-panel [expanded]="true" class="config-panel">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <mat-icon class="panel-icon">directions_boat</mat-icon>
+        Vessel Configuration
+      </mat-panel-title>
+      <mat-panel-description>
+        @if (selectionLabel && selectedSpeed != null) {
+          <span class="info-badge">{{ selectionLabel }} &#64; {{ selectedSpeed }} knots</span>
+        } @else {
+          <span class="hint-text">Select vessel type, size and speed</span>
+        }
+        <button mat-icon-button color="warn" type="button" (click)="reloadPage(); $event.stopPropagation()"
+                class="reset-icon-button" title="Reset to Defaults">
+          <mat-icon>refresh</mat-icon>
+        </button>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+  <mat-accordion multi>
+  <!-- Vessel Type, Size & Speed -->
+  <mat-expansion-panel [expanded]="true" class="subsection-panel">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <mat-icon class="subsection-icon">category</mat-icon>
+        Vessel Type & Speed
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <div class="input-grid">
+
+    <!-- Vessel Category Dropdown -->
+    <mat-form-field appearance="fill">
+      <mat-label>Vessel Type</mat-label>
+      <mat-select [value]="selectedCategoryName"
+                  (selectionChange)="onCategoryChange($event.value)"
+                  >
+        <mat-option *ngFor="let category of categories; trackBy: trackByCategory" [value]="category.name">
+          {{ category.name }}
+        </mat-option>
+      </mat-select>
+      <mat-hint>Vessel type</mat-hint>
+    </mat-form-field>
+
+    <!-- Vessel Size - manual input, unit follows the category -->
+    <app-form-input-field
+      [formGroup]="parentForm"
+      controlName="vesselSize"
+      [label]="sizeLabel"
+      [hint]="sizeHint"
+      type="number"
+      step="100"
+      [required]="true">
+    </app-form-input-field>
+
+    <!-- Vessel Speed - manual input, range follows the category -->
+    <app-form-input-field
+      [formGroup]="parentForm"
+      controlName="vesselSpeedKnots"
+      label="Vessel Speed (knots)"
+      [hint]="speedHint"
+      type="number"
+      step="0.1"
+      [required]="true">
+    </app-form-input-field>
+
+    <!-- Sea Margin - Editable global parameter -->
+    <app-form-input-field
+      [formGroup]="parentForm"
+      controlName="seaMargin"
+      label="Sea Margin (%)"
+      hint="Sea margin for propulsion operations"
+      type="number"
+      step="0.1">
+    </app-form-input-field>
+    </div>
+
+    @if (clampedToReferenceRange) {
+      <div class="clamped-hint">
+        <mat-icon class="clamped-hint-icon" inline>info</mat-icon>
+        Size outside reference range — using nearest reference curve.
+      </div>
+    }
+  </mat-expansion-panel>
+  </mat-accordion>
+  </mat-expansion-panel>
+</div>
