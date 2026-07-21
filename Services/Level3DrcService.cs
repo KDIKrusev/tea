@@ -28,7 +28,8 @@ public class Level3DrcService : ILevel3DrcService
     }
 
     public async Task<Level3Result> CalculateDrcSavingsAsync(
-        Level2Result level2Result, CalculatorInput input, double annualHours)
+        Level2Result level2Result, CalculatorInput input, double annualHours,
+        double batteryHotelPeakShavingKw = 0)
     {
         var modeHours = annualHours;
         // DRC applies to ALL generators (both SG and AE) per spec:
@@ -51,8 +52,12 @@ public class Level3DrcService : ILevel3DrcService
             ? input.HotelLoadVariationKw.Value
             : GetVesselVariation(input.VesselTypeName);
 
+        // Increment E (Q4 working rule): the battery already shaves part of the hotel/mission
+        // spikes — DRC only monetizes the residual variation, never the same band twice
+        var batteryShaved = Math.Min(Math.Max(batteryHotelPeakShavingKw, 0), vesselVariation);
+
         // Variation is the total kW swing on the bus — use as-is, not divided per generator
-        var variationKw = vesselVariation;
+        var variationKw = vesselVariation - batteryShaved;
         var reducedVariation = variationKw * DrcReductionFactor;
 
         double totalSavingsGramsPerCycle = 0;
@@ -92,6 +97,7 @@ public class Level3DrcService : ILevel3DrcService
             WithDrcFocGramsPerCycle = totalFocWithDrc,
             VariationPerGeneratorKw = variationKw,
             ReducedVariationPerGeneratorKw = reducedVariation,
+            BatteryShavedVariationKw = batteryShaved,
             ActiveGeneratorCount = activeGeneratorCount,
             AnnualHours = modeHours
         };

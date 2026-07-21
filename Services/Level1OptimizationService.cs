@@ -1,7 +1,9 @@
+using System.Globalization;
 using KSailCalc.Api.Models;
 using KSailCalc.Api.Models.Enums;
 using KSailCalc.Api.Services.Helpers;
 using KSailCalc.Api.Services.Interfaces;
+using Microsoft.Extensions.Options;
 
 namespace KSailCalc.Api.Services;
 
@@ -12,39 +14,83 @@ namespace KSailCalc.Api.Services;
 public class Level1OptimizationService : ILevel1OptimizationService
 {
     private readonly ISfocService _sfocService;
+    private readonly BatterySettings _batterySettings;
 
-    public Level1OptimizationService(ISfocService sfocService)
+    public Level1OptimizationService(ISfocService sfocService, IOptions<BatterySettings> batterySettings)
     {
         _sfocService = sfocService;
+        _batterySettings = batterySettings.Value;
     }
 
     public async Task<Level1Result> FindOptimalCombinationAsync(
-        CalculatorInput input, OperationalMode mode, double? overridePropulsionKw = null, int? baselineIndex = null)
+        CalculatorInput input, OperationalMode mode, double? overridePropulsionKw = null, int? baselineIndex = null,
+        BatteryL1Adjustment? batteryAdjustment = null)
     {
         var (propulsion, hotel) = GetModeLoads(input, mode);
         if (overridePropulsionKw.HasValue)
             propulsion = overridePropulsionKw.Value;
 
+        // Battery: spinning reserve the battery could not cover is carried by the plant (Excel R8)
+        if (batteryAdjustment is not null)
+        {
+            propulsion += batteryAdjustment.PropulsionReserveKw;
+            hotel += batteryAdjustment.HotelReserveKw;
+        }
+
         var allCombinations = GenerateCombinations(input);
         var validCombinations = new List<EngineCombination>();
+        // Diagnostics: why combinations were rejected, so an empty result can explain itself (QA-C-1)
+        var rejections = new RejectionTally();
 
         foreach (var combo in allCombinations)
         {
             if (!IsValid(combo, input, mode, propulsion, hotel))
+            {
+                rejections.Structural++;
                 continue;
+            }
 
             DistributeLoad(combo, input, propulsion, hotel);
 
+            // PTI propulsion assist (Increment C, opt-in via MaxPtiPerEngineKw > 0):
+            // an ME deficit may be covered by the shaft motor with power from the aux side
+            if (!TryApplyPtiAssist(combo, input))
+            {
+                rejections.PtiAssist++;
+                continue; // deficit exceeds PTI capacity or aux side cannot carry the PTI load
+            }
+
             // AE load must not exceed 90% — otherwise L2 cannot find a valid distribution
             if (combo.ActiveAeCount > 0 && combo.AeLoadPercent > 0.90 + 0.001)
+            {
+                rejections.AuxOverloaded++;
                 continue;
+            }
 
-            // Power sufficiency: ME must handle its assigned load
+            // Power sufficiency: ME must handle its assigned load (post-assist)
             var meCapacity = combo.ActiveMeCount * input.MeCapacityPerEngine;
-            if (combo.ActiveMeCount > 0 && combo.MePowerKw > meCapacity)
+            if (combo.ActiveMeCount > 0 && combo.MePowerKw > meCapacity + 0.001)
+            {
+                rejections.InsufficientPower++;
                 continue;
+            }
             if (combo.ActiveMeCount == 0 && combo.MePowerKw > 0)
+            {
+                rejections.Structural++;
                 continue;
+            }
+
+            // Battery discharge gate (Excel "Insufficient PTI"): the battery's propulsion-side
+            // peak-shaving band must fit through the remaining PTI capacity. Applies only when
+            // PTI is modelled — with MaxPti = 0 the bus-level simplification stands (ADR-5).
+            if (input.MaxPtiPerEngineKw > 0
+                && batteryAdjustment is { PropulsionPeakShavingKw: > 0 }
+                && combo.AvailablePtiKw + 0.001 < batteryAdjustment.PropulsionPeakShavingKw)
+            {
+                rejections.BatteryPtiGate++;
+                rejections.BestAvailablePtiKw = Math.Max(rejections.BestAvailablePtiKw, combo.AvailablePtiKw);
+                continue;
+            }
 
             combo.FocTonPerHour = await CalculateFocAsync(combo, input);
             validCombinations.Add(combo);
@@ -56,12 +102,17 @@ public class Level1OptimizationService : ILevel1OptimizationService
             .ToList();
 
         if (sorted.Count == 0)
-            throw new InvalidOperationException($"No valid engine combinations found for {mode} mode");
+            throw new NoValidCombinationException(
+                mode, rejections.ExplainFor(mode, input, batteryAdjustment));
 
         var optimal = sorted[0];
         // Default baseline = last (highest FOC) combination.
+        // With an active battery: third-highest (decision D1 — a battery vessel already operates
+        // better than the theoretical worst case), clamped for small lists.
         // Can be overridden by baselineIndex parameter for user-selected baseline.
-        int defaultBaselineIndex = sorted.Count - 1;
+        int defaultBaselineIndex = batteryAdjustment is not null
+            ? Math.Max(0, sorted.Count - 3)
+            : sorted.Count - 1;
         int effectiveBaselineIndex = baselineIndex.HasValue && baselineIndex.Value >= 0 && baselineIndex.Value < sorted.Count
             ? baselineIndex.Value
             : defaultBaselineIndex;
@@ -202,6 +253,95 @@ public class Level1OptimizationService : ILevel1OptimizationService
         combo.AePowerKw = aePower;
         combo.MeLoadPercent = CalculationHelpers.LoadPercent(mePower, meCapacity);
         combo.AeLoadPercent = CalculationHelpers.LoadPercent(aePower, aeCapacity);
+    }
+
+    #endregion
+
+    #region Diagnostics (QA-C-1)
+
+    /// <summary>
+    /// Counts why combinations were rejected and turns that into one actionable sentence.
+    /// Ordered by how likely the cause is something the user just typed.
+    /// </summary>
+    private sealed class RejectionTally
+    {
+        public int Structural;         // ME=0 in Transit, hotel not coverable by SG+AE, idle AE…
+        public int PtiAssist;          // ME deficit beyond PTI capacity, or aux cannot feed the PTI motor
+        public int AuxOverloaded;      // AE above 90% load
+        public int InsufficientPower;  // ME cannot carry its assigned load
+        public int BatteryPtiGate;     // battery's propulsion band does not fit through PTI
+        public double BestAvailablePtiKw;
+
+        public string ExplainFor(OperationalMode mode, CalculatorInput input, BatteryL1Adjustment? battery)
+        {
+            if (BatteryPtiGate > 0 && battery is not null)
+            {
+                // Invariant culture: the UI is English, the server may run under any locale
+                var required = battery.PropulsionPeakShavingKw.ToString("0.#", CultureInfo.InvariantCulture);
+                var available = BestAvailablePtiKw.ToString("0.#", CultureInfo.InvariantCulture);
+                var configured = input.MaxPtiPerEngineKw.ToString("0.#", CultureInfo.InvariantCulture);
+                return $"the battery needs {required} kW of PTI capacity to shave propulsion peaks in "
+                     + $"{mode} mode, but only {available} kW is available. Increase the PTI capacity "
+                     + $"per main engine (currently {configured} kW), reduce the battery "
+                     + $"power, or clear the PTI field to model the battery at switchboard level only.";
+            }
+
+            if (PtiAssist > 0 || InsufficientPower > 0)
+                return $"the installed engines cannot carry the {mode} demand. Increase engine capacity or "
+                     + "engine count, or reduce the propulsion/hotel power for this mode.";
+
+            if (AuxOverloaded > 0)
+                return $"the auxiliary engines would run above 90% load in {mode} mode. Increase auxiliary "
+                     + "engine capacity or count, or reduce the hotel/mission power.";
+
+            return $"no engine configuration can cover the {mode} demand. Check the engine capacities, "
+                 + "engine counts and the power demands for this mode.";
+        }
+    }
+
+    #endregion
+
+    #region PTI (Increment C)
+
+    /// <summary>
+    /// When the assigned ME power exceeds ME capacity and PTI is configured, cover the deficit
+    /// with shaft motors: PTI power moves to the aux side grossed up by the transmission loss
+    /// (Excel I4, default 5%). Returns false when the combination remains infeasible.
+    /// PTI capacity spans ALL INSTALLED machines (Increment G, decision D5 — union model):
+    /// the Excel allows PTI only on idle engines' machines (N-column: electric drive of the
+    /// non-running shaft, e.g. row 59), while running-shaft boost is real marine practice —
+    /// the union covers both physics. Direction exclusivity stays relaxed in aggregate (D-C2).
+    /// </summary>
+    private bool TryApplyPtiAssist(EngineCombination combo, CalculatorInput input)
+    {
+        var ptiCapacity = input.MeCount * input.MaxPtiPerEngineKw;
+        combo.AvailablePtiKw = ptiCapacity;
+
+        if (combo.ActiveMeCount == 0 || ptiCapacity <= 0)
+            return true; // PTI not modelled / no engaged shaft — existing checks decide
+
+        var meCapacity = combo.ActiveMeCount * input.MeCapacityPerEngine;
+        var deficit = combo.MePowerKw - meCapacity;
+        if (deficit <= 0.001)
+            return true; // ME carries everything; full PTI capacity stays available
+
+        if (deficit > ptiCapacity + 0.001)
+            return false; // "Insufficient pwr" even with full PTI
+
+        // Move the deficit to the aux side with transmission losses
+        var ptiAuxLoad = deficit * (1 + _batterySettings.PtiLossFactor);
+        var aeCapacity = combo.ActiveAeCount * input.AeCapacityPerEngine;
+        var newAePower = combo.AePowerKw + ptiAuxLoad;
+        if (combo.ActiveAeCount == 0 || newAePower > aeCapacity + 0.001)
+            return false; // no aux headroom to feed the PTI motor
+
+        combo.PtiPowerKw = deficit;
+        combo.AvailablePtiKw = ptiCapacity - deficit;
+        combo.MePowerKw = meCapacity;
+        combo.AePowerKw = newAePower;
+        combo.MeLoadPercent = CalculationHelpers.LoadPercent(combo.MePowerKw, meCapacity);
+        combo.AeLoadPercent = CalculationHelpers.LoadPercent(combo.AePowerKw, aeCapacity);
+        return true;
     }
 
     #endregion

@@ -1,0 +1,71 @@
+schema: 1
+story: 'battery.d'
+story_title: 'Battery Increment D — Client UI (Battery Section, Contribution Panel, Profile v3)'
+gate: PASS
+status_reason: >-
+  All 6 ACs met; two defects found and fixed during review (reactive-form [disabled] misuse on the
+  DP checkbox; stale DP availability after profile restore). ng build clean after fixes. No client
+  test harness exists project-wide — recorded as technical debt, not a story regression.
+reviewer: 'Quinn (Test Architect)'
+updated: '2026-07-13T00:00:00Z'
+
+top_issues:
+  - id: QA-D-1
+    severity: medium
+    status: fixed_in_review
+    finding: >-
+      [disabled] attribute binding on a reactive formControlName checkbox is ignored by Angular
+      (runtime warning; DP relevant-mode checkbox would not reliably disable). Fixed via
+      control.enable()/disable({emitEvent:false}); tooltip moved to a wrapper span.
+    suggested_owner: dev
+    refs:
+      - 'cl/src/app/features/vessel-input/vessel-input-form/battery-config-section/battery-config-section.component.ts'
+      - 'cl/src/app/features/vessel-input/vessel-input-form/battery-config-section/battery-config-section.component.html'
+  - id: QA-D-2
+    severity: low
+    status: fixed_in_review
+    finding: >-
+      Profile restore patches with emitEvent:false, so the battery section's dpHours subscription
+      never fired and DP checkbox availability stayed stale. Fixed with refreshDpAvailability()
+      invoked from the form via ViewChild after applyProfileInputValues.
+    suggested_owner: dev
+    refs:
+      - 'cl/src/app/features/vessel-input/vessel-input-form/vessel-input-form.component.ts'
+
+waiver: { active: false }
+
+quality_score: 85
+expires: '2026-07-27T00:00:00Z'
+
+evidence:
+  tests_reviewed: 0
+  risks_identified: 3
+  trace:
+    ac_covered: [1, 2, 3, 4, 5, 6]
+    ac_gaps: []
+
+nfr_validation:
+  security:
+    status: PASS
+    notes: 'No new endpoints; imported profiles pass structural battery validation.'
+  performance:
+    status: PASS
+    notes: 'One OnPush section + conditional results panel; no measurable impact.'
+  reliability:
+    status: PASS
+    notes: 'battery:null payload rule centralized; DP gating now control-driven; v2 profiles load as battery-disabled.'
+  maintainability:
+    status: PASS
+    notes: 'Mirrors sibling section idiom. Project-wide absence of client specs recorded as debt (ng-mocks installed, zero spec files).'
+
+recommendations:
+  immediate:
+    - action: 'Manual smoke: restart API (running process predates Increments A/B), ng serve, verify Functions values + Battery Contribution panel on a Transit battery scenario'
+      refs: ['cl/src/app/features/calculator-page/calculator-page.component.html']
+  future:
+    - action: 'Introduce first client unit tests (buildBatteryInput payload rule; profile v2→v3 load) using the installed ng-mocks harness'
+      refs: ['cl/src/app/features/vessel-input/vessel-input-form/vessel-input-form.component.ts', 'cl/src/app/core/profile.service.ts']
+    - action: 'Battery block in the client report (ReportService) once the feature stabilizes'
+      refs: ['cl/src/app/features/report/report.service.ts']
+    - action: 'Increment C: add MaxPtiPerEngineKw input with SG-capacity prefill per ADR-5'
+      refs: ['cl/src/app/features/vessel-input/vessel-input-form/battery-config-section/battery-config-section.component.ts']

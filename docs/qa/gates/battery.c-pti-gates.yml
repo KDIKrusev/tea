@@ -1,0 +1,60 @@
+schema: 1
+story: 'battery.c'
+story_title: 'Battery Increment C — PTI Propulsion Assist & Battery Feasibility Gate'
+gate: PASS
+status_reason: >-
+  All 7 ACs verified (165/165 green). No defects; one trace gap (allocation→gate wiring) closed
+  with two review-added e2e tests. Opt-in semantics (MaxPti=0 ⇒ pre-PTI behaviour) structurally
+  guarantee zero regression. One low-severity UX observation (500 on user-triggerable infeasible
+  PTI/battery input) handed to PO as follow-up candidate.
+reviewer: 'Quinn (Test Architect)'
+updated: '2026-07-13T00:00:00Z'
+
+top_issues:
+  - id: QA-C-1
+    severity: low
+    status: open
+    finding: >-
+      Small PTI capacity + large battery band (or PTI aux overload) is easily user-enterable and
+      surfaces as InvalidOperationException → HTTP 500 → generic client error. Recommend a
+      structured 400 with an actionable message in a follow-up story.
+    suggested_owner: po
+    refs:
+      - 'Services/Level1OptimizationService.cs'
+      - 'Controllers/CalculatorController.cs'
+
+waiver: { active: false }
+
+quality_score: 90
+expires: '2026-07-27T00:00:00Z'
+
+evidence:
+  tests_reviewed: 11
+  risks_identified: 3
+  trace:
+    ac_covered: [1, 2, 3, 4, 5, 6, 7]
+    ac_gaps: []
+
+nfr_validation:
+  security:
+    status: PASS
+    notes: 'One validated numeric input; no new I/O or endpoints.'
+  performance:
+    status: PASS
+    notes: 'O(1) per combination; suite 170 ms unchanged.'
+  reliability:
+    status: PASS
+    notes: 'Opt-in gating; FP tolerances consistent; infeasible plants throw as per existing pattern (see QA-C-1 for UX).'
+  maintainability:
+    status: PASS
+    notes: 'Assist isolated in TryApplyPtiAssist with Excel cross-references; deviations D-C1/D-C2 documented in story and code.'
+
+recommendations:
+  immediate: []
+  future:
+    - action: 'Follow-up story: structured 400 with actionable reason when no valid combinations exist (esp. "Insufficient PTI for battery peak shaving")'
+      refs: ['Controllers/CalculatorController.cs', 'Services/Level1OptimizationService.cs']
+    - action: 'Per-machine PTI/PTO model to lift deviations D-C1 (charge gate) and D-C2 (direction exclusivity)'
+      refs: ['Services/Level1OptimizationService.cs']
+    - action: 'Revisit DP battery band vs PTI when the DP redundancy input is added'
+      refs: ['Services/BatteryAllocationService.cs']

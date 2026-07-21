@@ -47,9 +47,11 @@
           (profileLoadRequested)="onProfileLoadRequested($event)">
         </app-profile-manager>
 
-        <app-vessel-input-form 
+        <app-vessel-input-form
         [isCalculating]="isCalculating"
         [sailContribution]="sailContribution"
+        [batteryDetails]="batteryDetails"
+        [hasResults]="hasResults"
         (formChanged)="onFormChange($event)">
       </app-vessel-input-form>
       </div>
@@ -122,10 +124,35 @@
               [baseline]="baselineData!"
               [baselineME]="allVariantsResult?.baselineME || 0"
               [baselineAE]="allVariantsResult?.baselineAE || 0"
+              [baselineMeCO2]="allVariantsResult?.baselineMeCO2 || 0"
+              [baselineAeCO2]="allVariantsResult?.baselineAeCO2 || 0"
               [currentInput]="currentInput!"
               [level1Details]="allVariantsResult?.level1Details"
               (baselineIndexChanged)="onBaselineIndexChanged($event)">
             </app-baseline-panel>
+            </mat-expansion-panel>
+
+            <!-- Battery Contribution Panel (only when a battery is active) -->
+            <mat-expansion-panel *ngIf="batteryDetails" [expanded]="false" class="battery-panel">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <mat-icon>battery_charging_full</mat-icon>
+                  Battery Contribution
+                  <mat-icon
+                    class="info-icon"
+                    matTooltip="The battery power budget is allocated over the loads of the relevant modes (priority order per the reference model). Covered variation is shaved off the peaks; uncovered variation is carried by the running generators as spinning reserve and is included in the plant demand."
+                    matTooltipPosition="above">
+                    info
+                  </mat-icon>
+                </mat-panel-title>
+                <mat-panel-description>
+                  Spinning Reserve: {{ batteryDetails!.spinningReserveKw | number:'1.0-1' }} kW |
+                  Peak Shaving: {{ batteryDetails!.peakShavingKw | number:'1.0-1' }} kW
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+
+              <app-battery-contribution-panel [batteryDetails]="batteryDetails!">
+              </app-battery-contribution-panel>
             </mat-expansion-panel>
 
             <!-- Report + Expand/Collapse All Buttons -->

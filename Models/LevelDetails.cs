@@ -58,7 +58,8 @@ public class Level1Details
             ActiveAeCount = c.ActiveAeCount,
             FocTonPerHour = c.FocTonPerHour,
             MeLoadPercent = c.MeLoadPercent * 100,
-            AeLoadPercent = c.AeLoadPercent * 100
+            AeLoadPercent = c.AeLoadPercent * 100,
+            PtiKw = c.PtiPowerKw > 0 ? c.PtiPowerKw : null
         }).ToList()
     };
 }
@@ -75,6 +76,9 @@ public class ValidCombinationDto
     public double FocTonPerHour { get; set; }
     public double MeLoadPercent { get; set; }
     public double AeLoadPercent { get; set; }
+
+    /// <summary>PTI propulsion assist for this combination [kW]; null when no PTI used.</summary>
+    public double? PtiKw { get; set; }
 }
 
 /// <summary>
@@ -102,6 +106,10 @@ public class Level3Details
     public double DrcSavingsTonPerYear { get; set; }
     public double VariationPerGeneratorKw { get; set; }
     public double ReducedVariationPerGeneratorKw { get; set; }
+
+    /// <summary>Hotel/mission variation already shaved by the battery (excluded from DRC) [kW].</summary>
+    public double BatteryShavedVariationKw { get; set; }
+
     public int ActiveGeneratorCount { get; set; }
 
     public static Level3Details FromResult(Level3Result result) => new()
@@ -109,6 +117,7 @@ public class Level3Details
         DrcSavingsTonPerYear = result.DrcSavingsTonPerYear,
         VariationPerGeneratorKw = result.VariationPerGeneratorKw,
         ReducedVariationPerGeneratorKw = result.ReducedVariationPerGeneratorKw,
+        BatteryShavedVariationKw = result.BatteryShavedVariationKw,
         ActiveGeneratorCount = result.ActiveGeneratorCount
     };
 }

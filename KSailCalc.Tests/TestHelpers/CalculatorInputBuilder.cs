@@ -1,4 +1,5 @@
 using KSailCalc.Api.Models;
+using KSailCalc.Api.Models.Enums;
 
 namespace KSailCalc.Tests.TestHelpers;
 
@@ -51,6 +52,17 @@ public class CalculatorInputBuilder
         _input.DpEnabled = true; _input.DPHours = hours; _input.DPHotelPowerKW = hotel; _input.RequiredDPPowerKW = thrust; return this;
     }
     public CalculatorInputBuilder WithoutDPMode() { _input.DpEnabled = false; _input.DPHours = null; _input.DPHotelPowerKW = null; _input.RequiredDPPowerKW = null; return this; }
+
+    public CalculatorInputBuilder WithBattery(double powerKw, double capacityKwh, params OperationalMode[] modes)
+    {
+        _input.Battery = new BatteryConfigurationInput
+        {
+            PowerKw = powerKw,
+            CapacityKwh = capacityKwh,
+            RelevantModes = modes.ToList()
+        };
+        return this;
+    }
 
     public CalculatorInputBuilder WithSailEnabled(double trueWindSpeed, double windAngle)
     {

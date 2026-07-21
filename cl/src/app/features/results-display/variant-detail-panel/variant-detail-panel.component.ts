@@ -4,7 +4,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
 import { VariantResult, CalculatorInput, Level1Details, SailContributionResult } from '../../../calculations/calculator.types';
-import { CO2_EMISSION_FACTOR } from '../../../shared/constants';
 
 @Component({
   selector: 'app-variant-detail-panel',
@@ -21,7 +20,6 @@ export class VariantDetailPanelComponent {
   @Input() level1Details?: Level1Details;
   @Input() sailContribution?: SailContributionResult;
   @Input() isRecommended: boolean = false;
-  readonly co2Factor = CO2_EMISSION_FACTOR;
 
   /**
    * Get ME load percentage for this variant from backend calculation

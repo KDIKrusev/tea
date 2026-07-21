@@ -27,6 +27,12 @@ public class VariantResult
     public double OptimizedME { get; set; }
     public double OptimizedAE { get; set; }
 
+    /// <summary>Optimized ME CO2 (tons/yr) using the main fuel's factor — do NOT recompute client-side.</summary>
+    public double OptimizedMeCO2 { get; set; }
+
+    /// <summary>Optimized AE CO2 (tons/yr) using the aux fuel's factor — do NOT recompute client-side.</summary>
+    public double OptimizedAeCO2 { get; set; }
+
     // Load % for this variant
     public double MainEngineLoadPercent { get; set; }
     public double AuxiliaryEngineLoadPercent { get; set; }

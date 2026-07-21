@@ -9,7 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
-import { CalculatorInput } from '../../../calculations/calculator.types';
+import { CalculatorInput, BatteryConfigurationInput, BatteryRelevantMode, BatteryDetails } from '../../../calculations/calculator.types';
 import { VesselTypeWithEnginesResponse } from '../../../core/vessel-configuration.types';
 import { VesselOperationalProfile } from '../../../core/operational-profile.types';
 import { debounceTime, Subject, takeUntil } from 'rxjs';
@@ -19,10 +19,11 @@ import { EngineConfigSectionComponent } from './engine-config-section/engine-con
 import { AdditionalConfigSectionComponent } from './additional-config-section/additional-config-section.component';
 import { OperationalModesSectionComponent } from './operational-modes-section/operational-modes-section.component';
 import { WeatherInputSectionComponent } from './weather-input-section/weather-input-section.component';
+import { BatteryConfigSectionComponent } from './battery-config-section/battery-config-section.component';
 import { FormEditTrackerService } from './form-edit-tracker.service';
 import { SailContributionResult } from '../../../calculations/calculator.types';
 import { ProfileService } from '../../../core/profile.service';
-import { SavedProfile } from '../../../core/profile.types';
+import { SavedProfile, PROFILE_SCHEMA_VERSION } from '../../../core/profile.types';
 import { AppDataService } from '../../../core/app-data.service';
 
 @Component({
@@ -43,7 +44,8 @@ import { AppDataService } from '../../../core/app-data.service';
     EngineConfigSectionComponent,
     AdditionalConfigSectionComponent,
     OperationalModesSectionComponent,
-    WeatherInputSectionComponent
+    WeatherInputSectionComponent,
+    BatteryConfigSectionComponent
   ],
   templateUrl: './vessel-input-form.component.html',
   styleUrl: './vessel-input-form.component.css'
@@ -52,9 +54,12 @@ export class VesselInputFormComponent implements OnInit, OnDestroy, AfterViewIni
   @Output() formChanged = new EventEmitter<CalculatorInput>();
   @Input() isCalculating = false;
   @Input() sailContribution: SailContributionResult | null = null;
+  @Input() batteryDetails: BatteryDetails | null = null;
+  @Input() hasResults = false;
   @ViewChild(EngineConfigSectionComponent) engineConfigSection!: EngineConfigSectionComponent;
   @ViewChild(OperationalModesSectionComponent) operationalModesSection!: OperationalModesSectionComponent;
   @ViewChild(VesselConfigSectionComponent) vesselConfigSection!: VesselConfigSectionComponent;
+  @ViewChild(BatteryConfigSectionComponent) batteryConfigSection?: BatteryConfigSectionComponent;
   vesselForm!: FormGroup;
   vesselTypeName: string = '';
   private destroy$ = new Subject<void>();
@@ -219,6 +224,10 @@ export class VesselInputFormComponent implements OnInit, OnDestroy, AfterViewIni
       auxEngineTypeId: Number(formValue.auxEngineTypeId),
       sailInstalled: formValue.sailInstalled === 'Yes',
       batteryCapacity: Number(formValue.batteryCapacity),
+      battery: this.buildBatteryInput(formValue),
+      maxPtiPerEngineKw: formValue.batteryMaxPtiKw ? Number(formValue.batteryMaxPtiKw) : undefined,
+      dpRedundancyRequirementKw: formValue.batteryDpRedundancyKw ? Number(formValue.batteryDpRedundancyKw) : undefined,
+      missionHeavyConsumerMaxKw: formValue.batteryMissionMaxKw ? Number(formValue.batteryMissionMaxKw) : undefined,
       fuelPrice: Number(formValue.fuelPrice),
       mainFuelType: formValue.mainFuelType || undefined,
       auxFuelType: formValue.auxFuelType || undefined,
@@ -253,6 +262,27 @@ export class VesselInputFormComponent implements OnInit, OnDestroy, AfterViewIni
     };
   }
 
+  /**
+   * Battery payload: null unless enabled with positive power — keeps the request
+   * identical to the pre-battery contract for existing users (zero-regression, AC1).
+   */
+  private buildBatteryInput(formValue: ReturnType<typeof this.vesselForm.getRawValue>): BatteryConfigurationInput | null {
+    if (!formValue.batteryEnabled) return null;
+    const powerKw = Number(formValue.batteryPowerKw) || 0;
+    if (powerKw <= 0) return null;
+
+    const relevantModes: BatteryRelevantMode[] = [];
+    if (formValue.batteryModeTransit) relevantModes.push('Transit');
+    if (formValue.batteryModeDp) relevantModes.push('DP');
+    if (formValue.batteryModePort) relevantModes.push('Port');
+
+    return {
+      powerKw,
+      capacityKwh: Number(formValue.batteryCapacityKwh) || 0,
+      relevantModes
+    };
+  }
+
   private initializeForm(): void {
     this.vesselForm = this.fb.group({
       // Power and Load
@@ -278,6 +308,19 @@ export class VesselInputFormComponent implements OnInit, OnDestroy, AfterViewIni
       // Additional Systems
       sailInstalled: ['No'],
       batteryCapacity: [DEFAULT_VALUES.BATTERY_CAPACITY, [Validators.min(VALIDATION_LIMITS.POWER.MIN)]],
+
+      // Battery configuration (Increment D — sketch: Capacity/Power + Relevant Modes)
+      batteryEnabled: [false],
+      batteryPowerKw: [null, [Validators.min(0)]],
+      batteryCapacityKwh: [null, [Validators.min(0)]],
+      batteryModeTransit: [false],
+      batteryModeDp: [false],
+      batteryModePort: [false],
+      // PTI capacity per ME (Increment C — 0/empty = PTI not modelled)
+      batteryMaxPtiKw: [null, [Validators.min(0)]],
+      // Excel load inputs (Increment F): DP redundancy (RESERVE) + mission heavy-consumer max
+      batteryDpRedundancyKw: [null, [Validators.min(0)]],
+      batteryMissionMaxKw: [null, [Validators.min(0)]],
       
       // Financial
       fuelPrice: [DEFAULT_VALUES.FUEL_PRICE, [Validators.min(VALIDATION_LIMITS.FUEL_PRICE.MIN)]],
@@ -366,7 +409,7 @@ export class VesselInputFormComponent implements OnInit, OnDestroy, AfterViewIni
       vesselSize: draft.vesselSize,
       vesselSpeed: draft.vesselSpeed,
       input: draft.input,
-      version: 2
+      version: PROFILE_SCHEMA_VERSION // v2 drafts still load fine (battery absent ⇒ disabled)
     };
 
     this.loadProfile(draftProfile);
@@ -533,6 +576,15 @@ export class VesselInputFormComponent implements OnInit, OnDestroy, AfterViewIni
       auxEngineTypeId: pending.auxEngineTypeId,
       sailInstalled: pending.sailInstalled ? 'Yes' : 'No',
       batteryCapacity: pending.batteryCapacity,
+      batteryEnabled: !!pending.battery && pending.battery.powerKw > 0,
+      batteryPowerKw: pending.battery?.powerKw ?? null,
+      batteryCapacityKwh: pending.battery?.capacityKwh ?? null,
+      batteryModeTransit: pending.battery?.relevantModes?.includes('Transit') ?? false,
+      batteryModeDp: pending.battery?.relevantModes?.includes('DP') ?? false,
+      batteryModePort: pending.battery?.relevantModes?.includes('Port') ?? false,
+      batteryMaxPtiKw: pending.maxPtiPerEngineKw ?? null,
+      batteryDpRedundancyKw: pending.dpRedundancyRequirementKw ?? null,
+      batteryMissionMaxKw: pending.missionHeavyConsumerMaxKw ?? null,
       fuelPrice: pending.fuelPrice,
       mainFuelType: pending.mainFuelType ?? 'MGO',
       auxFuelType: pending.auxFuelType ?? 'MGO',
@@ -568,6 +620,9 @@ export class VesselInputFormComponent implements OnInit, OnDestroy, AfterViewIni
       const control = this.vesselForm.get(key);
       if (control) this.editTracker.updateOriginalValue(key, control.value);
     });
+    // patchValue above used emitEvent:false — the battery section's dpHours subscription
+    // did not fire, so re-evaluate DP checkbox availability explicitly
+    this.batteryConfigSection?.refreshDpAvailability();
     // emitEvent:false suppresses setupAutoCalculation — trigger calculation explicitly
     this.updateWeightedAverageHotelLoad();
     if (this.vesselForm.valid && this.componentsLoaded) {

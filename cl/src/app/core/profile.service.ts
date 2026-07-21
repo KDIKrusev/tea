@@ -222,7 +222,8 @@ export class ProfileService {
       'transitHours', 'transitHotelPowerKW', 'dpHours', 'dpHotelPowerKW', 'requiredDPPowerKW',
       'portHotelPowerKW', 'portHours', 'anchorHotelPowerKW', 'anchorHours',
       'maneuveringPropulsionPowerKW', 'maneuveringHotelPowerKW', 'maneuveringHours',
-      'hotelLoadVariationKw', 'trueWindSpeed', 'windAngleRelVessel', 'baselineIndex'
+      'hotelLoadVariationKw', 'trueWindSpeed', 'windAngleRelVessel', 'baselineIndex',
+      'maxPtiPerEngineKw', 'dpRedundancyRequirementKw', 'missionHeavyConsumerMaxKw'
     ];
 
     for (const key of optionalNumbers) {
@@ -251,7 +252,21 @@ export class ProfileService {
       return false;
     }
 
+    // v3: optional battery configuration (absent in v2 profiles ⇒ battery disabled)
+    if (i['battery'] !== undefined && i['battery'] !== null && !this.isValidBattery(i['battery'])) {
+      return false;
+    }
+
     return true;
+  }
+
+  private isValidBattery(battery: unknown): boolean {
+    if (typeof battery !== 'object' || battery === null) return false;
+    const b = battery as Record<string, unknown>;
+    if (typeof b['capacityKwh'] !== 'number' || !Number.isFinite(b['capacityKwh'])) return false;
+    if (typeof b['powerKw'] !== 'number' || !Number.isFinite(b['powerKw'])) return false;
+    if (!Array.isArray(b['relevantModes'])) return false;
+    return (b['relevantModes'] as unknown[]).every(m => m === 'Transit' || m === 'DP' || m === 'Port');
   }
 
   private isValidIsoDate(value: string): boolean {

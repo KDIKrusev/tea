@@ -1,0 +1,66 @@
+<div class="battery-summary-grid">
+  <div class="battery-summary-item">
+    <span class="label">Battery Power</span>
+    <span class="value">{{ batteryDetails.powerKw | number:'1.0-0' }} kW</span>
+  </div>
+  <div class="battery-summary-item">
+    <span class="label">Battery Capacity</span>
+    <span class="value">{{ batteryDetails.capacityKwh | number:'1.0-0' }} kWh</span>
+  </div>
+  <div class="battery-summary-item">
+    <span class="label">Spinning Reserve (uncovered, carried by gensets)</span>
+    <span class="value">{{ batteryDetails.spinningReserveKw | number:'1.0-1' }} kW</span>
+  </div>
+  <div class="battery-summary-item">
+    <span class="label">Peak Shaving (covered by battery)</span>
+    <span class="value">{{ batteryDetails.peakShavingKw | number:'1.0-1' }} kW</span>
+  </div>
+  <div class="battery-summary-item highlight">
+    <span class="label">Battery Benefit (vs no battery)</span>
+    <span class="value">
+      {{ batteryDetails.benefitFocTonPerYear | number:'1.0-1' }} ton/yr ·
+      {{ batteryDetails.benefitCostPerYear | number:'1.0-0' }} $/yr
+    </span>
+  </div>
+</div>
+
+<div *ngFor="let alloc of batteryDetails.modeAllocations" class="battery-mode-block">
+  <h4 class="battery-mode-title">{{ alloc.mode }} mode allocation</h4>
+  <div class="tbl-scroll">
+    <table class="battery-alloc-table">
+      <thead>
+        <tr>
+          <th>Load</th>
+          <th>Function</th>
+          <th>Variation (kW)</th>
+          <th>Battery Used (kW)</th>
+          <th>Covered ± (kW)</th>
+          <th>Uncovered Reserve (kW)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let load of alloc.loads">
+          <td>{{ load.load }}</td>
+          <td>{{ functionLabel(load.function) }}</td>
+          <td>{{ load.variationKw | number:'1.0-1' }}</td>
+          <td>{{ load.batteryUsedKw | number:'1.0-1' }}</td>
+          <td>{{ load.coveredBandKw | number:'1.0-1' }}</td>
+          <td>{{ load.uncoveredReserveKw | number:'1.0-1' }}</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3">Totals</td>
+          <td>{{ alloc.committedBatteryKw | number:'1.0-1' }}</td>
+          <td>{{ alloc.peakShavingBandKw | number:'1.0-1' }}</td>
+          <td>{{ alloc.additionalSpinningReserveKw | number:'1.0-1' }}</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>
+
+<p class="battery-note">
+  Default baseline with battery: 3rd-highest consumption configuration (you can still pick any row
+  in the Baseline panel). Plant demand above includes the uncovered spinning reserve.
+</p>

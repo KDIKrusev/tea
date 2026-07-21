@@ -1,0 +1,63 @@
+schema: 1
+story: 'battery.a'
+story_title: 'Battery Increment A — Battery Allocation Engine (pure logic)'
+gate: PASS
+status_reason: >-
+  All 6 ACs verified with independent test run (134/134 green). One latent high-severity defect
+  (ConfigurationBinder list-append duplicating priority rows) was found by a review-added
+  config-binding test and fixed during review; it was unreachable in this increment.
+reviewer: 'Quinn (Test Architect)'
+updated: '2026-07-13T00:00:00Z'
+
+top_issues:
+  - id: QA-A-1
+    severity: high
+    status: fixed_in_review
+    finding: >-
+      BatterySettings.LoadPriorities had code defaults; ConfigurationBinder.Bind appends JSON list
+      items to pre-populated lists, so production IOptions delivered 10 rows (every load allocated
+      twice). Fixed: empty default + CreateDefaultLoadPriorities() fallback in the service;
+      regression test pins exactly 5 bound rows.
+    suggested_owner: dev
+    refs:
+      - 'Models/BatterySettings.cs'
+      - 'Services/BatteryAllocationService.cs'
+      - 'KSailCalc.Tests/Services/BatteryAllocationServiceTests.cs'
+
+waiver: { active: false }
+
+quality_score: 90
+expires: '2026-07-27T00:00:00Z'
+
+evidence:
+  tests_reviewed: 10
+  risks_identified: 4
+  trace:
+    ac_covered: [1, 2, 3, 4, 5, 6]
+    ac_gaps: []
+
+nfr_validation:
+  security:
+    status: PASS
+    notes: 'Pure computation; no I/O, no endpoints, no auth surface in this increment.'
+  performance:
+    status: PASS
+    notes: 'O(5) cascade per mode; priorities resolved once per service instance.'
+  reliability:
+    status: PASS
+    notes: 'Null/inactive battery, negative inputs and budget exhaustion covered by tests; no exceptions expected.'
+  maintainability:
+    status: PASS
+    notes: 'Excel-formula mapping documented per property (H/I/J/L); config-driven factors; misleading test name fixed.'
+
+recommendations:
+  immediate: []
+  future:
+    - action: 'Log effective BatterySettings at startup when wiring the service (Increment B) — architecture §6 mitigation, reinforced by the binding gotcha'
+      refs: ['Program.cs']
+    - action: 'Decide JSON enum representation for BatteryConfigurationInput.RelevantModes before exposing the API contract (current global options serialize enums as numbers)'
+      refs: ['Models/BatteryConfigurationInput.cs', 'Program.cs']
+    - action: 'Pass sail-adjusted transit propulsion into the allocation when wiring (mirror overridePropulsionKw), otherwise battery allocates against pre-sail demand'
+      refs: ['Services/BatteryAllocationService.cs', 'Services/CalculatorService.cs']
+    - action: 'Consider Singleton lifetime for IBatteryAllocationService (stateless)'
+      refs: ['Program.cs']

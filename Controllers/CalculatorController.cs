@@ -57,6 +57,17 @@ public class CalculatorController : ControllerBase
 
             return Ok(result);
         }
+        catch (NoValidCombinationException ex)
+        {
+            // Infeasible plant configuration is a user-input problem, not a server fault:
+            // answer 400 in the same shape as validation so the client shows the reason (QA-C-1).
+            _logger.LogWarning(ex, "No valid engine combination for {Mode} mode", ex.Mode);
+            return BadRequest(new ValidationResult
+            {
+                Valid = false,
+                Errors = { $"No feasible engine configuration: {ex.UserMessage}" }
+            });
+        }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error calculating iEMS savings for all variants");

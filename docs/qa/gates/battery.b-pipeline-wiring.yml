@@ -1,0 +1,47 @@
+schema: 1
+story: 'battery.b'
+story_title: 'Battery Increment B — Pipeline Wiring, Dual-Scenario Benefit & API Contract'
+gate: PASS
+status_reason: >-
+  All 7 ACs verified with independent run (154/154 green). No defects found; two test-coverage
+  gaps (AC3 clamp branch, AC4 strictness) closed during review. Zero-regression is structurally
+  guaranteed by the single inactive-battery gate reusing the pre-change call path.
+reviewer: 'Quinn (Test Architect)'
+updated: '2026-07-13T00:00:00Z'
+
+top_issues: []
+waiver: { active: false }
+
+quality_score: 100
+expires: '2026-07-27T00:00:00Z'
+
+evidence:
+  tests_reviewed: 21
+  risks_identified: 3
+  trace:
+    ac_covered: [1, 2, 3, 4, 5, 6, 7]
+    ac_gaps: []
+
+nfr_validation:
+  security:
+    status: PASS
+    notes: 'No new I/O or endpoints; all new input fields validated (4 blocking rules, 2 advisories).'
+  performance:
+    status: PASS
+    notes: 'One extra L1 enumeration per relevant mode (~100 combos); suite time unchanged.'
+  reliability:
+    status: PASS
+    notes: 'Inactive battery reuses the pre-change code path verbatim; benefit clamped ≥ 0; baseline clamp tested.'
+  maintainability:
+    status: PASS
+    notes: 'Battery logic isolated in one region (RunL1Async / ToAdjustment / BuildBatteryDetails); decisions cross-referenced (D1/R3a).'
+
+recommendations:
+  immediate: []
+  future:
+    - action: 'Client (Increment D): hint when battery is active but relevant modes have zero hours (batteryDetails null by design)'
+      refs: ['Services/CalculatorService.cs']
+    - action: 'Revisit cross-mode summing of SpinningReserveKw/PeakShavingKw headline figures when multi-mode batteries appear in the UI'
+      refs: ['Models/BatteryDetails.cs']
+    - action: 'Power-demands panel copy (Increment D) should explain that demand includes uncovered spinning reserve when a battery is active'
+      refs: ['Services/CalculatorService.cs']

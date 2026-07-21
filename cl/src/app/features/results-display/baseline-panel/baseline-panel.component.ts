@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { BaselineData, CalculatorInput, Level1Details, ValidCombinationDto } from '../../../calculations/calculator.types';
-import { CO2_EMISSION_FACTOR } from '../../../shared/constants';
 
 @Component({
   selector: 'app-baseline-panel',
@@ -17,10 +16,12 @@ export class BaselinePanelComponent {
   @Input() baseline!: BaselineData;
   @Input() baselineME: number = 0;
   @Input() baselineAE: number = 0;
+  /** Per-engine CO2 from the API (each engine's own fuel factor) — never recomputed here. */
+  @Input() baselineMeCO2: number = 0;
+  @Input() baselineAeCO2: number = 0;
   @Input() currentInput!: CalculatorInput;
   @Input() level1Details?: Level1Details;
   @Output() baselineIndexChanged = new EventEmitter<number>();
-  readonly co2Factor = CO2_EMISSION_FACTOR;
 
   get meLoadPercentage(): number {
     return this.level1Details?.baselineMeLoadPercent ?? 0;

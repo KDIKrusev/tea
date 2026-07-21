@@ -1,0 +1,36 @@
+schema: 1
+story: 'battery.f'
+story_title: 'Battery Increment F — Excel Load Inputs (DP Redundancy & Mission Heavy-Consumer Max)'
+gate: PASS
+status_reason: >-
+  All ACs verified (206/206 green). Excel semantics implemented literally (RESERVE average not in
+  demand; Mission variation = full I3 as override, no double counting). Pipeline-effect gap closed
+  in review with Family H e2e tests (benefit, PTI-gate interaction, hotel-side reserve + DRC
+  absorption), all first-run green.
+reviewer: 'Quinn (Test Architect)'
+updated: '2026-07-13T00:00:00Z'
+
+top_issues: []
+waiver: { active: false }
+
+quality_score: 100
+expires: '2026-07-27T00:00:00Z'
+
+evidence:
+  tests_reviewed: 10
+  risks_identified: 2
+  trace:
+    ac_covered: [1, 2, 3, 4, 5, 6, 7]
+    ac_gaps: []
+
+nfr_validation:
+  security: { status: PASS, notes: 'Two validated numeric inputs; no new surface.' }
+  performance: { status: PASS, notes: 'No additional service calls.' }
+  reliability: { status: PASS, notes: 'Null/0 inputs reproduce pre-F behaviour exactly (AC5).' }
+  maintainability: { status: PASS, notes: 'GetLoadInputs tuple refactor; Excel cell references in code docs.' }
+
+recommendations:
+  immediate: []
+  future:
+    - action: 'Smoke-verify DP Redundancy field UX across DP-mode toggle cycles'
+      refs: ['cl/src/app/features/vessel-input/vessel-input-form/battery-config-section/battery-config-section.component.html']

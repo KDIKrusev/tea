@@ -18,7 +18,7 @@ public class Level2OptimizationServiceTests
     public Level2OptimizationServiceTests()
     {
         var factory = TestServiceFactory.Create();
-        _level1Service = new Level1OptimizationService(factory.SfocService);
+        _level1Service = new Level1OptimizationService(factory.SfocService, Microsoft.Extensions.Options.Options.Create(new KSailCalc.Api.Models.BatterySettings()));
         _service = new Level2OptimizationService(factory.SfocService);
     }
 
@@ -59,7 +59,7 @@ public class Level2OptimizationServiceTests
             });
 
         var sfocService = new SfocService(appDataMock.Object, new Mock<ILogger<SfocService>>().Object);
-        return (new Level1OptimizationService(sfocService), new Level2OptimizationService(sfocService));
+        return (new Level1OptimizationService(sfocService, Microsoft.Extensions.Options.Options.Create(new KSailCalc.Api.Models.BatterySettings())), new Level2OptimizationService(sfocService));
     }
 
     #region Two-Generator Scenario

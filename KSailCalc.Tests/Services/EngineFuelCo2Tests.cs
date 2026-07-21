@@ -70,6 +70,42 @@ public class EngineFuelCo2Tests
         result.Advanced.Co2Reduction.Should().BeApproximately(result.Advanced.FuelSavings * Fallback, 1e-6);
     }
 
+    // === Per-engine CO2 is reported by the API (client must not recompute) ===
+
+    [Fact]
+    public async Task PerEngineCo2_IsReported_AndSumsToTheTotals()
+    {
+        var factory = TestServiceFactory.Create();
+        var fuelSettings = Options.Create(new CalculatorSettings
+        {
+            FuelCo2Factors = new(StringComparer.OrdinalIgnoreCase) { ["MGO"] = Mgo, ["LNG"] = Lng }
+        });
+        var sut = new CalculatorService(
+            factory.ConfigRepoMock.Object, factory.SailContributionService,
+            factory.Level1Service, factory.Level2Service, factory.Level3Service,
+            factory.BatteryAllocationService, fuelSettings);
+
+        var input = CalculatorInputBuilder.Default().Build();
+        input.MainFuelType = "LNG";   // deliberately different factors so a wrong
+        input.AuxFuelType = "MGO";    // single-constant recomputation cannot pass
+
+        var result = await sut.CalculateAllVariantsAsync(input);
+
+        // Baseline: per-engine CO2 uses each engine's own fuel factor and sums to the total
+        result.BaselineMeCO2.Should().BeApproximately(result.BaselineME * Lng, 1e-6);
+        result.BaselineAeCO2.Should().BeApproximately(result.BaselineAE * Mgo, 1e-6);
+        (result.BaselineMeCO2 + result.BaselineAeCO2).Should().BeApproximately(result.BaselineCO2, 1e-6);
+
+        // Every variant: same invariant against its own optimized total
+        foreach (var variant in new[] { result.Advanced, result.Pro, result.Premium })
+        {
+            variant.OptimizedMeCO2.Should().BeApproximately(variant.OptimizedME * Lng, 1e-6);
+            variant.OptimizedAeCO2.Should().BeApproximately(variant.OptimizedAE * Mgo, 1e-6);
+            (variant.OptimizedMeCO2 + variant.OptimizedAeCO2)
+                .Should().BeApproximately(variant.OptimizedCO2, 1e-6);
+        }
+    }
+
     // === Per-engine CO2 with different fuels for ME and AE ===
 
     [Fact]
@@ -92,6 +128,7 @@ public class EngineFuelCo2Tests
             factory.Level1Service,
             factory.Level2Service,
             factory.Level3Service,
+            factory.BatteryAllocationService,
             fuelSettings);
 
         var fuelInput = CalculatorInputBuilder.Default()

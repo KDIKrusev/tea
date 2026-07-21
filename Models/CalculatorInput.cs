@@ -32,7 +32,41 @@ public class CalculatorInput
     /// is only used by the frontend to show/hide sail-related UI elements.
     /// </summary>
     public bool SailInstalled { get; set; }
+
+    /// <summary>
+    /// DEPRECATED: legacy stub, never used in any calculation. Kept for wire compatibility.
+    /// Use <see cref="Battery"/> instead.
+    /// </summary>
     public double BatteryCapacity { get; set; } // kWh - battery capacity (0 if none)
+
+    /// <summary>
+    /// Battery configuration (capacity, power budget, relevant modes).
+    /// Null or inactive ⇒ all battery logic is bypassed.
+    /// </summary>
+    public BatteryConfigurationInput? Battery { get; set; }
+
+    /// <summary>
+    /// PTI (Power Take-In) capacity per main engine [kW] — the shaft electric motor rating
+    /// (physically usually the shaft generator machine in motor mode).
+    /// 0 (default) = PTI not modelled: no propulsion assist, no battery PTI feasibility gate
+    /// (bus-level battery simplification, identical to pre-PTI behaviour). ADR-5.
+    /// </summary>
+    public double MaxPtiPerEngineKw { get; set; }
+
+    /// <summary>
+    /// DP class redundancy requirement [kW] (Excel Load Demands R5, input O2) — a pure RESERVE
+    /// requirement, NOT part of the average demand: the battery covers it 1:1 (100% coverage);
+    /// whatever the battery cannot cover becomes genset spinning reserve. Increment F / D4.
+    /// </summary>
+    public double? DpRedundancyRequirementKw { get; set; }
+
+    /// <summary>
+    /// Mission heavy-consumer maximum [kW] (Excel I3 → Load Demands R7): the Mission row's
+    /// variation is this FULL value when mission operations exist (G7 = IF(E7&gt;0, I3, 0)) —
+    /// the heavy consumer can start at any moment. The average mission load itself is already
+    /// part of the Hotel/Mission power input (no double counting). Increment F / D4.
+    /// </summary>
+    public double? MissionHeavyConsumerMaxKw { get; set; }
     
     // Financial Parameters
     public double FuelPrice { get; set; } // USD/ton

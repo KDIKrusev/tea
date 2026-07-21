@@ -18,8 +18,14 @@
         [vesselTypeName]="vesselTypeName">
       </app-operational-modes-section>
 
-      <app-additional-config-section 
-        [parentForm]="vesselForm" 
+      <app-battery-config-section
+        [parentForm]="vesselForm"
+        [batteryDetails]="batteryDetails"
+        [hasResults]="hasResults">
+      </app-battery-config-section>
+
+      <app-additional-config-section
+        [parentForm]="vesselForm"
         [sailOptions]="sailOptions"
         [totalHours]="getTotalHours()">
       </app-additional-config-section>

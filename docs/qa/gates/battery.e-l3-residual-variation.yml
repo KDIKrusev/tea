@@ -1,0 +1,37 @@
+schema: 1
+story: 'battery.e'
+story_title: 'Battery Increment E — Level 3 DRC on Residual Variation'
+gate: PASS
+status_reason: >-
+  All 5 ACs verified (169/169 green). No defects. Q4 working rule isolated to one method with an
+  auditable BatteryShavedVariationKw reported end-to-end; double-counting between battery peak
+  shaving and DRC closed by construction.
+reviewer: 'Quinn (Test Architect)'
+updated: '2026-07-13T00:00:00Z'
+
+top_issues: []
+waiver: { active: false }
+
+quality_score: 100
+expires: '2026-07-27T00:00:00Z'
+
+evidence:
+  tests_reviewed: 4
+  risks_identified: 2
+  trace:
+    ac_covered: [1, 2, 3, 4, 5]
+    ac_gaps: []
+
+nfr_validation:
+  security: { status: PASS, notes: 'Pure arithmetic; no new surface.' }
+  performance: { status: PASS, notes: 'No additional service calls.' }
+  reliability: { status: PASS, notes: 'Band clamped to [0, V]; default 0 = pre-change behaviour.' }
+  maintainability: { status: PASS, notes: 'Q4 rule single-point; transparency field auditable in responses.' }
+
+recommendations:
+  immediate: []
+  future:
+    - action: 'Confirm/replace the Q4 working rule with Krishna (one-method change)'
+      refs: ['Services/Level3DrcService.cs']
+    - action: 'Render batteryShavedVariationKw in the L3 block of variant-detail-panel'
+      refs: ['cl/src/app/features/results-display/variant-detail-panel/variant-detail-panel.component.html']

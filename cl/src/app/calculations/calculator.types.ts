@@ -23,7 +23,23 @@ export interface CalculatorInput {
   
   // Additional Systems
   sailInstalled: boolean; // SAIL system installed
+  /** DEPRECATED legacy stub (never used by calculations). Use `battery` instead. */
   batteryCapacity: number; // kWh - battery capacity (0 if none)
+
+  /** Battery configuration (Increment B contract). Null/absent ⇒ battery logic bypassed. */
+  battery?: BatteryConfigurationInput | null;
+
+  /**
+   * PTI (shaft motor) capacity per main engine [kW]. 0/absent = PTI not modelled
+   * (bus-level battery simplification). Physically usually equals the SG rating.
+   */
+  maxPtiPerEngineKw?: number;
+
+  /** DP class redundancy requirement [kW] — pure RESERVE, battery covers 1:1 (Excel O2). */
+  dpRedundancyRequirementKw?: number;
+
+  /** Mission heavy-consumer max [kW] — the Mission row's full variation (Excel I3). */
+  missionHeavyConsumerMaxKw?: number;
   
   // Financial Parameters
   fuelPrice: number; // USD/ton
@@ -73,6 +89,49 @@ export interface CalculatorInput {
 
   // Baseline selection
   baselineIndex?: number;
+}
+
+/** Modes the battery may apply to (sketch: Transit / DP / Port). Serialized as strings. */
+export type BatteryRelevantMode = 'Transit' | 'DP' | 'Port';
+
+/** Battery configuration sent to the backend. */
+export interface BatteryConfigurationInput {
+  capacityKwh: number; // kWh — energy content
+  powerKw: number;     // kW — max charge/discharge power (allocation budget)
+  relevantModes: BatteryRelevantMode[];
+}
+
+/** One row of the battery allocation cascade (Excel "Load Demands" port). */
+export interface BatteryLoadAllocation {
+  load: string;                 // "DpReserve" | "DpDemand" | "Mission" | "Propulsion" | "Hotel"
+  function: string;             // "Reserve" | "PeakShaving"
+  coverageFactor: number;
+  averageLoadKw: number;
+  variationKw: number;          // H
+  batteryUsedKw: number;        // I
+  coveredBandKw: number;        // J
+  uncoveredReserveKw: number;   // L
+}
+
+/** Battery allocation for one operational mode. */
+export interface BatteryModeAllocation {
+  mode: string;
+  loads: BatteryLoadAllocation[];
+  peakShavingBandKw: number;
+  additionalSpinningReserveKw: number;
+  committedBatteryKw: number;
+  remainingBatteryKw: number;
+}
+
+/** Battery contribution returned by the backend (null when battery inactive). */
+export interface BatteryDetails {
+  capacityKwh: number;
+  powerKw: number;
+  spinningReserveKw: number;    // ΣL — computed "Spinning Reserve" function value
+  peakShavingKw: number;        // ΣJ — computed "Peak Shaving" function value
+  benefitFocTonPerYear: number; // dual-scenario benefit vs no-battery reference
+  benefitCostPerYear: number;
+  modeAllocations: BatteryModeAllocation[];
 }
 
 /**
@@ -175,6 +234,10 @@ export interface VariantResult {
   optimizedME: number;
   optimizedAE: number;
 
+  /** Per-engine CO2 (ton/yr) computed server-side with each engine's own fuel factor. */
+  optimizedMeCO2: number;
+  optimizedAeCO2: number;
+
   // Load % for this variant
   mainEngineLoadPercent: number;
   auxiliaryEngineLoadPercent: number;
@@ -226,6 +289,8 @@ export interface ValidCombinationDto {
   focTonPerHour: number;
   meLoadPercent: number;
   aeLoadPercent: number;
+  /** PTI propulsion assist for this combination [kW]; null/absent when unused. */
+  ptiKw?: number | null;
 }
 
 export interface Level2Details {
@@ -238,6 +303,8 @@ export interface Level3Details {
   drcSavingsTonPerYear: number;
   variationPerGeneratorKw: number;
   reducedVariationPerGeneratorKw: number;
+  /** Hotel/mission variation already shaved by the battery — excluded from DRC (Increment E). */
+  batteryShavedVariationKw?: number;
   activeGeneratorCount: number;
 }
 
@@ -258,10 +325,14 @@ export interface AllVariantsCalculationResult {
   powerDemands: PowerDemands;
   level1Details?: Level1Details;
   sailContribution?: SailContributionResult;
+  batteryDetails?: BatteryDetails | null;
   baselineFOC: number;
   baselineCO2: number;
   baselineME: number;
   baselineAE: number;
+  /** Per-engine baseline CO2 (ton/yr) with each engine's own fuel factor. */
+  baselineMeCO2: number;
+  baselineAeCO2: number;
   warnings: ValidationWarning[];
 
   // Per-variant results

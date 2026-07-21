@@ -1,4 +1,5 @@
 using KSailCalc.Api.Models;
+using KSailCalc.Api.Models.Enums;
 using KSailCalc.Api.Services.Interfaces;
 
 namespace KSailCalc.Api.Services;
@@ -9,6 +10,10 @@ namespace KSailCalc.Api.Services;
 /// </summary>
 public class ValidationService : IValidationService
 {
+    // Sketch modes: Transit / DP / Port (Anchor & Maneuvering excluded per Excel operation types, D4)
+    private static readonly OperationalMode[] AllowedBatteryModes =
+        { OperationalMode.Transit, OperationalMode.DP, OperationalMode.Port };
+
     public ValidationResult ValidateInput(CalculatorInput input)
     {
         var errors = new List<string>();
@@ -48,9 +53,36 @@ public class ValidationService : IValidationService
         if (input.AnnualHours <= 0)
             errors.Add("Annual hours must be greater than 0");
         
-        // Battery validation
+        // Battery validation (legacy stub field)
         if (input.BatteryCapacity < 0)
             errors.Add("Battery capacity cannot be negative");
+
+        // Battery configuration validation (Increment B — design §3.6)
+        if (input.Battery is { } battery)
+        {
+            if (battery.PowerKw < 0)
+                errors.Add("Battery power cannot be negative");
+            if (battery.CapacityKwh < 0)
+                errors.Add("Battery capacity cannot be negative");
+            if (battery.PowerKw > 0 && battery.CapacityKwh <= 0)
+                errors.Add("Battery capacity (kWh) is required when battery power is greater than 0");
+
+            if (battery.RelevantModes.Except(AllowedBatteryModes).Any())
+                errors.Add("Battery relevant modes must be Transit, DP or Port");
+
+            if (battery.RelevantModes.Contains(OperationalMode.DP) && !input.DpEnabled)
+                errors.Add("Battery cannot apply to DP mode when DP mode is not enabled");
+        }
+
+        // PTI validation (Increment C)
+        if (input.MaxPtiPerEngineKw < 0)
+            errors.Add("PTI capacity per engine cannot be negative");
+
+        // Excel load inputs (Increment F)
+        if ((input.DpRedundancyRequirementKw ?? 0) < 0)
+            errors.Add("DP redundancy requirement cannot be negative");
+        if ((input.MissionHeavyConsumerMaxKw ?? 0) < 0)
+            errors.Add("Mission heavy-consumer maximum cannot be negative");
 
         // Transit validation
         if (input.TransitHours <= 0)
@@ -116,7 +148,7 @@ public class ValidationService : IValidationService
             {
                 Type = "main-engine",
                 Message = "Main engine utilization > 100%. Consider reducing propulsion power, decreasing sea margin, reduce hotel/mission load or increasing main engine capacity.",
-                Severity = Models.Enums.WarningSeverity.Error
+                Severity = WarningSeverity.Error
             });
         }
         
@@ -154,7 +186,43 @@ public class ValidationService : IValidationService
                 Severity = Models.Enums.WarningSeverity.Error
             });
         }
-        
+
+        // Battery advisory warnings (non-blocking)
+        if (input.Battery is { PowerKw: > 0 } battery)
+        {
+            if (battery.RelevantModes.Count == 0)
+            {
+                warnings.Add(new ValidationWarning
+                {
+                    Type = "battery",
+                    Message = "Battery power is configured but no relevant modes are selected — the battery will have no effect.",
+                    Severity = Models.Enums.WarningSeverity.Warning
+                });
+            }
+
+            // 30-minute sustain plausibility (placeholder threshold pending Q1)
+            if (battery.CapacityKwh > 0 && battery.CapacityKwh < battery.PowerKw * 0.5)
+            {
+                warnings.Add(new ValidationWarning
+                {
+                    Type = "battery",
+                    Message = "Battery capacity cannot sustain the configured power for 30 minutes — consider increasing capacity or reducing power.",
+                    Severity = Models.Enums.WarningSeverity.Warning
+                });
+            }
+        }
+
+        // DP redundancy only participates in DP-mode allocations (Increment F)
+        if ((input.DpRedundancyRequirementKw ?? 0) > 0 && !input.DpEnabled)
+        {
+            warnings.Add(new ValidationWarning
+            {
+                Type = "battery",
+                Message = "DP redundancy requirement is set but DP mode is not enabled — it will have no effect.",
+                Severity = Models.Enums.WarningSeverity.Warning
+            });
+        }
+
         return warnings;
     }
 }

@@ -13,7 +13,7 @@ public class Level1OptimizationServiceTests
     public Level1OptimizationServiceTests()
     {
         var factory = TestServiceFactory.Create();
-        _service = new Level1OptimizationService(factory.SfocService);
+        _service = new Level1OptimizationService(factory.SfocService, Microsoft.Extensions.Options.Options.Create(new KSailCalc.Api.Models.BatterySettings()));
     }
 
     #region Combination Count & Filtering

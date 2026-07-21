@@ -328,7 +328,7 @@ public class Level3DrcServiceTests
         sfocMock.Setup(s => s.GetSfocDataAsync(It.IsAny<EngineCategory>(), It.IsAny<int>()))
             .ReturnsAsync(sfocDataPoints);
 
-        var l1 = new Level1OptimizationService(sfocMock.Object);
+        var l1 = new Level1OptimizationService(sfocMock.Object, Options.Create(new KSailCalc.Api.Models.BatterySettings()));
         var l2 = new Level2OptimizationService(sfocMock.Object);
         var l3 = new Level3DrcService(sfocMock.Object, Options.Create(new CalculatorSettings()));
 

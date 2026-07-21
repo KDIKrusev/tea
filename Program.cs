@@ -8,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Bind configurable business constants from appsettings.json
 builder.Services.Configure<CalculatorSettings>(builder.Configuration.GetSection("CalculatorSettings"));
+builder.Services.Configure<BatterySettings>(builder.Configuration.GetSection("BatterySettings"));
 
 // Add services to the container
 builder.Services.AddControllers()
@@ -35,6 +36,8 @@ builder.Services.AddScoped<ICalculatorService, CalculatorService>();
 builder.Services.AddScoped<IAppDataAggregationService, AppDataAggregationService>();
 builder.Services.AddScoped<IVesselResolutionService, VesselResolutionService>();
 builder.Services.AddScoped<IValidationService, ValidationService>();
+// Singleton: pure/stateless allocation math over singleton IOptions — no per-request state
+builder.Services.AddSingleton<IBatteryAllocationService, BatteryAllocationService>();
 
 // Add Swagger/OpenAPI
 builder.Services.AddEndpointsApiExplorer();
@@ -67,6 +70,21 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
+
+// Log the effective battery settings — LoadPriorities defaults to empty (ConfigurationBinder
+// appends to pre-populated lists), so make the effective source visible at startup.
+{
+    var battery = app.Services.GetRequiredService<Microsoft.Extensions.Options.IOptions<BatterySettings>>().Value;
+    var prioritySource = battery.LoadPriorities.Count > 0 ? "appsettings" : "code defaults";
+    var effectiveRows = battery.LoadPriorities.Count > 0
+        ? battery.LoadPriorities
+        : BatterySettings.CreateDefaultLoadPriorities();
+    app.Logger.LogInformation(
+        "BatterySettings: PtiLoss={PtiLoss}, ChargeEff={ChargeEff}, DischargeEff={DischargeEff}, LoadPriorities={Rows} rows from {Source}: {Priorities}",
+        battery.PtiLossFactor, battery.ChargeEfficiency, battery.DischargeEfficiency,
+        effectiveRows.Count, prioritySource,
+        string.Join(" → ", effectiveRows.Select(p => $"{p.Load}({p.Function} D={p.CoverageFactor} V={p.VariationFactor})")));
+}
 
 // Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())

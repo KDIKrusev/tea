@@ -1,0 +1,171 @@
+<!-- Battery Configuration Section (per requester's sketch) -->
+<div class="input-group" [formGroup]="parentForm">
+  <mat-expansion-panel [expanded]="true" class="config-panel">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <mat-icon class="panel-icon">battery_charging_full</mat-icon>
+        Battery Configuration
+      </mat-panel-title>
+      <mat-panel-description>
+        @if (isBatteryEnabled && batteryPowerKw?.value > 0) {
+          <span class="info-badge battery-active">
+            <mat-icon class="badge-icon">battery_charging_full</mat-icon>
+            {{ batteryPowerKw?.value }} kW / {{ batteryCapacityKwh?.value }} kWh
+          </span>
+        } @else if (isBatteryEnabled) {
+          <span class="hint-text">Enter battery power and capacity</span>
+        } @else {
+          <span class="info-badge battery-disabled">Battery disabled</span>
+        }
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <!-- Enable/Disable Checkbox -->
+    <div class="battery-toggle">
+      <mat-checkbox formControlName="batteryEnabled"
+                    color="primary"
+                    (change)="onBatteryToggle($event)">
+        <span class="battery-toggle-label">
+          <mat-icon class="battery-toggle-icon">battery_charging_full</mat-icon>
+          Enable Battery
+        </span>
+      </mat-checkbox>
+      <span class="battery-toggle-hint">
+        When enabled, the battery covers load peaks and spinning reserve in the selected modes
+      </span>
+    </div>
+
+    @if (isBatteryEnabled) {
+      <div class="input-grid">
+        <!-- Capacity (kWh) -->
+        <mat-form-field appearance="fill" [class.field-edited]="isFieldEdited('batteryCapacityKwh')">
+          <mat-label>
+            Capacity (kWh)
+            @if (isFieldEdited('batteryCapacityKwh')) {
+              <span class="edited-label">(edited)</span>
+            }
+          </mat-label>
+          <input matInput type="number" formControlName="batteryCapacityKwh" min="0" step="10">
+          <mat-hint>Energy content of the battery</mat-hint>
+          @if (batteryCapacityKwh?.invalid && batteryCapacityKwh?.touched) {
+            <mat-error>{{ getValidationError('batteryCapacityKwh') }}</mat-error>
+          }
+        </mat-form-field>
+
+        <!-- Power (kW) -->
+        <mat-form-field appearance="fill" [class.field-edited]="isFieldEdited('batteryPowerKw')">
+          <mat-label>
+            Power (kW)
+            @if (isFieldEdited('batteryPowerKw')) {
+              <span class="edited-label">(edited)</span>
+            }
+          </mat-label>
+          <input matInput type="number" formControlName="batteryPowerKw" min="0" step="10">
+          <mat-hint>Max charge/discharge power — the allocation budget</mat-hint>
+          @if (batteryPowerKw?.invalid && batteryPowerKw?.touched) {
+            <mat-error>{{ getValidationError('batteryPowerKw') }}</mat-error>
+          }
+        </mat-form-field>
+      </div>
+
+      <!-- Functions (computed by the backend allocation — read-only) -->
+      <div class="battery-functions">
+        <span class="functions-title">
+          Functions
+          <mat-icon class="info-icon" inline
+                    matTooltip="Computed by the battery allocation (Excel reference model): the battery budget is distributed over the loads of the selected modes in priority order. Not a direct input."
+                    matTooltipPosition="above">info</mat-icon>
+        </span>
+        <div class="functions-grid">
+          <div class="function-item">
+            <span class="function-label">Spinning Reserve</span>
+            <span class="function-value">
+              @if (batteryDetails) {
+                {{ batteryDetails.spinningReserveKw | number:'1.0-1' }} kW
+              } @else {
+                —
+              }
+            </span>
+            <span class="function-sub">carried by gensets (not covered by battery)</span>
+          </div>
+          <div class="function-item">
+            <span class="function-label">Peak Shaving</span>
+            <span class="function-value">
+              @if (batteryDetails) {
+                {{ batteryDetails.peakShavingKw | number:'1.0-1' }} kW
+              } @else {
+                —
+              }
+            </span>
+            <span class="function-sub">± band covered by the battery</span>
+          </div>
+        </div>
+        @if (showNoEffectHint) {
+          <div class="battery-hint">
+            <mat-icon inline>info</mat-icon>
+            The battery has no effect: select at least one relevant mode with operating hours.
+          </div>
+        }
+      </div>
+
+      <!-- PTI capacity (Increment C — optional Excel-fidelity feasibility) -->
+      <div class="input-grid">
+        <mat-form-field appearance="fill" [class.field-edited]="isFieldEdited('batteryMaxPtiKw')">
+          <mat-label>
+            PTI Capacity per Main Engine (kW)
+            @if (isFieldEdited('batteryMaxPtiKw')) {
+              <span class="edited-label">(edited)</span>
+            }
+          </mat-label>
+          <input matInput type="number" formControlName="batteryMaxPtiKw" min="0" step="10">
+          <mat-hint>
+            Shaft motor rating (usually = shaft generator). Empty/0 = PTI not modelled —
+            battery connects at switchboard level only.
+          </mat-hint>
+          @if (batteryMaxPtiKw?.invalid && batteryMaxPtiKw?.touched) {
+            <mat-error>{{ getValidationError('batteryMaxPtiKw') }}</mat-error>
+          }
+        </mat-form-field>
+      </div>
+
+      <!-- Excel load inputs (Increment F) -->
+      <div class="input-grid">
+        <mat-form-field appearance="fill" [class.field-edited]="isFieldEdited('batteryMissionMaxKw')">
+          <mat-label>
+            Mission Heavy-Consumer Max (kW)
+            @if (isFieldEdited('batteryMissionMaxKw')) {
+              <span class="edited-label">(edited)</span>
+            }
+          </mat-label>
+          <input matInput type="number" formControlName="batteryMissionMaxKw" min="0" step="10">
+          <mat-hint>Largest mission consumer (e.g. crane) that can start at any moment — its full kW is the peak-shaving potential</mat-hint>
+        </mat-form-field>
+
+        @if (isDpModeAvailable) {
+          <mat-form-field appearance="fill" [class.field-edited]="isFieldEdited('batteryDpRedundancyKw')">
+            <mat-label>
+              DP Redundancy Requirement (kW)
+              @if (isFieldEdited('batteryDpRedundancyKw')) {
+                <span class="edited-label">(edited)</span>
+              }
+            </mat-label>
+            <input matInput type="number" formControlName="batteryDpRedundancyKw" min="0" step="10">
+            <mat-hint>DP class reserve the battery covers 1:1 (highest allocation priority)</mat-hint>
+          </mat-form-field>
+        }
+      </div>
+
+      <!-- Relevant Modes -->
+      <div class="battery-modes">
+        <span class="functions-title">Relevant Modes</span>
+        <div class="modes-row">
+          <mat-checkbox formControlName="batteryModeTransit" color="primary">Transit</mat-checkbox>
+          <span [matTooltip]="isDpModeAvailable ? '' : 'Enable DP mode (DP hours > 0) first'">
+            <mat-checkbox formControlName="batteryModeDp" color="primary">DP</mat-checkbox>
+          </span>
+          <mat-checkbox formControlName="batteryModePort" color="primary">Port</mat-checkbox>
+        </div>
+      </div>
+    }
+  </mat-expansion-panel>
+</div>

@@ -5,6 +5,7 @@ import { ProfileManagerComponent, SaveRequestEvent } from '../profiles/profile-m
 import { SavedProfile } from '../../core/profile.types';
 import { PowerDemandsPanelComponent } from '../results-display/power-demands-panel/power-demands-panel.component';
 import { BaselinePanelComponent } from '../results-display/baseline-panel/baseline-panel.component';
+import { BatteryContributionPanelComponent } from '../results-display/battery-contribution-panel/battery-contribution-panel.component';
 import { VariantDetailPanelComponent } from '../results-display/variant-detail-panel/variant-detail-panel.component';
 import { ValidationWarningsComponent } from '../results-display/validation-warnings/validation-warnings.component';
 import { SavingsChartComponent } from '../charts/savings-chart/savings-chart.component';
@@ -18,7 +19,8 @@ import {
   BaselineData,
   PowerDemands,
   ValidationWarning,
-  SailContributionResult
+  SailContributionResult,
+  BatteryDetails
 } from '../../calculations/calculator.types';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCardModule } from '@angular/material/card';
@@ -38,6 +40,7 @@ import { ReportData } from '../report/report.service';
     VesselInputFormComponent,
     PowerDemandsPanelComponent,
     BaselinePanelComponent,
+    BatteryContributionPanelComponent,
     VariantDetailPanelComponent,
     ValidationWarningsComponent,
     SavingsChartComponent,
@@ -94,6 +97,15 @@ export class CalculatorPageComponent {
 
   get allVariantsResult(): AllVariantsCalculationResult | null {
     return this._allVariantsResult;
+  }
+
+  /** Battery contribution from the last calculation (null when battery inactive) */
+  get batteryDetails(): BatteryDetails | null {
+    return this._allVariantsResult?.batteryDetails ?? null;
+  }
+
+  get hasResults(): boolean {
+    return this._allVariantsResult !== null;
   }
 
   constructor(

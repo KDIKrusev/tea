@@ -95,6 +95,7 @@ public class TestServiceFactory
     public Level1OptimizationService Level1Service { get; private set; } = null!;
     public Level2OptimizationService Level2Service { get; private set; } = null!;
     public Level3DrcService Level3Service { get; private set; } = null!;
+    public BatteryAllocationService BatteryAllocationService { get; private set; } = null!;
 
     public static TestServiceFactory Create(bool enableSailData = false)
     {
@@ -127,16 +128,19 @@ public class TestServiceFactory
         // Wire real services
         factory.SfocService = new SfocService(factory.AppDataMock.Object, new Mock<ILogger<SfocService>>().Object);
         factory.SailContributionService = new SailContributionService(factory.SailRepoMock.Object);
-        factory.Level1Service = new Level1OptimizationService(factory.SfocService);
+        factory.Level1Service = new Level1OptimizationService(
+            factory.SfocService, Options.Create(new BatterySettings()));
         factory.Level2Service = new Level2OptimizationService(factory.SfocService);
         var settings = Options.Create(new CalculatorSettings());
         factory.Level3Service = new Level3DrcService(factory.SfocService, settings);
+        factory.BatteryAllocationService = new BatteryAllocationService(Options.Create(new BatterySettings()));
         factory.CalculatorService = new CalculatorService(
             factory.ConfigRepoMock.Object,
             factory.SailContributionService,
             factory.Level1Service,
             factory.Level2Service,
             factory.Level3Service,
+            factory.BatteryAllocationService,
             settings);
 
         return factory;

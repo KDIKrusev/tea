@@ -19,6 +19,7 @@ public class CalculatorService : ICalculatorService
     private readonly ILevel1OptimizationService _level1Service;
     private readonly ILevel2OptimizationService _level2Service;
     private readonly ILevel3DrcService _level3Service;
+    private readonly IBatteryAllocationService _batteryService;
     private readonly CalculatorSettings _settings;
 
     public CalculatorService(
@@ -27,6 +28,7 @@ public class CalculatorService : ICalculatorService
         ILevel1OptimizationService level1Service,
         ILevel2OptimizationService level2Service,
         ILevel3DrcService level3Service,
+        IBatteryAllocationService batteryService,
         IOptions<CalculatorSettings> settings)
     {
         _configRepository = configRepository;
@@ -34,13 +36,15 @@ public class CalculatorService : ICalculatorService
         _level1Service = level1Service;
         _level2Service = level2Service;
         _level3Service = level3Service;
+        _batteryService = batteryService;
         _settings = settings.Value;
     }
 
     #region Parameter Objects
 
     private record FocBreakdown(
-        double BaselineFoc, double BaselineMeFoc, double BaselineAeFoc, double OptimalMeFoc);
+        double BaselineFoc, double BaselineMeFoc, double BaselineAeFoc,
+        double OptimalMeFoc, double OptimalAeFoc);
 
     private record TierSavings(double Advanced, double Pro, double Premium,
         double L1Savings, double L2Savings, double L3Savings);
@@ -78,9 +82,11 @@ public class CalculatorService : ICalculatorService
         // Transit: full L1 → L2 → L3 pipeline (optimized, shown to client)
         // Other modes: L1 only (for FOC calculation), L2/L3 are not optimized
         var modeResults = new List<ModePipelineResult>();
+        // Per-mode battery allocations + R3a dual-scenario benefits (empty when battery inactive)
+        var batteryTracker = new List<(BatteryModeAllocation Alloc, double BenefitTons)>();
 
         var transitPropulsion = sailResult?.TransitPropulsionAfterKw;
-        var transit = await RunOptimizationPipelineAsync(input, OperationalMode.Transit, transitPropulsion);
+        var transit = await RunOptimizationPipelineAsync(input, OperationalMode.Transit, transitPropulsion, batteryTracker);
         modeResults.Add(new(OperationalMode.Transit, transit.L1, transit.L2, transit.L3, input.TransitHours));
 
         // Non-transit modes: only L1 for baseline/optimal FOC, no L2/L3 optimization
@@ -89,25 +95,25 @@ public class CalculatorService : ICalculatorService
 
         if (input.DpEnabled && (input.DPHours ?? 0) > 0)
         {
-            var l1 = await _level1Service.FindOptimalCombinationAsync(input, OperationalMode.DP);
+            var (l1, _) = await RunL1Async(input, OperationalMode.DP, input.DPHours ?? 0, null, null, batteryTracker);
             modeResults.Add(new(OperationalMode.DP, l1, emptyL2, emptyL3, input.DPHours ?? 0));
         }
 
         if (input.PortHours > 0)
         {
-            var l1 = await _level1Service.FindOptimalCombinationAsync(input, OperationalMode.Port);
+            var (l1, _) = await RunL1Async(input, OperationalMode.Port, input.PortHours, null, null, batteryTracker);
             modeResults.Add(new(OperationalMode.Port, l1, emptyL2, emptyL3, input.PortHours));
         }
 
         if (input.AnchorHours > 0)
         {
-            var l1 = await _level1Service.FindOptimalCombinationAsync(input, OperationalMode.Anchor);
+            var (l1, _) = await RunL1Async(input, OperationalMode.Anchor, input.AnchorHours, null, null, batteryTracker);
             modeResults.Add(new(OperationalMode.Anchor, l1, emptyL2, emptyL3, input.AnchorHours));
         }
 
         if (input.ManeuveringHours > 0)
         {
-            var l1 = await _level1Service.FindOptimalCombinationAsync(input, OperationalMode.Maneuvering);
+            var (l1, _) = await RunL1Async(input, OperationalMode.Maneuvering, input.ManeuveringHours, null, null, batteryTracker);
             modeResults.Add(new(OperationalMode.Maneuvering, l1, emptyL2, emptyL3, input.ManeuveringHours));
         }
 
@@ -136,10 +142,13 @@ public class CalculatorService : ICalculatorService
             PowerDemands = powerDemands,
             Level1Details = l1Details,
             SailContribution = sailResult,
+            BatteryDetails = BuildBatteryDetails(input, batteryTracker),
             BaselineFOC = foc.BaselineFoc,
             BaselineCO2 = Co2ForEngines(foc.BaselineMeFoc, foc.BaselineAeFoc, input, _settings),
             BaselineME = foc.BaselineMeFoc,
             BaselineAE = foc.BaselineAeFoc,
+            BaselineMeCO2 = Co2ForMainEngines(foc.BaselineMeFoc, input, _settings),
+            BaselineAeCO2 = Co2ForAuxEngines(foc.BaselineAeFoc, input, _settings),
 
             // Per-variant results
             Advanced = BuildVariantResult(new(input, configMap["1"], foc, savings.Advanced,
@@ -160,14 +169,98 @@ public class CalculatorService : ICalculatorService
     }
 
     private async Task<(Level1Result L1, Level2Result L2, Level3Result L3)> RunOptimizationPipelineAsync(
-        CalculatorInput input, OperationalMode mode, double? overridePropulsionKw)
+        CalculatorInput input, OperationalMode mode, double? overridePropulsionKw,
+        List<(BatteryModeAllocation Alloc, double BenefitTons)> batteryTracker)
     {
         var modeHours = GetModeHours(input, mode);
-        var l1 = await _level1Service.FindOptimalCombinationAsync(input, mode, overridePropulsionKw, input.BaselineIndex);
+        var (l1, allocation) = await RunL1Async(input, mode, modeHours, overridePropulsionKw, input.BaselineIndex, batteryTracker);
         var l2 = await _level2Service.OptimizeLoadSetpointsAsync(l1, input);
-        var l3 = await _level3Service.CalculateDrcSavingsAsync(l2, input, modeHours);
+        // Increment E (Q4 working rule): DRC monetizes only the variation the battery didn't shave
+        var hotelBand = allocation is null ? 0 : HotelPeakShavingKw(allocation);
+        var l3 = await _level3Service.CalculateDrcSavingsAsync(l2, input, modeHours, hotelBand);
         return (l1, l2, l3);
     }
+
+    #region Battery (Increment B — decisions D1/D2/D3, R3a dual-scenario)
+
+    /// <summary>
+    /// Level 1 for one mode, battery-aware. Inactive battery → today's exact code path.
+    /// Active battery → demand adjusted by the uncovered spinning reserve (Excel R8) and the
+    /// "third highest" default baseline; additionally runs the no-battery reference scenario
+    /// (budget 0 ⇒ full variation carried by gensets) to compute the R3a "Battery benefit".
+    /// </summary>
+    private async Task<(Level1Result L1, BatteryModeAllocation? Allocation)> RunL1Async(
+        CalculatorInput input, OperationalMode mode, double modeHours,
+        double? overridePropulsionKw, int? baselineIndex,
+        List<(BatteryModeAllocation Alloc, double BenefitTons)> batteryTracker)
+    {
+        if (input.Battery?.AppliesTo(mode) != true)
+            return (await _level1Service.FindOptimalCombinationAsync(input, mode, overridePropulsionKw, baselineIndex), null);
+
+        var allocation = _batteryService.Allocate(mode, input, propulsionOverrideKw: overridePropulsionKw);
+        var l1 = await _level1Service.FindOptimalCombinationAsync(
+            input, mode, overridePropulsionKw, baselineIndex, ToAdjustment(allocation));
+
+        var referenceAllocation = _batteryService.Allocate(
+            mode, input, budgetOverrideKw: 0, propulsionOverrideKw: overridePropulsionKw);
+        var referenceL1 = await _level1Service.FindOptimalCombinationAsync(
+            input, mode, overridePropulsionKw, null, ToAdjustment(referenceAllocation));
+
+        var benefitTons = Math.Max(0, referenceL1.OptimalFocTonPerHour - l1.OptimalFocTonPerHour) * modeHours;
+        batteryTracker.Add((allocation, benefitTons));
+        return (l1, allocation);
+    }
+
+    /// <summary>Hotel/mission-side ± band covered by the battery (offsets the L3 DRC variation).</summary>
+    private static double HotelPeakShavingKw(BatteryModeAllocation allocation)
+        => allocation.Loads
+            .Where(l => !l.Load.IsThrustSide() && l.Function == BatteryFunction.PeakShaving)
+            .Sum(l => l.CoveredBandKw);
+
+    /// <summary>
+    /// Uncovered reserve split by plant side: thrust-related loads raise the propulsion demand,
+    /// electrical loads (hotel, mission consumers) raise the hotel demand.
+    /// PropulsionPeakShavingKw = the battery's covered ± band on thrust loads — must flow through
+    /// PTI when PTI is modelled (Increment C discharge gate).
+    /// </summary>
+    private static BatteryL1Adjustment ToAdjustment(BatteryModeAllocation allocation)
+    {
+        double propulsion = 0, hotel = 0, propulsionBand = 0;
+        foreach (var load in allocation.Loads)
+        {
+            if (load.Load.IsThrustSide())
+            {
+                propulsion += load.UncoveredReserveKw;
+                propulsionBand += load.CoveredBandKw;
+            }
+            else
+            {
+                hotel += load.UncoveredReserveKw;
+            }
+        }
+        return new BatteryL1Adjustment(propulsion, hotel, propulsionBand);
+    }
+
+    private static BatteryDetails? BuildBatteryDetails(
+        CalculatorInput input, List<(BatteryModeAllocation Alloc, double BenefitTons)> batteryTracker)
+    {
+        if (input.Battery?.IsActive != true || batteryTracker.Count == 0)
+            return null;
+
+        var benefit = batteryTracker.Sum(t => t.BenefitTons);
+        return new BatteryDetails
+        {
+            CapacityKwh = input.Battery.CapacityKwh,
+            PowerKw = input.Battery.PowerKw,
+            SpinningReserveKw = batteryTracker.Sum(t => t.Alloc.AdditionalSpinningReserveKw),
+            PeakShavingKw = batteryTracker.Sum(t => t.Alloc.PeakShavingBandKw),
+            BenefitFocTonPerYear = benefit,
+            BenefitCostPerYear = benefit * input.FuelPrice,
+            ModeAllocations = batteryTracker.Select(t => t.Alloc).ToList()
+        };
+    }
+
+    #endregion
 
     private static double GetModeHours(CalculatorInput input, OperationalMode mode) => mode switch
     {
@@ -187,7 +280,8 @@ public class CalculatorService : ICalculatorService
             BaselineFoc: modes.Sum(m => m.L1.BaselineFocTonPerHour * m.Hours),
             BaselineMeFoc: modes.Sum(m => m.L1.BaselineCombination.MeFocTonPerHour * m.Hours),
             BaselineAeFoc: modes.Sum(m => m.L1.BaselineCombination.AeFocTonPerHour * m.Hours),
-            OptimalMeFoc: modes.Sum(m => m.L1.OptimalCombination.MeFocTonPerHour * m.Hours)
+            OptimalMeFoc: modes.Sum(m => m.L1.OptimalCombination.MeFocTonPerHour * m.Hours),
+            OptimalAeFoc: modes.Sum(m => m.L1.OptimalCombination.AeFocTonPerHour * m.Hours)
         );
     }
 
@@ -215,8 +309,14 @@ public class CalculatorService : ICalculatorService
         var optimizedFoc = ctx.Foc.BaselineFoc - ctx.FuelSavingsTon;
         var financial = CalculateFinancials(ctx.FuelSavingsTon, ctx.Input.FuelPrice, ctx.Config, ctx.Settings);
 
-        // Distribute optimized FOC proportionally between ME and AE based on baseline ratio
-        var meRatio = ctx.Foc.BaselineFoc > 0 ? ctx.Foc.BaselineMeFoc / ctx.Foc.BaselineFoc : 0.5;
+        // Distribute optimized FOC between ME and AE using the OPTIMIZED plant's own split —
+        // the baseline may run a different engine mix (e.g. baseline has AEs on while the optimum
+        // runs none), which previously assigned fuel to engines reported as "not required".
+        // Falls back to the baseline ratio only if the optimum has no FOC at all.
+        var optimalTotalFoc = ctx.Foc.OptimalMeFoc + ctx.Foc.OptimalAeFoc;
+        var meRatio = optimalTotalFoc > 0
+            ? ctx.Foc.OptimalMeFoc / optimalTotalFoc
+            : ctx.Foc.BaselineFoc > 0 ? ctx.Foc.BaselineMeFoc / ctx.Foc.BaselineFoc : 0.5;
         var optimizedMeFocBreakdown = optimizedFoc * meRatio;
         var optimizedAeFocBreakdown = optimizedFoc * (1 - meRatio);
 
@@ -255,6 +355,8 @@ public class CalculatorService : ICalculatorService
             EfficiencyFactor = ctx.Foc.BaselineFoc > 0 ? optimizedFoc / ctx.Foc.BaselineFoc : 1.0,
             OptimizedME = optimizedMeFocBreakdown,
             OptimizedAE = optimizedAeFocBreakdown,
+            OptimizedMeCO2 = Co2ForMainEngines(optimizedMeFocBreakdown, ctx.Input, ctx.Settings),
+            OptimizedAeCO2 = Co2ForAuxEngines(optimizedAeFocBreakdown, ctx.Input, ctx.Settings),
             MainEngineLoadPercent = meLoadPct,
             AuxiliaryEngineLoadPercent = aeLoadPct,
             Level2Details = ctx.L2Details,
@@ -288,7 +390,15 @@ public class CalculatorService : ICalculatorService
     /// equal factors collapse meFoc+aeFoc back to totalFoc * Co2Factor).
     /// </summary>
     private static double Co2ForEngines(double meFoc, double aeFoc, CalculatorInput input, CalculatorSettings settings)
-        => meFoc * settings.Co2FactorFor(input.MainFuelType) + aeFoc * settings.Co2FactorFor(input.AuxFuelType);
+        => Co2ForMainEngines(meFoc, input, settings) + Co2ForAuxEngines(aeFoc, input, settings);
+
+    /// <summary>ME CO2 (tons) with the main fuel's factor — the single source for per-engine CO2.</summary>
+    private static double Co2ForMainEngines(double meFoc, CalculatorInput input, CalculatorSettings settings)
+        => meFoc * settings.Co2FactorFor(input.MainFuelType);
+
+    /// <summary>AE CO2 (tons) with the aux fuel's factor — the single source for per-engine CO2.</summary>
+    private static double Co2ForAuxEngines(double aeFoc, CalculatorInput input, CalculatorSettings settings)
+        => aeFoc * settings.Co2FactorFor(input.AuxFuelType);
 
     #endregion
 
