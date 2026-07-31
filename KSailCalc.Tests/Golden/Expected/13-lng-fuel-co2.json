@@ -1,0 +1,273 @@
+{
+  "status": 200,
+  "result": {
+    "powerDemands": {
+      "mainEnginePowerKw": 14635.5475,
+      "shaftGeneratorPowerKw": 2800,
+      "auxiliaryEnginePowerKw": 1072.1999999999998,
+      "totalPowerKw": 18507.7475,
+      "totalDemand": 18507.7475,
+      "meInstalled": 44000,
+      "aeInstalled": 16000,
+      "modeBreakdowns": [
+        {
+          "mode": "Transit",
+          "hours": 5000,
+          "propulsionMainEngineKw": 11835.5475,
+          "propulsionSailKw": 0,
+          "hotelShaftGenKw": 2800,
+          "hotelAuxGenKw": 1072.1999999999998,
+          "energyMainEngineKwh": 73177737.5,
+          "energyAuxGenKwh": 5360999.999999999
+        }
+      ]
+    },
+    "level1Details": {
+      "activeMeCount": 1,
+      "sgEnabled": true,
+      "activeAeCount": 1,
+      "optimalFocTonPerHour": 2.677800235304508,
+      "baselineMeCount": 1,
+      "baselineSgEnabled": true,
+      "baselineAeCount": 2,
+      "baselineFocTonPerHour": 2.686489076054508,
+      "baselineMePowerKw": 14635.5475,
+      "baselineSgPowerKw": 2800,
+      "baselineAePowerKw": 1072.1999999999998,
+      "baselineMeLoadPercent": 66.5252159090909,
+      "baselineAeLoadPercent": 13.402499999999998,
+      "savingsTonPerHour": 0.008688840750000093,
+      "validCombinationsCount": 5,
+      "selectedBaselineIndex": 2,
+      "validCombinations": [
+        {
+          "index": 0,
+          "activeMeCount": 1,
+          "sgEnabled": true,
+          "activeAeCount": 1,
+          "focTonPerHour": 2.677800235304508,
+          "meLoadPercent": 66.5252159090909,
+          "aeLoadPercent": 26.804999999999996,
+          "ptiKw": null
+        },
+        {
+          "index": 1,
+          "activeMeCount": 2,
+          "sgEnabled": true,
+          "activeAeCount": 0,
+          "focTonPerHour": 2.683134540501358,
+          "meLoadPercent": 35.69942613636364,
+          "aeLoadPercent": 0,
+          "ptiKw": null
+        },
+        {
+          "index": 2,
+          "activeMeCount": 1,
+          "sgEnabled": true,
+          "activeAeCount": 2,
+          "focTonPerHour": 2.686489076054508,
+          "meLoadPercent": 66.5252159090909,
+          "aeLoadPercent": 13.402499999999998,
+          "ptiKw": null
+        },
+        {
+          "index": 3,
+          "activeMeCount": 1,
+          "sgEnabled": true,
+          "activeAeCount": 3,
+          "focTonPerHour": 2.6896636115041077,
+          "meLoadPercent": 66.5252159090909,
+          "aeLoadPercent": 8.934999999999999,
+          "ptiKw": null
+        },
+        {
+          "index": 4,
+          "activeMeCount": 1,
+          "sgEnabled": true,
+          "activeAeCount": 4,
+          "focTonPerHour": 2.6914292252242076,
+          "meLoadPercent": 66.5252159090909,
+          "aeLoadPercent": 6.701249999999999,
+          "ptiKw": null
+        }
+      ]
+    },
+    "sailContribution": null,
+    "batteryDetails": {
+      "capacityKwh": 2000,
+      "powerKw": 1260,
+      "spinningReserveKw": 444.7475,
+      "peakShavingKw": 204.4025,
+      "benefitFocTonPerYear": 173.41252475517211,
+      "benefitCostPerYear": 107515.76534820671,
+      "modeAllocations": [
+        {
+          "mode": "Transit",
+          "loads": [
+            {
+              "load": "Mission",
+              "function": "PeakShaving",
+              "coverageFactor": 0.5,
+              "averageLoadKw": 0,
+              "variationKw": 0,
+              "batteryUsedKw": 0,
+              "coveredBandKw": 0,
+              "uncoveredReserveKw": 0
+            },
+            {
+              "load": "Propulsion",
+              "function": "PeakShaving",
+              "coverageFactor": 0.35,
+              "averageLoadKw": 11463,
+              "variationKw": 573.15,
+              "batteryUsedKw": 573.15,
+              "coveredBandKw": 200.6025,
+              "uncoveredReserveKw": 372.5475
+            },
+            {
+              "load": "Hotel",
+              "function": "PeakShaving",
+              "coverageFactor": 0.05,
+              "averageLoadKw": 3800,
+              "variationKw": 76,
+              "batteryUsedKw": 76,
+              "coveredBandKw": 3.8000000000000003,
+              "uncoveredReserveKw": 72.2
+            }
+          ],
+          "peakShavingBandKw": 204.4025,
+          "additionalSpinningReserveKw": 444.7475,
+          "committedBatteryKw": 649.15,
+          "remainingBatteryKw": 610.85
+        }
+      ]
+    },
+    "baselineFOC": 13432.44538027254,
+    "baselineCO2": 38410.68314650772,
+    "baselineME": 12219.25778152254,
+    "baselineAE": 1213.1875987499998,
+    "baselineMeCO2": 33639.616672531556,
+    "baselineAeCO2": 4771.066473976161,
+    "warnings": [],
+    "premium": {
+      "fuelSavings": 43.44420375000047,
+      "fuelSavingsPercentage": 0.32342736203345723,
+      "optimizedFOC": 13389.001176522539,
+      "optimizedCO2": 38239.831429746206,
+      "co2Reduction": 170.85171676151367,
+      "co2ReductionPercentage": 0.4448025985631225,
+      "annualCostSavings": 26935.40632500029,
+      "totalInvestment": 210000,
+      "paybackPeriod": 7.796429631176085,
+      "roi": 28.263839642858528,
+      "efficiencyFactor": 0.9967657263796654,
+      "optimizedME": 12219.25778152254,
+      "optimizedAE": 1169.743394999999,
+      "optimizedMeCO2": 33639.616672531556,
+      "optimizedAeCO2": 4600.214757214646,
+      "mainEngineLoadPercent": 66.5252159090909,
+      "auxiliaryEngineLoadPercent": 26.804999999999996,
+      "level1SavingsTonPerYear": 43.44420375000047,
+      "level2SavingsTonPerYear": 0,
+      "level3SavingsTonPerYear": 0,
+      "level2Details": {
+        "optimalSetpoints": [
+          {
+            "generatorType": "SG",
+            "loadPercent": 1,
+            "sfoc": 174.476,
+            "powerKw": 2800,
+            "capacityKw": 2800
+          },
+          {
+            "generatorType": "AE",
+            "loadPercent": 0.26804999999999995,
+            "sfoc": 218.195,
+            "powerKw": 1072.1999999999998,
+            "capacityKw": 4000
+          }
+        ],
+        "optimalTotalSfoc": 392.671,
+        "savingsTonPerHour": 0
+      },
+      "level3Details": {
+        "drcSavingsTonPerYear": 0,
+        "variationPerGeneratorKw": 496.2,
+        "reducedVariationPerGeneratorKw": 396.96000000000004,
+        "batteryShavedVariationKw": 3.8000000000000003,
+        "activeGeneratorCount": 2
+      },
+      "warnings": []
+    },
+    "pro": {
+      "fuelSavings": 43.44420375000047,
+      "fuelSavingsPercentage": 0.32342736203345723,
+      "optimizedFOC": 13389.001176522539,
+      "optimizedCO2": 38239.831429746206,
+      "co2Reduction": 170.85171676151367,
+      "co2ReductionPercentage": 0.4448025985631225,
+      "annualCostSavings": 26935.40632500029,
+      "totalInvestment": 140500,
+      "paybackPeriod": 5.2161826818106665,
+      "roi": 91.71107704626542,
+      "efficiencyFactor": 0.9967657263796654,
+      "optimizedME": 12219.25778152254,
+      "optimizedAE": 1169.743394999999,
+      "optimizedMeCO2": 33639.616672531556,
+      "optimizedAeCO2": 4600.214757214646,
+      "mainEngineLoadPercent": 66.5252159090909,
+      "auxiliaryEngineLoadPercent": 26.804999999999996,
+      "level1SavingsTonPerYear": 43.44420375000047,
+      "level2SavingsTonPerYear": 0,
+      "level3SavingsTonPerYear": 0,
+      "level2Details": {
+        "optimalSetpoints": [
+          {
+            "generatorType": "SG",
+            "loadPercent": 1,
+            "sfoc": 174.476,
+            "powerKw": 2800,
+            "capacityKw": 2800
+          },
+          {
+            "generatorType": "AE",
+            "loadPercent": 0.26804999999999995,
+            "sfoc": 218.195,
+            "powerKw": 1072.1999999999998,
+            "capacityKw": 4000
+          }
+        ],
+        "optimalTotalSfoc": 392.671,
+        "savingsTonPerHour": 0
+      },
+      "level3Details": null,
+      "warnings": []
+    },
+    "advanced": {
+      "fuelSavings": 43.44420375000047,
+      "fuelSavingsPercentage": 0.32342736203345723,
+      "optimizedFOC": 13389.001176522539,
+      "optimizedCO2": 38239.831429746206,
+      "co2Reduction": 170.85171676151367,
+      "co2ReductionPercentage": 0.4448025985631225,
+      "annualCostSavings": 26935.40632500029,
+      "totalInvestment": 110000,
+      "paybackPeriod": 4.083844092520806,
+      "roi": 144.86733022727537,
+      "efficiencyFactor": 0.9967657263796654,
+      "optimizedME": 12219.25778152254,
+      "optimizedAE": 1169.743394999999,
+      "optimizedMeCO2": 33639.616672531556,
+      "optimizedAeCO2": 4600.214757214646,
+      "mainEngineLoadPercent": 66.5252159090909,
+      "auxiliaryEngineLoadPercent": 26.804999999999996,
+      "level1SavingsTonPerYear": 43.44420375000047,
+      "level2SavingsTonPerYear": 0,
+      "level3SavingsTonPerYear": 0,
+      "level2Details": null,
+      "level3Details": null,
+      "warnings": []
+    }
+  },
+  "errors": []
+}

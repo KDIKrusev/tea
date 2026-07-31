@@ -26,6 +26,12 @@ public class CalculatorSettings
     public double UsdToNokRate { get; set; } = 10.0;
 
     /// <summary>
+    /// Horizon (years) of the simple ROI shown per tier: (savings × years − investment) / investment.
+    /// A commercial assumption, not physics — hence configuration.
+    /// </summary>
+    public int RoiAnalysisYears { get; set; } = 10;
+
+    /// <summary>
     /// Load variation (±kW) per vessel type for DRC calculation.
     /// Keys are vessel type names, values are kW variation.
     /// </summary>

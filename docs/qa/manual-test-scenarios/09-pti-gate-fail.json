@@ -1,0 +1,37 @@
+{
+  "name": "09 PTI 50 - expect 400 with actionable message",
+  "vesselTypeName": "Offshore Support 11,000 dwt",
+  "vesselCategory": "Offshore Support",
+  "vesselSize": 11000,
+  "vesselSpeed": 12.5,
+  "version": 3,
+  "input": {
+    "propulsionPower": 11463,
+    "hotelLoad": 3800,
+    "seaMargin": 0,
+    "meCapacityPerEngine": 24000,
+    "meCount": 2,
+    "sgCapacityPerEngine": 3250,
+    "aeCapacityPerEngine": 4000,
+    "aeCount": 4,
+    "mainEngineTypeId": 1,
+    "auxEngineTypeId": 8,
+    "mainFuelType": "MDO",
+    "auxFuelType": "MGO",
+    "sailInstalled": false,
+    "sailEnabled": false,
+    "batteryCapacity": 0,
+    "battery": {
+      "powerKw": 1260,
+      "capacityKwh": 2000,
+      "relevantModes": ["Transit"]
+    },
+    "maxPtiPerEngineKw": 50,
+    "fuelPrice": 780,
+    "transitHours": 5000,
+    "transitHotelPowerKW": 3800,
+    "vesselTypeName": "Offshore Support 11,000 dwt",
+    "hotelLoadVariationKw": 500,
+    "vesselSpeedKnots": 12.5
+  }
+}

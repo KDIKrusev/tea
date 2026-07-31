@@ -26,6 +26,23 @@ import { ProfileService } from '../../../core/profile.service';
 import { SavedProfile, PROFILE_SCHEMA_VERSION } from '../../../core/profile.types';
 import { AppDataService } from '../../../core/app-data.service';
 
+/**
+ * A form emission, carrying WHY it happened.
+ *
+ * Restoring a saved profile produces several emissions (the vessel/engine cascade patches fields
+ * asynchronously, then the profile's own values are applied on top). Consumers must be able to
+ * tell those apart from a real edit instead of guessing by arrival order — guessing is what let a
+ * restored `baselineIndex` be wiped by the second emission of its own restore.
+ */
+export interface FormChangeEvent {
+  input: CalculatorInput;
+  /** 'restore' = part of loading a saved profile/draft · 'user' = someone changed a field. */
+  source: 'user' | 'restore';
+}
+
+/** Safety net: a restore that never reaches applyProfileInputValues must not freeze the flag. */
+const RESTORE_WATCHDOG_MS = 3000;
+
 @Component({
   selector: 'app-vessel-input-form',
   standalone: true,
@@ -51,7 +68,7 @@ import { AppDataService } from '../../../core/app-data.service';
   styleUrl: './vessel-input-form.component.css'
 })
 export class VesselInputFormComponent implements OnInit, OnDestroy, AfterViewInit {
-  @Output() formChanged = new EventEmitter<CalculatorInput>();
+  @Output() formChanged = new EventEmitter<FormChangeEvent>();
   @Input() isCalculating = false;
   @Input() sailContribution: SailContributionResult | null = null;
   @Input() batteryDetails: BatteryDetails | null = null;
@@ -69,6 +86,10 @@ export class VesselInputFormComponent implements OnInit, OnDestroy, AfterViewIni
 
   /** Input from a saved profile that should be applied after the next cascade completes */
   private pendingProfileInput: CalculatorInput | null = null;
+
+  /** True from the moment a profile starts loading until its values have been applied. */
+  private restoreInFlight = false;
+  private restoreWatchdog: ReturnType<typeof setTimeout> | null = null;
 
   /** Timer handle for auto-draft */
   private draftTimer: ReturnType<typeof setInterval> | null = null;
@@ -110,6 +131,9 @@ export class VesselInputFormComponent implements OnInit, OnDestroy, AfterViewIni
     this.destroy$.complete();
     if (this.draftTimer !== null) {
       clearInterval(this.draftTimer);
+    }
+    if (this.restoreWatchdog !== null) {
+      clearTimeout(this.restoreWatchdog);
     }
   }
 
@@ -199,7 +223,27 @@ export class VesselInputFormComponent implements OnInit, OnDestroy, AfterViewIni
 
   private emitFormValues(): void {
     const formValue = this.vesselForm.getRawValue();
-    this.formChanged.emit(this.buildCalculatorInput(formValue));
+    this.formChanged.emit({
+      input: this.buildCalculatorInput(formValue),
+      source: this.restoreInFlight ? 'restore' : 'user'
+    });
+  }
+
+  /** Marks every emission until the profile's values land as part of the restore. */
+  private beginRestore(): void {
+    this.restoreInFlight = true;
+    if (this.restoreWatchdog !== null) {
+      clearTimeout(this.restoreWatchdog);
+    }
+    this.restoreWatchdog = setTimeout(() => this.endRestore(), RESTORE_WATCHDOG_MS);
+  }
+
+  private endRestore(): void {
+    this.restoreInFlight = false;
+    if (this.restoreWatchdog !== null) {
+      clearTimeout(this.restoreWatchdog);
+      this.restoreWatchdog = null;
+    }
   }
 
   getCurrentInputSnapshot(baselineIndex?: number): CalculatorInput {
@@ -422,6 +466,7 @@ export class VesselInputFormComponent implements OnInit, OnDestroy, AfterViewIni
    * custom values once the cascade finishes (in onOperationalProfileLoaded).
    */
   loadProfile(profile: SavedProfile): void {
+    this.beginRestore();
     this.pendingProfileInput = profile.input;
     this.vesselTypeName = profile.vesselTypeName;
 
@@ -625,6 +670,10 @@ export class VesselInputFormComponent implements OnInit, OnDestroy, AfterViewIni
     this.batteryConfigSection?.refreshDpAvailability();
     // emitEvent:false suppresses setupAutoCalculation — trigger calculation explicitly
     this.updateWeightedAverageHotelLoad();
+
+    // The profile's own values are now in the form — this emission, and everything after it,
+    // is no longer part of the restore.
+    this.endRestore();
     if (this.vesselForm.valid && this.componentsLoaded) {
       this.emitFormValues();
     }

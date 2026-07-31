@@ -1,4 +1,4 @@
-                                                                                                                                                                                                                                                                            using KSailCalc.Api.Models;
+using KSailCalc.Api.Models;
 using KSailCalc.Api.Models.Enums;
 using KSailCalc.Api.Repositories.Interfaces;
 using KSailCalc.Api.Services.Helpers;
@@ -49,21 +49,32 @@ public class CalculatorService : ICalculatorService
     private record TierSavings(double Advanced, double Pro, double Premium,
         double L1Savings, double L2Savings, double L3Savings);
 
-    private record BuildResultContext(
-        CalculatorInput Input,
+    /// <summary>
+    /// What one product tier reports. The tier decides which optimization levels it includes, so
+    /// the savings components and the L2/L3 detail panels travel together with its price config.
+    /// </summary>
+    private record TierPlan(
         IntegrationLevelConfig Config,
-        FocBreakdown Foc,
-        double FuelSavingsTon,
-        Level2Details? L2Details,
-        Level3Details? L3Details,
-        CalculatorSettings Settings,
+        double TotalSavingsTon,
         double L1Savings,
         double L2Savings,
         double L3Savings,
-        EngineCombination TransitOptimalCombo);
+        Level2Details? L2Details,
+        Level3Details? L3Details);
+
+    private record BuildResultContext(
+        CalculatorInput Input,
+        FocBreakdown Foc,
+        CalculatorSettings Settings,
+        EngineCombination TransitOptimalCombo,
+        TierPlan Tier);
 
     private record ModePipelineResult(
-        OperationalMode Mode, Level1Result L1, Level2Result L2, Level3Result L3, double Hours);
+        OperationalMode Mode, Level1Result L1, Level2Result L2, Level3Result L3, double Hours,
+        BatteryModeOutcome? Battery);
+
+    /// <summary>What the battery produced in one mode: its allocation and the R3a benefit.</summary>
+    private record BatteryModeOutcome(BatteryModeAllocation Allocation, double BenefitTonPerYear);
 
     #endregion
 
@@ -82,39 +93,25 @@ public class CalculatorService : ICalculatorService
         // Transit: full L1 → L2 → L3 pipeline (optimized, shown to client)
         // Other modes: L1 only (for FOC calculation), L2/L3 are not optimized
         var modeResults = new List<ModePipelineResult>();
-        // Per-mode battery allocations + R3a dual-scenario benefits (empty when battery inactive)
-        var batteryTracker = new List<(BatteryModeAllocation Alloc, double BenefitTons)>();
 
         var transitPropulsion = sailResult?.TransitPropulsionAfterKw;
-        var transit = await RunOptimizationPipelineAsync(input, OperationalMode.Transit, transitPropulsion, batteryTracker);
-        modeResults.Add(new(OperationalMode.Transit, transit.L1, transit.L2, transit.L3, input.TransitHours));
+        var transit = await RunOptimizationPipelineAsync(input, OperationalMode.Transit, transitPropulsion);
+        modeResults.Add(new(OperationalMode.Transit, transit.L1, transit.L2, transit.L3,
+            input.TransitHours, transit.Battery));
 
-        // Non-transit modes: only L1 for baseline/optimal FOC, no L2/L3 optimization
+        // Non-transit modes: only L1 for baseline/optimal FOC, no L2/L3 optimization (D4/Q5).
+        // The user-pinned baseline applies to Transit only — other modes keep their own default.
         var emptyL2 = new Level2Result();
         var emptyL3 = new Level3Result();
 
-        if (input.DpEnabled && (input.DPHours ?? 0) > 0)
+        foreach (var spec in OperationalModes.ExceptTransit)
         {
-            var (l1, _) = await RunL1Async(input, OperationalMode.DP, input.DPHours ?? 0, null, null, batteryTracker);
-            modeResults.Add(new(OperationalMode.DP, l1, emptyL2, emptyL3, input.DPHours ?? 0));
-        }
+            if (!spec.IsActive(input))
+                continue;
 
-        if (input.PortHours > 0)
-        {
-            var (l1, _) = await RunL1Async(input, OperationalMode.Port, input.PortHours, null, null, batteryTracker);
-            modeResults.Add(new(OperationalMode.Port, l1, emptyL2, emptyL3, input.PortHours));
-        }
-
-        if (input.AnchorHours > 0)
-        {
-            var (l1, _) = await RunL1Async(input, OperationalMode.Anchor, input.AnchorHours, null, null, batteryTracker);
-            modeResults.Add(new(OperationalMode.Anchor, l1, emptyL2, emptyL3, input.AnchorHours));
-        }
-
-        if (input.ManeuveringHours > 0)
-        {
-            var (l1, _) = await RunL1Async(input, OperationalMode.Maneuvering, input.ManeuveringHours, null, null, batteryTracker);
-            modeResults.Add(new(OperationalMode.Maneuvering, l1, emptyL2, emptyL3, input.ManeuveringHours));
+            var hours = spec.Hours(input);
+            var (l1, battery) = await RunL1Async(input, spec.Mode, hours, null, null);
+            modeResults.Add(new(spec.Mode, l1, emptyL2, emptyL3, hours, battery));
         }
 
         // Aggregate savings across modes
@@ -142,7 +139,7 @@ public class CalculatorService : ICalculatorService
             PowerDemands = powerDemands,
             Level1Details = l1Details,
             SailContribution = sailResult,
-            BatteryDetails = BuildBatteryDetails(input, batteryTracker),
+            BatteryDetails = BuildBatteryDetails(input, modeResults),
             BaselineFOC = foc.BaselineFoc,
             BaselineCO2 = Co2ForEngines(foc.BaselineMeFoc, foc.BaselineAeFoc, input, _settings),
             BaselineME = foc.BaselineMeFoc,
@@ -150,13 +147,16 @@ public class CalculatorService : ICalculatorService
             BaselineMeCO2 = Co2ForMainEngines(foc.BaselineMeFoc, input, _settings),
             BaselineAeCO2 = Co2ForAuxEngines(foc.BaselineAeFoc, input, _settings),
 
-            // Per-variant results
-            Advanced = BuildVariantResult(new(input, configMap["1"], foc, savings.Advanced,
-                null, null, _settings, savings.L1Savings, 0, 0, transitOptimal)),
-            Pro = BuildVariantResult(new(input, configMap["2"], foc, savings.Pro,
-                l2Details, null, _settings, savings.L1Savings, savings.L2Savings, 0, transitOptimal)),
-            Premium = BuildVariantResult(new(input, configMap["3"], foc, savings.Premium,
-                l2Details, l3Details, _settings, savings.L1Savings, savings.L2Savings, savings.L3Savings, transitOptimal))
+            // Per-variant results: each tier adds one optimization level to the one below it
+            Advanced = BuildVariantResult(new(input, foc, _settings, transitOptimal,
+                new TierPlan(configMap["1"], savings.Advanced,
+                    savings.L1Savings, 0, 0, null, null))),
+            Pro = BuildVariantResult(new(input, foc, _settings, transitOptimal,
+                new TierPlan(configMap["2"], savings.Pro,
+                    savings.L1Savings, savings.L2Savings, 0, l2Details, null))),
+            Premium = BuildVariantResult(new(input, foc, _settings, transitOptimal,
+                new TierPlan(configMap["3"], savings.Premium,
+                    savings.L1Savings, savings.L2Savings, savings.L3Savings, l2Details, l3Details)))
         };
 
         // Attach validation warnings
@@ -168,17 +168,16 @@ public class CalculatorService : ICalculatorService
         return result;
     }
 
-    private async Task<(Level1Result L1, Level2Result L2, Level3Result L3)> RunOptimizationPipelineAsync(
-        CalculatorInput input, OperationalMode mode, double? overridePropulsionKw,
-        List<(BatteryModeAllocation Alloc, double BenefitTons)> batteryTracker)
+    private async Task<(Level1Result L1, Level2Result L2, Level3Result L3, BatteryModeOutcome? Battery)>
+        RunOptimizationPipelineAsync(CalculatorInput input, OperationalMode mode, double? overridePropulsionKw)
     {
-        var modeHours = GetModeHours(input, mode);
-        var (l1, allocation) = await RunL1Async(input, mode, modeHours, overridePropulsionKw, input.BaselineIndex, batteryTracker);
+        var modeHours = OperationalModes.HoursOf(input, mode);
+        var (l1, battery) = await RunL1Async(input, mode, modeHours, overridePropulsionKw, input.BaselineIndex);
         var l2 = await _level2Service.OptimizeLoadSetpointsAsync(l1, input);
         // Increment E (Q4 working rule): DRC monetizes only the variation the battery didn't shave
-        var hotelBand = allocation is null ? 0 : HotelPeakShavingKw(allocation);
+        var hotelBand = battery is null ? 0 : HotelPeakShavingKw(battery.Allocation);
         var l3 = await _level3Service.CalculateDrcSavingsAsync(l2, input, modeHours, hotelBand);
-        return (l1, l2, l3);
+        return (l1, l2, l3, battery);
     }
 
     #region Battery (Increment B — decisions D1/D2/D3, R3a dual-scenario)
@@ -189,10 +188,9 @@ public class CalculatorService : ICalculatorService
     /// "third highest" default baseline; additionally runs the no-battery reference scenario
     /// (budget 0 ⇒ full variation carried by gensets) to compute the R3a "Battery benefit".
     /// </summary>
-    private async Task<(Level1Result L1, BatteryModeAllocation? Allocation)> RunL1Async(
+    private async Task<(Level1Result L1, BatteryModeOutcome? Battery)> RunL1Async(
         CalculatorInput input, OperationalMode mode, double modeHours,
-        double? overridePropulsionKw, int? baselineIndex,
-        List<(BatteryModeAllocation Alloc, double BenefitTons)> batteryTracker)
+        double? overridePropulsionKw, int? baselineIndex)
     {
         if (input.Battery?.AppliesTo(mode) != true)
             return (await _level1Service.FindOptimalCombinationAsync(input, mode, overridePropulsionKw, baselineIndex), null);
@@ -207,8 +205,7 @@ public class CalculatorService : ICalculatorService
             input, mode, overridePropulsionKw, null, ToAdjustment(referenceAllocation));
 
         var benefitTons = Math.Max(0, referenceL1.OptimalFocTonPerHour - l1.OptimalFocTonPerHour) * modeHours;
-        batteryTracker.Add((allocation, benefitTons));
-        return (l1, allocation);
+        return (l1, new BatteryModeOutcome(allocation, benefitTons));
     }
 
     /// <summary>Hotel/mission-side ± band covered by the battery (offsets the L3 DRC variation).</summary>
@@ -242,35 +239,28 @@ public class CalculatorService : ICalculatorService
     }
 
     private static BatteryDetails? BuildBatteryDetails(
-        CalculatorInput input, List<(BatteryModeAllocation Alloc, double BenefitTons)> batteryTracker)
+        CalculatorInput input, List<ModePipelineResult> modes)
     {
-        if (input.Battery?.IsActive != true || batteryTracker.Count == 0)
+        // Modes the battery did not apply to contribute nothing; no contributing mode at all
+        // (e.g. battery assigned to Port with 0 port hours) ⇒ no panel, not an empty one (G2/B10).
+        var outcomes = modes.Select(m => m.Battery).OfType<BatteryModeOutcome>().ToList();
+        if (input.Battery?.IsActive != true || outcomes.Count == 0)
             return null;
 
-        var benefit = batteryTracker.Sum(t => t.BenefitTons);
+        var benefit = outcomes.Sum(o => o.BenefitTonPerYear);
         return new BatteryDetails
         {
             CapacityKwh = input.Battery.CapacityKwh,
             PowerKw = input.Battery.PowerKw,
-            SpinningReserveKw = batteryTracker.Sum(t => t.Alloc.AdditionalSpinningReserveKw),
-            PeakShavingKw = batteryTracker.Sum(t => t.Alloc.PeakShavingBandKw),
+            SpinningReserveKw = outcomes.Sum(o => o.Allocation.AdditionalSpinningReserveKw),
+            PeakShavingKw = outcomes.Sum(o => o.Allocation.PeakShavingBandKw),
             BenefitFocTonPerYear = benefit,
             BenefitCostPerYear = benefit * input.FuelPrice,
-            ModeAllocations = batteryTracker.Select(t => t.Alloc).ToList()
+            ModeAllocations = outcomes.Select(o => o.Allocation).ToList()
         };
     }
 
     #endregion
-
-    private static double GetModeHours(CalculatorInput input, OperationalMode mode) => mode switch
-    {
-        OperationalMode.Transit => input.TransitHours,
-        OperationalMode.DP => input.DPHours ?? 0,
-        OperationalMode.Port => input.PortHours,
-        OperationalMode.Anchor => input.AnchorHours,
-        OperationalMode.Maneuvering => input.ManeuveringHours,
-        _ => 0
-    };
 
     #region FOC & Savings Aggregation
 
@@ -306,8 +296,8 @@ public class CalculatorService : ICalculatorService
 
     private static VariantResult BuildVariantResult(BuildResultContext ctx)
     {
-        var optimizedFoc = ctx.Foc.BaselineFoc - ctx.FuelSavingsTon;
-        var financial = CalculateFinancials(ctx.FuelSavingsTon, ctx.Input.FuelPrice, ctx.Config, ctx.Settings);
+        var optimizedFoc = ctx.Foc.BaselineFoc - ctx.Tier.TotalSavingsTon;
+        var financial = CalculateFinancials(ctx.Tier.TotalSavingsTon, ctx.Input.FuelPrice, ctx.Tier.Config, ctx.Settings);
 
         // Distribute optimized FOC between ME and AE using the OPTIMIZED plant's own split —
         // the baseline may run a different engine mix (e.g. baseline has AEs on while the optimum
@@ -331,9 +321,9 @@ public class CalculatorService : ICalculatorService
         var aeLoadPct = ctx.TransitOptimalCombo.AeLoadPercent * 100;
 
         // For L2+ tiers, use the optimized AE load from Level 2 setpoints
-        if (ctx.L2Details?.OptimalSetpoints is { Count: > 0 })
+        if (ctx.Tier.L2Details?.OptimalSetpoints is { Count: > 0 })
         {
-            var activeAeSetpoints = ctx.L2Details.OptimalSetpoints
+            var activeAeSetpoints = ctx.Tier.L2Details.OptimalSetpoints
                 .Where(s => s.GeneratorType == GeneratorType.AE && s.LoadPercent > 0)
                 .ToList();
             if (activeAeSetpoints.Count > 0)
@@ -343,8 +333,8 @@ public class CalculatorService : ICalculatorService
         return new VariantResult
         {
             OptimizedFOC = optimizedFoc,
-            FuelSavings = ctx.FuelSavingsTon,
-            FuelSavingsPercentage = ctx.Foc.BaselineFoc > 0 ? (ctx.FuelSavingsTon / ctx.Foc.BaselineFoc) * 100 : 0,
+            FuelSavings = ctx.Tier.TotalSavingsTon,
+            FuelSavingsPercentage = ctx.Foc.BaselineFoc > 0 ? (ctx.Tier.TotalSavingsTon / ctx.Foc.BaselineFoc) * 100 : 0,
             OptimizedCO2 = optimizedCo2,
             Co2Reduction = co2Reduction,
             Co2ReductionPercentage = baselineCo2 > 0 ? (co2Reduction / baselineCo2) * 100 : 0,
@@ -359,11 +349,11 @@ public class CalculatorService : ICalculatorService
             OptimizedAeCO2 = Co2ForAuxEngines(optimizedAeFocBreakdown, ctx.Input, ctx.Settings),
             MainEngineLoadPercent = meLoadPct,
             AuxiliaryEngineLoadPercent = aeLoadPct,
-            Level2Details = ctx.L2Details,
-            Level3Details = ctx.L3Details,
-            Level1SavingsTonPerYear = ctx.L1Savings,
-            Level2SavingsTonPerYear = ctx.L2Savings,
-            Level3SavingsTonPerYear = ctx.L3Savings
+            Level2Details = ctx.Tier.L2Details,
+            Level3Details = ctx.Tier.L3Details,
+            Level1SavingsTonPerYear = ctx.Tier.L1Savings,
+            Level2SavingsTonPerYear = ctx.Tier.L2Savings,
+            Level3SavingsTonPerYear = ctx.Tier.L3Savings
         };
     }
 
@@ -378,8 +368,9 @@ public class CalculatorService : ICalculatorService
         var investment = (config.IemsPriceNOK + config.CommissioningNOK) / settings.UsdToNokRate;
         var payback = costSavings > 0 ? investment / costSavings : 0;
 
-        const int analysisYears = 10;
-        var roi = investment > 0 ? ((costSavings * analysisYears - investment) / investment) * 100 : 0;
+        var roi = investment > 0
+            ? ((costSavings * settings.RoiAnalysisYears - investment) / investment) * 100
+            : 0;
 
         return new FinancialMetrics(costSavings, investment, payback, roi);
     }

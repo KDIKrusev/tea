@@ -1,0 +1,42 @@
+{
+  "name": "04 DP redundancy 400 - RESERVE covered 1:1",
+  "vesselTypeName": "Offshore Support 11,000 dwt",
+  "vesselCategory": "Offshore Support",
+  "vesselSize": 11000,
+  "vesselSpeed": 12.5,
+  "version": 3,
+  "input": {
+    "propulsionPower": 11463,
+    "hotelLoad": 3800,
+    "seaMargin": 0,
+    "meCapacityPerEngine": 24000,
+    "meCount": 2,
+    "sgCapacityPerEngine": 3250,
+    "aeCapacityPerEngine": 4000,
+    "aeCount": 4,
+    "mainEngineTypeId": 1,
+    "auxEngineTypeId": 8,
+    "mainFuelType": "MDO",
+    "auxFuelType": "MGO",
+    "sailInstalled": false,
+    "sailEnabled": false,
+    "batteryCapacity": 0,
+    "battery": {
+      "powerKw": 500,
+      "capacityKwh": 2000,
+      "relevantModes": ["DP"]
+    },
+    "dpEnabled": true,
+    "dpHours": 2000,
+    "dpHotelPowerKW": 1500,
+    "requiredDPPowerKW": 2500,
+    "dpWeatherCondition": "Calm",
+    "dpRedundancyRequirementKw": 400,
+    "fuelPrice": 780,
+    "transitHours": 5000,
+    "transitHotelPowerKW": 3800,
+    "vesselTypeName": "Offshore Support 11,000 dwt",
+    "hotelLoadVariationKw": 500,
+    "vesselSpeedKnots": 12.5
+  }
+}

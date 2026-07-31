@@ -1,0 +1,31 @@
+{
+  "name": "17 Infeasible plant - ME too small, expect 400 error",
+  "vesselTypeName": "Offshore Support 11,000 dwt",
+  "vesselCategory": "Offshore Support",
+  "vesselSize": 11000,
+  "vesselSpeed": 12.5,
+  "version": 3,
+  "input": {
+    "propulsionPower": 11463,
+    "hotelLoad": 3800,
+    "seaMargin": 0,
+    "meCapacityPerEngine": 5000,
+    "meCount": 2,
+    "sgCapacityPerEngine": 0,
+    "aeCapacityPerEngine": 4000,
+    "aeCount": 4,
+    "mainEngineTypeId": 1,
+    "auxEngineTypeId": 8,
+    "mainFuelType": "MDO",
+    "auxFuelType": "MGO",
+    "sailInstalled": false,
+    "sailEnabled": false,
+    "batteryCapacity": 0,
+    "fuelPrice": 780,
+    "transitHours": 5000,
+    "transitHotelPowerKW": 3800,
+    "vesselTypeName": "Offshore Support 11,000 dwt",
+    "hotelLoadVariationKw": 500,
+    "vesselSpeedKnots": 12.5
+  }
+}

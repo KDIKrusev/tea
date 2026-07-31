@@ -26,7 +26,7 @@ public class Level1OptimizationService : ILevel1OptimizationService
         CalculatorInput input, OperationalMode mode, double? overridePropulsionKw = null, int? baselineIndex = null,
         BatteryL1Adjustment? batteryAdjustment = null)
     {
-        var (propulsion, hotel) = GetModeLoads(input, mode);
+        var (propulsion, hotel) = OperationalModes.LoadsOf(input, mode);
         if (overridePropulsionKw.HasValue)
             propulsion = overridePropulsionKw.Value;
 
@@ -61,7 +61,7 @@ public class Level1OptimizationService : ILevel1OptimizationService
             }
 
             // AE load must not exceed 90% — otherwise L2 cannot find a valid distribution
-            if (combo.ActiveAeCount > 0 && combo.AeLoadPercent > 0.90 + 0.001)
+            if (combo.ActiveAeCount > 0 && combo.AeLoadPercent > PlantLimits.MaxAuxLoadFraction + PlantLimits.PowerToleranceKw)
             {
                 rejections.AuxOverloaded++;
                 continue;
@@ -69,7 +69,7 @@ public class Level1OptimizationService : ILevel1OptimizationService
 
             // Power sufficiency: ME must handle its assigned load (post-assist)
             var meCapacity = combo.ActiveMeCount * input.MeCapacityPerEngine;
-            if (combo.ActiveMeCount > 0 && combo.MePowerKw > meCapacity + 0.001)
+            if (combo.ActiveMeCount > 0 && combo.MePowerKw > meCapacity + PlantLimits.PowerToleranceKw)
             {
                 rejections.InsufficientPower++;
                 continue;
@@ -85,7 +85,7 @@ public class Level1OptimizationService : ILevel1OptimizationService
             // PTI is modelled — with MaxPti = 0 the bus-level simplification stands (ADR-5).
             if (input.MaxPtiPerEngineKw > 0
                 && batteryAdjustment is { PropulsionPeakShavingKw: > 0 }
-                && combo.AvailablePtiKw + 0.001 < batteryAdjustment.PropulsionPeakShavingKw)
+                && combo.AvailablePtiKw + PlantLimits.PowerToleranceKw < batteryAdjustment.PropulsionPeakShavingKw)
             {
                 rejections.BatteryPtiGate++;
                 rejections.BestAvailablePtiKw = Math.Max(rejections.BestAvailablePtiKw, combo.AvailablePtiKw);
@@ -129,23 +129,6 @@ public class Level1OptimizationService : ILevel1OptimizationService
         };
     }
 
-    #region Mode Loads
-
-    private static (double propulsion, double hotel) GetModeLoads(CalculatorInput input, OperationalMode mode)
-    {
-        return mode switch
-        {
-            OperationalMode.Transit => (input.EffectivePropulsionPower, input.TransitHotelPowerKW),
-            OperationalMode.DP => (input.RequiredDPPowerKW ?? 0, input.DPHotelPowerKW ?? 0),
-            OperationalMode.Port => (0, input.PortHotelPowerKW),
-            OperationalMode.Anchor => (0, input.AnchorHotelPowerKW),
-            OperationalMode.Maneuvering => (input.ManeuveringPropulsionPowerKW, input.ManeuveringHotelPowerKW),
-            _ => throw new ArgumentException($"Unknown mode: {mode}")
-        };
-    }
-
-    #endregion
-
     #region Combination Generation
 
     private static List<EngineCombination> GenerateCombinations(CalculatorInput input)
@@ -179,11 +162,10 @@ public class Level1OptimizationService : ILevel1OptimizationService
         if ((mode == OperationalMode.Transit || mode == OperationalMode.Maneuvering) && combo.ActiveMeCount == 0)
             return false;
 
-        // If there is a shaft generator 
-        if(input.TotalSgCapacity > 0 & !combo.SgEnabled)
-        {
+        // An installed shaft generator is always run (observation #1: this also forces an ME to
+        // run in Port/Anchor to spin it — deliberate for now, logged in the QA scenarios' README).
+        if (input.TotalSgCapacity > 0 && !combo.SgEnabled)
             return false;
-        }
         // SG ON without ME → physically impossible (SG is driven by ME shaft)
         if (combo.SgEnabled && combo.ActiveMeCount == 0)
             return false;
@@ -201,7 +183,7 @@ public class Level1OptimizationService : ILevel1OptimizationService
             var potentialSgPower = Math.Min(hotel, potentialSgCapacity);
             var meCapacityForSg = combo.ActiveMeCount * input.MeCapacityPerEngine;
             // SG covers full hotel AND ME can handle propulsion + SG shaft load
-            if (potentialSgCapacity >= hotel - 0.001 && propulsion + potentialSgPower <= meCapacityForSg)
+            if (potentialSgCapacity >= hotel - PlantLimits.PowerToleranceKw && propulsion + potentialSgPower <= meCapacityForSg)
                 return false;
         }
 
@@ -211,7 +193,7 @@ public class Level1OptimizationService : ILevel1OptimizationService
         var aePower = Math.Min(hotel - sgPower, aeCapacity);
 
         // Hotel must be fully covered by SG + AE (ME has no PTO)
-        if (sgPower + aePower < hotel - 0.001)
+        if (sgPower + aePower < hotel - PlantLimits.PowerToleranceKw)
             return false;
 
         // AE is ON but produces nothing → SG already covers full hotel, AE is idle
@@ -322,17 +304,17 @@ public class Level1OptimizationService : ILevel1OptimizationService
 
         var meCapacity = combo.ActiveMeCount * input.MeCapacityPerEngine;
         var deficit = combo.MePowerKw - meCapacity;
-        if (deficit <= 0.001)
+        if (deficit <= PlantLimits.PowerToleranceKw)
             return true; // ME carries everything; full PTI capacity stays available
 
-        if (deficit > ptiCapacity + 0.001)
+        if (deficit > ptiCapacity + PlantLimits.PowerToleranceKw)
             return false; // "Insufficient pwr" even with full PTI
 
         // Move the deficit to the aux side with transmission losses
         var ptiAuxLoad = deficit * (1 + _batterySettings.PtiLossFactor);
         var aeCapacity = combo.ActiveAeCount * input.AeCapacityPerEngine;
         var newAePower = combo.AePowerKw + ptiAuxLoad;
-        if (combo.ActiveAeCount == 0 || newAePower > aeCapacity + 0.001)
+        if (combo.ActiveAeCount == 0 || newAePower > aeCapacity + PlantLimits.PowerToleranceKw)
             return false; // no aux headroom to feed the PTI motor
 
         combo.PtiPowerKw = deficit;

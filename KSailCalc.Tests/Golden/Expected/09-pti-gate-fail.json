@@ -1,0 +1,7 @@
+{
+  "status": 400,
+  "result": null,
+  "errors": [
+    "No feasible engine configuration: the battery needs 200.6 kW of PTI capacity to shave propulsion peaks in Transit mode, but only 100 kW is available. Increase the PTI capacity per main engine (currently 50 kW), reduce the battery power, or clear the PTI field to model the battery at switchboard level only."
+  ]
+}

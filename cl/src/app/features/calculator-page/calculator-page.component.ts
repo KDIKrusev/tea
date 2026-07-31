@@ -1,6 +1,9 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
-import { VesselInputFormComponent } from '../vessel-input/vessel-input-form/vessel-input-form.component';
+import { Subject, of } from 'rxjs';
+import { catchError, map, switchMap } from 'rxjs/operators';
+import { VesselInputFormComponent, FormChangeEvent } from '../vessel-input/vessel-input-form/vessel-input-form.component';
 import { ProfileManagerComponent, SaveRequestEvent } from '../profiles/profile-manager.component';
 import { SavedProfile } from '../../core/profile.types';
 import { PowerDemandsPanelComponent } from '../results-display/power-demands-panel/power-demands-panel.component';
@@ -31,6 +34,16 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ReportDialogComponent } from '../report/report-dialog.component';
 import { ReportData } from '../report/report.service';
+
+/** Everything one queued calculation needs in order to be applied when its answer arrives. */
+interface CalculationRequest {
+  /** The form values this request was built from (used to render the panels). */
+  input: CalculatorInput;
+  /** What actually goes on the wire — baseline index captured at request time. */
+  apiInput: CalculatorInput;
+  /** Baseline re-selection: keep the panels and the spinner untouched. */
+  silent: boolean;
+}
 
 @Component({
   selector: 'app-calculator-page',
@@ -93,7 +106,13 @@ export class CalculatorPageComponent {
   allExpanded = false;
 
   private _allVariantsResult: AllVariantsCalculationResult | null = null;
-  private pendingLoadedBaselineIndex: number | null = null;
+
+  /**
+   * Calculation requests, serialised through switchMap: a newer request cancels the one in
+   * flight, so the panels can never show a mix of two responses (which is how a stale
+   * default-price result used to end up next to a fresh one).
+   */
+  private readonly calculationRequests$ = new Subject<CalculationRequest>();
 
   get allVariantsResult(): AllVariantsCalculationResult | null {
     return this._allVariantsResult;
@@ -112,7 +131,27 @@ export class CalculatorPageComponent {
     private calculatorService: CalculatorService,
     private cdr: ChangeDetectorRef,
     private dialog: MatDialog
-  ) {}
+  ) {
+    this.calculationRequests$
+      .pipe(
+        switchMap(request =>
+          this.calculatorService.calculateAllVariants(request.apiInput).pipe(
+            map(results => ({ request, results, error: null as unknown })),
+            // Keep the stream alive: one failed calculation must not stop the next one
+            catchError(error => of({ request, results: null, error }))
+          )
+        ),
+        takeUntilDestroyed()
+      )
+      .subscribe(({ request, results, error }) => {
+        if (results) {
+          this.onCalculationSucceeded(request, results);
+        } else {
+          this.onCalculationFailed(request, error);
+        }
+        this.cdr.markForCheck();
+      });
+  }
 
   // ─── CLIENT REPORT ──────────────────────────────────────────────────────────
 
@@ -202,7 +241,10 @@ export class CalculatorPageComponent {
   }
 
   onProfileLoadRequested(profile: SavedProfile): void {
-    this.pendingLoadedBaselineIndex = profile.input.baselineIndex ?? null;
+    // Applied straight away: a restore emits several times (the vessel cascade patches fields
+    // asynchronously), and every one of them must see the pinned baseline — not just whichever
+    // arrives first.
+    this.selectedBaselineIndex = profile.input.baselineIndex ?? undefined;
     if (this.vesselInputForm) {
       this.vesselInputForm.loadProfile(profile);
     }
@@ -210,13 +252,13 @@ export class CalculatorPageComponent {
 
   // ─────────────────────────────────────────────────────────────────────────────
 
-  onFormChange(input: CalculatorInput): void {
+  onFormChange(event: FormChangeEvent): void {
+    const input = event.input;
     this.currentInput = input;
-    if (this.pendingLoadedBaselineIndex !== null) {
-      this.selectedBaselineIndex = this.pendingLoadedBaselineIndex;
-      this.pendingLoadedBaselineIndex = null;
-    } else {
-      this.selectedBaselineIndex = undefined; // Reset on new user input
+
+    // A real edit invalidates a pinned baseline; the emissions of a profile restore do not.
+    if (event.source === 'user') {
+      this.selectedBaselineIndex = undefined;
     }
 
     // Add validation: only calculate if all required fields are > 0
@@ -240,41 +282,55 @@ export class CalculatorPageComponent {
   }
 
   private calculate(input: CalculatorInput): void {
-    const apiInput = { ...input, baselineIndex: this.selectedBaselineIndex };
     this.isCalculating = true;
     this.error = null;
     this.validationErrors = [];
     this.validationWarnings = [];
-    
+
     // Reset results
     this.advancedResult = null;
     this.proResult = null;
     this.premiumResult = null;
 
-    // Call new endpoint that calculates all variants at once
-    this.calculatorService.calculateAllVariants(apiInput).subscribe({
-      next: (results) => {
-        this.applyResults(results, input);
-        this.updateRecommendation();
-        this.advancedExpanded = this.recommendedTier === 'Advanced';
-        this.proExpanded = this.recommendedTier === 'Pro';
-        this.premiumExpanded = this.recommendedTier === 'Premium';
+    this.requestCalculation(input, { silent: false });
+  }
 
-        this.isCalculating = false;
-        this.cdr.markForCheck();
-      },
-      error: (err) => {
-        if (err.status === 400 && err.error?.errors?.length) {
-          this.validationErrors = err.error.errors;
-          this.error = null;
-        } else {
-          this.error = 'Calculation failed. Please check your inputs and try again.';
-          this.validationErrors = [];
-        }
-        this.isCalculating = false;
-        this.cdr.markForCheck();
-      }
+  /** Queues a calculation; the baseline index is captured NOW, not read when the answer lands. */
+  private requestCalculation(input: CalculatorInput, options: { silent: boolean }): void {
+    this.calculationRequests$.next({
+      input,
+      apiInput: { ...input, baselineIndex: this.selectedBaselineIndex },
+      silent: options.silent
     });
+  }
+
+  private onCalculationSucceeded(request: CalculationRequest, results: AllVariantsCalculationResult): void {
+    this.applyResults(results, request.input);
+    this.updateRecommendation();
+
+    if (!request.silent) {
+      this.advancedExpanded = this.recommendedTier === 'Advanced';
+      this.proExpanded = this.recommendedTier === 'Pro';
+      this.premiumExpanded = this.recommendedTier === 'Premium';
+      this.isCalculating = false;
+    }
+  }
+
+  private onCalculationFailed(request: CalculationRequest, error: unknown): void {
+    if (request.silent) {
+      // Baseline re-selection failed — the previous results stay on screen, as before.
+      return;
+    }
+
+    const httpError = error as { status?: number; error?: { errors?: string[] } };
+    if (httpError?.status === 400 && httpError.error?.errors?.length) {
+      this.validationErrors = httpError.error.errors;
+      this.error = null;
+    } else {
+      this.error = 'Calculation failed. Please check your inputs and try again.';
+      this.validationErrors = [];
+    }
+    this.isCalculating = false;
   }
 
   recommendedTier: string = 'Premium';
@@ -301,18 +357,7 @@ export class CalculatorPageComponent {
 
   /** Re-call API for baseline change without resetting panels or showing spinner */
   private recalculateBaseline(input: CalculatorInput): void {
-    const apiInput = { ...input, baselineIndex: this.selectedBaselineIndex };
-    this.calculatorService.calculateAllVariants(apiInput).subscribe({
-      next: (results) => {
-        this.applyResults(results, input);
-        this.updateRecommendation();
-        this.cdr.markForCheck();
-      },
-      error: () => {
-        // Silently ignore — the old results remain visible
-        this.cdr.markForCheck();
-      }
-    });
+    this.requestCalculation(input, { silent: true });
   }
 
   private updateRecommendation(): void {

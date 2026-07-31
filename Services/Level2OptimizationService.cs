@@ -29,9 +29,9 @@ public class Level2OptimizationService : ILevel2OptimizationService
     private readonly ISfocService _sfocService;
 
     private const double MinLoad = 0.10;
-    private const double MaxLoad = 0.90;
+    private const double MaxLoad = PlantLimits.MaxAuxLoadFraction;
     private const double LoadStep = 0.02;
-    private const double PowerTolerance = 0.001;
+    private const double PowerTolerance = PlantLimits.PowerToleranceKw;
 
     public Level2OptimizationService(ISfocService sfocService)
     {

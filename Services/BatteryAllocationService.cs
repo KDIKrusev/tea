@@ -1,5 +1,6 @@
 using KSailCalc.Api.Models;
 using KSailCalc.Api.Models.Enums;
+using KSailCalc.Api.Services.Helpers;
 using KSailCalc.Api.Services.Interfaces;
 using Microsoft.Extensions.Options;
 
@@ -98,19 +99,20 @@ public class BatteryAllocationService : IBatteryAllocationService
     private static (double Average, double? VariationOverride)? GetLoadInputs(
         BatteryLoadType load, OperationalMode mode, CalculatorInput input)
     {
+        // Which rows EXIST per mode stays here — that matrix is the Excel sheet's own shape.
+        // What each row's demand IS comes from the mode registry, so a hotel/propulsion figure
+        // is never defined twice. Note DP's thrust arrives as the DpDemand row, so DP must NOT
+        // also produce a Propulsion row (it would double-count the same kW).
         return (load, mode) switch
         {
             (BatteryLoadType.DpReserve, OperationalMode.DP) => (input.DpRedundancyRequirementKw ?? 0, null),
-            (BatteryLoadType.DpDemand, OperationalMode.DP) => (input.RequiredDPPowerKW ?? 0, null),
+            (BatteryLoadType.DpDemand, OperationalMode.DP)
+                => (OperationalModes.For(mode).PropulsionKw(input), null),
             (BatteryLoadType.Mission, OperationalMode.Transit or OperationalMode.DP)
                 => (0, input.MissionHeavyConsumerMaxKw ?? 0),
-            (BatteryLoadType.Propulsion, OperationalMode.Transit) => (input.EffectivePropulsionPower, null),
-            (BatteryLoadType.Propulsion, OperationalMode.Maneuvering) => (input.ManeuveringPropulsionPowerKW, null),
-            (BatteryLoadType.Hotel, OperationalMode.Transit) => (input.TransitHotelPowerKW, null),
-            (BatteryLoadType.Hotel, OperationalMode.DP) => (input.DPHotelPowerKW ?? 0, null),
-            (BatteryLoadType.Hotel, OperationalMode.Port) => (input.PortHotelPowerKW, null),
-            (BatteryLoadType.Hotel, OperationalMode.Anchor) => (input.AnchorHotelPowerKW, null),
-            (BatteryLoadType.Hotel, OperationalMode.Maneuvering) => (input.ManeuveringHotelPowerKW, null),
+            (BatteryLoadType.Propulsion, OperationalMode.Transit or OperationalMode.Maneuvering)
+                => (OperationalModes.For(mode).PropulsionKw(input), null),
+            (BatteryLoadType.Hotel, _) => (OperationalModes.For(mode).HotelKw(input), null),
             _ => null
         };
     }
