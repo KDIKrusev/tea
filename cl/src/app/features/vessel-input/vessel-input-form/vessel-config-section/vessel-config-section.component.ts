@@ -15,7 +15,8 @@ import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { VesselConfigConfirmDialogComponent } from './vessel-config-confirm-dialog.component';
 import { AppDataService } from '../../../../core/app-data.service';
 import { FullVesselData, VesselCategoryData } from '../../../../core/app-data.types';
-import { VesselTypeWithEnginesResponse } from '../../../../core/vessel-configuration.types';
+import { InterpolatedVesselConfig } from '../../../../core/vessel-configuration.types';
+import { EngineType, AuxiliaryEngineType } from '../../../../core/engine-configuration.types';
 import { VesselOperationalProfile } from '../../../../core/operational-profile.types';
 import { FormEditTrackerService } from '../form-edit-tracker.service';
 
@@ -23,6 +24,36 @@ import { FormEditTrackerService } from '../form-edit-tracker.service';
 interface FetchRequest {
 	applyEngineDefaults: boolean;
 	patchPowerFields: boolean;
+}
+
+/** The vessel selection a fetch was issued for. Identity, not just parameters — see applyVesselData. */
+interface Selection {
+	category: string;
+	size: number;
+	speed: number;
+}
+
+function sameSelection(a: Selection | null, b: Selection | null): boolean {
+	if (a === null || b === null) {
+		return false;
+	}
+	return a.category === b.category && a.size === b.size && a.speed === b.speed;
+}
+
+/**
+ * One applied vessel-config response.
+ *
+ * `operationalProfile` is part of the message rather than a second, conditional event: the parent
+ * has to know whether a profile is coming *before* it decides what to do, and it cannot know that
+ * from an event that may or may not follow.
+ */
+export interface VesselDataApplied {
+	vesselType: InterpolatedVesselConfig;
+	mainEngineData?: EngineType;
+	auxEngineData?: AuxiliaryEngineType;
+	applyEngineDefaults: boolean;
+	/** null when the response carried no profile, or when the source bucket did not change. */
+	operationalProfile: VesselOperationalProfile | null;
 }
 
 @Component({
@@ -48,8 +79,10 @@ interface FetchRequest {
 })
 export class VesselConfigSectionComponent implements OnInit, OnDestroy {
 	@Input() parentForm!: FormGroup;
-	@Output() vesselEngineConfigSelected = new EventEmitter<VesselTypeWithEnginesResponse & { applyEngineDefaults?: boolean }>();
-	@Output() operationalProfileLoaded = new EventEmitter<VesselOperationalProfile>();
+	/** One vessel-config response, fully described. See applyVesselData for why it is one event. */
+	@Output() vesselDataApplied = new EventEmitter<VesselDataApplied>();
+	/** The fetch failed — nothing was applied, and anyone waiting on it should stop waiting. */
+	@Output() vesselDataFailed = new EventEmitter<void>();
 
 	private destroy$ = new Subject<void>();
 	private appDataService = inject(AppDataService);
@@ -67,6 +100,12 @@ export class VesselConfigSectionComponent implements OnInit, OnDestroy {
 	private fetchTrigger$ = new Subject<FetchRequest>();
 	private lastProfileSource: string | null = null;
 
+	/**
+	 * Deliberate UX debounce — one of only two timing constants left in the client (the other is
+	 * DEBOUNCE_TIMES.FORM_INPUT). It exists so that typing a five-digit vessel size does not fire
+	 * five HTTP requests, NOT to sequence anything. Nothing downstream may depend on its value:
+	 * a response is matched to its selection, and a load ends when its response is applied.
+	 */
 	private static readonly FETCH_DEBOUNCE_MS = 400;
 
 	get selectedCategoryName(): string | null {
@@ -265,25 +304,53 @@ export class VesselConfigSectionComponent implements OnInit, OnDestroy {
 					&& x.speed != null
 					&& x.speed >= x.category.speedMin && x.speed <= x.category.speedMax
 				),
-				switchMap(x =>
-					this.appDataService.getFullVesselDataByCategory(x.category.name, x.size, x.speed).pipe(
-						map(fullData => ({ fullData, request: x.request })),
+				switchMap(x => {
+					const selection: Selection = { category: x.category.name, size: x.size, speed: x.speed };
+					return this.appDataService.getFullVesselDataByCategory(x.category.name, x.size, x.speed).pipe(
+						map(fullData => ({ fullData, request: x.request, selection })),
 						catchError(() => {
 							this.snackBar.open(
 								'Unable to load vessel configuration for the entered size and speed. Please try again.',
 								'Close',
 								{ duration: 5000, panelClass: ['error-snackbar'] }
 							);
+							// The parent may be waiting on this response to finish a load sequence —
+							// tell it the wait is over instead of leaving it pending forever.
+							this.vesselDataFailed.emit();
 							return EMPTY;
 						})
-					)
-				),
+					);
+				}),
 				takeUntil(this.destroy$)
 			)
-			.subscribe(({ fullData, request }) => this.applyVesselData(fullData, request));
+			.subscribe(({ fullData, request, selection }) => this.applyVesselData(fullData, request, selection));
 	}
 
-	private applyVesselData(fullData: FullVesselData, request: FetchRequest): void {
+	/** The selection currently shown in the form, or null while it is incomplete. */
+	private currentSelection(): Selection | null {
+		const category = this.selectedCategoryName;
+		const size = this.selectedSize;
+		const speed = this.selectedSpeed;
+		if (category === null || size === null || speed === null) {
+			return null;
+		}
+		return { category, size, speed };
+	}
+
+	private applyVesselData(fullData: FullVesselData, request: FetchRequest, selection: Selection): void {
+		// A response is only valid for the selection it was asked for.
+		//
+		// `switchMap` cancels an in-flight request when a NEW trigger fires — but a trigger spends
+		// 400 ms in the debounce before it reaches the switchMap, and a response that lands inside
+		// that window is not cancelled. That window is the whole bug: a user who clicks Load while
+		// the startup fetch is still on the wire gets their restore completed by a response fetched
+		// for the previous vessel, and the restore's own response then arrives after the restore has
+		// already declared itself finished — and overwrites the profile with the vessel type's
+		// defaults. Dropping the mismatched response closes the window at its source.
+		if (!sameSelection(selection, this.currentSelection())) {
+			return;
+		}
+
 		const vesselConfig = fullData.vesselConfig;
 		this.clampedToReferenceRange = fullData.resolution?.clamped === true;
 
@@ -296,22 +363,31 @@ export class VesselConfigSectionComponent implements OnInit, OnDestroy {
 			this.editTracker.updateOriginalValue('seaMargin', vesselConfig.seaMargin);
 		}
 
-		this.vesselEngineConfigSelected.emit({
-			vesselType: vesselConfig,
-			mainEngineData: fullData.mainEngineData,
-			auxEngineData: fullData.auxEngineData,
-			applyEngineDefaults: request.applyEngineDefaults
-		});
-
-		// The profile lives on the response; re-emit only when the source bucket changes
+		// The profile lives on the response; re-apply only when the source bucket changes
 		// (size crossing a bucket boundary or a category change), so user edits to
 		// operational fields are not overwritten on every size/speed keystroke.
 		const profileSource = fullData.resolution?.profileSource ?? vesselConfig.vesselTypeName;
 		const bucketChanged = profileSource !== this.lastProfileSource;
-		if (request.patchPowerFields && fullData.operationalProfile && (request.applyEngineDefaults || bucketChanged)) {
-			this.operationalProfileLoaded.emit(fullData.operationalProfile);
-		}
+		const carriesProfile =
+			request.patchPowerFields
+			&& !!fullData.operationalProfile
+			&& (request.applyEngineDefaults || bucketChanged);
 		this.lastProfileSource = profileSource;
+
+		// ONE event, not two.
+		//
+		// This used to emit `vesselEngineConfigSelected` and then, conditionally,
+		// `operationalProfileLoaded`. The parent could not tell inside the first handler whether the
+		// second would follow, so it armed an 800 ms timer to apply the profile "in case nothing
+		// else does". Carrying the profile as a nullable field on one event makes the answer part of
+		// the message, and the timer unnecessary.
+		this.vesselDataApplied.emit({
+			vesselType: vesselConfig,
+			mainEngineData: fullData.mainEngineData,
+			auxEngineData: fullData.auxEngineData,
+			applyEngineDefaults: request.applyEngineDefaults,
+			operationalProfile: carriesProfile ? fullData.operationalProfile : null
+		});
 
 		this.cdr.markForCheck();
 	}

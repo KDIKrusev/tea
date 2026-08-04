@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject, of, firstValueFrom } from 'rxjs';
-import { map, shareReplay, tap } from 'rxjs/operators';
+import { Observable, BehaviorSubject, of, throwError } from 'rxjs';
+import { catchError, map, shareReplay, tap } from 'rxjs/operators';
 import { ConfigService } from './config.service';
 import { AppInitialData, FullVesselData, VesselCategoryData } from './app-data.types';
 import { EngineType, AuxiliaryEngineType } from './engine-configuration.types';
@@ -20,7 +20,19 @@ export class AppDataService {
 
   // Single source of truth for all app data
   private appData$ = new BehaviorSubject<AppInitialData | null>(null);
-  private loadingPromise: Promise<AppInitialData> | null = null;
+
+  /**
+   * The one in-flight (or completed) request for the initial payload.
+   *
+   * This used to be a hand-rolled `loadingPromise` plus a `new Observable(o => promise.then(...))`
+   * wrapper. It was correct in the sense that it issued exactly one HTTP call — but every
+   * subscriber that arrived while the call was in flight was resolved from a promise, i.e. as a
+   * microtask, **in subscription order**. That made the order in which components happened to be
+   * constructed decide which of them wrote to the form first. `shareReplay` with `refCount: false`
+   * gives the same single call and the same caching without handing that decision to the
+   * component tree.
+   */
+  private inFlight$: Observable<AppInitialData> | null = null;
 
   /**
    * Load ALL application data in a single optimized API call
@@ -28,39 +40,25 @@ export class AppDataService {
    * REPLACES: /names + /all-configurations + /speeds + /operational-profile calls
    */
   loadInitialData(): Observable<AppInitialData> {
-    // Return cached data if available
     const currentData = this.appData$.value;
     if (currentData) {
       return of(currentData);
     }
 
-    // If loading is in progress, wait for it
-    if (this.loadingPromise) {
-      return new Observable(observer => {
-        this.loadingPromise!.then(data => {
-          observer.next(data);
-          observer.complete();
-        }).catch(error => {
-          observer.error(error);
-        });
-      });
+    if (!this.inFlight$) {
+      const apiUrl = this.configService.apiUrl;
+      this.inFlight$ = this.http.get<AppInitialData>(`${apiUrl}/api/app-data/initial`).pipe(
+        tap(data => this.appData$.next(data)),
+        // A failed load must not be cached as "in flight" forever — let the next caller retry.
+        catchError(error => {
+          this.inFlight$ = null;
+          return throwError(() => error);
+        }),
+        shareReplay({ bufferSize: 1, refCount: false })
+      );
     }
 
-    // Start fresh load
-    const apiUrl = this.configService.apiUrl;
-    
-    const loadObservable = this.http.get<AppInitialData>(`${apiUrl}/api/app-data/initial`).pipe(
-      tap(data => {
-        this.appData$.next(data);
-        this.loadingPromise = null;
-      }),
-      shareReplay(1)
-    );
-
-    // Convert to promise for tracking
-    this.loadingPromise = firstValueFrom(loadObservable);
-
-    return loadObservable;
+    return this.inFlight$;
   }
 
   /**

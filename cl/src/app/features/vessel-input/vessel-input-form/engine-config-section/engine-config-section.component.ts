@@ -76,7 +76,7 @@ export class EngineConfigSectionComponent implements OnInit, OnDestroy {
 
 	ngOnInit(): void {
 		this.loadEngineConfigurations();
-		setTimeout(() => { this.setupValueChangeTracking(); });
+		this.setupValueChangeTracking();
 	}
 
 	ngOnDestroy(): void {

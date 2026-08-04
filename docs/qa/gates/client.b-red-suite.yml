@@ -1,0 +1,74 @@
+schema: 1
+story: 'client.b'
+story_title: 'Client B — The red suite'
+gate: PENDING
+status_reason: >-
+  Story not yet implemented. Pre-seeded by the Architect with the evidence standard. Note the
+  inverted pass condition: this story is reviewed on whether its specs FAIL for the right reason.
+  A fully green run is a FAIL of the gate, not a PASS.
+reviewer: 'Quinn (Test Architect) — pending'
+updated: '2026-08-04T00:00:00Z'
+
+top_issues: []
+waiver: { active: false }
+
+quality_score: null
+expires: null
+
+evidence:
+  tests_reviewed: null
+  risks_identified: 3
+  trace:
+    ac_covered: []
+    ac_gaps: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+  verification_required:
+    - 'AC1: dotnet test -p:BaseOutputPath=<temp>\ → 441/441; git status on Golden/Expected/ → empty'
+    - 'AC2: git status --porcelain cl/src/app/ → empty (no production line changed — this is the story)'
+    - 'AC3: restore-baseline-index.spec.ts RED, observing baselineIndex undefined instead of 4'
+    - 'AC3: the emission-tag assertion also fails (no user-tagged emission before settle)'
+    - 'AC4: load-emits-once.spec.ts RED, observing 3 posts instead of 1; differing fields logged'
+    - 'AC5: all 10 matrix cells (2 entry points x 5 orderings) executed and reported'
+    - 'AC5: every failing cell names the winning writer as file:line in the Debug Log table'
+    - 'AC5: a structurally unreachable cell (O5) is reported as unreachable WITH the reason, not omitted'
+    - 'AC6: if specs 1-3 all pass, gate is FAIL and C-E must not start'
+    - 'AC7: three golden request bodies under cl/src/testing/golden/; request-body-golden.spec.ts green'
+    - 'AC7: the settled state used for freezing is recorded and reproducible (ordering O1 + settle())'
+    - 'AC8: restore-fuel-price.spec.ts present, xit-ed, description references design §7.1'
+    - 'AC9: Completion Notes state the failure count explicitly and that all failures are from the red suite'
+
+inverted_pass_condition: >-
+  Unlike every other gate in this project, a green suite here is a failure. The reviewer must confirm
+  that specs 1-3 fail, that each fails for the reason claimed, and that no assertion was relaxed to
+  manufacture the failure. AC5's per-cell "last writer" table is the artifact that distinguishes a
+  test that is red for the right reason from one that is red for a convenient one.
+
+nfr_validation:
+  security: { status: PENDING, notes: 'No production change expected. Verify via AC2.' }
+  performance: { status: PENDING, notes: 'Test-only story. No bundle impact.' }
+  reliability:
+    status: PENDING
+    notes: >-
+      The gate turns on AC5 and AC6. Two committed fixes already passed manual review while the
+      symptom survived; the only acceptable evidence now is a named writer at a named millisecond.
+  maintainability:
+    status: PENDING
+    notes: >-
+      AC7 freezes today's behaviour INCLUDING its bugs. That is intended — I2 guards against
+      unintended change. Any later re-freeze must be deliberate and named in the story that does it.
+
+recommendations:
+  immediate: []
+  future:
+    - action: >-
+        Design §7.1 — a restored profile loses its saved fuel price (780 becomes the catalogue
+        default). Deferred by Kamen's decision on 2026-08-04 because the fix moves displayed $
+        figures. Spec 4 is written and xit-ed so the question stays tracked.
+      refs:
+        - 'cl/src/app/features/vessel-input/vessel-input-form/vessel-input-form.component.ts:646'
+        - 'cl/src/app/features/vessel-input/vessel-input-form/vessel-input-form.component.ts:671'
+        - 'cl/src/app/features/vessel-input/vessel-input-form/engine-config-section/engine-config-section.component.ts:474'
+    - action: >-
+        If matrix cell O5 proves unreachable on today's code, C-E must make it both reachable and
+        safe — removing the ordering coupling is the point of that story, and O5 becomes a live guard
+        rather than a documented impossibility.
+      refs: ['docs/stories/brownfield-client-b-red-suite.md']

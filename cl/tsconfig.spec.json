@@ -1,0 +1,19 @@
+/* TypeScript configuration for the unit-test build (Karma + Jasmine).
+   Story C-A · docs/stories/brownfield-client-a-test-harness.md */
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/spec",
+    "types": [
+      "jasmine"
+    ],
+    /* Scenario fixtures are imported straight from docs/qa/manual-test-scenarios/ (design I3:
+       one fixture source — client specs and manual scenarios can never drift). */
+    "resolveJsonModule": true
+  },
+  "include": [
+    "src/**/*.spec.ts",
+    "src/**/*.d.ts",
+    "src/testing/**/*.ts"
+  ]
+}

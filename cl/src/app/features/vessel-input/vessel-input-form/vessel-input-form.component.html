@@ -2,10 +2,10 @@
   <mat-card-content>
     <form [formGroup]="vesselForm" class="calculator-form">
       
-      <app-vessel-config-section 
+      <app-vessel-config-section
         [parentForm]="vesselForm"
-        (vesselEngineConfigSelected)="onVesselEngineConfigSelected($event)"
-        (operationalProfileLoaded)="onOperationalProfileLoaded($event)">
+        (vesselDataApplied)="onVesselDataApplied($event)"
+        (vesselDataFailed)="onVesselDataFailed()">
       </app-vessel-config-section>
 
       <app-engine-config-section 

@@ -1,0 +1,55 @@
+schema: 1
+story: 'client.a'
+story_title: 'Client A — A test harness that owns time and the network'
+gate: PENDING
+status_reason: >-
+  Story not yet implemented. This file is pre-seeded by the Architect with the evidence standard the
+  review must meet, so the bar is agreed before the work starts rather than negotiated after it.
+reviewer: 'Quinn (Test Architect) — pending'
+updated: '2026-08-04T00:00:00Z'
+
+top_issues: []
+waiver: { active: false }
+
+quality_score: null
+expires: null
+
+evidence:
+  tests_reviewed: null
+  risks_identified: 3
+  trace:
+    ac_covered: []
+    ac_gaps: [1, 2, 3, 4, 5, 6, 7, 8]
+  verification_required:
+    - 'AC1: dotnet test KSailCalc.Tests\KSailCalc.Tests.csproj -p:BaseOutputPath=<temp>\ → 441/441'
+    - 'AC1: git status --porcelain KSailCalc.Tests/Golden/Expected/ → empty'
+    - 'AC2: npm run test:ci → 1 spec, 5 assertions, 0 failures, exit code 0, no hang'
+    - 'AC3: git status --porcelain cl/src/app/ → empty'
+    - 'AC3: git diff package.json → dependencies block unchanged; only devDependencies + scripts'
+    - 'AC4: ng build --configuration production → green, bundle not larger than the recorded baseline'
+    - 'AC5: harness self-test answers one GET, ticks 1000, asserts the other still pending — both orders'
+    - 'AC6: ApiFixture defaults read ME id 2 @ 15000 / SG 2000 / AE id 7 @ 1000; catalogue holds ids 1,2,7,8'
+    - 'AC7: grep for duplicated scenario JSON under cl/ → no hits; scenarios.ts resolves to docs/qa/manual-test-scenarios/'
+    - 'AC8: npm run lint → no new problems beyond the 190 baseline; spec files are linted, not excluded'
+
+nfr_validation:
+  security: { status: PENDING, notes: 'Expect no change — devDependencies only, no runtime surface.' }
+  performance: { status: PENDING, notes: 'Expect no change — production bundle must be untouched (AC4).' }
+  reliability:
+    status: PENDING
+    notes: >-
+      The gate turns on AC5. A harness that cannot hold one HTTP response back while the other lands
+      cannot reproduce the bug C-B exists to catch, and every later story inherits that blindness.
+  maintainability:
+    status: PENDING
+    notes: >-
+      AC7 is the one to watch. Copying the scenario JSONs into cl/ would make the specs pass and
+      silently recreate the drift the manual scenarios were written to prevent.
+
+recommendations:
+  immediate: []
+  future:
+    - action: >-
+        Add npm run test:ci and npm run lint as blocking steps in azure-pipelines.yml. Deliberately
+        deferred to C-C so the pipeline goes red exactly once, for a stated reason.
+      refs: ['cl/azure-pipelines.yml', 'cl/azure-pipelines.dev.yml']

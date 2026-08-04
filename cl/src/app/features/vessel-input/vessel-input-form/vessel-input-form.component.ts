@@ -10,11 +10,10 @@ import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
 import { CalculatorInput, BatteryConfigurationInput, BatteryRelevantMode, BatteryDetails } from '../../../calculations/calculator.types';
-import { VesselTypeWithEnginesResponse } from '../../../core/vessel-configuration.types';
 import { VesselOperationalProfile } from '../../../core/operational-profile.types';
 import { debounceTime, Subject, takeUntil } from 'rxjs';
 import { VALIDATION_LIMITS, DEBOUNCE_TIMES, DEFAULT_VALUES, DEFAULT_FUEL } from '../../../shared/constants';
-import { VesselConfigSectionComponent } from './vessel-config-section/vessel-config-section.component';
+import { VesselConfigSectionComponent, VesselDataApplied } from './vessel-config-section/vessel-config-section.component';
 import { EngineConfigSectionComponent } from './engine-config-section/engine-config-section.component';
 import { AdditionalConfigSectionComponent } from './additional-config-section/additional-config-section.component';
 import { OperationalModesSectionComponent } from './operational-modes-section/operational-modes-section.component';
@@ -40,8 +39,25 @@ export interface FormChangeEvent {
   source: 'user' | 'restore';
 }
 
-/** Safety net: a restore that never reaches applyProfileInputValues must not freeze the flag. */
-const RESTORE_WATCHDOG_MS = 3000;
+/**
+ * A load in progress.
+ *
+ * This replaces four booleans and five `setTimeout` constants. The old code approximated "has the
+ * cascade finished?" by waiting 200, 800, 1500 or 3000 ms and hoping; the flag that guarded a
+ * restore was cleared by whichever vessel-config response happened to arrive first — including one
+ * fetched for a vessel the user had already navigated away from. The restore's own response then
+ * landed after the restore had declared itself over, and overwrote the profile with the vessel
+ * type's defaults. See docs/refactoring/client-refactor-design.md §1.1.
+ *
+ * A sequence ends when the response it is waiting for has been applied — a fact, not a timeout.
+ * While one is active, no form emission escapes, so a load produces exactly one calculation.
+ */
+interface LoadSequence {
+  /** Why this load is happening; becomes the `source` of its single emission. */
+  readonly source: 'startup' | 'restore';
+  /** The saved values to apply on top of the vessel defaults, or null for a plain startup. */
+  readonly profileInput: CalculatorInput | null;
+}
 
 @Component({
   selector: 'app-vessel-input-form',
@@ -84,12 +100,11 @@ export class VesselInputFormComponent implements OnInit, OnDestroy, AfterViewIni
   private profileService = inject(ProfileService);
   private appDataService = inject(AppDataService);
 
-  /** Input from a saved profile that should be applied after the next cascade completes */
-  private pendingProfileInput: CalculatorInput | null = null;
+  /** The load in progress, or null when the form is settled and free to emit. */
+  private loadSequence: LoadSequence | null = null;
 
-  /** True from the moment a profile starts loading until its values have been applied. */
-  private restoreInFlight = false;
-  private restoreWatchdog: ReturnType<typeof setTimeout> | null = null;
+  /** The last input actually emitted — a rebuild equal to it carries no news and is dropped. */
+  private lastEmittedInput: CalculatorInput | null = null;
 
   /** Timer handle for auto-draft */
   private draftTimer: ReturnType<typeof setInterval> | null = null;
@@ -101,10 +116,6 @@ export class VesselInputFormComponent implements OnInit, OnDestroy, AfterViewIni
     'LNG': 1000
   };
   private readonly defaultVariationKw = 500;
-  
-  // Flags to prevent double initialization calls
-  private componentsLoaded = false;
-  private initialEmissionScheduled = false;
 
   // Dropdown options
   sailOptions = [
@@ -120,6 +131,8 @@ export class VesselInputFormComponent implements OnInit, OnDestroy, AfterViewIni
     this.initializeForm();
     this.setupAutoCalculation();
     this.startAutoDraft();
+    // Startup is a load like any other: it ends when the first vessel configuration lands.
+    this.beginLoad('startup', null);
   }
 
   ngAfterViewInit(): void {
@@ -132,27 +145,23 @@ export class VesselInputFormComponent implements OnInit, OnDestroy, AfterViewIni
     if (this.draftTimer !== null) {
       clearInterval(this.draftTimer);
     }
-    if (this.restoreWatchdog !== null) {
-      clearTimeout(this.restoreWatchdog);
-    }
   }
 
   private setupAutoCalculation(): void {
     this.vesselForm.valueChanges
       .pipe(
+        // Deliberate UX debounce: recalculate once the user stops typing, not per keystroke.
         debounceTime(DEBOUNCE_TIMES.FORM_INPUT),
         takeUntil(this.destroy$)
       )
       .subscribe(() => {
         this.updateWeightedAverageHotelLoad();
         this.updateFuelPriceFromFuelType();
-        
-        if (this.vesselForm.valid && this.componentsLoaded) {
-          this.emitFormValues();
+
+        if (this.vesselForm.valid) {
+          this.emitFormValues('user');
         }
       });
-
-    this.scheduleInitialEmission();
   }
 
   private updateWeightedAverageHotelLoad(): void {
@@ -212,44 +221,59 @@ export class VesselInputFormComponent implements OnInit, OnDestroy, AfterViewIni
     this.editTracker.updateOriginalValue('fuelPrice', newPrice);
   }
 
-  private scheduleInitialEmission(): void {
-    if (this.initialEmissionScheduled) return;
-    
-    this.initialEmissionScheduled = true;
-    setTimeout(() => {
-      if (!this.componentsLoaded) {
-        this.componentsLoaded = true;
-        if (this.vesselForm.valid) {
-          // Known fallback: setTimeout ensures child components have finished initializing
-          this.emitFormValues();
-        }
-      }
-    }, 1500);
+  // ─── LOAD SEQUENCE ───────────────────────────────────────────────────────────
+
+  /** Starts a load. A restore supersedes a startup still in flight. */
+  private beginLoad(source: LoadSequence['source'], profileInput: CalculatorInput | null): void {
+    this.loadSequence = { source, profileInput };
   }
 
-  private emitFormValues(): void {
-    const formValue = this.vesselForm.getRawValue();
-    this.formChanged.emit({
-      input: this.buildCalculatorInput(formValue),
-      source: this.restoreInFlight ? 'restore' : 'user'
-    });
-  }
-
-  /** Marks every emission until the profile's values land as part of the restore. */
-  private beginRestore(): void {
-    this.restoreInFlight = true;
-    if (this.restoreWatchdog !== null) {
-      clearTimeout(this.restoreWatchdog);
+  /**
+   * The load is over: emit once, with the source that started it.
+   *
+   * `force` bypasses the value-equality check. A load is an explicit user action and must always
+   * produce a calculation — re-loading the same scenario with a different pinned baseline would
+   * otherwise be silently ignored.
+   */
+  private endLoad(): void {
+    const sequence = this.loadSequence;
+    this.loadSequence = null;
+    if (!sequence || !this.vesselForm.valid) {
+      return;
     }
-    this.restoreWatchdog = setTimeout(() => this.endRestore(), RESTORE_WATCHDOG_MS);
+    this.emitFormValues(sequence.source === 'restore' ? 'restore' : 'user', { force: true });
   }
 
-  private endRestore(): void {
-    this.restoreInFlight = false;
-    if (this.restoreWatchdog !== null) {
-      clearTimeout(this.restoreWatchdog);
-      this.restoreWatchdog = null;
+  /**
+   * Emit the current form as a calculator input — unless there is nothing to say.
+   *
+   * Two guards, for two different kinds of noise:
+   *  - a load in progress suppresses everything, so the intermediate states of a cascade (vessel
+   *    defaults, then the profile on top) never reach the results panels as separate calculations;
+   *  - an input equal to the last one emitted is dropped, which absorbs the trailing debounced
+   *    `valueChanges` that the cascade's own `emitEvent: true` patches queued behind it.
+   */
+  private emitFormValues(source: 'user' | 'restore', options: { force?: boolean } = {}): void {
+    if (this.loadSequence) {
+      return;
     }
+
+    const input = this.buildCalculatorInput(this.vesselForm.getRawValue());
+    if (!options.force && this.lastEmittedInput && this.sameInput(input, this.lastEmittedInput)) {
+      return;
+    }
+
+    this.lastEmittedInput = input;
+    this.formChanged.emit({ input, source });
+  }
+
+  /**
+   * Wire-level equality. `buildCalculatorInput` fills a single object literal, so key order is
+   * fixed and serialising is a sound comparison — and it compares exactly what would be sent,
+   * `undefined` properties dropped, which is the only difference that could matter.
+   */
+  private sameInput(a: CalculatorInput, b: CalculatorInput): boolean {
+    return JSON.stringify(a) === JSON.stringify(b);
   }
 
   getCurrentInputSnapshot(baselineIndex?: number): CalculatorInput {
@@ -423,7 +447,7 @@ export class VesselInputFormComponent implements OnInit, OnDestroy, AfterViewIni
 
   private startAutoDraft(): void {
     this.draftTimer = setInterval(() => {
-      if (this.vesselForm.valid && this.componentsLoaded && this.vesselConfigSection) {
+      if (this.vesselForm.valid && !this.loadSequence && this.vesselConfigSection) {
         const formValue = this.vesselForm.getRawValue();
         const category = this.vesselConfigSection.selectedCategoryName;
         const size = this.vesselConfigSection.selectedSize;
@@ -468,12 +492,13 @@ export class VesselInputFormComponent implements OnInit, OnDestroy, AfterViewIni
   // ─── PROFILE LOAD ─────────────────────────────────────────────────────────────
 
   /**
-   * Loads a saved profile: triggers the vessel/engine cascade and applies all
-   * custom values once the cascade finishes (in onOperationalProfileLoaded).
+   * Loads a saved profile. The values are applied when the vessel configuration for the
+   * profile's own selection arrives — see onVesselDataApplied.
    */
   loadProfile(profile: SavedProfile): void {
-    this.beginRestore();
-    this.pendingProfileInput = profile.input;
+    // Supersedes a startup load still in flight: whatever it was going to emit is no longer
+    // what the user asked for.
+    this.beginLoad('restore', profile.input);
     this.vesselTypeName = profile.vesselTypeName;
 
     if (this.vesselConfigSection) {
@@ -481,68 +506,68 @@ export class VesselInputFormComponent implements OnInit, OnDestroy, AfterViewIni
     }
   }
 
-  onVesselEngineConfigSelected(vesselWithEngines: VesselTypeWithEnginesResponse & { applyEngineDefaults?: boolean }): void {
-    // Prefer the composed parametric label ("Bulk Carrier 75,000 dwt");
-    // fall back to the bucket record's name
-    this.vesselTypeName = this.vesselConfigSection?.selectionLabel
-      || vesselWithEngines.vesselType.vesselTypeName;
-    const wantsEngineDefaults = vesselWithEngines.applyEngineDefaults !== false;
+  /**
+   * The one place a vessel configuration is applied.
+   *
+   * Everything here runs synchronously off the HTTP response, in a fixed order:
+   *   1. the vessel type's own fields (label, DRC variation)
+   *   2. the engines — defaults, or references only when a profile owns the capacities
+   *   3. the operational profile, if this response carries one
+   *   4. the saved profile's values, on top of all of the above
+   *   5. the load ends, and emits exactly once
+   *
+   * There is no step that waits to see whether another step is coming. That is the whole change:
+   * the old code split 1–2 and 3 across two events and guessed the rest with 200 ms and 800 ms
+   * timers, and a restore could therefore be completed by a response it never asked for.
+   */
+  onVesselDataApplied(event: VesselDataApplied): void {
+    const profileInput = this.loadSequence?.profileInput ?? null;
 
-    // A restore carries its own engine ids AND its own rated capacities. Writing the vessel type's
-    // defaults here — only for applyProfileInputValues to overwrite them a moment later — is what
-    // made the engine fields flicker, and what left the catalogue's capacities on screen whenever
-    // this cascade finished last. During a restore the profile is the authority: set the references
-    // so the dropdowns stay populated (both ids are required validators) and touch nothing else.
-    const applyEngineDefaults = wantsEngineDefaults && !this.restoreInFlight;
+    // 1 — Prefer the composed parametric label ("Bulk Carrier 75,000 dwt");
+    //     fall back to the bucket record's name.
+    this.vesselTypeName = this.vesselConfigSection?.selectionLabel || event.vesselType.vesselTypeName;
 
-    const vesselTypeWithRefs = vesselWithEngines.vesselType as {
-      mainEngine?: { engineTypeId?: number | string };
-      auxEngine?: { engineTypeId?: number | string };
-    };
-    const mainEngineId = Number(
-      vesselWithEngines.mainEngineData?.id ?? vesselTypeWithRefs.mainEngine?.engineTypeId
-    );
-    const auxEngineId = Number(
-      vesselWithEngines.auxEngineData?.id ?? vesselTypeWithRefs.auxEngine?.engineTypeId
-    );
-
-    // Auto-populate DRC variation based on vessel type
     const variationKw = this.getDefaultVariationForVessel(this.vesselTypeName);
     this.vesselForm.patchValue({ hotelLoadVariationKw: variationKw }, { emitEvent: true });
     this.editTracker.updateOriginalValue('hotelLoadVariationKw', variationKw);
-    
-    if (
-      this.engineConfigSection &&
-      Number.isFinite(mainEngineId) &&
-      Number.isFinite(auxEngineId)
-    ) {
+
+    // 2 — A restore carries its own engine ids AND its own rated capacities, so the catalogue must
+    //     not write capacities here: set the references so the dropdowns stay populated (both ids
+    //     are required validators) and leave the ratings to step 4.
+    const applyEngineDefaults = event.applyEngineDefaults && !profileInput;
+
+    const vesselTypeWithRefs = event.vesselType as {
+      mainEngine?: { engineTypeId?: number | string };
+      auxEngine?: { engineTypeId?: number | string };
+    };
+    const mainEngineId = Number(event.mainEngineData?.id ?? vesselTypeWithRefs.mainEngine?.engineTypeId);
+    const auxEngineId = Number(event.auxEngineData?.id ?? vesselTypeWithRefs.auxEngine?.engineTypeId);
+
+    if (this.engineConfigSection && Number.isFinite(mainEngineId) && Number.isFinite(auxEngineId)) {
       if (applyEngineDefaults) {
-        this.engineConfigSection.setEngineConfiguration(
-          mainEngineId,
-          auxEngineId
-        );
+        this.engineConfigSection.setEngineConfiguration(mainEngineId, auxEngineId);
       } else {
-        this.engineConfigSection.setEngineTypeReferences(
-          mainEngineId,
-          auxEngineId
-        );
+        this.engineConfigSection.setEngineTypeReferences(mainEngineId, auxEngineId);
       }
     }
 
-    // Fallback: if a profile is pending and operationalProfileLoaded is NOT emitted
-    // (e.g. when fullData.operationalProfile is null for some vessel configs), apply
-    // the profile here after a longer delay so it doesn't race with
-    // onOperationalProfileLoaded (which uses 200 ms and clears pendingProfileInput).
-    if (this.pendingProfileInput && wantsEngineDefaults) {
-      const capturedPending = this.pendingProfileInput;
-      setTimeout(() => {
-        if (this.pendingProfileInput === capturedPending) {
-          this.pendingProfileInput = null;
-          this.componentsLoaded = true;
-          this.applyProfileInputValues(capturedPending);
-        }
-      }, 800);
+    // 3
+    if (event.operationalProfile) {
+      this.applyOperationalProfile(event.operationalProfile);
     }
+
+    // 4
+    if (profileInput) {
+      this.applyProfileInputValues(profileInput);
+    }
+
+    // 5
+    this.endLoad();
+  }
+
+  /** The fetch failed. Nothing was applied — stop waiting, so the form can calculate again. */
+  onVesselDataFailed(): void {
+    this.endLoad();
   }
 
   private getDefaultVariationForVessel(vesselTypeName: string): number {
@@ -554,11 +579,10 @@ export class VesselInputFormComponent implements OnInit, OnDestroy, AfterViewIni
     return this.defaultVariationKw;
   }
 
-  onOperationalProfileLoaded(operationalProfile: VesselOperationalProfile): void {
-    
-    if (this.operationalModesSection && operationalProfile) {
+  private applyOperationalProfile(operationalProfile: VesselOperationalProfile): void {
+    if (this.operationalModesSection) {
       this.operationalModesSection.setOperationalProfile(operationalProfile);
-      
+
       // Update original values for all DP mode fields
       const dpHours = this.vesselForm.get('dpHours')?.value;
       this.editTracker.updateOriginalValue('dpHours', dpHours);
@@ -587,33 +611,16 @@ export class VesselInputFormComponent implements OnInit, OnDestroy, AfterViewIni
       this.editTracker.updateOriginalValue('meCount', meCount);
       const aeCount = this.vesselForm.get('aeCount')?.value;
       this.editTracker.updateOriginalValue('aeCount', aeCount);
-
-      // Mark components as loaded and trigger calculation
-      this.componentsLoaded = true;
-
-      // If a profile was pending, apply its values now — overriding cascade defaults.
-      // Small delay ensures all patchValue calls from cascade have settled.
-      if (this.pendingProfileInput) {
-        const pending = this.pendingProfileInput;
-        this.pendingProfileInput = null;
-        setTimeout(() => { this.applyProfileInputValues(pending); }, 200);
-      }
-
-      if (this.vesselForm.valid) {
-        this.emitFormValues();
-      }
     }
   }
 
   /**
-   * Applies all form values from a saved profile, overriding cascade defaults.
-   * Called both from onOperationalProfileLoaded (primary path) and from
-   * onVesselEngineConfigSelected (fallback when operationalProfile is absent).
+   * Applies all form values from a saved profile, overriding the vessel type's defaults.
+   * Step 4 of onVesselDataApplied — the profile is the authority on everything it carries.
    *
    * Uses emitEvent:false to prevent vesselSpeedKnots/vesselSize valueChanges
    * from triggering watchSizeAndSpeedInputs in vessel-config-section, which
-   * would fire a new vessel fetch 400 ms later and overwrite the engine type
-   * back to the vessel default (the "flicker" race condition).
+   * would fire a new vessel fetch 400 ms later.
    */
   private applyProfileInputValues(pending: CalculatorInput): void {
     this.engineConfigSection?.setEngineTypeReferences(
@@ -681,23 +688,18 @@ export class VesselInputFormComponent implements OnInit, OnDestroy, AfterViewIni
     // patchValue above used emitEvent:false — the battery section's dpHours subscription
     // did not fire, so re-evaluate DP checkbox availability explicitly
     this.batteryConfigSection?.refreshDpAvailability();
-    // emitEvent:false suppresses setupAutoCalculation — trigger calculation explicitly
+    // patchValue used emitEvent:false, so the debounced recalculation of the weighted hotel load
+    // did not run — do it here, while the profile's mode hours are the current ones.
     this.updateWeightedAverageHotelLoad();
-
-    // The profile's own values are now in the form — this emission, and everything after it,
-    // is no longer part of the restore.
-    this.endRestore();
-    if (this.vesselForm.valid && this.componentsLoaded) {
-      this.emitFormValues();
-    }
+    // No emission here: the caller ends the load, and that is what emits.
   }
 
   /**
    * Handle weather input changes - triggers recalculation
    */
   onWeatherChanged(data: { trueWindSpeed: number; windAngleRelVessel: number }): void {
-    if (this.vesselForm.valid && this.componentsLoaded) {
-      this.emitFormValues();
+    if (this.vesselForm.valid) {
+      this.emitFormValues('user');
     }
   }
 
