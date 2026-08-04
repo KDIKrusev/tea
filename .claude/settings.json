@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(awk -F: '{s+=$2} END {print s\" test methods\"}')",
+      "PowerShell($tmp = \"C:\\\\Users\\\\ygmih\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--------1307calc-tea\\\\0218a556-4a7c-4c65-aba3-6a65e6f12cb8\\\\scratchpad\\\\testout\"; dotnet test \"c:\\\\Камен\\\\1307calc\\\\tea\\\\KSailCalc.Tests\\\\KSailCalc.Tests.csproj\" -p:BaseOutputPath=\"$tmp\\\\\" --nologo -v q 2>&1 | Select-Object -Last 25)",
+      "PowerShell(dotnet build \"c:\\\\�����\\\\1307calc\\\\tea\\\\KSailCalc.Tests\\\\KSailCalc.Tests.csproj\" -p:BaseOutputPath=\"C:\\\\Users\\\\ygmih\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--------1307calc-tea\\\\0218a556-4a7c-4c65-aba3-6a65e6f12cb8\\\\scratchpad\\\\testout\\\\\" --nologo -v q 2>&1)",
+      "PowerShell(dotnet test \"c:\\\\�����\\\\1307calc\\\\tea\\\\KSailCalc.Tests\\\\KSailCalc.Tests.csproj\" -p:BaseOutputPath=\"C:\\\\Users\\\\ygmih\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--------1307calc-tea\\\\0218a556-4a7c-4c65-aba3-6a65e6f12cb8\\\\scratchpad\\\\testout\\\\\" --nologo -v q --no-build 2>&1)",
+      "PowerShell(git -C \"c:\\\\�����\\\\1307calc\\\\tea\" status --short KSailCalc.Tests/Golden/Expected/)",
+      "PowerShell(dotnet test \"c:\\\\�����\\\\1307calc\\\\tea\\\\KSailCalc.Tests\\\\KSailCalc.Tests.csproj\" -p:BaseOutputPath=\"C:\\\\Users\\\\ygmih\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--------1307calc-tea\\\\0218a556-4a7c-4c65-aba3-6a65e6f12cb8\\\\scratchpad\\\\testout\\\\\" --nologo -v q 2>&1)",
+      "Bash(grep -o '\\\\\"integrationLevels\\\\\".\\\\{0,400\\\\}' KSailCalc.Tests/Golden/Fixtures/db-fixture.json)",
+      "PowerShell(dotnet test \"c:\\\\�����\\\\1307calc\\\\tea\\\\KSailCalc.Tests\\\\KSailCalc.Tests.csproj\" -p:BaseOutputPath=\"C:\\\\Users\\\\ygmih\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--------1307calc-tea\\\\0218a556-4a7c-4c65-aba3-6a65e6f12cb8\\\\scratchpad\\\\qaverify\\\\\" --nologo -v q 2>&1)",
+      "PowerShell(git -C \"c:\\\\�����\\\\1307calc\\\\tea\" status --porcelain KSailCalc.Tests/Golden/Expected/)",
+      "PowerShell(Write-Output \"=== DI: registrations required by ModePipelineRunner ===\"; Select-String -Path \"c:\\\\Камен\\\\1307calc\\\\tea\\\\Program.cs\" -Pattern \"ILevel1|ILevel2|ILevel3|IBatteryAllocationService|IModePipelineRunner|ICalculatorService\" | ForEach-Object { $_.Line.Trim\\(\\) }; Write-Output \"\"; Write-Output \"=== independent full run from a clean output path ===\"; dotnet test \"c:\\\\Камен\\\\1307calc\\\\tea\\\\KSailCalc.Tests\\\\KSailCalc.Tests.csproj\" -p:BaseOutputPath=\"C:\\\\Users\\\\ygmih\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--------1307calc-tea\\\\0218a556-4a7c-4c65-aba3-6a65e6f12cb8\\\\scratchpad\\\\qaverify2\\\\\" --nologo -v q 2>&1 | Select-Object -Last 5)",
+      "PowerShell(dotnet test \"c:\\\\�����\\\\1307calc\\\\tea\\\\KSailCalc.Tests\\\\KSailCalc.Tests.csproj\" -p:BaseOutputPath=\"C:\\\\Users\\\\ygmih\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--------1307calc-tea\\\\0218a556-4a7c-4c65-aba3-6a65e6f12cb8\\\\scratchpad\\\\testout\\\\\" --nologo -v q --filter \"FullyQualifiedName~Level1RejectionDiagnosticsTests\" 2>&1)"
+    ],
+    "additionalDirectories": [
+      "c:\\�����\\1307calc\\tea"
+    ]
+  }
+}

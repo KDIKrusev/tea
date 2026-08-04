@@ -1,0 +1,7 @@
+{
+  "status": 400,
+  "result": null,
+  "errors": [
+    "No feasible engine configuration: the installed engines cannot carry the DP demand. Increase engine capacity or engine count, or reduce the propulsion/hotel power for this mode."
+  ]
+}

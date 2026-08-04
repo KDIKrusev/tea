@@ -1,0 +1,7 @@
+{
+  "status": 400,
+  "result": null,
+  "errors": [
+    "No feasible engine configuration: no engine configuration can cover the DP demand. Check the engine capacities, engine counts and the power demands for this mode."
+  ]
+}

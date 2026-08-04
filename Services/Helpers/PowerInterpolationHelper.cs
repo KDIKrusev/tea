@@ -13,7 +13,7 @@ internal static class PowerInterpolationHelper
     /// </summary>
     public static decimal? GetPowerAtSpeed(VesselType vessel, decimal targetSpeed)
     {
-        if (vessel.SpeedPowerCurve == null || !vessel.SpeedPowerCurve.Any())
+        if (vessel.SpeedPowerCurve is not { Count: > 0 })
             return null;
 
         var exactMatch = vessel.SpeedPowerCurve.FirstOrDefault(sp => sp.SpeedKnots == targetSpeed);

@@ -1,0 +1,59 @@
+schema: 1
+story: 'refactor.h'
+story_title: 'Refactor H — Observability and hygiene'
+gate: PASS
+status_reason: >-
+  All 5 ACs verified (338/338 green, 0 warnings under TreatWarningsAsErrors, golden snapshots
+  byte-identical, cl/ untouched). The new logging test failed on its first run and exposed two
+  unguarded log call sites; the dev removed the CA1873 suppression they had just added and fixed the
+  code instead of silencing the analyzer.
+reviewer: 'Quinn (Test Architect)'
+updated: '2026-08-03T00:00:00Z'
+
+top_issues: []
+waiver: { active: false }
+
+quality_score: 100
+expires: '2026-08-17T00:00:00Z'
+
+evidence:
+  tests_reviewed: 2
+  risks_identified: 2
+  trace:
+    ac_covered: [1, 2, 3, 4, 5]
+    ac_gaps: []
+  verification:
+    - 'AC1: git status on Golden/Expected/ and cl/ → empty'
+    - 'AC2: DisabledLogger asserts nothing is formatted when Debug is off'
+    - 'AC4: dotnet build with TreatWarningsAsErrors → 0 warnings, 0 errors'
+    - 'AC5: 338/338, no test deleted or weakened'
+
+nfr_validation:
+  security: { status: PASS, notes: 'No surface change. The trace logs plant figures, not credentials.' }
+  performance:
+    status: PASS
+    notes: 'The whole trace is behind IsEnabled(Debug); nothing is built in production defaults.'
+  reliability:
+    status: PASS
+    notes: >-
+      Two real defects closed that the golden snapshots could never reach — undisposed SemaphoreSlim
+      in both repositories (CA1001), and a culture-dependent int.ToString() building the tier lookup
+      keys (CA1305).
+  maintainability:
+    status: PASS
+    notes: >-
+      Every type is now findable by filename except deliberate cohesive pairs. The zero-warning state
+      is enforced by the build rather than by memory.
+
+recommendations:
+  immediate: []
+  future:
+    - action: >-
+        Apply AnalysisLevel + TreatWarningsAsErrors to KSailCalc.Tests.csproj as well — it is
+        currently unanalyzed, and it is now the larger of the two projects by file count.
+      refs: ['KSailCalc.Tests/KSailCalc.Tests.csproj']
+    - action: >-
+        The trace is Debug-level and off by default. Document the switch
+        ("KSailCalc.Api.Services.Calculation": "Debug" under Logging:LogLevel) wherever support
+        instructions live, otherwise the feature stays invisible when it is needed.
+      refs: ['appsettings.json']

@@ -18,4 +18,12 @@ internal static class PlantLimits
     /// to redistribute, so Level 1 must not offer such a combination in the first place.
     /// </summary>
     internal const double MaxAuxLoadFraction = 0.90;
+
+    /// <summary>
+    /// Auxiliary engines are never dispatched below 10 % load — running a generator that lightly
+    /// wastes fuel and fouls the engine. Level 2's sweep starts here. Lived as a local constant in
+    /// Level 2 while its upper counterpart lived here, which is exactly the asymmetry that lets one
+    /// of a pair drift.
+    /// </summary>
+    internal const double MinAuxLoadFraction = 0.10;
 }

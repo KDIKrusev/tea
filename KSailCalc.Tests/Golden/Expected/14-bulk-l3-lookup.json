@@ -90,7 +90,14 @@
     "baselineAE": 0,
     "baselineMeCO2": 7406.627336062724,
     "baselineAeCO2": 0,
-    "warnings": [],
+    "warnings": [
+      {
+        "type": "operating-hours",
+        "field": null,
+        "message": "Total operating hours (8935 h) exceed the 8760 h in a year. Annual fuel, CO2 and cost figures are scaled by these hours and will be overstated. Check the hours entered for each mode.",
+        "severity": "Warning"
+      }
+    ],
     "premium": {
       "fuelSavings": 0,
       "fuelSavingsPercentage": 0,

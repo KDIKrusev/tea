@@ -15,7 +15,17 @@ import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { EngineType, AuxiliaryEngineType } from '../../../../core/engine-configuration.types';
 import { FormEditTrackerService } from '../form-edit-tracker.service';
 import { EngineConfigConfirmDialogComponent } from './engine-config-confirm-dialog.component';
-import { fuelsForFamily, FuelType, defaultPriceFor } from '../../../../shared/constants';
+import { fuelsForFamily, FuelType } from '../../../../shared/constants';
+
+/**
+ * TEMPORARY DIAGNOSTIC — remove once the restore-overwrite race is closed.
+ * Every write to the engine fields announces itself, so the console shows the exact order in which
+ * the profile's values and the catalogue's defaults land. Filter the console by "KSAIL".
+ */
+export function traceEngineWrite(where: string, detail: unknown): void {
+	// eslint-disable-next-line no-console
+	console.log(`%c[KSAIL ${Math.round(performance.now())}ms] ${where}`, 'color:#0a7', detail);
+}
 
 @Component({
 	selector: 'app-engine-config-section',
@@ -61,7 +71,18 @@ export class EngineConfigSectionComponent implements OnInit, OnDestroy {
 	selectedMainEngineTypeId: number | null = null;
 	selectedAuxiliaryEngineTypeId: number | null = null;
 
-	private pendingEngineConfig: { mainEngineId: number; auxiliaryEngineId: number } | null = null;
+	/**
+	 * An engine selection that arrived before the catalogue did, replayed once it loads.
+	 *
+	 * `applyDefaults` is the whole point of the flag: `setEngineConfiguration` asks for the vessel
+	 * type's defaults (ids AND rated capacities), while `setEngineTypeReferences` asks for the ids
+	 * only, because the caller — a profile restore — already holds the capacities the user saved.
+	 * Both used to be deferred into an identical shape, and the replay always applied defaults. On
+	 * a restore that ran before /api/app-data/initial returned, the profile's engine powers showed
+	 * for a moment and were then silently replaced by the catalogue maxima.
+	 */
+	private pendingEngineConfig:
+		{ mainEngineId: number; auxiliaryEngineId: number; applyDefaults: boolean } | null = null;
 
 	ngOnInit(): void {
 		this.loadEngineConfigurations();
@@ -169,6 +190,9 @@ export class EngineConfigSectionComponent implements OnInit, OnDestroy {
 
 
 	private applyMainEngineChange(engine: EngineType): void {
+		traceEngineWrite('applyMainEngineChange', {
+			id: engine.id, me: engine.maxCapacityKW, sg: engine.shaftGeneratorMaxCapacityKW
+		});
 		this.selectedMainEngineTypeId = engine.id;
 
 		// Shaft-generator capacity is installation-specific and is NOT part of the imported
@@ -229,6 +253,7 @@ export class EngineConfigSectionComponent implements OnInit, OnDestroy {
 
 
 	private applyAuxEngineChange(engine: AuxiliaryEngineType): void {
+		traceEngineWrite('applyAuxEngineChange', { id: engine.id, ae: engine.maxCapacityKW });
 		this.selectedAuxiliaryEngineTypeId = engine.id;
 		this.parentForm.patchValue({
 			aeCapacityPerEngine: engine.maxCapacityKW,
@@ -244,6 +269,10 @@ export class EngineConfigSectionComponent implements OnInit, OnDestroy {
 	setEngineConfiguration(mainEngineId: number, auxiliaryEngineId: number): void {
 		const mainEngineTypeId = Number(mainEngineId);
 		const auxEngineTypeId = Number(auxiliaryEngineId);
+		traceEngineWrite('setEngineConfiguration (vessel defaults)', {
+			main: mainEngineTypeId, aux: auxEngineTypeId,
+			catalogueLoaded: this.mainEngineTypes.length > 0 && this.auxiliaryEngineTypes.length > 0
+		});
 		if (!Number.isFinite(mainEngineTypeId) || !Number.isFinite(auxEngineTypeId)) {
 			return;
 		}
@@ -259,54 +288,79 @@ export class EngineConfigSectionComponent implements OnInit, OnDestroy {
 			this.editTracker.updateOriginalValue('aeCount', aeCount);
 			this.pendingEngineConfig = null;
 		} else {
-			this.pendingEngineConfig = { mainEngineId: mainEngineTypeId, auxiliaryEngineId: auxEngineTypeId };
+			this.pendingEngineConfig = {
+				mainEngineId: mainEngineTypeId, auxiliaryEngineId: auxEngineTypeId, applyDefaults: true
+			};
 		}
 	}
 
 	setEngineTypeReferences(mainEngineId: number, auxiliaryEngineId: number): void {
 		const mainEngineTypeId = Number(mainEngineId);
 		const auxEngineTypeId = Number(auxiliaryEngineId);
+		traceEngineWrite('setEngineTypeReferences (ids only)', {
+			main: mainEngineTypeId, aux: auxEngineTypeId,
+			catalogueLoaded: this.mainEngineTypes.length > 0 && this.auxiliaryEngineTypes.length > 0
+		});
 		if (!Number.isFinite(mainEngineTypeId) || !Number.isFinite(auxEngineTypeId)) {
 			return;
 		}
 
 		if (this.mainEngineTypes.length > 0 && this.auxiliaryEngineTypes.length > 0) {
-			const mainEngine = this.mainEngineTypes.find(e => e.id === mainEngineTypeId);
-			const auxEngine = this.auxiliaryEngineTypes.find(e => e.id === auxEngineTypeId);
-
-			// Always sync selectedEngineTypeId to the saved ID so the dropdown reflects
-			// the profile value. If the engine is found, also apply fuel/capacity defaults;
-			// if not found the dropdown may show blank until the user re-selects, which is
-			// preferable to silently showing the wrong vessel-default engine.
-			this.selectedMainEngineTypeId = mainEngineTypeId;
-			this.parentForm.patchValue({ mainEngineTypeId: mainEngineTypeId });
-			this.editTracker.updateOriginalValue('mainEngineTypeId', mainEngineTypeId);
-			if (mainEngine) {
-				this.reconcileMainFuel(mainEngine);
-			}
-
-			this.selectedAuxiliaryEngineTypeId = auxEngineTypeId;
-			this.parentForm.patchValue({ auxEngineTypeId: auxEngineTypeId });
-			this.editTracker.updateOriginalValue('auxEngineTypeId', auxEngineTypeId);
-			if (auxEngine) {
-				this.reconcileAuxFuel(auxEngine);
-			}
-
-			this.cdr.markForCheck();
+			this.applyEngineReferences(mainEngineTypeId, auxEngineTypeId);
+			this.pendingEngineConfig = null;
 			return;
 		}
 
-		this.pendingEngineConfig = { mainEngineId: mainEngineTypeId, auxiliaryEngineId: auxEngineTypeId };
+		this.pendingEngineConfig = {
+			mainEngineId: mainEngineTypeId, auxiliaryEngineId: auxEngineTypeId, applyDefaults: false
+		};
+	}
+
+	/**
+	 * Ids and fuel only — the rated capacities stay as they are. Used when the caller is the
+	 * authority on capacity (a restored profile), so the catalogue must not overwrite it.
+	 */
+	private applyEngineReferences(mainEngineTypeId: number, auxEngineTypeId: number): void {
+		const mainEngine = this.mainEngineTypes.find(e => e.id === mainEngineTypeId);
+		const auxEngine = this.auxiliaryEngineTypes.find(e => e.id === auxEngineTypeId);
+
+		// Always sync selectedEngineTypeId to the saved ID so the dropdown reflects
+		// the profile value. If the engine is found, also reconcile the fuel;
+		// if not found the dropdown may show blank until the user re-selects, which is
+		// preferable to silently showing the wrong vessel-default engine.
+		this.selectedMainEngineTypeId = mainEngineTypeId;
+		this.parentForm.patchValue({ mainEngineTypeId: mainEngineTypeId });
+		this.editTracker.updateOriginalValue('mainEngineTypeId', mainEngineTypeId);
+		if (mainEngine) {
+			this.reconcileMainFuel(mainEngine);
+		}
+
+		this.selectedAuxiliaryEngineTypeId = auxEngineTypeId;
+		this.parentForm.patchValue({ auxEngineTypeId: auxEngineTypeId });
+		this.editTracker.updateOriginalValue('auxEngineTypeId', auxEngineTypeId);
+		if (auxEngine) {
+			this.reconcileAuxFuel(auxEngine);
+		}
+
+		this.cdr.markForCheck();
 	}
 
 	private applyPendingEngineConfig(): void {
-		if (this.pendingEngineConfig) {
-			const mainEngine = this.mainEngineTypes.find(e => e.id === this.pendingEngineConfig!.mainEngineId);
-			const auxEngine = this.auxiliaryEngineTypes.find(e => e.id === this.pendingEngineConfig!.auxiliaryEngineId);
-			if (mainEngine) this.applyMainEngineChange(mainEngine);
-			if (auxEngine) this.applyAuxEngineChange(auxEngine);
-			this.pendingEngineConfig = null;
+		const pending = this.pendingEngineConfig;
+		traceEngineWrite('applyPendingEngineConfig (catalogue arrived)', pending);
+		if (!pending) return;
+		this.pendingEngineConfig = null;
+
+		if (!pending.applyDefaults) {
+			// A restore is waiting on this: set the ids, leave the saved capacities alone.
+			this.applyEngineReferences(pending.mainEngineId, pending.auxiliaryEngineId);
+			return;
 		}
+
+		const mainEngine = this.mainEngineTypes.find(e => e.id === pending.mainEngineId);
+		const auxEngine = this.auxiliaryEngineTypes.find(e => e.id === pending.auxiliaryEngineId);
+		if (mainEngine) this.applyMainEngineChange(mainEngine);
+		if (auxEngine) this.applyAuxEngineChange(auxEngine);
 	}
 
 	// ─── Getters / helpers ────────────────────────────────────────────────────────
@@ -438,10 +492,14 @@ export class EngineConfigSectionComponent implements OnInit, OnDestroy {
 	}
 
 	// Single-price model: the Main engine fuel drives the default fuel price (editable afterwards).
+	// The price comes from the backend (AppInitialData.fuelDefaultPrices) — the client keeps no copy,
+	// because the copy it used to keep had drifted from the backend on every fuel.
 	private prefillPriceFromMainFuel(fuel: string): void {
-		const price = defaultPriceFor(fuel);
+		const price = this.appDataService.getFuelDefaultPrices()[fuel];
 		if (price != null) {
 			this.parentForm.patchValue({ fuelPrice: price });
+			// Re-baseline the edit tracker: this default is not a user edit, so a later default may
+			// still replace it.
 			this.editTracker.updateOriginalValue('fuelPrice', price);
 		}
 	}

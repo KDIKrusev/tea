@@ -26,9 +26,7 @@ public class CalculatorInputBuilder
             DPHours = null,
             DPHotelPowerKW = null,
             RequiredDPPowerKW = null,
-            SailInstalled = false,
             SailEnabled = false,
-            BatteryCapacity = 0,
             FuelPrice = 600,
             TrueWindSpeed = null,
             WindAngleRelVessel = null
@@ -66,7 +64,7 @@ public class CalculatorInputBuilder
 
     public CalculatorInputBuilder WithSailEnabled(double trueWindSpeed, double windAngle)
     {
-        _input.SailInstalled = true; _input.SailEnabled = true;
+        _input.SailEnabled = true;
         _input.TrueWindSpeed = trueWindSpeed; _input.WindAngleRelVessel = windAngle;
         return this;
     }

@@ -1,0 +1,11 @@
+{
+  "status": 400,
+  "result": null,
+  "errors": [
+    "Propulsion power must be greater than 0",
+    "Sea margin must be between 0 and 100",
+    "Number of aux engines must be at least 1",
+    "Fuel price must be greater than 0",
+    "Shaft generator capacity cannot exceed main engine capacity."
+  ]
+}

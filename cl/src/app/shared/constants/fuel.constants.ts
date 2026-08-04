@@ -17,19 +17,16 @@ export const FUELS_BY_FAMILY: Record<FuelFamily, FuelType[]> = {
 /** Default fuel when none is chosen / family is unknown. */
 export const DEFAULT_FUEL: FuelType = 'MGO';
 
-/** Default price (USD/ton) per fuel — mirrors backend CalculatorSettings.FuelDefaultPrices. */
-export const FUEL_DEFAULT_PRICES: Record<FuelType, number> = {
-  MGO: 800,
-  MDO: 800,
-  HFO: 400,
-  LNG: 557,
-  Ammonia: 1100,
-};
-
-/** Default price for a fuel, or undefined when unknown. */
-export function defaultPriceFor(fuel?: string | null): number | undefined {
-  return fuel && fuel in FUEL_DEFAULT_PRICES ? FUEL_DEFAULT_PRICES[fuel as FuelType] : undefined;
-}
+// NOTE: there is deliberately NO default-price table here.
+//
+// There used to be one, described as "mirrors backend CalculatorSettings.FuelDefaultPrices" — and it
+// had drifted on every single fuel (MGO 800 vs 950 · MDO 800 vs 780 · HFO 400 vs 420 · LNG 557 vs
+// 620 · Ammonia 1100 vs 1350). Two code paths then disagreed: the engine picker prefilled from this
+// stale copy and the form immediately overwrote it from the backend, which the user saw as a price
+// flickering 800 → 950.
+//
+// The backend already ships the real prices in AppInitialData.fuelDefaultPrices, so read them from
+// AppDataService.getFuelDefaultPrices(). A copy that must be kept in sync by hand will drift again.
 
 /**
  * Fuels compatible with the given engine fuel family.

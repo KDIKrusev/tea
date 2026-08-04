@@ -25,6 +25,24 @@ cells I/J/K/L (rows 8–9) and Optimal Setup Q7/R7/R8 can be cross-checked in Ex
 > scenario, structured by result-panel section, showing the arithmetic behind every number on
 > screen. Read them side-by-side with the loaded scenario.
 
+### Writing a new scenario file — the client's contract
+
+A scenario `.json` is **a saved profile, not a request body**, and the importer validates it before
+the backend ever sees it. `ProfileService.isValidCalculatorInput` requires three fields the backend
+no longer reads at all — omit any of them and the file is refused with *"Invalid profile file:
+missing required fields"*, however valid it is server-side:
+
+| Field | Value to use | Why it is still required |
+|---|---|---|
+| `hotelLoad` | same as `transitHotelPowerKW` | legacy single-mode hotel load; kept equal so it can't be mistaken for an independent input |
+| `batteryCapacity` | `0` | inert stub — the real battery is the `battery` object |
+| `sailInstalled` | `false` (or the sail state) | superseded by `sailEnabled` |
+
+This is not a style rule: scenarios 19–35 were first written without them, every golden test passed,
+and all seventeen were un-importable in the UI. `KSailCalc.Tests/Golden/ScenarioImportContractTests`
+now mirrors the client's required-field list and fails the build instead. Write the files as
+2-space JSON with **no BOM** (PowerShell's `ConvertTo-Json`/`Out-File` add one).
+
 ## Scenarios and expected results
 
 ### 01 — Excel baseline (battery 1260 kW, Transit)
@@ -151,6 +169,95 @@ Battery 1260 configured for Port only; Port hours 0.
 - **No Battery Contribution panel at all** (backend returns no battery details), no crash,
   IL1 FOC = pure no-battery result **12 892.7 t/yr**. The battery silently does nothing —
   exactly as designed.
+
+## Coverage
+
+See **COVERAGE-MATRIX.md** for what the 35 scenarios do and do not reach, verified against the
+approved snapshots rather than against the scenario files.
+
+Scenarios 01–18 were verified against the reference workbook. **19–35 were generated from the
+current code** and are characterisation snapshots — they detect change, and each was checked to
+actually reach the path it targets, but figures marked "pending reference verification" in their
+cards are not yet correctness proofs.
+
+## Status of the logged findings (updated 2026-08-03)
+
+| # | Finding | Status |
+|---|---|---|
+| 1 | SG-forced rule runs an ME in Port/Anchor | **Open — needs a product decision** (changes the numbers) |
+| 2 | DP weather factor never applied | **Open — needs a product decision** (missing feature + factor values) |
+| 3 | DP redundancy value persists invisibly | **Open — low**; behaviour is harmless and the warning is correct |
+| 4 | Fuel price read-only + two disagreeing price tables | **FIXED 2026-08-03** |
+| 5 | `baselineIndex` lost on profile restore | **FIXED** (already closed before this pass, via `restoreInFlight` + source-tagged form events) |
+
+### Finding 4 — how it was fixed
+
+- The client's hard-coded `FUEL_DEFAULT_PRICES` table is **deleted**. It claimed to mirror the
+  backend and had drifted on every fuel. The backend already ships the real prices in
+  `AppInitialData.fuelDefaultPrices`, so both code paths now read
+  `AppDataService.getFuelDefaultPrices()`. The 800 → 950 flicker is gone because there is no longer
+  a second opinion about the price.
+- `updateFuelPriceFromFuelType()` no longer overwrites unconditionally. It skips when
+  `FormEditTrackerService.isFieldEdited('fuelPrice', …)` — so a price the user types now survives —
+  and re-baselines the tracker whenever it does apply a default, so changing the fuel or engine
+  still updates the price.
+
+The product question the README previously raised ("should an edited price stick?") was answered by
+the code's own stated intent: `prefillPriceFromMainFuel` is documented as
+"the Main engine fuel drives the default fuel price **(editable afterwards)**". It was not editable.
+
+**Not covered by tests:** the client has no test suite at all, so this fix is verified by `ng build`
+and by reasoning, not by an executed test. Worth a manual pass: type a fuel price, wait two seconds,
+confirm it stays; then change the fuel type and confirm the price follows.
+
+### Finding 7 — scenario 14's operating profile does not fit in a year (found & FIXED 2026-08-04)
+
+`14-bulk-l3-lookup` carries **8935 h** of operating time: 5717 transit + 2592 port + 451 anchor +
+175 maneuvering. A year has 8760. Nothing checked, so it was approved and re-approved unnoticed.
+
+Every annual figure the calculator reports is a per-hour rate multiplied by these hours, so this
+scenario's fuel, CO2 and cost are overstated by ~2%.
+
+**Fixed on the backend, not in the scenario.** `ValidationService` now emits an advisory
+`operating-hours` warning when the profile exceeds 8760 h — non-blocking, because a small overrun is
+usually rounding across modes and the user is better placed to judge. The scenario keeps its numbers
+and now carries the warning, which is the honest record.
+
+Also fixed alongside it: `CalculatorInput.AnnualHours` counted **Transit + DP only**, so a vessel
+with port, anchor or maneuvering hours reported less than it operates. Nothing depended on the wrong
+value yet — its only reader was a `> 0` check already guaranteed by `transitHours` — but the next
+reader would have inherited the bug silently. It now sums every mode.
+
+**This is the ONLY approved snapshot that changed in the entire refactoring effort**, and the diff is
+exactly one added warning: not a single number moved.
+
+### Finding 6 — the page calculates THREE times on load (found 2026-08-04)
+
+Every page load fires `POST /calculate-all-variants` three times; afterwards it settles to one per
+edit. The backend does the full work all three times.
+
+**Mechanism.** `emitFormValues()` is called from five uncoordinated places in
+`vessel-input-form.component.ts` — the debounced `valueChanges` subscription (151), the 1500 ms
+`scheduleInitialEmission` (224), the end of the vessel/engine cascade (596),
+`applyProfileInputValues` (684) and the weather handler (693). At startup three of them fire,
+because the cascade's steps are more than the 500 ms debounce apart, and a mid-cascade
+`patchValue(…, { emitEvent: true })` feeds one more event into the subscription. There is no single
+"the form is ready, calculate now" gate — there are five independent "I think I'm ready".
+
+**Why it looks fine.** `calculationRequests$` uses `switchMap`, so only the last response is
+rendered. But `switchMap` cancels the client subscription, not the server's work.
+
+**Why it matters.** Triple backend work per load; and it is the mechanism behind the already-logged
+symptom "an early fire can calculate with DEFAULT form values (fuel price 800) and leave mixed-price
+panels on screen".
+
+**Same root cause as findings 4 and 5.** All three are an async cascade emitting more than once:
+the lost `baselineIndex` pin, the reverted fuel price, and now the triple calculation. Fixing the
+third symptom without collapsing the emissions into one gated stream will just move the problem.
+
+**Not fixed.** The fix is a client refactor (five call sites → one Subject → one debounce → one
+calculation) and the client has **zero tests**. Write tests around profile restore and the vessel
+cascade first; otherwise this is a blind change to the code path that already produced three bugs.
 
 ## Observations logged during scenario preparation (for review, not fixed)
 

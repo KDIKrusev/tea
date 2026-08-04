@@ -1,0 +1,68 @@
+schema: 1
+story: 'refactor.d'
+story_title: 'Refactor D — Pre-resolved SFOC curves; the optimization levels become synchronous'
+gate: PASS
+status_reason: >-
+  All 7 ACs verified (318/318 green, 0 warnings, 18/18 golden snapshots byte-identical at every
+  checkpoint). The primary risk — a moved or dropped double→decimal cast — was checked directly:
+  all seven casts are unchanged and SfocInterpolationHelper is untouched. 144 call sites converted
+  across 14 files with no test deleted, skipped or weakened.
+reviewer: 'Quinn (Test Architect)'
+updated: '2026-08-03T00:00:00Z'
+
+top_issues: []
+waiver: { active: false }
+
+quality_score: 100
+expires: '2026-08-17T00:00:00Z'
+
+evidence:
+  tests_reviewed: 4
+  risks_identified: 4
+  trace:
+    ac_covered: [1, 2, 3, 4, 5, 6, 7]
+    ac_gaps: []
+  verification:
+    - 'Casts: all seven (decimal) casts extracted from HEAD and from current sources → identical'
+    - 'SfocInterpolationHelper: git diff vs HEAD → unchanged'
+    - 'AC3: GetInitialAppDataAsync Times.Once per calculation; GetSfocForLoadAsync/GetSfocDataAsync Times.Never'
+    - 'AC4: no Task on the three level interfaces; no await in any of the three implementations'
+    - 'AC6: diff of the catch (Exception ex) block vs HEAD → identical'
+    - 'AC7: independent run from a clean BaseOutputPath → 318/318, 572 ms, 0 build warnings'
+    - 'Level 3 SG → main curve mapping still via GeneratorType.ToEngineCategory()'
+
+nfr_validation:
+  security: { status: PASS, notes: 'No new surface. Exception behaviour deliberately unchanged.' }
+  performance:
+    status: PASS
+    notes: >-
+      Material improvement. The per-call Where().OrderBy().ToList() is gone from the Level 1
+      candidate loop and the Level 3 generator loop; engine data is read once per request instead
+      of once per SFOC lookup. No async state machine per candidate.
+  reliability:
+    status: PASS
+    notes: >-
+      Missing-curve fallback (220 g/kWh) verified at L1, L2, L3 and end-to-end. The exception path
+      was deliberately left to propagate, reproducing today's net observable (500 on an app-data
+      outage) rather than converting it into a 200 with fabricated numbers.
+  maintainability:
+    status: PASS
+    notes: >-
+      Three levels are now pure synchronous functions over (input, curves) — testable with no mocked
+      async service. The duplicated engine lookup in SfocService collapsed into one.
+
+recommendations:
+  immediate: []
+  future:
+    - action: >-
+        Decide deferred item §7.1 now that it is cheap. GetSfocForLoadAsync — the method carrying the
+        swallow-everything catch — has NO production caller after this story; only tests reach it.
+        Either delete it or narrow the catch to the no-data case. Needs Kamen's decision, not the
+        dev's. Leaving a production-dead method with a known-bad exception policy invites a
+        rediscovered "bug" later.
+      refs: ['Services/SfocService.cs', 'Services/Interfaces/ISfocService.cs', 'docs/refactoring/backend-refactor-design.md']
+    - action: >-
+        The DI guard recommended in R-B's gate is now overdue — R-D changed four constructor
+        signatures and both test harnesses compose by hand. Add ValidateOnBuild/ValidateScopes or a
+        single container-resolution test.
+      refs: ['Program.cs']

@@ -1,0 +1,59 @@
+schema: 1
+story: 'refactor.b'
+story_title: 'Refactor B — Battery adaptation and the mode pipeline out of the orchestrator'
+gate: PASS
+status_reason: >-
+  All 8 ACs verified (294/294 green, 18/18 golden snapshots byte-identical). Both extractions diffed
+  against HEAD with receivers normalised: zero logic differences, only signature visibility and a
+  removed #region marker. CalculatorService 261 → 129 lines (AC ceiling 150), 7 → 4 dependencies.
+reviewer: 'Quinn (Test Architect)'
+updated: '2026-08-03T00:00:00Z'
+
+top_issues: []
+waiver: { active: false }
+
+quality_score: 100
+expires: '2026-08-17T00:00:00Z'
+
+evidence:
+  tests_reviewed: 12
+  risks_identified: 3
+  trace:
+    ac_covered: [1, 2, 3, 4, 5, 6, 7, 8]
+    ac_gaps: []
+  verification:
+    - 'AC1: git status --porcelain KSailCalc.Tests/Golden/Expected/ → empty'
+    - 'AC2: git status --porcelain cl/ Models/ → empty'
+    - 'AC3/AC4: grep for battery symbols and level-service references in CalculatorService → none'
+    - 'AC5: 129 lines'
+    - 'AC6: Moq verify Allocate Times.Never with no battery; Times.Exactly(2) for Transit as positive control'
+    - 'AC7: independent run from a clean BaseOutputPath → 294/294, 616 ms'
+    - 'Verbatim: diff of battery region and pipeline methods vs git show HEAD → signature lines only'
+
+nfr_validation:
+  security: { status: PASS, notes: 'No new surface. Two records became public; neither is serialized.' }
+  performance: { status: PASS, notes: 'Identical call sequence and service-invocation count.' }
+  reliability:
+    status: PASS
+    notes: >-
+      The R3a reference run (zero budget, null baseline, Max(0,…)*hours clamp) moved as one block and
+      is now pinned by direct tests instead of only by snapshots.
+  maintainability:
+    status: PASS
+    notes: >-
+      Battery domain knowledge now sits next to the allocation it translates; the two mode
+      asymmetries (L2/L3 Transit-only, pinned baseline Transit-only) are documented at the runner
+      and asserted by tests.
+
+recommendations:
+  immediate: []
+  future:
+    - action: >-
+        Add a DI container guard — ValidateOnBuild/ValidateScopes in Program.cs, or one test that
+        builds the service collection and resolves ICalculatorService. Both test harnesses compose
+        by hand, so a mis-registration would ship with a green suite. This story got it right
+        (all four runner dependencies registered; Scoped→Singleton is the safe direction), but
+        R-D will change these signatures again.
+      refs: ['Program.cs', 'KSailCalc.Tests/TestHelpers/TestServiceFactory.cs']
+    - action: 'Deferred by design (§7): SFOC catch-all, VariationPerGeneratorKw rename, CancellationToken, immutable EngineCombination, baselineIndex restore bug.'
+      refs: ['docs/refactoring/backend-refactor-design.md']

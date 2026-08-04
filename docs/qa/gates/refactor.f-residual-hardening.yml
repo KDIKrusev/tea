@@ -1,0 +1,62 @@
+schema: 1
+story: 'refactor.f'
+story_title: 'Refactor F — Residual hardening (the follow-ups the A–E gates carried)'
+gate: PASS
+status_reason: >-
+  All 7 ACs verified (336/336 green, 0 warnings, golden snapshots byte-identical). Three of the four
+  carried follow-ups are closed; §7.1 remains deferred by Kamen's standing instruction and its catch
+  block is byte-identical to HEAD. F3's equivalence was proven mechanically: all 35 column names read
+  in code appear in the SELECT lists.
+reviewer: 'Quinn (Test Architect)'
+updated: '2026-08-03T00:00:00Z'
+
+top_issues: []
+waiver: { active: false }
+
+quality_score: 95
+expires: '2026-08-17T00:00:00Z'
+
+evidence:
+  tests_reviewed: 14
+  risks_identified: 2
+  trace:
+    ac_covered: [1, 2, 3, 4, 5, 6, 7]
+    ac_gaps: []
+  verification:
+    - 'AC3: container builds with ValidateOnBuild + ValidateScopes; ICalculatorService resolves with its whole graph'
+    - 'AC4: counts measured by running (1, 1, 2, 2), not invented; single-survivor cases commented'
+    - 'AC5: no ordinal reads remain; 35/35 names read appear in a SELECT list'
+    - 'AC6: GetSfocForLoadAsync catch block diffed vs HEAD → identical'
+    - 'AC7: independent run from a clean BaseOutputPath → 336/336, 617 ms, 0 warnings'
+
+nfr_validation:
+  security: { status: PASS, notes: 'No surface change.' }
+  performance: { status: PASS, notes: 'GetOrdinal per read on a cached, once-per-process load path — immaterial.' }
+  reliability:
+    status: PASS
+    notes: >-
+      Two silent failure modes closed: a mis-registration reaching production behind a green suite,
+      and a mid-SELECT column insertion silently shifting every later read.
+  maintainability:
+    status: PASS
+    notes: >-
+      The R-C gate's "49 vacuous assertions" estimate was corrected with measurement rather than
+      acted on — OnlyContain fails on empty collections, so nothing was vacuous; four assertions
+      lacked a count guard and now have measured ones.
+
+recommendations:
+  immediate:
+    - action: >-
+        Before deploying, smoke-check the repository against the dev database — one
+        GET /api/app-data/initial. F3 is green-by-construction, not green-by-test: the loaders have
+        no automated coverage because they need a live SQL Server.
+      refs: ['Repositories/HybridConfigRepository.cs']
+  future:
+    - action: >-
+        §7.1 — GetSfocForLoadAsync still has no production caller. Deferred by instruction (it is a
+        behaviour change). Delete it or narrow its catch when behaviour changes are back on the table.
+      refs: ['Services/SfocService.cs']
+    - action: >-
+        DependencyInjectionTests mirrors Program.cs rather than importing it. Extracting a shared
+        AddKSailCalcServices() extension would remove the drift risk entirely.
+      refs: ['Program.cs', 'KSailCalc.Tests/Services/DependencyInjectionTests.cs']

@@ -4,6 +4,13 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <!-- Same policy as the API project: the test project is the larger of the two by file count,
+         and test code is where sloppiness hides. xUnit's own analyzers ship with the package. -->
+    <AnalysisLevel>latest-recommended</AnalysisLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <!-- CA1848/CA1859: see the reasons in KSailCalc.Api.csproj — they apply here too.
+         CA1707: test method names use underscores on purpose; that is the convention this suite reads by. -->
+    <NoWarn>$(NoWarn);CA1848;CA1859;CA1707</NoWarn>
 
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>

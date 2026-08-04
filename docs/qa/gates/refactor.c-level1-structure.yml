@@ -1,0 +1,67 @@
+schema: 1
+story: 'refactor.c'
+story_title: 'Refactor C — Level 1 internal structure (deduplicate the candidate loop, name the baseline policy)'
+gate: PASS
+status_reason: >-
+  All 7 ACs verified (314/314 green, 18/18 golden snapshots byte-identical). The rejection counter
+  sequence is provably unchanged (grep diff vs HEAD is identical), and the exact-message diagnostics
+  tests were written and passing against untouched code before the loop was merged.
+reviewer: 'Quinn (Test Architect)'
+updated: '2026-08-03T00:00:00Z'
+
+top_issues: []
+waiver: { active: false }
+
+quality_score: 100
+expires: '2026-08-17T00:00:00Z'
+
+evidence:
+  tests_reviewed: 20
+  risks_identified: 3
+  trace:
+    ac_covered: [1, 2, 3, 4, 5, 6, 7]
+    ac_gaps: []
+  verification:
+    - 'Characterization-first: 6/6 diagnostics tests green against unchanged code before the merge'
+    - 'AC3: sgCapacity/aeCapacity/sgPower/aePower each computed once; IsValid and DistributeLoad removed'
+    - 'AC4: exact-string assertions for all four ExplainFor branches plus precedence'
+    - "Rejection order: diff of grep -o 'rejections\\.[A-Za-z]*++' vs HEAD → identical sequence"
+    - 'Structural conditions and distribution assignments diffed vs HEAD → identical'
+    - 'AC7: independent run from a clean BaseOutputPath → 314/314, 566 ms'
+
+nfr_validation:
+  security: { status: PASS, notes: 'No surface change.' }
+  performance:
+    status: PASS
+    notes: >-
+      Net improvement — four quantities computed once instead of twice per candidate, inside the
+      loop that dominates Level 1 cost.
+  reliability:
+    status: PASS
+    notes: >-
+      Candidate ordering and rejection precedence both pinned by tests. The baseline index addresses
+      that ordering, so both halves are now guarded together.
+  maintainability:
+    status: PASS
+    notes: >-
+      The D1 "third highest" battery rule has a name and eight direct tests instead of living in a
+      nested ternary.
+
+recommendations:
+  immediate: []
+  future:
+    - action: >-
+        Audit the other 49 AllValidCombinations assertion sites for silent vacuity. The default test
+        input yields exactly ONE valid combination, so ordering and first-vs-last assertions built on
+        it prove nothing. The dev hit this in three of their own new tests, fixed the fixture, and
+        added Count > 1 guards — propagate that pattern.
+      refs:
+        - 'KSailCalc.Tests/Services/Level1OptimizationServiceTests.cs'
+        - 'KSailCalc.Tests/Services/Level1PtiTests.cs'
+        - 'KSailCalc.Tests/Services/CalculationTraceTests.cs'
+        - 'KSailCalc.Tests/Services/CalculatorServiceBatteryTests.cs'
+        - 'KSailCalc.Tests/Services/BatteryTestDesignScenarioTests.cs'
+    - action: >-
+        meCapacity is still computed on three paths (TryEvaluate, the sufficiency check,
+        TryApplyPtiAssist). Correctly outside AC3's scope; unify when TryApplyPtiAssist is next opened.
+      refs: ['Services/Level1OptimizationService.cs']

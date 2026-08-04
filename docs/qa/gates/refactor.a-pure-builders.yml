@@ -1,0 +1,55 @@
+schema: 1
+story: 'refactor.a'
+story_title: 'Refactor A — Extract the pure result builders out of CalculatorService'
+gate: PASS
+status_reason: >-
+  All 7 ACs verified (282/282 green, 18/18 golden snapshots byte-identical). Behaviour preservation
+  confirmed mechanically, not by assertion: the moved bodies were diffed against HEAD with receivers
+  normalised and no arithmetic line differs. CalculatorService 534 → 261 lines.
+reviewer: 'Quinn (Test Architect)'
+updated: '2026-08-03T00:00:00Z'
+
+top_issues: []
+waiver: { active: false }
+
+quality_score: 100
+expires: '2026-08-17T00:00:00Z'
+
+evidence:
+  tests_reviewed: 13
+  risks_identified: 3
+  trace:
+    ac_covered: [1, 2, 3, 4, 5, 6, 7]
+    ac_gaps: []
+  verification:
+    - 'AC1: git status --porcelain KSailCalc.Tests/Golden/Expected/ → empty'
+    - 'AC2: git status --porcelain cl/ Models/ → empty'
+    - 'AC4: grep TierSavings|BuildResultContext|TierPlan → no hits'
+    - 'AC5: normalised diff of moved bodies vs git show HEAD → only signature/visibility lines differ'
+    - 'AC6: independent run from a clean BaseOutputPath → 282/282, 910 ms, 0 build warnings'
+
+nfr_validation:
+  security: { status: PASS, notes: 'No surface change. InternalsVisibleTo ships no behaviour.' }
+  performance: { status: PASS, notes: 'Pure relocation; no new I/O or in-loop allocation.' }
+  reliability:
+    status: PASS
+    notes: >-
+      Floating-point association preserved deliberately (TotalUpTo written as a switch, not a
+      conditional sum). 18 exact-match snapshots confirm.
+  maintainability:
+    status: PASS
+    notes: >-
+      Three responsibilities became three named pure units with direct tests. Tier definition is
+      now data (ConfigKey, HighestLevel) instead of three copy-pasted call sites.
+
+recommendations:
+  immediate: []
+  future:
+    - action: >-
+        Add a direct assertion that IntegrationTier.Advanced/Pro/Premium map to config keys 1/2/3.
+        Already covered indirectly — the fixture's three pricing rows are distinct, so a swap moves
+        totalInvestment/paybackPeriod/roi in every snapshot — but a direct test makes the failure
+        cheaper to diagnose.
+      refs: ['Services/Results/TierResultBuilder.cs', 'KSailCalc.Tests/Services/ResultBuildersTests.cs']
+    - action: 'Story R-E item E4 will replace configMap["1"] indexing with TryGetValue (deferred by design).'
+      refs: ['Services/CalculatorService.cs']

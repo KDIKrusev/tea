@@ -61,3 +61,23 @@ avg + ΣH). `Benefit = max(0, FOC_B_optimal − FOC_A_optimal) × hours`, summed
 
 01–12 mirror the first-wave scenarios, 13–18 the second wave. Error scenarios (09, 17) explain
 the rejection math instead of panels; 18 explains the deliberate absence of the battery panel.
+
+---
+
+## Scenarios 19–35 (added 2026-08-04)
+
+The suite originally grew feature-by-feature, which left it deep on battery behaviour and thin
+elsewhere. Reading the **snapshots** rather than the scenario files exposed three blind spots:
+
+- **Level 2 produced zero savings in all 18** scenarios — a whole optimization level with no
+  end-to-end coverage.
+- **PTI assist never engaged**, despite two scenarios named after it.
+- **Only 2 of the 4 Level 1 rejection messages** a user can receive were reachable.
+
+Scenarios 19–35 close those and the smaller gaps listed in `../COVERAGE-MATRIX.md`.
+
+**Read their cards differently from 01–18.** The earlier figures were derived from the reference
+workbook and then compared with the code. The newer ones came *from* the code; where the arithmetic
+could be reproduced by hand the card shows it under **Hand-check**, and where it could not, the card
+says **pending reference verification**. They are reliable change detectors today and become
+correctness proofs once the workbook confirms them.

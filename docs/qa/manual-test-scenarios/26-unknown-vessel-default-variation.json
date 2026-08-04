@@ -1,0 +1,30 @@
+{
+  "name": "26 Vessel type absent from the lookup - L3 falls back to the 500 kW default",
+  "vesselTypeName": "Fishing Vessel 800 gt",
+  "vesselCategory": "Offshore Support",
+  "vesselSize": 11000,
+  "vesselSpeed": 12.5,
+  "version": 3,
+  "input": {
+    "propulsionPower": 8000,
+    "seaMargin": 0,
+    "meCapacityPerEngine": 8500,
+    "meCount": 2,
+    "sgCapacityPerEngine": 0,
+    "aeCapacityPerEngine": 2000,
+    "aeCount": 2,
+    "mainEngineTypeId": 1,
+    "auxEngineTypeId": 8,
+    "mainFuelType": "MDO",
+    "auxFuelType": "MGO",
+    "sailEnabled": false,
+    "fuelPrice": 780,
+    "transitHours": 5000,
+    "transitHotelPowerKW": 2000,
+    "vesselTypeName": "Fishing Vessel 800 gt",
+    "vesselSpeedKnots": 12.5,
+    "hotelLoad": 2000,
+    "batteryCapacity": 0,
+    "sailInstalled": false
+  }
+}

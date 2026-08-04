@@ -49,7 +49,7 @@ public class CalculatorController : ControllerBase
             // Perform calculation with validation warnings attached
             var result = await _calculatorService.CalculateAllVariantsAsync(input, validationResult.Warnings);
 
-            if (validationResult.Warnings.Any())
+            if (validationResult.Warnings.Count > 0)
             {
                 _logger.LogWarning("Calculation completed with warnings: {Warnings}",
                     string.Join(", ", validationResult.Warnings.Select(w => w.Message)));

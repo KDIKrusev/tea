@@ -1,0 +1,7 @@
+{
+  "status": 400,
+  "result": null,
+  "errors": [
+    "No feasible engine configuration: the auxiliary engines would run above 90% load in Transit mode. Increase auxiliary engine capacity or count, or reduce the hotel/mission power."
+  ]
+}

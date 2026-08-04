@@ -51,8 +51,7 @@ FOR JSON PATH
 
 $levelsJson = Get-JsonResult @'
 SELECT IntegrationLevelId AS integrationLevelId, LevelName AS levelName,
-       BaseEfficiencyFactor AS baseEfficiencyFactor, IemsPriceNOK AS iemsPriceNOK,
-       CommissioningNOK AS commissioningNOK
+       IemsPriceNOK AS iemsPriceNOK, CommissioningNOK AS commissioningNOK
 FROM IntegrationLevel ORDER BY IntegrationLevelId
 FOR JSON PATH
 '@
@@ -81,11 +80,10 @@ $fixture = [ordered]@{
     _generatedAtUtc    = (Get-Date).ToUniversalTime().ToString('o')
     integrationLevels  = @($levels | ForEach-Object {
             [ordered]@{
-                integrationLevelId   = [int]$_.integrationLevelId
-                levelName            = [string]$_.levelName
-                baseEfficiencyFactor = [double]$_.baseEfficiencyFactor
-                iemsPriceNOK         = [double]$_.iemsPriceNOK
-                commissioningNOK     = [double]$_.commissioningNOK
+                integrationLevelId = [int]$_.integrationLevelId
+                levelName          = [string]$_.levelName
+                iemsPriceNOK       = [double]$_.iemsPriceNOK
+                commissioningNOK   = [double]$_.commissioningNOK
             }
         })
     mainEngines        = @($engines | Where-Object { $_.category -eq 'Main' } | ForEach-Object { Convert-Engine $_ })

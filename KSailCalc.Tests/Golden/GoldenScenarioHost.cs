@@ -3,7 +3,6 @@ using System.Text.Json.Serialization;
 using KSailCalc.Api.Models;
 using KSailCalc.Api.Models.Enums;
 using KSailCalc.Api.Repositories.Interfaces;
-using KSailCalc.Api.Services;
 using KSailCalc.Api.Services.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -74,14 +73,20 @@ internal sealed class GoldenScenarioHost
         var calcOptions = Options.Create(calculatorSettings);
         var batteryOptions = Options.Create(batterySettings);
 
+        var pipelineRunner = new ModePipelineRunner(
+            sfoc,
+            new Level1OptimizationService(batteryOptions),
+            new Level2OptimizationService(),
+            new Level3DrcService(calcOptions),
+            new BatteryAllocationService(batteryOptions),
+            NullLogger<ModePipelineRunner>.Instance);
+
         _calculator = new CalculatorService(
             configRepo.Object,
             new SailContributionService(sailRepo.Object),
-            new Level1OptimizationService(sfoc, batteryOptions),
-            new Level2OptimizationService(sfoc),
-            new Level3DrcService(sfoc, calcOptions),
-            new BatteryAllocationService(batteryOptions),
-            calcOptions);
+            pipelineRunner,
+            calcOptions,
+            NullLogger<CalculatorService>.Instance);
     }
 
     /// <summary>

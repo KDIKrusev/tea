@@ -1,6 +1,5 @@
 ﻿using KSailCalc.Api.Models;
 using KSailCalc.Api.Repositories.Interfaces;
-using KSailCalc.Api.Services;
 using KSailCalc.Api.Services.Interfaces;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -19,9 +18,9 @@ public class TestServiceFactory
 {
     public static readonly List<IntegrationLevelConfig> DefaultIntegrationLevels = new()
     {
-        new() { IntegrationLevelId = 1, BaseEfficiencyFactor = 0.97, IemsPriceNOK = 1_000_000, CommissioningNOK = 100_000 },
-        new() { IntegrationLevelId = 2, BaseEfficiencyFactor = 0.955, IemsPriceNOK = 1_205_000, CommissioningNOK = 200_000 },
-        new() { IntegrationLevelId = 3, BaseEfficiencyFactor = 0.94, IemsPriceNOK = 1_800_000, CommissioningNOK = 300_000 }
+        new() { IntegrationLevelId = 1, IemsPriceNOK = 1_000_000, CommissioningNOK = 100_000 },
+        new() { IntegrationLevelId = 2, IemsPriceNOK = 1_205_000, CommissioningNOK = 200_000 },
+        new() { IntegrationLevelId = 3, IemsPriceNOK = 1_800_000, CommissioningNOK = 300_000 }
     };
 
     // REAL DATA: Level1_Optimal Power System Setup.xlsx → Main Engine SFOC Diesel (g/kWH)
@@ -96,8 +95,22 @@ public class TestServiceFactory
     public Level2OptimizationService Level2Service { get; private set; } = null!;
     public Level3DrcService Level3Service { get; private set; } = null!;
     public BatteryAllocationService BatteryAllocationService { get; private set; } = null!;
+    public ModePipelineRunner PipelineRunner { get; private set; } = null!;
 
-    public static TestServiceFactory Create(bool enableSailData = false)
+    /// <summary>SFOC curves for the default engine ids (1, 1) — what most tests need.</summary>
+    public EngineFuelCurves Curves { get; private set; } = null!;
+
+    /// <summary>
+    /// SFOC curves for a specific input. Blocking is safe here: the app-data source is a mock that
+    /// completes synchronously.
+    /// </summary>
+    public EngineFuelCurves CurvesFor(CalculatorInput input)
+        => SfocService.GetCurvesAsync(input).GetAwaiter().GetResult();
+
+    public static TestServiceFactory Create(
+        bool enableSailData = false,
+        ILogger<ModePipelineRunner>? runnerLogger = null,
+        ILogger<CalculatorService>? calculatorLogger = null)
     {
         var factory = new TestServiceFactory();
 
@@ -128,20 +141,25 @@ public class TestServiceFactory
         // Wire real services
         factory.SfocService = new SfocService(factory.AppDataMock.Object, new Mock<ILogger<SfocService>>().Object);
         factory.SailContributionService = new SailContributionService(factory.SailRepoMock.Object);
-        factory.Level1Service = new Level1OptimizationService(
-            factory.SfocService, Options.Create(new BatterySettings()));
-        factory.Level2Service = new Level2OptimizationService(factory.SfocService);
+        factory.Level1Service = new Level1OptimizationService(Options.Create(new BatterySettings()));
+        factory.Level2Service = new Level2OptimizationService();
         var settings = Options.Create(new CalculatorSettings());
-        factory.Level3Service = new Level3DrcService(factory.SfocService, settings);
+        factory.Level3Service = new Level3DrcService(settings);
         factory.BatteryAllocationService = new BatteryAllocationService(Options.Create(new BatterySettings()));
-        factory.CalculatorService = new CalculatorService(
-            factory.ConfigRepoMock.Object,
-            factory.SailContributionService,
+        factory.Curves = factory.CurvesFor(CalculatorInputBuilder.Default().Build());
+        factory.PipelineRunner = new ModePipelineRunner(
+            factory.SfocService,
             factory.Level1Service,
             factory.Level2Service,
             factory.Level3Service,
             factory.BatteryAllocationService,
-            settings);
+            runnerLogger ?? NullLogger<ModePipelineRunner>.Instance);
+        factory.CalculatorService = new CalculatorService(
+            factory.ConfigRepoMock.Object,
+            factory.SailContributionService,
+            factory.PipelineRunner,
+            settings,
+            calculatorLogger ?? NullLogger<CalculatorService>.Instance);
 
         return factory;
     }

@@ -14,14 +14,3 @@ public interface IVesselResolutionService
     /// </summary>
     Task<VesselResolution?> ResolveAsync(string category, decimal size, decimal speed);
 }
-
-/// <summary>
-/// Result of a parametric resolution: the record supplying profile/engine data,
-/// the interpolated power, and the audit trace.
-/// </summary>
-public class VesselResolution
-{
-    public VesselType BucketRecord { get; set; } = new();
-    public decimal? CalmWaterPowerKW { get; set; }
-    public ResolutionInfo Info { get; set; } = new();
-}

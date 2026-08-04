@@ -3,10 +3,27 @@
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
+    <AnalysisLevel>latest-recommended</AnalysisLevel>
+    <!-- The codebase is at zero warnings; keep it there rather than rediscovering the drift later. -->
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <!--
+      CA1848 — "use LoggerMessage delegates". A source-generated delegate per log statement buys
+               allocation savings that do not matter for a request-scoped calculator, at the cost of
+               ~50 extra declarations. Deliberately off.
+      CA1859  — "use the concrete type for performance". It wants IReadOnlyDictionary parameters
+                changed to Dictionary; the read-only abstraction is the better contract here.
+    -->
+    <NoWarn>$(NoWarn);CA1848;CA1859</NoWarn>
     <ImplicitUsings>enable</ImplicitUsings>
     <InvariantGlobalization>false</InvariantGlobalization>
     <DefaultItemExcludes>$(DefaultItemExcludes);KSailCalc.Tests/**</DefaultItemExcludes>
   </PropertyGroup>
+
+  <ItemGroup>
+    <!-- The result builders are internal by design (they are pure functions, never substituted);
+         the test project still needs to exercise them directly. -->
+    <InternalsVisibleTo Include="KSailCalc.Tests" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.2" />

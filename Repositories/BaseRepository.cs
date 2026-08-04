@@ -8,7 +8,7 @@ namespace KSailCalc.Api.Repositories;
 /// </summary>
 public abstract class BaseRepository
 {
-    protected readonly string ConnectionString;
+    protected string ConnectionString { get; }
 
     protected static readonly JsonSerializerOptions JsonOptions = new()
     {
@@ -24,10 +24,5 @@ public abstract class BaseRepository
     protected static T? DeserializeJson<T>(string json) where T : class
     {
         return JsonSerializer.Deserialize<T>(json, JsonOptions);
-    }
-
-    protected static List<T> DeserializeJsonList<T>(string json)
-    {
-        return JsonSerializer.Deserialize<List<T>>(json, JsonOptions) ?? new List<T>();
     }
 }

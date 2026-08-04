@@ -1,0 +1,30 @@
+{
+  "name": "25 Container vessel - L3 variation 1500 kW from the vessel-type lookup",
+  "vesselTypeName": "Container 5,000 TEU",
+  "vesselCategory": "Container",
+  "vesselSize": 5000,
+  "vesselSpeed": 18,
+  "version": 3,
+  "input": {
+    "propulsionPower": 8000,
+    "seaMargin": 0,
+    "meCapacityPerEngine": 8500,
+    "meCount": 2,
+    "sgCapacityPerEngine": 0,
+    "aeCapacityPerEngine": 2000,
+    "aeCount": 2,
+    "mainEngineTypeId": 1,
+    "auxEngineTypeId": 8,
+    "mainFuelType": "MDO",
+    "auxFuelType": "MGO",
+    "sailEnabled": false,
+    "fuelPrice": 780,
+    "transitHours": 5000,
+    "transitHotelPowerKW": 2000,
+    "vesselTypeName": "Container 5,000 TEU",
+    "vesselSpeedKnots": 18,
+    "hotelLoad": 2000,
+    "batteryCapacity": 0,
+    "sailInstalled": false
+  }
+}

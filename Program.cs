@@ -1,7 +1,10 @@
 using KSailCalc.Api.Models;
 using KSailCalc.Api.Repositories.Interfaces;
 using KSailCalc.Api.Repositories;
-using KSailCalc.Api.Services;
+using KSailCalc.Api.Services.Battery;
+using KSailCalc.Api.Services.Calculation;
+using KSailCalc.Api.Services.Catalog;
+using KSailCalc.Api.Services.Validation;
 using KSailCalc.Api.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -32,6 +35,8 @@ builder.Services.AddScoped<ISailContributionService, SailContributionService>();
 builder.Services.AddScoped<ILevel1OptimizationService, Level1OptimizationService>();
 builder.Services.AddScoped<ILevel2OptimizationService, Level2OptimizationService>();
 builder.Services.AddScoped<ILevel3DrcService, Level3DrcService>();
+// Runs L1→L2→L3 per operational mode; wraps the three level services and the battery allocation
+builder.Services.AddScoped<IModePipelineRunner, ModePipelineRunner>();
 builder.Services.AddScoped<ICalculatorService, CalculatorService>();
 builder.Services.AddScoped<IAppDataAggregationService, AppDataAggregationService>();
 builder.Services.AddScoped<IVesselResolutionService, VesselResolutionService>();
@@ -79,11 +84,14 @@ var app = builder.Build();
     var effectiveRows = battery.LoadPriorities.Count > 0
         ? battery.LoadPriorities
         : BatterySettings.CreateDefaultLoadPriorities();
-    app.Logger.LogInformation(
-        "BatterySettings: PtiLoss={PtiLoss}, ChargeEff={ChargeEff}, DischargeEff={DischargeEff}, LoadPriorities={Rows} rows from {Source}: {Priorities}",
-        battery.PtiLossFactor, battery.ChargeEfficiency, battery.DischargeEfficiency,
-        effectiveRows.Count, prioritySource,
-        string.Join(" → ", effectiveRows.Select(p => $"{p.Load}({p.Function} D={p.CoverageFactor} V={p.VariationFactor})")));
+    if (app.Logger.IsEnabled(LogLevel.Information))
+    {
+        app.Logger.LogInformation(
+            "BatterySettings: PtiLoss={PtiLoss}, ChargeEff={ChargeEff}, DischargeEff={DischargeEff}, LoadPriorities={Rows} rows from {Source}: {Priorities}",
+            battery.PtiLossFactor, battery.ChargeEfficiency, battery.DischargeEfficiency,
+            effectiveRows.Count, prioritySource,
+            string.Join(" → ", effectiveRows.Select(p => $"{p.Load}({p.Function} D={p.CoverageFactor} V={p.VariationFactor})")));
+    }
 }
 
 // Configure the HTTP request pipeline

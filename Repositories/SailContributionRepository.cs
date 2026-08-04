@@ -9,7 +9,7 @@ namespace KSailCalc.Api.Repositories;
 /// Separate from KSailCalcConfigRepository because it reads from a DIFFERENT table:
 /// [VoyageEnergyDB].[dbo].[Configurations] (not KSailCalc_Configurations).
 /// </summary>
-public class SailContributionRepository : BaseRepository, ISailContributionRepository
+public sealed class SailContributionRepository : BaseRepository, ISailContributionRepository, IDisposable
 {
     private List<SailContributionItem>? _cachedItems;
     private readonly SemaphoreSlim _loadLock = new(1, 1);
@@ -55,4 +55,7 @@ public class SailContributionRepository : BaseRepository, ISailContributionRepos
             _loadLock.Release();
         }
     }
+
+    /// <summary>The load lock is owned by this repository, so it is disposed with it.</summary>
+    public void Dispose() => _loadLock.Dispose();
 }

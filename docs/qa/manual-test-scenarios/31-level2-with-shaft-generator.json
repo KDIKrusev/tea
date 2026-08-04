@@ -1,0 +1,31 @@
+{
+  "name": "31 Level 2 with a shaft generator - SG reported unchanged, only the aux side redistributed",
+  "vesselTypeName": "Offshore Support 11,000 dwt",
+  "vesselCategory": "Offshore Support",
+  "vesselSize": 11000,
+  "vesselSpeed": 12.5,
+  "version": 3,
+  "input": {
+    "propulsionPower": 8000,
+    "seaMargin": 0,
+    "meCapacityPerEngine": 8500,
+    "meCount": 2,
+    "sgCapacityPerEngine": 500,
+    "aeCapacityPerEngine": 2000,
+    "aeCount": 2,
+    "mainEngineTypeId": 1,
+    "auxEngineTypeId": 8,
+    "mainFuelType": "MDO",
+    "auxFuelType": "MGO",
+    "sailEnabled": false,
+    "fuelPrice": 780,
+    "transitHours": 5000,
+    "transitHotelPowerKW": 3000,
+    "vesselTypeName": "Offshore Support 11,000 dwt",
+    "hotelLoadVariationKw": 500,
+    "vesselSpeedKnots": 12.5,
+    "hotelLoad": 3000,
+    "batteryCapacity": 0,
+    "sailInstalled": false
+  }
+}

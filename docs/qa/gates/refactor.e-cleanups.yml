@@ -1,0 +1,58 @@
+schema: 1
+story: 'refactor.e'
+story_title: 'Refactor E — Cleanups (dead branches, duplicated plumbing, stale documentation)'
+gate: PASS
+status_reason: >-
+  All 9 ACs verified (322/322 green, 0 warnings, 18/18 golden snapshots byte-identical). Validation
+  error and warning strings diffed against HEAD — identical content and order. The dev corrected the
+  story's own premise on E1 (one of the two "dead" fallbacks was reachable) rather than executing it
+  unchecked; the removal is still behaviour-preserving and the reason is now stated correctly.
+reviewer: 'Quinn (Test Architect)'
+updated: '2026-08-03T00:00:00Z'
+
+top_issues: []
+waiver: { active: false }
+
+quality_score: 100
+expires: '2026-08-17T00:00:00Z'
+
+evidence:
+  tests_reviewed: 4
+  risks_identified: 3
+  trace:
+    ac_covered: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    ac_gaps: []
+  verification:
+    - "AC7: diff of every errors.Add(\"…\") and every warning Message = \"…\" vs HEAD → identical, in order"
+    - 'E1: Level2 BuildSetpoints emits PowerKw = 0 for switched-off engines — the steadyLoad fallback was reachable; removal is value-identical because LoadPercent is 0 there too'
+    - 'E7: ClearCache acquires and releases _loadLock, matching the loaders'
+    - 'AC9: independent run from a clean BaseOutputPath → 322/322, 591 ms, 0 build warnings'
+  known_gaps:
+    - 'AC8 cannot exercise a clear against an in-flight load without SQL Server. Covered: lock acquire/release correctness under 200-way concurrency. The limitation is documented in the test itself.'
+
+nfr_validation:
+  security: { status: PASS, notes: 'No surface change.' }
+  performance: { status: PASS, notes: 'Neutral. Dead branches removed from the Level 3 generator loop.' }
+  reliability:
+    status: PASS
+    notes: >-
+      ClearCache is now thread-safe on a singleton — the only real defect closed in this epic rather
+      than a structure improved. A deactivated pricing row is now diagnosable instead of a bare
+      KeyNotFoundException.
+  maintainability:
+    status: PASS
+    notes: >-
+      The aux load window lives in one place; Level 2 documentation no longer claims a limit the code
+      does not enforce; the repository's triple double-checked-lock is one helper.
+
+recommendations:
+  immediate: []
+  future:
+    - action: 'Repository ordinal reader mapping (reader.GetInt32(6)) — correctly scoped out; needs its own story against a live schema.'
+      refs: ['Repositories/HybridConfigRepository.cs']
+    - action: 'Carried from R-B and R-D: add a DI container guard (ValidateOnBuild, or one resolution test). Cheapest outstanding safety improvement.'
+      refs: ['Program.cs']
+    - action: 'Carried from R-C: audit the remaining AllValidCombinations assertions for silent vacuity.'
+      refs: ['KSailCalc.Tests/Services/']
+    - action: 'Carried from R-D: decide §7.1 — GetSfocForLoadAsync has no production caller; delete it or narrow its catch.'
+      refs: ['Services/SfocService.cs']

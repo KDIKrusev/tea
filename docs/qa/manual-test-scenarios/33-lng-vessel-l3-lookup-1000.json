@@ -1,0 +1,30 @@
+{
+  "name": "33 LNG carrier - L3 variation 1000 kW, the last entry in the vessel-type lookup",
+  "vesselTypeName": "LNG Carrier 170,000 m3",
+  "vesselCategory": "LNG",
+  "vesselSize": 170000,
+  "vesselSpeed": 19,
+  "version": 3,
+  "input": {
+    "propulsionPower": 8000,
+    "seaMargin": 0,
+    "meCapacityPerEngine": 8500,
+    "meCount": 2,
+    "sgCapacityPerEngine": 0,
+    "aeCapacityPerEngine": 2000,
+    "aeCount": 2,
+    "mainEngineTypeId": 1,
+    "auxEngineTypeId": 8,
+    "mainFuelType": "MDO",
+    "auxFuelType": "MGO",
+    "sailEnabled": false,
+    "fuelPrice": 780,
+    "transitHours": 5000,
+    "transitHotelPowerKW": 2000,
+    "vesselTypeName": "LNG Carrier 170,000 m3",
+    "vesselSpeedKnots": 19,
+    "hotelLoad": 2000,
+    "batteryCapacity": 0,
+    "sailInstalled": false
+  }
+}

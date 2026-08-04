@@ -1,0 +1,31 @@
+{
+  "name": "35 Several validation errors at once - the 400 body carries them all, in order",
+  "vesselTypeName": "Offshore Support 11,000 dwt",
+  "vesselCategory": "Offshore Support",
+  "vesselSize": 11000,
+  "vesselSpeed": 12.5,
+  "version": 3,
+  "input": {
+    "propulsionPower": 0,
+    "seaMargin": 120,
+    "meCapacityPerEngine": 24000,
+    "meCount": 2,
+    "sgCapacityPerEngine": 30000,
+    "aeCapacityPerEngine": 4000,
+    "aeCount": 0,
+    "mainEngineTypeId": 1,
+    "auxEngineTypeId": 8,
+    "mainFuelType": "MDO",
+    "auxFuelType": "MGO",
+    "sailEnabled": false,
+    "fuelPrice": 0,
+    "transitHours": 5000,
+    "transitHotelPowerKW": 3876,
+    "vesselTypeName": "Offshore Support 11,000 dwt",
+    "hotelLoadVariationKw": 500,
+    "vesselSpeedKnots": 12.5,
+    "hotelLoad": 3876,
+    "batteryCapacity": 0,
+    "sailInstalled": false
+  }
+}

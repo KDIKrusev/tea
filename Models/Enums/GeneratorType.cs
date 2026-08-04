@@ -17,11 +17,4 @@ public static class GeneratorTypeExtensions
         GeneratorType.AE => EngineCategory.Auxiliary,
         _ => throw new ArgumentOutOfRangeException(nameof(type))
     };
-
-    public static int GetEngineTypeId(this GeneratorType type, CalculatorInput input) => type switch
-    {
-        GeneratorType.SG => input.MainEngineTypeId,
-        GeneratorType.AE => input.AuxEngineTypeId,
-        _ => throw new ArgumentOutOfRangeException(nameof(type))
-    };
 }

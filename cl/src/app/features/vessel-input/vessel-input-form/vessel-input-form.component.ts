@@ -15,7 +15,7 @@ import { VesselOperationalProfile } from '../../../core/operational-profile.type
 import { debounceTime, Subject, takeUntil } from 'rxjs';
 import { VALIDATION_LIMITS, DEBOUNCE_TIMES, DEFAULT_VALUES, DEFAULT_FUEL } from '../../../shared/constants';
 import { VesselConfigSectionComponent } from './vessel-config-section/vessel-config-section.component';
-import { EngineConfigSectionComponent } from './engine-config-section/engine-config-section.component';
+import { EngineConfigSectionComponent, traceEngineWrite } from './engine-config-section/engine-config-section.component';
 import { AdditionalConfigSectionComponent } from './additional-config-section/additional-config-section.component';
 import { OperationalModesSectionComponent } from './operational-modes-section/operational-modes-section.component';
 import { WeatherInputSectionComponent } from './weather-input-section/weather-input-section.component';
@@ -185,25 +185,31 @@ export class VesselInputFormComponent implements OnInit, OnDestroy, AfterViewIni
     }
   }
 
-  /** 
-   * Dynamically update fuel price based on selected fuel type
-   * Reads from backend CalculatorSettings via AppDataService
+  /**
+   * Keep the fuel price on the main fuel's backend default — unless the user has typed their own.
+   *
+   * This runs on every debounced form change. It used to overwrite unconditionally, so a price the
+   * user typed reverted ~500 ms later; the field looked editable but was not. The edit tracker
+   * already knows the difference: `prefillPriceFromMainFuel` re-baselines the original whenever a
+   * fuel or engine change applies a new default, so anything differing from that baseline is the
+   * user's own value and must survive.
    */
   private updateFuelPriceFromFuelType(): void {
     const fuelDefaultPrices = this.appDataService.getFuelDefaultPrices();
-    
+
     // For now, use main engine fuel type as the primary (could also check aux and use a weighted average)
     const mainFuelType = this.vesselForm.get('mainFuelType')?.value;
-    
-    if (mainFuelType && fuelDefaultPrices[mainFuelType] !== undefined) {
-      const newPrice = fuelDefaultPrices[mainFuelType];
-      const currentPrice = this.vesselForm.get('fuelPrice')?.value;
-      
-      // Only update if price changed to avoid unnecessary form updates
-      if (currentPrice !== newPrice) {
-        this.vesselForm.patchValue({ fuelPrice: newPrice }, { emitEvent: false });
-      }
-    }
+    if (!mainFuelType || fuelDefaultPrices[mainFuelType] === undefined) return;
+
+    const currentPrice = this.vesselForm.get('fuelPrice')?.value;
+    if (this.editTracker.isFieldEdited('fuelPrice', currentPrice)) return; // the user's price wins
+
+    const newPrice = fuelDefaultPrices[mainFuelType];
+    if (currentPrice === newPrice) return; // avoid unnecessary form updates
+
+    this.vesselForm.patchValue({ fuelPrice: newPrice }, { emitEvent: false });
+    // The applied default becomes the new baseline, so the next pass does not read it as an edit.
+    this.editTracker.updateOriginalValue('fuelPrice', newPrice);
   }
 
   private scheduleInitialEmission(): void {
@@ -466,6 +472,10 @@ export class VesselInputFormComponent implements OnInit, OnDestroy, AfterViewIni
    * custom values once the cascade finishes (in onOperationalProfileLoaded).
    */
   loadProfile(profile: SavedProfile): void {
+    traceEngineWrite('loadProfile START', {
+      name: profile.name, main: profile.input.mainEngineTypeId, aux: profile.input.auxEngineTypeId,
+      me: profile.input.meCapacityPerEngine, sg: profile.input.sgCapacityPerEngine, ae: profile.input.aeCapacityPerEngine
+    });
     this.beginRestore();
     this.pendingProfileInput = profile.input;
     this.vesselTypeName = profile.vesselTypeName;
@@ -480,7 +490,18 @@ export class VesselInputFormComponent implements OnInit, OnDestroy, AfterViewIni
     // fall back to the bucket record's name
     this.vesselTypeName = this.vesselConfigSection?.selectionLabel
       || vesselWithEngines.vesselType.vesselTypeName;
-    const applyEngineDefaults = vesselWithEngines.applyEngineDefaults !== false;
+    const wantsEngineDefaults = vesselWithEngines.applyEngineDefaults !== false;
+
+    // A restore carries its own engine ids AND its own rated capacities. Writing the vessel type's
+    // defaults here — only for applyProfileInputValues to overwrite them a moment later — is what
+    // made the engine fields flicker, and what left the catalogue's capacities on screen whenever
+    // this cascade finished last. During a restore the profile is the authority: set the references
+    // so the dropdowns stay populated (both ids are required validators) and touch nothing else.
+    const applyEngineDefaults = wantsEngineDefaults && !this.restoreInFlight;
+    traceEngineWrite('onVesselEngineConfigSelected', {
+      vessel: this.vesselTypeName, wantsEngineDefaults,
+      restoreInFlight: this.restoreInFlight, willApplyDefaults: applyEngineDefaults
+    });
 
     const vesselTypeWithRefs = vesselWithEngines.vesselType as {
       mainEngine?: { engineTypeId?: number | string };
@@ -520,7 +541,7 @@ export class VesselInputFormComponent implements OnInit, OnDestroy, AfterViewIni
     // (e.g. when fullData.operationalProfile is null for some vessel configs), apply
     // the profile here after a longer delay so it doesn't race with
     // onOperationalProfileLoaded (which uses 200 ms and clears pendingProfileInput).
-    if (this.pendingProfileInput && applyEngineDefaults) {
+    if (this.pendingProfileInput && wantsEngineDefaults) {
       const capturedPending = this.pendingProfileInput;
       setTimeout(() => {
         if (this.pendingProfileInput === capturedPending) {
@@ -603,6 +624,10 @@ export class VesselInputFormComponent implements OnInit, OnDestroy, AfterViewIni
    * back to the vessel default (the "flicker" race condition).
    */
   private applyProfileInputValues(pending: CalculatorInput): void {
+    traceEngineWrite('applyProfileInputValues (profile wins)', {
+      main: pending.mainEngineTypeId, aux: pending.auxEngineTypeId,
+      me: pending.meCapacityPerEngine, sg: pending.sgCapacityPerEngine, ae: pending.aeCapacityPerEngine
+    });
     this.engineConfigSection?.setEngineTypeReferences(
       pending.mainEngineTypeId,
       pending.auxEngineTypeId

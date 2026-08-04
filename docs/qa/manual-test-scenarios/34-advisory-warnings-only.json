@@ -1,0 +1,37 @@
+{
+  "name": "34 Advisory warnings on a valid input - battery with no modes, DP redundancy without DP",
+  "vesselTypeName": "Offshore Support 11,000 dwt",
+  "vesselCategory": "Offshore Support",
+  "vesselSize": 11000,
+  "vesselSpeed": 12.5,
+  "version": 3,
+  "input": {
+    "propulsionPower": 12036.15,
+    "seaMargin": 0,
+    "meCapacityPerEngine": 24000,
+    "meCount": 2,
+    "sgCapacityPerEngine": 3250,
+    "aeCapacityPerEngine": 4000,
+    "aeCount": 4,
+    "mainEngineTypeId": 1,
+    "auxEngineTypeId": 8,
+    "mainFuelType": "MDO",
+    "auxFuelType": "MGO",
+    "sailEnabled": false,
+    "battery": {
+      "powerKw": 500,
+      "capacityKwh": 1000,
+      "relevantModes": []
+    },
+    "dpRedundancyRequirementKw": 400,
+    "fuelPrice": 780,
+    "transitHours": 5000,
+    "transitHotelPowerKW": 3876,
+    "vesselTypeName": "Offshore Support 11,000 dwt",
+    "hotelLoadVariationKw": 500,
+    "vesselSpeedKnots": 12.5,
+    "hotelLoad": 3876,
+    "batteryCapacity": 0,
+    "sailInstalled": false
+  }
+}

@@ -1,0 +1,54 @@
+schema: 1
+story: 'refactor.g'
+story_title: 'Refactor G — Structural navigation (know which class is for what)'
+gate: PASS
+status_reason: >-
+  All 6 ACs verified (336/336 green, 0 warnings, golden snapshots byte-identical, cl/ untouched).
+  File and namespace moves only. The Models wire/internal split was derived by tracing reachability
+  from the controllers, which inverted the dev's initial plan — six types assumed internal are in
+  fact serialized.
+reviewer: 'Quinn (Test Architect)'
+updated: '2026-08-03T00:00:00Z'
+
+top_issues: []
+waiver: { active: false }
+
+quality_score: 100
+expires: '2026-08-17T00:00:00Z'
+
+evidence:
+  tests_reviewed: 0
+  risks_identified: 2
+  trace:
+    ac_covered: [1, 2, 3, 4, 5, 6]
+    ac_gaps: []
+  verification:
+    - 'AC1/AC2: git status on Golden/Expected/ and cl/ → empty after every step'
+    - 'AC3: Level1OptimizationService 365 → 201 lines; generation, PTI and message formatting extracted'
+    - 'AC4: no service file remains in the bare KSailCalc.Api.Services namespace'
+    - 'AC5: BatteryModeAllocation, GeneratorSetpoint, EngineType, VesselType, OperationalProfile confirmed reachable from controller responses — they stay in Models/'
+    - 'AC6: independent run from a clean BaseOutputPath → 336/336, 0 warnings'
+
+nfr_validation:
+  security: { status: PASS, notes: 'No surface change. Namespaces are not serialized.' }
+  performance: { status: PASS, notes: 'No runtime change whatsoever.' }
+  reliability: { status: PASS, notes: 'Compiler-verified moves; the golden snapshots confirm behaviour.' }
+  maintainability:
+    status: PASS
+    notes: >-
+      The folder tree now answers "which class is for what" without opening files, and Models/ vs
+      Models/Domain/ encodes what is breaking to change. Level 1 no longer carries presentation
+      concerns (user-facing rejection messages) inside an optimizer.
+
+recommendations:
+  immediate: []
+  future:
+    - action: >-
+        Models/SailContributionModels.cs still mixes one wire type (SailContributionResult) with
+        three internal ones. Split when that file is next touched.
+      refs: ['Models/SailContributionModels.cs']
+    - action: >-
+        DependencyInjectionTests still mirrors Program.cs. Extracting an AddKSailCalcServices()
+        extension would let both use the same registration list — now that the services are grouped
+        by namespace, that extension has an obvious home.
+      refs: ['Program.cs', 'KSailCalc.Tests/Services/DependencyInjectionTests.cs']

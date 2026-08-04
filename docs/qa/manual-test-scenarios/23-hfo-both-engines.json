@@ -1,0 +1,31 @@
+{
+  "name": "23 HFO on both engines - the cheapest fuel, the second-highest CO2 factor",
+  "vesselTypeName": "Offshore Support 11,000 dwt",
+  "vesselCategory": "Offshore Support",
+  "vesselSize": 11000,
+  "vesselSpeed": 12.5,
+  "version": 3,
+  "input": {
+    "propulsionPower": 8000,
+    "seaMargin": 0,
+    "meCapacityPerEngine": 8500,
+    "meCount": 2,
+    "sgCapacityPerEngine": 0,
+    "aeCapacityPerEngine": 2000,
+    "aeCount": 2,
+    "mainEngineTypeId": 1,
+    "auxEngineTypeId": 8,
+    "mainFuelType": "HFO",
+    "auxFuelType": "HFO",
+    "sailEnabled": false,
+    "fuelPrice": 420,
+    "transitHours": 5000,
+    "transitHotelPowerKW": 2000,
+    "vesselTypeName": "Offshore Support 11,000 dwt",
+    "hotelLoadVariationKw": 500,
+    "vesselSpeedKnots": 12.5,
+    "hotelLoad": 2000,
+    "batteryCapacity": 0,
+    "sailInstalled": false
+  }
+}

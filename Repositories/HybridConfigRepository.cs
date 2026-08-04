@@ -16,7 +16,7 @@ namespace KSailCalc.Api.Repositories;
 /// 
 /// Caches data in-memory for the lifetime of the scoped service.
 /// </summary>
-public class HybridConfigRepository : BaseRepository, IKSailCalcConfigRepository
+public sealed class HybridConfigRepository : BaseRepository, IKSailCalcConfigRepository, IDisposable
 {
     private Dictionary<EngineCategory, List<EngineType>>? _cachedEngines;
     private List<IntegrationLevelConfig>? _cachedIntegrationLevels;
@@ -27,9 +27,51 @@ public class HybridConfigRepository : BaseRepository, IKSailCalcConfigRepository
 
     public void ClearCache()
     {
-        _cachedEngines = null;
-        _cachedIntegrationLevels = null;
-        _cachedVesselTypes = null;
+        // Under the same lock the loaders take: this is a singleton, so a clear can otherwise race
+        // a load in flight and leave a half-populated cache behind.
+        _loadLock.Wait();
+        try
+        {
+            _cachedEngines = null;
+            _cachedIntegrationLevels = null;
+            _cachedVesselTypes = null;
+        }
+        finally
+        {
+            _loadLock.Release();
+        }
+    }
+
+    /// <summary>
+    /// Double-checked lock around a cached load: return the cache if it is populated, otherwise take
+    /// the lock, re-check (another caller may have filled it while we waited) and load.
+    ///
+    /// The three loaders used to spell this out individually, which is three chances to get the
+    /// re-check wrong. The cache field is assigned only after a successful load, so a failed load
+    /// leaves the cache empty and is retried — same as before.
+    /// </summary>
+    private async Task<T> GetOrLoadAsync<T>(Func<T?> read, Action<T> store, Func<Task<T>> load)
+        where T : class
+    {
+        var cached = read();
+        if (cached != null)
+            return cached;
+
+        await _loadLock.WaitAsync();
+        try
+        {
+            cached = read();
+            if (cached != null)
+                return cached;
+
+            var loaded = await load();
+            store(loaded);
+            return loaded;
+        }
+        finally
+        {
+            _loadLock.Release();
+        }
     }
 
     #region Integration Levels
@@ -38,24 +80,18 @@ public class HybridConfigRepository : BaseRepository, IKSailCalcConfigRepository
     /// Get all integration levels from IntegrationLevel table
     /// Pure relational query - no JSON parsing needed
     /// </summary>
-    public async Task<List<IntegrationLevelConfig>> GetIntegrationLevelConfigsAsync()
-    {
-        if (_cachedIntegrationLevels != null)
-            return _cachedIntegrationLevels;
-
-        await _loadLock.WaitAsync();
-        try
+    public Task<List<IntegrationLevelConfig>> GetIntegrationLevelConfigsAsync() => GetOrLoadAsync(
+        () => _cachedIntegrationLevels,
+        loaded => _cachedIntegrationLevels = loaded,
+        async () =>
         {
-            if (_cachedIntegrationLevels != null)
-                return _cachedIntegrationLevels;
-
             var levels = new List<IntegrationLevelConfig>();
 
             using var connection = new SqlConnection(ConnectionString);
             await connection.OpenAsync();
 
             using var command = new SqlCommand(@"
-                SELECT IntegrationLevelId, LevelName, BaseEfficiencyFactor, 
+                SELECT IntegrationLevelId, LevelName,
                        IemsPriceNOK, CommissioningNOK, Description, IsActive
                 FROM IntegrationLevel
                 WHERE IsActive = 1
@@ -66,24 +102,17 @@ public class HybridConfigRepository : BaseRepository, IKSailCalcConfigRepository
             {
                 levels.Add(new IntegrationLevelConfig
                 {
-                    IntegrationLevelId = reader.GetInt32(0),
-                    LevelName = reader.GetString(1),
-                    BaseEfficiencyFactor = (double)reader.GetDecimal(2),
-                    IemsPriceNOK = (double)reader.GetDecimal(3),
-                    CommissioningNOK = (double)reader.GetDecimal(4),
-                    Description = reader.IsDBNull(5) ? null : reader.GetString(5),
-                    IsActive = reader.GetBoolean(6)
+                    IntegrationLevelId = reader.GetInt32("IntegrationLevelId"),
+                    LevelName = reader.GetString("LevelName"),
+                    IemsPriceNOK = (double)reader.GetDecimal("IemsPriceNOK"),
+                    CommissioningNOK = (double)reader.GetDecimal("CommissioningNOK"),
+                    Description = reader.GetStringOrNull("Description"),
+                    IsActive = reader.GetBoolean("IsActive")
                 });
             }
 
-            _cachedIntegrationLevels = levels;
             return levels;
-        }
-        finally
-        {
-            _loadLock.Release();
-        }
-    }
+        });
 
     #endregion
 
@@ -92,17 +121,11 @@ public class HybridConfigRepository : BaseRepository, IKSailCalcConfigRepository
     /// <summary>
     /// Get all engines from EngineType table, cached by category
     /// </summary>
-    private async Task<Dictionary<EngineCategory, List<EngineType>>> LoadAllEnginesAsync()
-    {
-        if (_cachedEngines != null)
-            return _cachedEngines;
-
-        await _loadLock.WaitAsync();
-        try
+    private Task<Dictionary<EngineCategory, List<EngineType>>> LoadAllEnginesAsync() => GetOrLoadAsync(
+        () => _cachedEngines,
+        loaded => _cachedEngines = loaded,
+        async () =>
         {
-            if (_cachedEngines != null)
-                return _cachedEngines;
-
             var engines = new Dictionary<EngineCategory, List<EngineType>>
             {
                 [EngineCategory.Main] = new List<EngineType>(),
@@ -123,26 +146,26 @@ public class HybridConfigRepository : BaseRepository, IKSailCalcConfigRepository
             using var reader = await command.ExecuteReaderAsync();
             while (await reader.ReadAsync())
             {
-                var sfocJson = reader.GetString(6);
-                var sfocData = JsonSerializer.Deserialize<List<SfocDataPoint>>(sfocJson, JsonOptions) 
+                var sfocJson = reader.GetString("SfocDataJson");
+                var sfocData = JsonSerializer.Deserialize<List<SfocDataPoint>>(sfocJson, JsonOptions)
                     ?? new List<SfocDataPoint>();
 
                 var engine = new EngineType
                 {
-                    Id = reader.GetInt32(0),
-                    EngineCategory = Enum.Parse<EngineCategory>(reader.GetString(1)),
-                    Name = reader.GetString(2),
-                    MaxCapacityKW = reader.GetDecimal(3),
-                    ShaftGeneratorMaxCapacityKW = reader.IsDBNull(4) ? null : reader.GetDecimal(4),
-                    Description = reader.IsDBNull(5) ? null : reader.GetString(5),
+                    Id = reader.GetInt32("EngineTypeId"),
+                    EngineCategory = Enum.Parse<EngineCategory>(reader.GetString("EngineCategory")),
+                    Name = reader.GetString("Name"),
+                    MaxCapacityKW = reader.GetDecimal("MaxCapacityKW"),
+                    ShaftGeneratorMaxCapacityKW = reader.GetDecimalOrNull("ShaftGeneratorMaxCapacityKW"),
+                    Description = reader.GetStringOrNull("Description"),
                     SfocData = sfocData,
-                    IsActive = reader.GetBoolean(7),
-                    FuelFamily = reader.IsDBNull(8) ? null : reader.GetString(8),
-                    Maker = reader.IsDBNull(9) ? null : reader.GetString(9),
-                    Series = reader.IsDBNull(10) ? null : reader.GetString(10),
-                    RatedPowerKW = reader.IsDBNull(11) ? null : reader.GetDecimal(11),
-                    Rpm = reader.IsDBNull(12) ? null : reader.GetInt32(12),
-                    NoxTier = reader.IsDBNull(13) ? null : reader.GetString(13)
+                    IsActive = reader.GetBoolean("IsActive"),
+                    FuelFamily = reader.GetStringOrNull("FuelFamily"),
+                    Maker = reader.GetStringOrNull("Maker"),
+                    Series = reader.GetStringOrNull("Series"),
+                    RatedPowerKW = reader.GetDecimalOrNull("RatedPowerKW"),
+                    Rpm = reader.GetInt32OrNull("Rpm"),
+                    NoxTier = reader.GetStringOrNull("NoxTier")
                 };
 
                 var category = engine.EngineCategory;
@@ -150,14 +173,8 @@ public class HybridConfigRepository : BaseRepository, IKSailCalcConfigRepository
                     list.Add(engine);
             }
 
-            _cachedEngines = engines;
             return engines;
-        }
-        finally
-        {
-            _loadLock.Release();
-        }
-    }
+        });
 
     /// <summary>
     /// Get main engines (EngineCategory = 'Main')
@@ -198,17 +215,11 @@ public class HybridConfigRepository : BaseRepository, IKSailCalcConfigRepository
     /// Get all vessel types from VesselType table
     /// Deserializes JSON for SpeedPowerCurve and OperationalProfile
     /// </summary>
-    public async Task<List<VesselType>> GetVesselTypesAsync()
-    {
-        if (_cachedVesselTypes != null)
-            return _cachedVesselTypes;
-
-        await _loadLock.WaitAsync();
-        try
+    public Task<List<VesselType>> GetVesselTypesAsync() => GetOrLoadAsync(
+        () => _cachedVesselTypes,
+        loaded => _cachedVesselTypes = loaded,
+        async () =>
         {
-            if (_cachedVesselTypes != null)
-                return _cachedVesselTypes;
-
             var vessels = new List<VesselType>();
 
             using var connection = new SqlConnection(ConnectionString);
@@ -227,14 +238,14 @@ public class HybridConfigRepository : BaseRepository, IKSailCalcConfigRepository
             using var reader = await command.ExecuteReaderAsync();
             while (await reader.ReadAsync())
             {
-                var speedPowerJson = reader.GetString(11);
+                var speedPowerJson = reader.GetString("SpeedPowerCurveJson");
                 var speedPowerCurve = JsonSerializer.Deserialize<List<SpeedPowerPoint>>(speedPowerJson, JsonOptions)
                     ?? new List<SpeedPowerPoint>();
 
-                var vesselTypeName = reader.GetString(1);
-                var sizeCategory = reader.IsDBNull(3) ? null : reader.GetString(3);
-                
-                var operationalProfileJson = reader.GetString(13);
+                var vesselTypeName = reader.GetString("VesselTypeName");
+                var sizeCategory = reader.GetStringOrNull("SizeCategory");
+
+                var operationalProfileJson = reader.GetString("OperationalProfileJson");
                 var operationalProfile = JsonSerializer.Deserialize<VesselOperationalProfile>(operationalProfileJson, JsonOptions);
                 
                 // Populate VesselTypeName and SizeCategory which are not in JSON
@@ -246,43 +257,37 @@ public class HybridConfigRepository : BaseRepository, IKSailCalcConfigRepository
 
                 var vessel = new VesselType
                 {
-                    Id = reader.GetInt32(0),
+                    Id = reader.GetInt32("VesselTypeId"),
                     VesselTypeName = vesselTypeName,
-                    Category = reader.IsDBNull(2) ? null : reader.GetString(2),
+                    Category = reader.GetStringOrNull("Category"),
                     SizeCategory = sizeCategory,
-                    Unit = reader.IsDBNull(4) ? null : reader.GetString(4),
-                    Description = reader.IsDBNull(5) ? null : reader.GetString(5),
+                    Unit = reader.GetStringOrNull("Unit"),
+                    Description = reader.GetStringOrNull("Description"),
                     MainEngine = new VesselEngineConfig
                     {
-                        EngineTypeId = reader.GetInt32(6),
-                        NumberOfEngines = reader.GetInt32(7),
-                        ShaftGeneratorMaxCapacityKW = reader.IsDBNull(8) ? 0 : reader.GetDecimal(8)
+                        EngineTypeId = reader.GetInt32("MainEngineTypeId"),
+                        NumberOfEngines = reader.GetInt32("NumberOfMainEngines"),
+                        ShaftGeneratorMaxCapacityKW = reader.GetDecimalOrNull("MainEngineShaftGeneratorKW") ?? 0
                     },
                     AuxEngine = new VesselAuxEngineConfig
                     {
-                        EngineTypeId = reader.GetInt32(9),
-                        NumberOfEngines = reader.GetInt32(10)
+                        EngineTypeId = reader.GetInt32("AuxEngineTypeId"),
+                        NumberOfEngines = reader.GetInt32("NumberOfAuxEngines")
                     },
                     SpeedPowerCurve = speedPowerCurve,
-                    SeaMarginPercent = reader.GetDecimal(12),
+                    SeaMarginPercent = reader.GetDecimal("SeaMarginPercent"),
                     OperationalProfile = operationalProfile,
-                    IsActive = reader.GetBoolean(14),
-                    ReferenceSize = reader.IsDBNull(15) ? null : reader.GetDecimal(15),
-                    MinSize = reader.IsDBNull(16) ? null : reader.GetDecimal(16),
-                    MaxSize = reader.IsDBNull(17) ? null : reader.GetDecimal(17)
+                    IsActive = reader.GetBoolean("IsActive"),
+                    ReferenceSize = reader.GetDecimalOrNull("ReferenceSize"),
+                    MinSize = reader.GetDecimalOrNull("MinSize"),
+                    MaxSize = reader.GetDecimalOrNull("MaxSize")
                 };
 
                 vessels.Add(vessel);
             }
 
-            _cachedVesselTypes = vessels;
             return vessels;
-        }
-        finally
-        {
-            _loadLock.Release();
-        }
-    }
+        });
 
     /// <summary>
     /// Get operational profiles (extracted from VesselType.OperationalProfile)
@@ -298,4 +303,7 @@ public class HybridConfigRepository : BaseRepository, IKSailCalcConfigRepository
     }
 
     #endregion
+
+    /// <summary>The load lock is owned by this repository, so it is disposed with it.</summary>
+    public void Dispose() => _loadLock.Dispose();
 }

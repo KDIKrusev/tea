@@ -1,15 +1,19 @@
 namespace KSailCalc.Api.Models;
 
 /// <summary>
-/// Input parameters for the iEMS calculator with multi-modal operational support
+/// Input parameters for the iEMS calculator with multi-modal operational support.
+///
+/// Every property here is READ by the calculation. Fields the client sends but the backend never
+/// used — <c>hotelLoad</c>, <c>sailInstalled</c> and the legacy <c>batteryCapacity</c> — were
+/// removed; the client may keep sending them and JSON deserialization ignores them, so saved
+/// profiles still load. If you add a property and nothing reads it, it does not belong here.
 /// </summary>
 public class CalculatorInput
 {
-    // === LEGACY FIELDS (maintained for backward compatibility) ===
+    // === PROPULSION ===
     public double PropulsionPower { get; set; } // kW - average propulsion power needed
-    public double HotelLoad { get; set; } // kW - average hotel/mission loads needed
     public double SeaMargin { get; set; } // % - safety margin for propulsion
-    
+
     // Main Engine Configuration
     public double MeCapacityPerEngine { get; set; } // kW - capacity of ONE main engine
     public int MeCount { get; set; } // number of main engines installed
@@ -26,19 +30,6 @@ public class CalculatorInput
     public int AuxEngineTypeId { get; set; } // ID of selected auxiliary engine type
     
     // Additional Systems
-    /// <summary>
-    /// Whether the vessel has a SAIL system physically installed (UI display flag).
-    /// Note: Sail calculations are controlled by <see cref="SailEnabled"/> — this property
-    /// is only used by the frontend to show/hide sail-related UI elements.
-    /// </summary>
-    public bool SailInstalled { get; set; }
-
-    /// <summary>
-    /// DEPRECATED: legacy stub, never used in any calculation. Kept for wire compatibility.
-    /// Use <see cref="Battery"/> instead.
-    /// </summary>
-    public double BatteryCapacity { get; set; } // kWh - battery capacity (0 if none)
-
     /// <summary>
     /// Battery configuration (capacity, power budget, relevant modes).
     /// Null or inactive ⇒ all battery logic is bypassed.
@@ -145,6 +136,14 @@ public class CalculatorInput
     /// <summary>Total AE capacity across all auxiliary engines</summary>
     public double TotalAeCapacity => AeCapacityPerEngine * AeCount;
 
-    /// <summary>Total annual operating hours (Transit + DP)</summary>
-    public double AnnualHours => TransitHours + (DPHours ?? 0);
+    /// <summary>
+    /// Total annual operating hours across EVERY mode.
+    ///
+    /// It used to count Transit + DP only, which made the name a lie: a vessel with port, anchor or
+    /// maneuvering hours reported less than it actually operates. Nothing depended on the wrong
+    /// value (its only reader was a "> 0" check that <see cref="TransitHours"/> already guaranteed),
+    /// but the next reader would have inherited the bug silently.
+    /// </summary>
+    public double AnnualHours =>
+        TransitHours + (DPHours ?? 0) + PortHours + AnchorHours + ManeuveringHours;
 }
