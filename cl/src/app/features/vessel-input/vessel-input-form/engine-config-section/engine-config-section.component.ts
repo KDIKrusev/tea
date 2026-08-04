@@ -17,16 +17,6 @@ import { FormEditTrackerService } from '../form-edit-tracker.service';
 import { EngineConfigConfirmDialogComponent } from './engine-config-confirm-dialog.component';
 import { fuelsForFamily, FuelType } from '../../../../shared/constants';
 
-/**
- * TEMPORARY DIAGNOSTIC — remove once the restore-overwrite race is closed.
- * Every write to the engine fields announces itself, so the console shows the exact order in which
- * the profile's values and the catalogue's defaults land. Filter the console by "KSAIL".
- */
-export function traceEngineWrite(where: string, detail: unknown): void {
-	// eslint-disable-next-line no-console
-	console.log(`%c[KSAIL ${Math.round(performance.now())}ms] ${where}`, 'color:#0a7', detail);
-}
-
 @Component({
 	selector: 'app-engine-config-section',
 	standalone: true,
@@ -190,9 +180,6 @@ export class EngineConfigSectionComponent implements OnInit, OnDestroy {
 
 
 	private applyMainEngineChange(engine: EngineType): void {
-		traceEngineWrite('applyMainEngineChange', {
-			id: engine.id, me: engine.maxCapacityKW, sg: engine.shaftGeneratorMaxCapacityKW
-		});
 		this.selectedMainEngineTypeId = engine.id;
 
 		// Shaft-generator capacity is installation-specific and is NOT part of the imported
@@ -253,7 +240,6 @@ export class EngineConfigSectionComponent implements OnInit, OnDestroy {
 
 
 	private applyAuxEngineChange(engine: AuxiliaryEngineType): void {
-		traceEngineWrite('applyAuxEngineChange', { id: engine.id, ae: engine.maxCapacityKW });
 		this.selectedAuxiliaryEngineTypeId = engine.id;
 		this.parentForm.patchValue({
 			aeCapacityPerEngine: engine.maxCapacityKW,
@@ -269,10 +255,6 @@ export class EngineConfigSectionComponent implements OnInit, OnDestroy {
 	setEngineConfiguration(mainEngineId: number, auxiliaryEngineId: number): void {
 		const mainEngineTypeId = Number(mainEngineId);
 		const auxEngineTypeId = Number(auxiliaryEngineId);
-		traceEngineWrite('setEngineConfiguration (vessel defaults)', {
-			main: mainEngineTypeId, aux: auxEngineTypeId,
-			catalogueLoaded: this.mainEngineTypes.length > 0 && this.auxiliaryEngineTypes.length > 0
-		});
 		if (!Number.isFinite(mainEngineTypeId) || !Number.isFinite(auxEngineTypeId)) {
 			return;
 		}
@@ -297,10 +279,6 @@ export class EngineConfigSectionComponent implements OnInit, OnDestroy {
 	setEngineTypeReferences(mainEngineId: number, auxiliaryEngineId: number): void {
 		const mainEngineTypeId = Number(mainEngineId);
 		const auxEngineTypeId = Number(auxiliaryEngineId);
-		traceEngineWrite('setEngineTypeReferences (ids only)', {
-			main: mainEngineTypeId, aux: auxEngineTypeId,
-			catalogueLoaded: this.mainEngineTypes.length > 0 && this.auxiliaryEngineTypes.length > 0
-		});
 		if (!Number.isFinite(mainEngineTypeId) || !Number.isFinite(auxEngineTypeId)) {
 			return;
 		}
@@ -347,7 +325,6 @@ export class EngineConfigSectionComponent implements OnInit, OnDestroy {
 
 	private applyPendingEngineConfig(): void {
 		const pending = this.pendingEngineConfig;
-		traceEngineWrite('applyPendingEngineConfig (catalogue arrived)', pending);
 		if (!pending) return;
 		this.pendingEngineConfig = null;
 

@@ -18,7 +18,6 @@ import { FullVesselData, VesselCategoryData } from '../../../../core/app-data.ty
 import { VesselTypeWithEnginesResponse } from '../../../../core/vessel-configuration.types';
 import { VesselOperationalProfile } from '../../../../core/operational-profile.types';
 import { FormEditTrackerService } from '../form-edit-tracker.service';
-import { traceEngineWrite } from '../engine-config-section/engine-config-section.component';
 
 /** What to do with a fetched vessel config (mirrors the old vesselTypeJustChanged semantics) */
 interface FetchRequest {
@@ -286,11 +285,6 @@ export class VesselConfigSectionComponent implements OnInit, OnDestroy {
 
 	private applyVesselData(fullData: FullVesselData, request: FetchRequest): void {
 		const vesselConfig = fullData.vesselConfig;
-		traceEngineWrite('applyVesselData (vessel-config fetch returned)', {
-			vessel: vesselConfig.vesselTypeName, request,
-			mainEngineId: fullData.mainEngineData?.id, auxEngineId: fullData.auxEngineData?.id,
-			calmWaterKW: vesselConfig.calmWaterPowerKW, seaMargin: vesselConfig.seaMargin
-		});
 		this.clampedToReferenceRange = fullData.resolution?.clamped === true;
 
 		if (request.patchPowerFields) {

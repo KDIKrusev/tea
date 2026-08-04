@@ -15,7 +15,7 @@ import { VesselOperationalProfile } from '../../../core/operational-profile.type
 import { debounceTime, Subject, takeUntil } from 'rxjs';
 import { VALIDATION_LIMITS, DEBOUNCE_TIMES, DEFAULT_VALUES, DEFAULT_FUEL } from '../../../shared/constants';
 import { VesselConfigSectionComponent } from './vessel-config-section/vessel-config-section.component';
-import { EngineConfigSectionComponent, traceEngineWrite } from './engine-config-section/engine-config-section.component';
+import { EngineConfigSectionComponent } from './engine-config-section/engine-config-section.component';
 import { AdditionalConfigSectionComponent } from './additional-config-section/additional-config-section.component';
 import { OperationalModesSectionComponent } from './operational-modes-section/operational-modes-section.component';
 import { WeatherInputSectionComponent } from './weather-input-section/weather-input-section.component';
@@ -472,10 +472,6 @@ export class VesselInputFormComponent implements OnInit, OnDestroy, AfterViewIni
    * custom values once the cascade finishes (in onOperationalProfileLoaded).
    */
   loadProfile(profile: SavedProfile): void {
-    traceEngineWrite('loadProfile START', {
-      name: profile.name, main: profile.input.mainEngineTypeId, aux: profile.input.auxEngineTypeId,
-      me: profile.input.meCapacityPerEngine, sg: profile.input.sgCapacityPerEngine, ae: profile.input.aeCapacityPerEngine
-    });
     this.beginRestore();
     this.pendingProfileInput = profile.input;
     this.vesselTypeName = profile.vesselTypeName;
@@ -498,10 +494,6 @@ export class VesselInputFormComponent implements OnInit, OnDestroy, AfterViewIni
     // this cascade finished last. During a restore the profile is the authority: set the references
     // so the dropdowns stay populated (both ids are required validators) and touch nothing else.
     const applyEngineDefaults = wantsEngineDefaults && !this.restoreInFlight;
-    traceEngineWrite('onVesselEngineConfigSelected', {
-      vessel: this.vesselTypeName, wantsEngineDefaults,
-      restoreInFlight: this.restoreInFlight, willApplyDefaults: applyEngineDefaults
-    });
 
     const vesselTypeWithRefs = vesselWithEngines.vesselType as {
       mainEngine?: { engineTypeId?: number | string };
@@ -624,10 +616,6 @@ export class VesselInputFormComponent implements OnInit, OnDestroy, AfterViewIni
    * back to the vessel default (the "flicker" race condition).
    */
   private applyProfileInputValues(pending: CalculatorInput): void {
-    traceEngineWrite('applyProfileInputValues (profile wins)', {
-      main: pending.mainEngineTypeId, aux: pending.auxEngineTypeId,
-      me: pending.meCapacityPerEngine, sg: pending.sgCapacityPerEngine, ae: pending.aeCapacityPerEngine
-    });
     this.engineConfigSection?.setEngineTypeReferences(
       pending.mainEngineTypeId,
       pending.auxEngineTypeId
