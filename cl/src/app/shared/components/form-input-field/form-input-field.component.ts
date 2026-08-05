@@ -1,6 +1,6 @@
 import { Component, Input, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { AbstractControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormEditTrackerService } from '../../../features/vessel-input/vessel-input-form/form-edit-tracker.service';
@@ -28,20 +28,20 @@ export class FormInputFieldComponent {
   @Input() step?: string;
   @Input() min?: number;
   @Input() max?: number;
-  @Input() required: boolean = false;
-  @Input() readonly: boolean = false; 
-  @Input() disabled: boolean = false;
+  @Input() required = false;
+  @Input() readonly = false; 
+  @Input() disabled = false;
   @Input() prefix?: string;
 
   protected editTracker = inject(FormEditTrackerService);
   private validationService = inject(FormValidationService);
 
-  get control() {
+  get control(): AbstractControl | null {
     return this.formGroup.get(this.controlName);
   }
 
   isFieldEdited(): boolean {
-    if (!this.control) return false;
+    if (!this.control) {return false;}
     return this.editTracker.isFieldEdited(this.controlName, this.control.value);
   }
 

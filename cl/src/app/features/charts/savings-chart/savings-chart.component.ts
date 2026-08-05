@@ -1,4 +1,4 @@
-import { Component, Input, AfterViewInit, OnDestroy, OnChanges, SimpleChanges, ViewChild, ElementRef, NgZone, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, AfterViewInit, OnDestroy, OnChanges, SimpleChanges, ViewChild, ElementRef, NgZone, ChangeDetectionStrategy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -14,6 +14,8 @@ import { VariantResult, BaselineData } from '../../../calculations/calculator.ty
   styleUrl: './savings-chart.component.css'
 })
 export class SavingsChartComponent implements AfterViewInit, OnDestroy, OnChanges {
+  private ngZone = inject(NgZone);
+
   // New inputs for all variants
   @Input() baseline: BaselineData | null = null;
   @Input() premiumResult: VariantResult | null = null;
@@ -29,8 +31,6 @@ export class SavingsChartComponent implements AfterViewInit, OnDestroy, OnChange
   private chart: Chart | null = null;
   private viewInitialized = false;
   private isCreatingChart = false;
-
-  constructor(private ngZone: NgZone) {}
 
   ngAfterViewInit(): void {
     this.viewInitialized = true;
@@ -136,7 +136,7 @@ export class SavingsChartComponent implements AfterViewInit, OnDestroy, OnChange
             },
             tooltip: {
               callbacks: {
-                label: (context: TooltipItem<'bar'>) => {
+                label: (context: TooltipItem<'bar'>): string => {
                   const label = context.dataset.label || '';
                   const value = context.parsed.y || 0;
                   const unit = this.chartType === 'co2' ? 'tons CO₂' : 'tons';
@@ -157,7 +157,7 @@ export class SavingsChartComponent implements AfterViewInit, OnDestroy, OnChange
                 }
               },
               ticks: {
-                callback: function(value: string | number) {
+                callback: function(value: string | number): string {
                   return value.toLocaleString();
                 }
               }
@@ -173,8 +173,9 @@ export class SavingsChartComponent implements AfterViewInit, OnDestroy, OnChange
           }
         }
       });
-    } catch (error) {
-      // Chart creation failed silently
+    } catch {
+      // Chart.js could not build the canvas — the panel simply stays empty rather than breaking
+      // the page. Nothing actionable is recoverable from the error object here.
     }
   }
 
@@ -295,23 +296,23 @@ export class SavingsChartComponent implements AfterViewInit, OnDestroy, OnChange
     const values: number[] = [];
 
     if (this.baseline) {
-      if (this.chartType === 'foc' || this.chartType === 'both') values.push(this.baseline.totalFuelConsumptionTons);
-      if (this.chartType === 'co2' || this.chartType === 'both') values.push(this.baseline.totalCO2EmissionsTons);
+      if (this.chartType === 'foc' || this.chartType === 'both') {values.push(this.baseline.totalFuelConsumptionTons);}
+      if (this.chartType === 'co2' || this.chartType === 'both') {values.push(this.baseline.totalCO2EmissionsTons);}
     }
     if (this.advancedResult) {
-      if (this.chartType === 'foc' || this.chartType === 'both') values.push(this.advancedResult.optimizedFOC);
-      if (this.chartType === 'co2' || this.chartType === 'both') values.push(this.advancedResult.optimizedCO2);
+      if (this.chartType === 'foc' || this.chartType === 'both') {values.push(this.advancedResult.optimizedFOC);}
+      if (this.chartType === 'co2' || this.chartType === 'both') {values.push(this.advancedResult.optimizedCO2);}
     }
     if (this.proResult) {
-      if (this.chartType === 'foc' || this.chartType === 'both') values.push(this.proResult.optimizedFOC);
-      if (this.chartType === 'co2' || this.chartType === 'both') values.push(this.proResult.optimizedCO2);
+      if (this.chartType === 'foc' || this.chartType === 'both') {values.push(this.proResult.optimizedFOC);}
+      if (this.chartType === 'co2' || this.chartType === 'both') {values.push(this.proResult.optimizedCO2);}
     }
     if (this.premiumResult) {
-      if (this.chartType === 'foc' || this.chartType === 'both') values.push(this.premiumResult.optimizedFOC);
-      if (this.chartType === 'co2' || this.chartType === 'both') values.push(this.premiumResult.optimizedCO2);
+      if (this.chartType === 'foc' || this.chartType === 'both') {values.push(this.premiumResult.optimizedFOC);}
+      if (this.chartType === 'co2' || this.chartType === 'both') {values.push(this.premiumResult.optimizedCO2);}
     }
 
-    if (values.length === 0) return 0;
+    if (values.length === 0) {return 0;}
 
     const minVal = Math.min(...values);
     const maxVal = Math.max(...values);
@@ -353,7 +354,7 @@ export class SavingsChartComponent implements AfterViewInit, OnDestroy, OnChange
    * Export chart as PNG image
    */
   exportChart(): void {
-    if (!this.chart) return;
+    if (!this.chart) {return;}
 
     try {
       // Get chart as base64 image
@@ -365,8 +366,9 @@ export class SavingsChartComponent implements AfterViewInit, OnDestroy, OnChange
       const date = new Date().toISOString().split('T')[0];
       link.download = `iems-savings-chart-${date}.png`;
       link.click();
-    } catch (error) {
-      // Chart export failed silently
+    } catch {
+      // The browser refused the canvas-to-PNG export (tainted canvas, or no download support).
+      // The chart itself is unaffected, so there is nothing to report to the user.
     }
   }
 

@@ -20,7 +20,7 @@ export class PowerDemandsPanelComponent {
     return this.powerDemands?.modeBreakdowns?.some(m => m.propulsionSailKw > 0) ?? false;
   }
 
-  trackByMode(index: number, mode: ModePowerBreakdown): string {
+  trackByMode(_index: number, mode: ModePowerBreakdown): string {
     return mode.mode;
   }
 }

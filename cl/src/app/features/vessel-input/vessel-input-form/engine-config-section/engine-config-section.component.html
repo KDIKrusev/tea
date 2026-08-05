@@ -49,7 +49,7 @@
                    [(ngModel)]="mainEngineSearch" [ngModelOptions]="{ standalone: true }"
                    (ngModelChange)="applyMainFilter()" (keydown)="$event.stopPropagation()">
           </div>
-          <mat-optgroup *ngFor="let group of filteredMainEngineGroups" [label]="group.maker">
+          <mat-optgroup *ngFor="let group of filteredMainEngineGroups; trackBy: trackByMaker" [label]="group.maker">
             <mat-option *ngFor="let engineType of group.engines; trackBy: trackByEngineType" [value]="engineType.id">
               <span class="engine-option">
                 <strong>{{ mainEngineLabel(engineType) }}</strong>
@@ -80,7 +80,7 @@
     <mat-form-field appearance="fill">
       <mat-label>Main Engine Fuel</mat-label>
       <mat-select formControlName="mainFuelType" (selectionChange)="onMainFuelChange()">
-        <mat-option *ngFor="let f of mainFuelOptions()" [value]="f">{{ f }}</mat-option>
+        <mat-option *ngFor="let f of mainFuelOptions(); trackBy: trackByFuel" [value]="f">{{ f }}</mat-option>
       </mat-select>
       <mat-hint>{{ mainFuelHint() }}</mat-hint>
     </mat-form-field>
@@ -141,7 +141,7 @@
                    [(ngModel)]="auxEngineSearch" [ngModelOptions]="{ standalone: true }"
                    (ngModelChange)="applyAuxFilter()" (keydown)="$event.stopPropagation()">
           </div>
-          <mat-optgroup *ngFor="let group of filteredAuxEngineGroups" [label]="group.maker">
+          <mat-optgroup *ngFor="let group of filteredAuxEngineGroups; trackBy: trackByMaker" [label]="group.maker">
             <mat-option *ngFor="let engineType of group.engines; trackBy: trackByEngineType" [value]="engineType.id">
               <span class="engine-option">
                 <strong>{{ auxEngineLabel(engineType) }}</strong>
@@ -172,7 +172,7 @@
     <mat-form-field appearance="fill">
       <mat-label>Auxiliary Engine Fuel</mat-label>
       <mat-select formControlName="auxFuelType" (selectionChange)="onAuxFuelChange()">
-        <mat-option *ngFor="let f of auxFuelOptions()" [value]="f">{{ f }}</mat-option>
+        <mat-option *ngFor="let f of auxFuelOptions(); trackBy: trackByFuel" [value]="f">{{ f }}</mat-option>
       </mat-select>
       <mat-hint>{{ isAuxFuelLocked() ? 'Only one fuel is allowed for this engine type' : 'MGO / MDO / HFO' }}</mat-hint>
     </mat-form-field>

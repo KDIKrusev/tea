@@ -1,6 +1,6 @@
 import { Component, Input, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { AbstractControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -30,17 +30,17 @@ import { FormInputFieldComponent } from '../../../../shared/components/form-inpu
 export class AdditionalConfigSectionComponent {
   @Input() parentForm!: FormGroup;
   @Input() sailOptions: Array<{ value: string; label: string }> = [];
-  @Input() totalHours: number = 0;
+  @Input() totalHours = 0;
 
   protected editTracker = inject(FormEditTrackerService);
   private validationService = inject(FormValidationService);
 
   // Getter methods for form controls - Additional Systems
-  get sailInstalled() { return this.parentForm.get('sailInstalled'); }
-  get batteryCapacity() { return this.parentForm.get('batteryCapacity'); }
+  get sailInstalled(): AbstractControl | null { return this.parentForm.get('sailInstalled'); }
+  get batteryCapacity(): AbstractControl | null { return this.parentForm.get('batteryCapacity'); }
   
   // Getter methods for form controls - Financial Parameters
-  get fuelPrice() { return this.parentForm.get('fuelPrice'); }
+  get fuelPrice(): AbstractControl | null { return this.parentForm.get('fuelPrice'); }
   // NOTE: annualHours removed - auto-calculated from operational mode hours
 
   // Get validation error message for form control
@@ -50,7 +50,7 @@ export class AdditionalConfigSectionComponent {
 
   isFieldEdited(fieldName: string): boolean {
     const control = this.parentForm.get(fieldName);
-    if (!control) return false;
+    if (!control) {return false;}
     
     return this.editTracker.isFieldEdited(fieldName, control.value);
   }

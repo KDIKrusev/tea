@@ -1,7 +1,4 @@
-import {
-  Component, Output, EventEmitter, OnInit,
-  ChangeDetectionStrategy, ChangeDetectorRef, ViewChild, ElementRef
-} from '@angular/core';
+import { Component, Output, EventEmitter, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild, ElementRef, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -11,15 +8,15 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { NotificationService } from '../../shared/services';
 import { ProfileService } from '../../core/profile.service';
 import { SavedProfile } from '../../core/profile.types';
 import { CalculatorInput } from '../../calculations/calculator.types';
 
-/** Emitted when the user clicks Save and has typed a name — parent provides the actual input data */
-export interface SaveRequestEvent {
-  name: string;
-}
+// The save handshake is two-way on purpose: this component owns the name, the parent owns the form
+// data. `saveRequest` is the "I have a name, send me the data" half — it carries nothing, because
+// the parent calls straight back into `confirmSaveWithData`, which reads the name from here.
 
 @Component({
   selector: 'app-profile-manager',
@@ -41,10 +38,14 @@ export interface SaveRequestEvent {
   styleUrl: './profile-manager.component.css'
 })
 export class ProfileManagerComponent implements OnInit {
+  private profileService = inject(ProfileService);
+  private notify = inject(NotificationService);
+  private cdr = inject(ChangeDetectorRef);
+
 
   @Output() profileLoadRequested = new EventEmitter<SavedProfile>();
   /** Parent listens for this, then calls confirmSaveWithData() */
-  @Output() saveRequest = new EventEmitter<SaveRequestEvent>();
+  @Output() saveRequest = new EventEmitter<void>();
   @ViewChild('importInput') importInput!: ElementRef<HTMLInputElement>;
 
   profiles: SavedProfile[] = [];
@@ -53,12 +54,6 @@ export class ProfileManagerComponent implements OnInit {
   renamingId: string | null = null;
   renameValue = '';
   deleteConfirmId: string | null = null;
-
-  constructor(
-    private profileService: ProfileService,
-    private snackBar: MatSnackBar,
-    private cdr: ChangeDetectorRef
-  ) {}
 
   ngOnInit(): void {
     this.refresh();
@@ -86,8 +81,8 @@ export class ProfileManagerComponent implements OnInit {
 
   /** Called from template when user confirms; parent supplies actual form data */
   saveRequested(): void {
-    if (!this.newProfileName.trim()) return;
-    this.saveRequest.emit({ name: this.newProfileName.trim() });
+    if (!this.newProfileName.trim()) {return;}
+    this.saveRequest.emit();
   }
 
   /** Called by parent component after it receives saveRequest, passing the current form data */
@@ -98,16 +93,16 @@ export class ProfileManagerComponent implements OnInit {
     vesselSize: number,
     vesselSpeed: number
   ): void {
-    if (!this.newProfileName.trim()) return;
+    if (!this.newProfileName.trim()) {return;}
     try {
       this.profileService.save(this.newProfileName, input, vesselTypeName, vesselCategory, vesselSize, vesselSpeed);
       this.saveDialogOpen = false;
       this.newProfileName = '';
       this.refresh();
-      this.snackBar.open('Profile saved', 'OK', { duration: 2500 });
+      this.notify.success('Profile saved');
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : 'Unable to save profile.';
-      this.snackBar.open(msg, 'Close', { duration: 5000, panelClass: ['error-snackbar'] });
+      this.notify.error(msg);
     }
   }
 
@@ -115,7 +110,7 @@ export class ProfileManagerComponent implements OnInit {
 
   loadProfile(profile: SavedProfile): void {
     this.profileLoadRequested.emit(profile);
-    this.snackBar.open(`Loaded: ${profile.name}`, 'OK', { duration: 2500 });
+    this.notify.success(`Loaded: ${profile.name}`);
   }
 
   // ─── RENAME ──────────────────────────────────────────────────────────────────
@@ -136,10 +131,10 @@ export class ProfileManagerComponent implements OnInit {
       this.profileService.rename(this.renamingId!, this.renameValue);
       this.renamingId = null;
       this.refresh();
-      this.snackBar.open('Profile renamed', 'OK', { duration: 2000 });
+      this.notify.acknowledge('Profile renamed');
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : 'Unable to rename profile.';
-      this.snackBar.open(msg, 'Close', { duration: 5000, panelClass: ['error-snackbar'] });
+      this.notify.error(msg);
     }
   }
 
@@ -156,15 +151,15 @@ export class ProfileManagerComponent implements OnInit {
   }
 
   confirmDelete(): void {
-    if (!this.deleteConfirmId) return;
+    if (!this.deleteConfirmId) {return;}
     try {
       this.profileService.delete(this.deleteConfirmId!);
       this.deleteConfirmId = null;
       this.refresh();
-      this.snackBar.open('Profile deleted', 'OK', { duration: 2000 });
+      this.notify.acknowledge('Profile deleted');
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : 'Unable to delete profile.';
-      this.snackBar.open(msg, 'Close', { duration: 5000, panelClass: ['error-snackbar'] });
+      this.notify.error(msg);
     }
   }
 
@@ -178,7 +173,7 @@ export class ProfileManagerComponent implements OnInit {
   exportProfile(profile: SavedProfile, event: MouseEvent): void {
     event.stopPropagation();
     this.profileService.exportToJson(profile);
-    this.snackBar.open('Profile exported', 'OK', { duration: 2000 });
+    this.notify.acknowledge('Profile exported');
   }
 
   // ─── IMPORT ──────────────────────────────────────────────────────────────────
@@ -191,15 +186,15 @@ export class ProfileManagerComponent implements OnInit {
   async onFileSelected(event: Event): Promise<void> {
     const input = event.target as HTMLInputElement;
     const file = input.files?.[0];
-    if (!file) return;
+    if (!file) {return;}
 
     try {
       await this.profileService.importFromJson(file);
       this.refresh();
-      this.snackBar.open('Profile imported successfully', 'OK', { duration: 3000 });
+      this.notify.successDetailed('Profile imported successfully');
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : 'Import failed';
-      this.snackBar.open(msg, 'Close', { duration: 5000, panelClass: ['error-snackbar'] });
+      this.notify.error(msg);
     }
   }
 

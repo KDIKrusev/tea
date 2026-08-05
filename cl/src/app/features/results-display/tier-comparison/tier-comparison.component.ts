@@ -204,10 +204,10 @@ import { AllVariantsCalculationResult, BaselineData } from '../../../calculation
 export class TierComparisonComponent {
   @Input() results!: AllVariantsCalculationResult;
   @Input() baseline: BaselineData | null = null;
-  @Input() recommendedTier: string = 'Premium';
+  @Input() recommendedTier = 'Premium';
 
   get bestTier(): string {
-    if (!this.results) return '';
+    if (!this.results) {return '';}
     const tiers = [
       { name: 'Advanced', foc: this.results.advanced.optimizedFOC },
       { name: 'Pro', foc: this.results.pro.optimizedFOC },

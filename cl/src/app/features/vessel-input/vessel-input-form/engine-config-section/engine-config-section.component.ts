@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, OnDestroy, inject, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormGroup, ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { AbstractControl, FormGroup, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -9,11 +9,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { AppDataService } from '../../../../core/app-data.service';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { EngineType, AuxiliaryEngineType } from '../../../../core/engine-configuration.types';
 import { FormEditTrackerService } from '../form-edit-tracker.service';
+import { NotificationService } from '../../../../shared/services';
 import { EngineConfigConfirmDialogComponent } from './engine-config-confirm-dialog.component';
 import { fuelsForFamily, FuelType } from '../../../../shared/constants';
 
@@ -44,35 +44,22 @@ export class EngineConfigSectionComponent implements OnInit, OnDestroy {
 	private appDataService = inject(AppDataService);
 	private cdr = inject(ChangeDetectorRef);
 	protected editTracker = inject(FormEditTrackerService);
-	private snackBar = inject(MatSnackBar);
+	private notify = inject(NotificationService);
 	private dialog = inject(MatDialog);
 
 	mainEngineTypes: EngineType[] = [];
 	auxiliaryEngineTypes: AuxiliaryEngineType[] = [];
 
 	// Maker-grouped + searchable dropdown state (Story 3.5)
-	mainEngineGroups: { maker: string; engines: EngineType[] }[] = [];
-	auxEngineGroups: { maker: string; engines: AuxiliaryEngineType[] }[] = [];
-	filteredMainEngineGroups: { maker: string; engines: EngineType[] }[] = [];
-	filteredAuxEngineGroups: { maker: string; engines: AuxiliaryEngineType[] }[] = [];
+	mainEngineGroups: Array<{ maker: string; engines: EngineType[] }> = [];
+	auxEngineGroups: Array<{ maker: string; engines: AuxiliaryEngineType[] }> = [];
+	filteredMainEngineGroups: Array<{ maker: string; engines: EngineType[] }> = [];
+	filteredAuxEngineGroups: Array<{ maker: string; engines: AuxiliaryEngineType[] }> = [];
 	mainEngineSearch = '';
 	auxEngineSearch = '';
 
 	selectedMainEngineTypeId: number | null = null;
 	selectedAuxiliaryEngineTypeId: number | null = null;
-
-	/**
-	 * An engine selection that arrived before the catalogue did, replayed once it loads.
-	 *
-	 * `applyDefaults` is the whole point of the flag: `setEngineConfiguration` asks for the vessel
-	 * type's defaults (ids AND rated capacities), while `setEngineTypeReferences` asks for the ids
-	 * only, because the caller — a profile restore — already holds the capacities the user saved.
-	 * Both used to be deferred into an identical shape, and the replay always applied defaults. On
-	 * a restore that ran before /api/app-data/initial returned, the profile's engine powers showed
-	 * for a moment and were then silently replaced by the catalogue maxima.
-	 */
-	private pendingEngineConfig:
-		{ mainEngineId: number; auxiliaryEngineId: number; applyDefaults: boolean } | null = null;
 
 	ngOnInit(): void {
 		this.loadEngineConfigurations();
@@ -93,6 +80,15 @@ export class EngineConfigSectionComponent implements OnInit, OnDestroy {
 			.pipe(takeUntil(this.destroy$)).subscribe(() => this.cdr.markForCheck());
 	}
 
+	/**
+	 * Loads the catalogue and pre-fills the first entry so the dropdowns are never empty.
+	 *
+	 * There is no "replay a selection that arrived before the catalogue" branch any more. It could
+	 * not fire: both callers of `setEngineConfiguration`/`setEngineTypeReferences` run from a
+	 * vessel-config response, which is issued only after the categories — from this same catalogue
+	 * payload — have arrived, and then 400 ms behind a debounce. `catalogue-precedes-vessel-config.spec.ts`
+	 * pins that invariant, so the branch is proved unnecessary rather than argued away.
+	 */
 	loadEngineConfigurations(): void {
 		this.appDataService.getMainEngineTypes()
 			.pipe(takeUntil(this.destroy$))
@@ -101,19 +97,14 @@ export class EngineConfigSectionComponent implements OnInit, OnDestroy {
 					this.mainEngineTypes = mainEngines;
 					this.mainEngineGroups = this.buildGroups(this.mainEngineTypes);
 					this.applyMainFilter();
-					if (this.pendingEngineConfig && this.auxiliaryEngineTypes.length > 0) {
-						this.applyPendingEngineConfig();
-					} else if (this.mainEngineTypes.length > 0 && !this.selectedMainEngineTypeId && !this.pendingEngineConfig) {
+					if (this.mainEngineTypes.length > 0 && !this.selectedMainEngineTypeId) {
 						this.selectedMainEngineTypeId = this.mainEngineTypes[0].id;
 						this.applyMainEngineChange(this.mainEngineTypes[0]);
 					}
 					this.cdr.markForCheck();
 				},
 				error: () => {
-					this.snackBar.open(
-						'Unable to load main engine configurations. Please check your connection and try again.',
-						'Close', { duration: 5000, panelClass: ['error-snackbar'] }
-					);
+					this.notify.error('Unable to load main engine configurations. Please check your connection and try again.');
 				}
 			});
 
@@ -124,19 +115,14 @@ export class EngineConfigSectionComponent implements OnInit, OnDestroy {
 					this.auxiliaryEngineTypes = auxEngines;
 					this.auxEngineGroups = this.buildGroups(this.auxiliaryEngineTypes);
 					this.applyAuxFilter();
-					if (this.pendingEngineConfig && this.mainEngineTypes.length > 0) {
-						this.applyPendingEngineConfig();
-					} else if (this.auxiliaryEngineTypes.length > 0 && !this.selectedAuxiliaryEngineTypeId && !this.pendingEngineConfig) {
+					if (this.auxiliaryEngineTypes.length > 0 && !this.selectedAuxiliaryEngineTypeId) {
 						this.selectedAuxiliaryEngineTypeId = this.auxiliaryEngineTypes[0].id;
 						this.applyAuxEngineChange(this.auxiliaryEngineTypes[0]);
 					}
 					this.cdr.markForCheck();
 				},
 				error: () => {
-					this.snackBar.open(
-						'Unable to load auxiliary engine configurations. Please check your connection and try again.',
-						'Close', { duration: 5000, panelClass: ['error-snackbar'] }
-					);
+					this.notify.error('Unable to load auxiliary engine configurations. Please check your connection and try again.');
 				}
 			});
 	}
@@ -145,7 +131,7 @@ export class EngineConfigSectionComponent implements OnInit, OnDestroy {
 
 	onMainEngineTypeChange(engineTypeId: number): void {
 		const selectedEngine = this.mainEngineTypes.find(e => e.id === engineTypeId);
-		if (!selectedEngine) return;
+		if (!selectedEngine) {return;}
 
 		const hasEditedCapacity =
 			this.editTracker.isFieldEdited('meCapacityPerEngine', this.parentForm.get('meCapacityPerEngine')?.value) ||
@@ -201,13 +187,19 @@ export class EngineConfigSectionComponent implements OnInit, OnDestroy {
 		}
 		this.editTracker.updateOriginalValue('mainEngineTypeId', engine.id);
 		this.reconcileMainFuel(engine);
+		// Reached by a direct method call from the parent (setEngineConfiguration). Under OnPush the
+		// header is built from getSelectedMainEngineName() and the fuel helpers, all method calls in
+		// the template, so without this they keep showing the previous engine. It happens to work
+		// today because patching the capacity fires valueChanges into a markForCheck subscription —
+		// a side effect, not a guarantee. rendered-output.spec.ts pins it.
+		this.cdr.markForCheck();
 	}
 
 	// ─── Auxiliary Engine ─────────────────────────────────────────────────────────
 
 	onAuxiliaryEngineTypeChange(engineTypeId: number): void {
 		const selectedEngine = this.auxiliaryEngineTypes.find(e => e.id === engineTypeId);
-		if (!selectedEngine) return;
+		if (!selectedEngine) {return;}
 
 		const hasEditedCapacity =
 			this.editTracker.isFieldEdited('aeCapacityPerEngine', this.parentForm.get('aeCapacityPerEngine')?.value);
@@ -248,10 +240,12 @@ export class EngineConfigSectionComponent implements OnInit, OnDestroy {
 		this.editTracker.updateOriginalValue('aeCapacityPerEngine', engine.maxCapacityKW);
 		this.editTracker.updateOriginalValue('auxEngineTypeId', engine.id);
 		this.reconcileAuxFuel(engine);
+		this.cdr.markForCheck();
 	}
 
 	// ─── Vessel-type-driven config (bypasses confirmation) ────────────────────────
 
+	/** The vessel type's engines: ids AND rated capacities. */
 	setEngineConfiguration(mainEngineId: number, auxiliaryEngineId: number): void {
 		const mainEngineTypeId = Number(mainEngineId);
 		const auxEngineTypeId = Number(auxiliaryEngineId);
@@ -259,23 +253,19 @@ export class EngineConfigSectionComponent implements OnInit, OnDestroy {
 			return;
 		}
 
-		if (this.mainEngineTypes.length > 0 && this.auxiliaryEngineTypes.length > 0) {
-			const mainEngine = this.mainEngineTypes.find(e => e.id === mainEngineTypeId);
-			const auxEngine = this.auxiliaryEngineTypes.find(e => e.id === auxEngineTypeId);
-			if (mainEngine) this.applyMainEngineChange(mainEngine);
-			if (auxEngine) this.applyAuxEngineChange(auxEngine);
-			const meCount = this.parentForm.get('meCount')?.value;
-			this.editTracker.updateOriginalValue('meCount', meCount);
-			const aeCount = this.parentForm.get('aeCount')?.value;
-			this.editTracker.updateOriginalValue('aeCount', aeCount);
-			this.pendingEngineConfig = null;
-		} else {
-			this.pendingEngineConfig = {
-				mainEngineId: mainEngineTypeId, auxiliaryEngineId: auxEngineTypeId, applyDefaults: true
-			};
+		const mainEngine = this.mainEngineTypes.find(e => e.id === mainEngineTypeId);
+		const auxEngine = this.auxiliaryEngineTypes.find(e => e.id === auxEngineTypeId);
+		if (mainEngine) {
+			this.applyMainEngineChange(mainEngine);
 		}
+		if (auxEngine) {
+			this.applyAuxEngineChange(auxEngine);
+		}
+		this.editTracker.updateOriginalValue('meCount', this.parentForm.get('meCount')?.value);
+		this.editTracker.updateOriginalValue('aeCount', this.parentForm.get('aeCount')?.value);
 	}
 
+	/** Ids only — the caller (a restored profile) owns the capacities. */
 	setEngineTypeReferences(mainEngineId: number, auxiliaryEngineId: number): void {
 		const mainEngineTypeId = Number(mainEngineId);
 		const auxEngineTypeId = Number(auxiliaryEngineId);
@@ -283,15 +273,7 @@ export class EngineConfigSectionComponent implements OnInit, OnDestroy {
 			return;
 		}
 
-		if (this.mainEngineTypes.length > 0 && this.auxiliaryEngineTypes.length > 0) {
-			this.applyEngineReferences(mainEngineTypeId, auxEngineTypeId);
-			this.pendingEngineConfig = null;
-			return;
-		}
-
-		this.pendingEngineConfig = {
-			mainEngineId: mainEngineTypeId, auxiliaryEngineId: auxEngineTypeId, applyDefaults: false
-		};
+		this.applyEngineReferences(mainEngineTypeId, auxEngineTypeId);
 	}
 
 	/**
@@ -323,65 +305,48 @@ export class EngineConfigSectionComponent implements OnInit, OnDestroy {
 		this.cdr.markForCheck();
 	}
 
-	private applyPendingEngineConfig(): void {
-		const pending = this.pendingEngineConfig;
-		if (!pending) return;
-		this.pendingEngineConfig = null;
-
-		if (!pending.applyDefaults) {
-			// A restore is waiting on this: set the ids, leave the saved capacities alone.
-			this.applyEngineReferences(pending.mainEngineId, pending.auxiliaryEngineId);
-			return;
-		}
-
-		const mainEngine = this.mainEngineTypes.find(e => e.id === pending.mainEngineId);
-		const auxEngine = this.auxiliaryEngineTypes.find(e => e.id === pending.auxiliaryEngineId);
-		if (mainEngine) this.applyMainEngineChange(mainEngine);
-		if (auxEngine) this.applyAuxEngineChange(auxEngine);
-	}
-
 	// ─── Getters / helpers ────────────────────────────────────────────────────────
 
-	get meCapacityPerEngine() { return this.parentForm.get('meCapacityPerEngine'); }
-	get meCount() { return this.parentForm.get('meCount'); }
-	get sgCapacityPerEngine() { return this.parentForm.get('sgCapacityPerEngine'); }
-	get aeCapacityPerEngine() { return this.parentForm.get('aeCapacityPerEngine'); }
-	get aeCount() { return this.parentForm.get('aeCount'); }
+	get meCapacityPerEngine(): AbstractControl | null { return this.parentForm.get('meCapacityPerEngine'); }
+	get meCount(): AbstractControl | null { return this.parentForm.get('meCount'); }
+	get sgCapacityPerEngine(): AbstractControl | null { return this.parentForm.get('sgCapacityPerEngine'); }
+	get aeCapacityPerEngine(): AbstractControl | null { return this.parentForm.get('aeCapacityPerEngine'); }
+	get aeCount(): AbstractControl | null { return this.parentForm.get('aeCount'); }
 
 	isFieldEdited(fieldName: string): boolean {
 		const control = this.parentForm.get(fieldName);
-		if (!control) return false;
+		if (!control) {return false;}
 		return this.editTracker.isFieldEdited(fieldName, control.value);
 	}
 
 	getValidationError(controlName: string): string {
 		const control = this.parentForm.get(controlName);
-		if (!control) return '';
-		if (control.hasError('required')) return 'This field is required';
-		if (control.hasError('min')) return `Minimum value is ${control.errors?.['min'].min}`;
-		if (control.hasError('max')) return `Maximum value is ${control.errors?.['max'].max}`;
+		if (!control) {return '';}
+		if (control.hasError('required')) {return 'This field is required';}
+		if (control.hasError('min')) {return `Minimum value is ${control.errors?.['min'].min}`;}
+		if (control.hasError('max')) {return `Maximum value is ${control.errors?.['max'].max}`;}
 		return '';
 	}
 
 	getSelectedMainEngineName(): string {
-		if (!this.selectedMainEngineTypeId) return '';
+		if (!this.selectedMainEngineTypeId) {return '';}
 		const e = this.mainEngineTypes.find(x => x.id === this.selectedMainEngineTypeId);
 		return e ? this.mainEngineLabel(e) : '';
 	}
 
 	getSelectedAuxiliaryEngineName(): string {
-		if (!this.selectedAuxiliaryEngineTypeId) return '';
+		if (!this.selectedAuxiliaryEngineTypeId) {return '';}
 		const e = this.auxiliaryEngineTypes.find(x => x.id === this.selectedAuxiliaryEngineTypeId);
 		return e ? this.auxEngineLabel(e) : '';
 	}
 
 	// ─── Maker grouping + search (Story 3.5) ──────────────────────────────────────
 
-	private buildGroups<T extends { maker?: string | null; name: string }>(list: T[]): { maker: string; engines: T[] }[] {
+	private buildGroups<T extends { maker?: string | null; name: string }>(list: T[]): Array<{ maker: string; engines: T[] }> {
 		const groups = new Map<string, T[]>();
 		for (const e of list) {
 			const key = e.maker ?? 'Other';
-			if (!groups.has(key)) groups.set(key, []);
+			if (!groups.has(key)) {groups.set(key, []);}
 			groups.get(key)!.push(e);
 		}
 		return [...groups.entries()]
@@ -391,9 +356,9 @@ export class EngineConfigSectionComponent implements OnInit, OnDestroy {
 	}
 
 	private filterGroups<T extends { maker?: string | null; name: string; fuelFamily?: string | null }>(
-		groups: { maker: string; engines: T[] }[], term: string): { maker: string; engines: T[] }[] {
+		groups: Array<{ maker: string; engines: T[] }>, term: string): Array<{ maker: string; engines: T[] }> {
 		const t = term.trim().toLowerCase();
-		if (!t) return groups;
+		if (!t) {return groups;}
 		// Match maker, model name AND fuel family so typing "LNG"/"Ammonia"/"Liquid" surfaces compatible engines.
 		return groups
 			.map(g => ({ maker: g.maker, engines: g.engines.filter(e => `${e.maker ?? ''} ${e.name} ${e.fuelFamily ?? ''}`.toLowerCase().includes(t)) }))
@@ -486,7 +451,15 @@ export class EngineConfigSectionComponent implements OnInit, OnDestroy {
 		return e.fuelFamily ? `${e.fuelFamily} · ${power} kW` : `${power} kW`;
 	}
 
-	trackByEngineType(index: number, engineType: { id: number; name: string }): number {
+	trackByMaker(_position: number, group: { maker: string }): string {
+		return group.maker;
+	}
+
+	trackByFuel(_position: number, fuel: FuelType): string {
+		return fuel;
+	}
+
+	trackByEngineType(_index: number, engineType: { id: number; name: string }): number {
 		return engineType.id;
 	}
 }

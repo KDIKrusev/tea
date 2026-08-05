@@ -218,13 +218,13 @@ Nine stories, in order. Each is behaviour-preserving on its own.
 |---|---|---|
 | **C‑A** | Test harness that owns time and the network | "the client has no tests" |
 | **C‑B** | The red suite | "we cannot reproduce it" |
-| **C‑C** | Lint gate: 190 → 0, blocking | 151 errors, 39 warnings |
-| **C‑D** | Dead code + `noUnusedLocals`/`noUnusedParameters` | ~800 lines that ship and do nothing |
+| **C‑C** | Lint gate: 190 → 0, blocking ✅ **DONE** | all of them; lint + tests now block both pipelines |
+| **C‑D** | Dead code + `noUnusedLocals`/`noUnusedParameters` ✅ **DONE** | 942 lines; bundle 1.27 → 1.20 MB |
 | **C‑E** | One writer, one order — the load sequence ✅ **DONE** | 4 flags, 5 timers, 2 of 3 calculations |
-| **C‑F** | One calculation on load | 2 of the 3 POSTs |
-| **C‑G** | Screen order in the code | 712-line component, 395-line template |
-| **C‑H** | Signals: contained adoption, argued | 8 manual `markForCheck()` calls |
-| **C‑I** | Cleanups + observability | copy-pasted snackbars, swallowed errors |
+| **C‑F** | One calculation on load ✅ **DONE** | delivered by C‑E; 5 specs now gate it |
+| **C‑G** | Screen order in the code ✅ **DONE** | 715 → 428 component, 395 → 323 template, 7 modules out |
+| **C‑H** | Signals ✅ **DECIDED — do not adopt** | measured 2 of 30, not 8; revisit on Angular 19+ |
+| **C‑I** | Cleanups + observability ✅ **DONE** | 15 of 16 snackbars unified |
 
 ### 6.1 C‑A — Test harness that owns time and the network
 
@@ -375,10 +375,18 @@ Against a state migration:
   `linkedSignal`, no `resource()`. The ergonomics that justify the churn arrive in 19/20. Migrating
   now buys the risk and defers the payoff.
 
-For, narrowly: in `CalculatorPageComponent`, `isCalculating`, `recommendedTier`,
-`advancedExpanded/proExpanded/premiumExpanded`, `hasResults` and `batteryDetails` become signals;
-`allResults` and `allVariantsResult` become `computed()`. Eight manual `markForCheck()` calls
-disappear. Contained, provable, reversible.
+For, narrowly: in `CalculatorPageComponent`, the results state becomes signals and `allResults` /
+`hasResults` / `batteryDetails` become `computed()`.
+
+**Corrected by measurement (story C‑H, 2026-08-05).** This paragraph originally claimed "eight
+manual `markForCheck()` calls disappear". The real count across the client is **30, of which
+signals could remove 2**. The other 28 live in the six components whose state is the shared
+`@Input() parentForm: FormGroup`, and Angular 18 has no signal-based forms — so those calls exist
+for the form, not for the fields, and converting the fields would leave them untouched.
+
+**Decision: do not adopt. Revisit on Angular 19+ with signal forms, and only as part of an upgrade
+already happening for its own reasons.** Full reasoning and the revisit condition:
+`docs/stories/brownfield-client-h-signals.md`.
 
 An Angular 19/20 upgrade plus signal forms is a **separate epic** (§7.4). Not this one.
 
@@ -435,6 +443,44 @@ Each moves a number or a user-visible behaviour. Logged, not fixed. **Needs Kame
     `getCurrentInputSnapshot(baselineIndex)`. So a hard refresh silently drops a pinned baseline even
     though an explicitly saved profile now keeps it. Pre-existing and untouched by C‑E. Fixing it
     changes what a restored draft calculates, so it needs Kamen's decision.
+
+11. **The engine section validates by a different rule than the rest of the form.**
+    *Found in C‑I.* `FormValidationService.getErrorMessage` returns `''` unless the control has been
+    **touched**; `EngineConfigSectionComponent.getValidationError` is a hand-rolled copy with the
+    same messages and no touched check. A pristine engine field therefore shows "This field is
+    required" while a pristine battery or weather field stays silent. Unifying them changes what a
+    freshly loaded page displays.
+12. **`savings-chart` fails silently.** Two `catch {}` blocks mean a chart that cannot render leaves
+    an empty panel with no indication of a problem. `NotificationService` now makes telling the user
+    a one-liner, but it is a new user-visible message and needs a decision first.
+
+### 7.0 A regression C‑G introduced, and the gap that hid it
+
+**Found and fixed 2026-08-05, during manual verification.**
+
+C‑G's OnPush conversion broke the Operational Modes section outright: the panel rendered
+*"Select vessel to load profile"* forever, while the form underneath held entirely correct values
+and the calculation was right. `setOperationalProfile` is a **direct method call** from the parent —
+no `@Input` reference changes, no event fires from that template — so under OnPush Angular never
+re-checked the view, and everything behind `*ngIf="operationalProfile"` stayed unrendered.
+
+Fixed with `markForCheck()` in `setOperationalProfile` and in `onVesselDataApplied` /
+`onVesselDataFailed`.
+
+**Why 64 green specs did not see it.** Every spec asserted form state or request bodies — by design,
+because I2 is about the wire. A value can be correct in the `FormGroup` and absent from the screen,
+and no amount of wire-level testing can tell. `cl/src/testing/behaviour/rendered-output.spec.ts`
+closes that gap with four DOM assertions.
+
+**Two lessons worth keeping:**
+
+1. **OnPush + a shared `FormGroup` written by direct method calls is a standing hazard**, not a
+   one-off. Any future "the parent tells the child to apply something" needs `markForCheck` on the
+   child. The comment on `setOperationalProfile` says so at the call site.
+2. **The first DOM spec passed for the wrong reason.** `querySelector('.info-badge')` matched the
+   *vessel-config* header — six sections share that class — so it reported success while the section
+   under test rendered nothing. DOM queries in this suite are scoped through
+   `RestoreHarness.section(selector)` for that reason.
 
 ### 7.1 Confirmed by the C‑A harness
 

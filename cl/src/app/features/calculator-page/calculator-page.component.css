@@ -497,3 +497,29 @@ mat-card {
 }
 
 /* Battery Contribution styles live in battery-contribution-panel.component.css */
+
+/* ─── Integration-level panel headers (story C-G) ────────────────────────────
+   These replace inline style="" attributes that were repeated verbatim in each of the three
+   level panels. Same values, one definition. */
+.tier-title {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.tier-title-main {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tier-title-text {
+  font-weight: 600;
+}
+
+.tier-subtitle {
+  font-size: 0.75rem;
+  color: #6b7280;
+  font-weight: 400;
+  margin-left: 2rem;
+}

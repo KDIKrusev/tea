@@ -15,11 +15,14 @@ export class AppComponent implements OnInit {
   private appDataService = inject(AppDataService);
 
   ngOnInit(): void {
-    // Load ALL static application data in a single optimized API call
-    // This replaces multiple separate calls to vessel types, engines, and operational profiles
+    // Warm the single static-data payload (engine catalogue, categories, fuel prices) so it is
+    // already cached by the time the form's sections ask for it.
+    //
+    // Both outcomes are deliberately ignored here: the components that need the data subscribe to
+    // it themselves and each shows its own error message, so handling it a second time in the root
+    // component would only produce a duplicate snackbar.
     this.appDataService.loadInitialData().subscribe({
-      next: () => {},
-      error: () => {}
+      error: () => undefined
     });
   }
 }

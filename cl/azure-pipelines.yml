@@ -24,6 +24,22 @@ steps:
     npm install
   displayName: 'Install npm dependencies'
 
+# Quality gates — blocking, and placed BEFORE the build so a failure is diagnosed in seconds
+# instead of after a Docker image has been produced. The backend's equivalent is
+# TreatWarningsAsErrors; story C-C brought lint from 190 problems to zero so this can be enforced.
+- script: |
+    echo "🧹 Linting (must report zero problems)..."
+    npm run lint
+  displayName: 'Lint'
+
+- script: |
+    echo "🧪 Running unit tests..."
+    # The hosted agent ships Chrome under one of these names. Resolving it here makes a missing
+    # browser fail loudly instead of leaving Karma waiting for one.
+    export CHROME_BIN=$(which google-chrome || which chromium-browser || which chromium)
+    npm run test:ci
+  displayName: 'Unit tests'
+
 - script: |
     npm run build
   displayName: 'Build Angular app'

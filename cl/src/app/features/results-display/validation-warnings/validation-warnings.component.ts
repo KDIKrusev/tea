@@ -14,12 +14,12 @@ import { ValidationWarning } from '../../../calculations/calculator.types';
 export class ValidationWarningsComponent {
   @Input() warnings: ValidationWarning[] = [];
 
-  trackByWarning(index: number, warning: ValidationWarning): string {
+  trackByWarning(_index: number, warning: ValidationWarning): string {
     return (warning.type || warning.field) + warning.severity;
   }
 
   getWarningTitle(type: string): string {
-    const titles: {[key: string]: string} = {
+    const titles: Record<string, string> = {
       'main-engine': 'Main Engine Overcapacity',
       'aux-engine': 'Auxiliary Engine Overcapacity',
       'hotel-load': 'Hotel Load Exceeds System Capacity',

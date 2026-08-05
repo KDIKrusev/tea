@@ -9,8 +9,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { FormInputFieldComponent, FormSelectFieldComponent } from '../../../../shared/components';
+import { FormInputFieldComponent } from '../../../../shared/components';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { VesselConfigConfirmDialogComponent } from './vessel-config-confirm-dialog.component';
 import { AppDataService } from '../../../../core/app-data.service';
@@ -19,6 +18,7 @@ import { InterpolatedVesselConfig } from '../../../../core/vessel-configuration.
 import { EngineType, AuxiliaryEngineType } from '../../../../core/engine-configuration.types';
 import { VesselOperationalProfile } from '../../../../core/operational-profile.types';
 import { FormEditTrackerService } from '../form-edit-tracker.service';
+import { NotificationService } from '../../../../shared/services';
 
 /** What to do with a fetched vessel config (mirrors the old vesselTypeJustChanged semantics) */
 interface FetchRequest {
@@ -69,7 +69,6 @@ export interface VesselDataApplied {
 		MatInputModule,
 		MatExpansionModule,
 		FormInputFieldComponent,
-		FormSelectFieldComponent,
 		MatDialogModule,
 		VesselConfigConfirmDialogComponent
 	],
@@ -87,7 +86,7 @@ export class VesselConfigSectionComponent implements OnInit, OnDestroy {
 	private destroy$ = new Subject<void>();
 	private appDataService = inject(AppDataService);
 	protected editTracker = inject(FormEditTrackerService);
-	private snackBar = inject(MatSnackBar);
+	private notify = inject(NotificationService);
 	private cdr = inject(ChangeDetectorRef);
 	private dialog = inject(MatDialog);
 
@@ -176,11 +175,7 @@ export class VesselConfigSectionComponent implements OnInit, OnDestroy {
 					this.cdr.markForCheck();
 				},
 				error: () => {
-					this.snackBar.open(
-						'Unable to load vessel categories. Please check your connection and try again.',
-						'Close',
-						{ duration: 5000, panelClass: ['error-snackbar'] }
-					);
+					this.notify.error('Unable to load vessel categories. Please check your connection and try again.');
 				}
 			});
 	}
@@ -309,11 +304,7 @@ export class VesselConfigSectionComponent implements OnInit, OnDestroy {
 					return this.appDataService.getFullVesselDataByCategory(x.category.name, x.size, x.speed).pipe(
 						map(fullData => ({ fullData, request: x.request, selection })),
 						catchError(() => {
-							this.snackBar.open(
-								'Unable to load vessel configuration for the entered size and speed. Please try again.',
-								'Close',
-								{ duration: 5000, panelClass: ['error-snackbar'] }
-							);
+							this.notify.error('Unable to load vessel configuration for the entered size and speed. Please try again.');
 							// The parent may be waiting on this response to finish a load sequence —
 							// tell it the wait is over instead of leaving it pending forever.
 							this.vesselDataFailed.emit();
@@ -448,16 +439,12 @@ export class VesselConfigSectionComponent implements OnInit, OnDestroy {
 					this.cdr.markForCheck();
 				},
 				error: () => {
-					this.snackBar.open(
-						'Unable to restore the saved vessel selection.',
-						'Close',
-						{ duration: 5000, panelClass: ['error-snackbar'] }
-					);
+					this.notify.error('Unable to restore the saved vessel selection.');
 				}
 			});
 	}
 
-	trackByCategory(index: number, category: VesselCategoryData): string {
+	trackByCategory(_index: number, category: VesselCategoryData): string {
 		return category.name;
 	}
 }

@@ -19,6 +19,16 @@ steps:
     npm install
   displayName: 'Install npm dependencies'
 
+# Quality gates — blocking. See azure-pipelines.yml for the reasoning.
+- script: |
+    npm run lint
+  displayName: 'Lint'
+
+- script: |
+    export CHROME_BIN=$(which google-chrome || which chromium-browser || which chromium)
+    npm run test:ci
+  displayName: 'Unit tests'
+
 - script: |
     npm run build
   displayName: 'Build Angular app'

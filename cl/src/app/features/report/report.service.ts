@@ -65,10 +65,10 @@ export class ReportService {
   }
 
   buildReportHtml(data: ReportData): string {
-    const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    const ton = (n: number) => n.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
-    const usd = (n: number) => '$' + Math.round(n).toLocaleString('en-US');
-    const int = (n: number) => Math.round(n).toLocaleString('en-US');
+    const esc = (s: string): string => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    const ton = (n: number): string => n.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+    const usd = (n: number): string => '$' + Math.round(n).toLocaleString('en-US');
+    const int = (n: number): string => Math.round(n).toLocaleString('en-US');
 
     const dateStr = data.generatedAt.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
     const refStr = `ESA-${data.generatedAt.getFullYear()}-${String(data.generatedAt.getMonth() + 1).padStart(2, '0')}${String(data.generatedAt.getDate()).padStart(2, '0')}`;

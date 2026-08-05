@@ -24,6 +24,7 @@ import {
   VesselInputFormComponent,
 } from '../app/features/vessel-input/vessel-input-form/vessel-input-form.component';
 import { CalculatorPageComponent } from '../app/features/calculator-page/calculator-page.component';
+import { FormInputFieldComponent } from '../app/shared/components';
 
 const PROFILES_KEY = 'ksailcalc_profiles';
 const DRAFT_KEY = 'ksailcalc_draft';
@@ -156,6 +157,60 @@ export class RestoreHarness {
   /** Every control, including the disabled `hotelLoad`. */
   formValue(): Record<string, unknown> {
     return this.formComponent.vesselForm.getRawValue() as Record<string, unknown>;
+  }
+
+  /**
+   * The rendered DOM of the mounted tree.
+   *
+   * Most specs here assert form state or request bodies; this is for the ones that have to check
+   * what actually reached the screen. OnPush makes those two things able to disagree.
+   */
+  get formElement(): HTMLElement {
+    const fixture = this.pageFixture ?? this.formFixture;
+    if (!fixture) {
+      throw new Error('RestoreHarness: nothing is mounted');
+    }
+    return fixture.nativeElement as HTMLElement;
+  }
+
+  /**
+   * The rendered element of one form section, by its selector.
+   *
+   * Queries MUST be scoped this way. Six sections share the same `.info-badge` class, so an
+   * unscoped `querySelector('.info-badge')` matches the vessel-config header — a spec written that
+   * way passes whatever the section under test is doing.
+   */
+  section(selector: string): HTMLElement {
+    const el = this.formElement.querySelector(selector);
+    if (!el) {
+      throw new Error(`RestoreHarness: <${selector}> is not in the mounted tree`);
+    }
+    return el as HTMLElement;
+  }
+
+  /**
+   * The rendered `<input>` for a form control.
+   *
+   * `[formControlName]="controlName"` is a property binding, so there is no `formcontrolname`
+   * attribute in the DOM to select on. The control name lives on the `FormInputFieldComponent`
+   * instance, so that is what gets matched.
+   */
+  inputFor(controlName: string): HTMLInputElement | null {
+    const fixture = this.pageFixture ?? this.formFixture;
+    if (!fixture) {
+      throw new Error('RestoreHarness: nothing is mounted');
+    }
+    const field = fixture.debugElement
+      .queryAll(By.directive(FormInputFieldComponent))
+      .find(candidate => (candidate.componentInstance as FormInputFieldComponent).controlName === controlName);
+    return field ? (field.nativeElement as HTMLElement).querySelector('input') : null;
+  }
+
+  /** The "12.3%" badges next to each operational mode, as rendered. */
+  modeSharePercentages(): string[] {
+    return Array.from(
+      this.section('app-operational-modes-section').querySelectorAll('.percentage-badge')
+    ).map(el => el.textContent?.trim() ?? '');
   }
 
   field(name: string): unknown {

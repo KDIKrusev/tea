@@ -1,17 +1,14 @@
-import { Component, Input, OnInit, OnDestroy, Output, EventEmitter, inject } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup, ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { MatCheckboxModule, MatCheckboxChange } from '@angular/material/checkbox';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormInputFieldComponent } from '../../../../shared/components';
-import { AppDataService } from '../../../../core/app-data.service';
 import { VesselOperationalProfile } from '../../../../core/operational-profile.types';
 
 @Component({
@@ -30,40 +27,39 @@ import { VesselOperationalProfile } from '../../../../core/operational-profile.t
     MatCheckboxModule,
     FormInputFieldComponent
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './operational-modes-section.component.html',
   styleUrl: './operational-modes-section.component.css'
 })
-export class OperationalModesSectionComponent implements OnInit, OnDestroy {
+export class OperationalModesSectionComponent {
   @Input() parentForm!: FormGroup;
   @Input() vesselTypeName: string | null = null;
-  @Output() operationalProfileLoaded = new EventEmitter<VesselOperationalProfile>();
 
-  private destroy$ = new Subject<void>();
-  private appDataService = inject(AppDataService);
+  private readonly cdr = inject(ChangeDetectorRef);
 
   operationalProfile: VesselOperationalProfile | null = null;
   isLoading = false;
-  componentsLoaded = false;
   dpModeEnabled = false; // Controls DP mode visibility
 
-  ngOnInit(): void {
-    this.componentsLoaded = true;
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
-
   /**
-   * Set operational profile directly (from optimized combined API call)
-   * OPTIMIZED: No separate API call needed
+   * Set operational profile directly (from the combined vessel-config response).
+   *
+   * Called by the parent form as step 3 of `onVesselDataApplied`. It used to also re-emit an
+   * `operationalProfileLoaded` output — one no template ever bound, because the parent binds the
+   * *vessel-config* section's event of the same name. Two identically named events, one of them
+   * inert, in the middle of the cascade this epic exists to untangle.
+   *
+   * The `markForCheck()` is load-bearing, not defensive. This is a **direct method call** from the
+   * parent: no `@Input` reference changes and no event fires from this template, so under OnPush
+   * Angular has no reason to re-check this view. Without it the whole section stays behind its
+   * `*ngIf="operationalProfile"` and the panel reads "Select vessel to load profile" forever, while
+   * the form underneath holds entirely correct values. `rendered-output.spec.ts` fails without it.
    */
   setOperationalProfile(profile: VesselOperationalProfile): void {
     this.operationalProfile = profile;
     this.dpModeEnabled = profile.dP !== null && profile.dP !== undefined; // Enable if vessel has DP
     this.populateFormWithProfile(profile);
-    this.operationalProfileLoaded.emit(profile);
+    this.cdr.markForCheck();
   }
 
   /**
@@ -71,7 +67,7 @@ export class OperationalModesSectionComponent implements OnInit, OnDestroy {
    * REFACTORED V2.0: Uses profile hours directly (already in h/yr from database)
    */
   private populateFormWithProfile(profile: VesselOperationalProfile): void {
-    if (!this.parentForm) return;
+    if (!this.parentForm) {return;}
 
     // Use profile hours directly - no scaling needed
     this.parentForm.patchValue({
@@ -108,7 +104,7 @@ export class OperationalModesSectionComponent implements OnInit, OnDestroy {
     const numericHours = Number(hours) || 0;
     const totalHours = this.getTotalHours();
     
-    if (totalHours === 0) return 0;
+    if (totalHours === 0) {return 0;}
     
     return (numericHours / totalHours) * 100;
   }
@@ -117,7 +113,7 @@ export class OperationalModesSectionComponent implements OnInit, OnDestroy {
    * Get total hours from form
    */
   getTotalHours(): number {
-    if (!this.parentForm) return 0;
+    if (!this.parentForm) {return 0;}
 
     const transitHours = Number(this.parentForm.get('transitHours')?.value) || 0;
     const dpHours = Number(this.parentForm.get('dpHours')?.value) || 0;
@@ -136,9 +132,10 @@ export class OperationalModesSectionComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Handle DP Mode checkbox toggle
+   * Handle DP Mode checkbox toggle. The new state is already on `dpModeEnabled` via ngModel —
+   * the change event carries nothing this method needs.
    */
-  onDPModeToggle(event: MatCheckboxChange): void {
+  onDPModeToggle(): void {
     if (!this.dpModeEnabled) {
       // Reset DP fields when disabled
       this.parentForm.patchValue({

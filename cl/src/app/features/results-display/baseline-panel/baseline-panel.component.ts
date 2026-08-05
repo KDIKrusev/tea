@@ -14,11 +14,11 @@ import { BaselineData, CalculatorInput, Level1Details, ValidCombinationDto } fro
 })
 export class BaselinePanelComponent {
   @Input() baseline!: BaselineData;
-  @Input() baselineME: number = 0;
-  @Input() baselineAE: number = 0;
+  @Input() baselineME = 0;
+  @Input() baselineAE = 0;
   /** Per-engine CO2 from the API (each engine's own fuel factor) — never recomputed here. */
-  @Input() baselineMeCO2: number = 0;
-  @Input() baselineAeCO2: number = 0;
+  @Input() baselineMeCO2 = 0;
+  @Input() baselineAeCO2 = 0;
   @Input() currentInput!: CalculatorInput;
   @Input() level1Details?: Level1Details;
   @Output() baselineIndexChanged = new EventEmitter<number>();
@@ -36,7 +36,7 @@ export class BaselinePanelComponent {
   }
 
   get fuelCost(): number {
-    if (!this.baseline || !this.currentInput) return 0;
+    if (!this.baseline || !this.currentInput) {return 0;}
     return this.baseline.totalFuelConsumptionTons * this.currentInput.fuelPrice;
   }
 
@@ -49,20 +49,25 @@ export class BaselinePanelComponent {
   }
 
   get isDefaultBaseline(): boolean {
-    if (!this.level1Details) return true;
+    if (!this.level1Details) {return true;}
     const defaultIndex = this.level1Details.validCombinationsCount - 1;
     return this.selectedBaselineIndex === defaultIndex;
   }
 
   formatComboLabel(combo: ValidCombinationDto): string {
     const parts: string[] = [];
-    if (combo.activeMeCount > 0) parts.push(`${combo.activeMeCount}×ME`);
-    if (combo.sgEnabled) parts.push('SG');
-    if (combo.activeAeCount > 0) parts.push(`${combo.activeAeCount}×AE`);
+    if (combo.activeMeCount > 0) {parts.push(`${combo.activeMeCount}×ME`);}
+    if (combo.sgEnabled) {parts.push('SG');}
+    if (combo.activeAeCount > 0) {parts.push(`${combo.activeAeCount}×AE`);}
     return parts.join(' + ') || 'None';
   }
 
   onBaselineSelectionChange(index: number): void {
     this.baselineIndexChanged.emit(index);
+  }
+
+  /** The combination's own index — stable across recalculations, unlike the loop position. */
+  trackByComboIndex(_position: number, combo: ValidCombinationDto): number {
+    return combo.index;
   }
 }

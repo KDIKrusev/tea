@@ -83,7 +83,8 @@
       </h3>
 
       <!-- Baseline Selector as table -->
-      <div class="combo-table" *ngIf="validCombinations.length > 1">
+      <div class="combo-table" *ngIf="validCombinations.length > 1" role="radiogroup"
+           aria-label="Assumed baseline engine configuration">
         <div class="combo-table-header">
           <span class="combo-col-radio"></span>
           <span class="combo-col">ME</span>
@@ -91,11 +92,19 @@
           <span class="combo-col">AE</span>
           <span class="combo-col combo-col-foc">FOC (ton/hr)</span>
         </div>
+        <!-- The row IS the radio button: it carries the role, the checked state and keyboard
+             activation, so it can be reached and chosen without a mouse. -->
         <div
-          *ngFor="let combo of validCombinations"
+          *ngFor="let combo of validCombinations; trackBy: trackByComboIndex"
           class="combo-table-row"
+          role="radio"
+          tabindex="0"
+          [attr.aria-checked]="combo.index === selectedBaselineIndex"
+          [attr.aria-label]="formatComboLabel(combo)"
           [class.combo-selected]="combo.index === selectedBaselineIndex"
-          (click)="onBaselineSelectionChange(combo.index)">
+          (click)="onBaselineSelectionChange(combo.index)"
+          (keydown.enter)="onBaselineSelectionChange(combo.index)"
+          (keydown.space)="onBaselineSelectionChange(combo.index)">
           <span class="combo-col-radio">
             <span class="radio-dot" [class.active]="combo.index === selectedBaselineIndex"></span>
           </span>

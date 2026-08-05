@@ -1,6 +1,6 @@
 import { Component, Input, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnDestroy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { AbstractControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
@@ -49,9 +49,9 @@ export class BatteryConfigSectionComponent implements OnInit, OnDestroy {
   protected editTracker = inject(FormEditTrackerService);
   private validationService = inject(FormValidationService);
 
-  get batteryPowerKw() { return this.parentForm.get('batteryPowerKw'); }
-  get batteryCapacityKwh() { return this.parentForm.get('batteryCapacityKwh'); }
-  get batteryMaxPtiKw() { return this.parentForm.get('batteryMaxPtiKw'); }
+  get batteryPowerKw(): AbstractControl | null { return this.parentForm.get('batteryPowerKw'); }
+  get batteryCapacityKwh(): AbstractControl | null { return this.parentForm.get('batteryCapacityKwh'); }
+  get batteryMaxPtiKw(): AbstractControl | null { return this.parentForm.get('batteryMaxPtiKw'); }
 
   ngOnInit(): void {
     this.isBatteryEnabled = !!this.parentForm.get('batteryEnabled')?.value;
@@ -99,7 +99,7 @@ export class BatteryConfigSectionComponent implements OnInit, OnDestroy {
       const patch: Record<string, unknown> = { batteryModeTransit: true };
       if (this.parentForm.get('batteryMaxPtiKw')?.value == null) {
         const sgCapacity = Number(this.parentForm.get('sgCapacityPerEngine')?.value) || 0;
-        if (sgCapacity > 0) patch['batteryMaxPtiKw'] = sgCapacity;
+        if (sgCapacity > 0) {patch['batteryMaxPtiKw'] = sgCapacity;}
       }
       this.parentForm.patchValue(patch);
     }
@@ -112,7 +112,7 @@ export class BatteryConfigSectionComponent implements OnInit, OnDestroy {
 
   isFieldEdited(fieldName: string): boolean {
     const control = this.parentForm.get(fieldName);
-    if (!control) return false;
+    if (!control) {return false;}
     return this.editTracker.isFieldEdited(fieldName, control.value);
   }
 
@@ -138,7 +138,7 @@ export class BatteryConfigSectionComponent implements OnInit, OnDestroy {
   private updateDpAvailability(dpHours: unknown): void {
     this.isDpModeAvailable = Number(dpHours) > 0;
     const dpControl = this.parentForm.get('batteryModeDp');
-    if (!dpControl) return;
+    if (!dpControl) {return;}
 
     // Reactive forms ignore the [disabled] attribute binding — drive state via the control
     if (this.isDpModeAvailable && dpControl.disabled) {

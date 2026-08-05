@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { AbstractControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -31,7 +31,14 @@ import { SailContributionResult } from '../../../../calculations/calculator.type
 export class WeatherInputSectionComponent {
   @Input() parentForm!: FormGroup;
   @Input() sailContribution: SailContributionResult | null = null;
-  @Output() weatherChanged = new EventEmitter<{ sailEnabled: boolean; trueWindSpeed: number; windAngleRelVessel: number }>();
+  /**
+   * "A weather field changed — recalculate."
+   *
+   * Deliberately carries no payload: the values live on the shared form (`sailEnabled`,
+   * `trueWindSpeed`, `windAngleRelVessel`), and those controls are what reach the request. The
+   * event used to duplicate all three, and the parent read none of them.
+   */
+  @Output() weatherChanged = new EventEmitter<void>();
 
   windSpeedOptions = Array.from({ length: 21 }, (_, i) => i); // 0–20 m/s
   isSailEnabled = false;
@@ -40,9 +47,9 @@ export class WeatherInputSectionComponent {
   protected editTracker = inject(FormEditTrackerService);
   private validationService = inject(FormValidationService);
 
-  get sailEnabled() { return this.parentForm.get('sailEnabled'); }
-  get trueWindSpeed() { return this.parentForm.get('trueWindSpeed'); }
-  get windAngleRelVessel() { return this.parentForm.get('windAngleRelVessel'); }
+  get sailEnabled(): AbstractControl | null { return this.parentForm.get('sailEnabled'); }
+  get trueWindSpeed(): AbstractControl | null { return this.parentForm.get('trueWindSpeed'); }
+  get windAngleRelVessel(): AbstractControl | null { return this.parentForm.get('windAngleRelVessel'); }
 
   getValidationError(controlName: string): string {
     return this.validationService.getErrorMessage(this.parentForm.get(controlName));
@@ -50,7 +57,7 @@ export class WeatherInputSectionComponent {
 
   isFieldEdited(fieldName: string): boolean {
     const control = this.parentForm.get(fieldName);
-    if (!control) return false;
+    if (!control) {return false;}
     return this.editTracker.isFieldEdited(fieldName, control.value);
   }
 
@@ -73,10 +80,6 @@ onSailToggle(event: MatCheckboxChange): void {
   }
 
   private emitChange(): void {
-    this.weatherChanged.emit({
-      sailEnabled: this.isSailEnabled,
-      trueWindSpeed: this.trueWindSpeed?.value,
-      windAngleRelVessel: this.windAngleRelVessel?.value
-    });
+    this.weatherChanged.emit();
   }
 }

@@ -24,7 +24,7 @@
   </div>
 </div>
 
-<div *ngFor="let alloc of batteryDetails.modeAllocations" class="battery-mode-block">
+<div *ngFor="let alloc of batteryDetails.modeAllocations; trackBy: trackByMode" class="battery-mode-block">
   <h4 class="battery-mode-title">{{ alloc.mode }} mode allocation</h4>
   <div class="tbl-scroll">
     <table class="battery-alloc-table">
@@ -39,7 +39,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let load of alloc.loads">
+        <tr *ngFor="let load of alloc.loads; trackBy: trackByLoadRow">
           <td>{{ load.load }}</td>
           <td>{{ functionLabel(load.function) }}</td>
           <td>{{ load.variationKw | number:'1.0-1' }}</td>

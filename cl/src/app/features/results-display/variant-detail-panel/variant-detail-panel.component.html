@@ -119,7 +119,7 @@
 
       <!-- L2: Optimal Load Setpoints (Pro only) -->
       <ng-container *ngIf="variant === 'Pro' && result.level2Details">
-        <div class="metric-row" *ngFor="let sp of result.level2Details.optimalSetpoints">
+        <div class="metric-row" *ngFor="let sp of result.level2Details.optimalSetpoints; trackBy: trackBySetpoint">
           <span class="metric-label">{{ sp.generatorType === 'SG' ? 'Shaft Generator' : 'Aux Engine' }}:</span>
           <span class="metric-value">{{ sp.loadPercent * 100 | number:'1.0-1' }}% ({{ sp.powerKw | number:'1.0-0' }} kW)</span>
         </div>

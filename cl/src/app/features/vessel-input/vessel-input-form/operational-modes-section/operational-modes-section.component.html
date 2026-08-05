@@ -78,7 +78,7 @@
       <mat-icon class="mode-icon">gps_fixed</mat-icon>
       <mat-checkbox 
         [(ngModel)]="dpModeEnabled" 
-        (change)="onDPModeToggle($event)"
+        (change)="onDPModeToggle()"
         [ngModelOptions]="{standalone: true}"
         class="dp-checkbox"
         (click)="$event.stopPropagation()">

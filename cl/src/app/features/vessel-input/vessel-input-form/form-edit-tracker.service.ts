@@ -1,10 +1,43 @@
 import { Injectable } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+
+/**
+ * The fields an operational profile writes. Re-baselined together whenever one is applied, so the
+ * "(edited)" badge means "the user changed this", not "the vessel type supplied it".
+ */
+export const OPERATIONAL_PROFILE_FIELDS: readonly string[] = [
+  'dpHours', 'dpHotelPowerKW', 'requiredDPPowerKW', 'dpWeatherCondition',
+  'transitHours', 'transitHotelPowerKW',
+  'portHotelPowerKW', 'portHours',
+  'anchorHotelPowerKW', 'anchorHours',
+  'maneuveringPropulsionPowerKW', 'maneuveringHotelPowerKW', 'maneuveringHours',
+  'meCount', 'aeCount'
+];
 
 @Injectable({
   providedIn: 'root'
 })
 export class FormEditTrackerService {
-  private originalValues: Map<string, unknown> = new Map();
+  private originalValues = new Map<string, unknown>();
+
+  /**
+   * Re-baseline a set of fields to whatever the form currently holds.
+   *
+   * Everything programmatic — a vessel-type cascade, a restored profile — has to do this, or the
+   * values it just wrote read back as the user's own edits. This was fifteen hand-written
+   * `updateOriginalValue(field, form.get(field)?.value)` pairs across two call sites, where the
+   * only thing that ever varied was the field list.
+   *
+   * Omitting `fields` re-baselines every control, which is what a full profile restore needs.
+   */
+  rebaseline(form: FormGroup, fields?: readonly string[]): void {
+    for (const name of fields ?? Object.keys(form.controls)) {
+      const control = form.get(name);
+      if (control) {
+        this.updateOriginalValue(name, control.value);
+      }
+    }
+  }
 
   /**
    * Store the original value for a field

@@ -1,4 +1,4 @@
-import { Component, Inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
@@ -179,16 +179,9 @@ import { MatIconModule } from '@angular/material/icon';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EngineConfigConfirmDialogComponent {
-	constructor(
-		public dialogRef: MatDialogRef<EngineConfigConfirmDialogComponent>,
-		@Inject(MAT_DIALOG_DATA) public data: {
-			engineName: string;
-			engineType: string;
-			defaultMainCapacityKw?: number;
-			defaultShaftGeneratorCapacityKw?: number;
-			defaultAuxCapacityKw?: number;
-		}
-	) {}
+	dialogRef = inject<MatDialogRef<EngineConfigConfirmDialogComponent>>(MatDialogRef);
+	data = inject(MAT_DIALOG_DATA);
+
 
 	onKeepValues(): void {
 		this.dialogRef.close('keep');

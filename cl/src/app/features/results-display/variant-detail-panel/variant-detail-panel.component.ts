@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
-import { VariantResult, CalculatorInput, Level1Details, SailContributionResult } from '../../../calculations/calculator.types';
+import { VariantResult, CalculatorInput, Level1Details, SailContributionResult, GeneratorSetpoint } from '../../../calculations/calculator.types';
 
 @Component({
   selector: 'app-variant-detail-panel',
@@ -19,7 +19,7 @@ export class VariantDetailPanelComponent {
   @Input() currentInput!: CalculatorInput;
   @Input() level1Details?: Level1Details;
   @Input() sailContribution?: SailContributionResult;
-  @Input() isRecommended: boolean = false;
+  @Input() isRecommended = false;
 
   /**
    * Get ME load percentage for this variant from backend calculation
@@ -39,7 +39,7 @@ export class VariantDetailPanelComponent {
    * Check if AE is running - display only
    */
   get aeIsRunning(): boolean {
-    if (!this.currentInput) return false;
+    if (!this.currentInput) {return false;}
     const sgCapacityTotal = this.currentInput.sgCapacityPerEngine * this.currentInput.meCount;
     return this.currentInput.hotelLoad > sgCapacityTotal;
   }
@@ -48,7 +48,7 @@ export class VariantDetailPanelComponent {
    * Calculate fuel cost - display only (simple multiplication)
    */
   get fuelCost(): number {
-    if (!this.result || !this.currentInput) return 0;
+    if (!this.result || !this.currentInput) {return 0;}
     return this.result.optimizedFOC * this.currentInput.fuelPrice;
   }
 
@@ -63,7 +63,7 @@ export class VariantDetailPanelComponent {
   }
 
   getVariantColor(): string {
-    const colors: {[key: string]: string} = {
+    const colors: Record<string, string> = {
       'Premium': 'variant-premium',
       'Pro': 'variant-pro',
       'Advanced': 'variant-advanced'
@@ -72,7 +72,7 @@ export class VariantDetailPanelComponent {
   }
 
   getVariantIcon(): string {
-    const icons: {[key: string]: string} = {
+    const icons: Record<string, string> = {
       'Premium': 'diamond',
       'Pro': 'stars',
       'Advanced': 'bolt'
@@ -80,4 +80,8 @@ export class VariantDetailPanelComponent {
     return icons[this.variant] || 'settings';
   }
 
+  /** One row per generator; the generator type is unique within a setpoint list. */
+  trackBySetpoint(_position: number, setpoint: GeneratorSetpoint): string {
+    return setpoint.generatorType;
+  }
 }

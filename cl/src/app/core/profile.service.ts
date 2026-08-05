@@ -13,7 +13,7 @@ export class ProfileService {
   getAll(): SavedProfile[] {
     try {
       const raw = localStorage.getItem(PROFILES_KEY);
-      if (!raw) return [];
+      if (!raw) {return [];}
       const parsed: SavedProfile[] = JSON.parse(raw);
       return Array.isArray(parsed) ? parsed : [];
     } catch {
@@ -84,7 +84,7 @@ export class ProfileService {
   loadDraft(): { input: CalculatorInput; vesselTypeName: string; vesselCategory: string; vesselSize: number; vesselSpeed: number } | null {
     try {
       const raw = localStorage.getItem(DRAFT_KEY);
-      if (!raw) return null;
+      if (!raw) {return null;}
       const parsed = JSON.parse(raw) as {
         input?: CalculatorInput;
         vesselTypeName?: string;
@@ -131,7 +131,7 @@ export class ProfileService {
     const blob = new Blob([json], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
-    const safeName = profile.name.replace(/[^a-z0-9_\-]/gi, '_').toLowerCase();
+    const safeName = profile.name.replace(/[^a-z0-9_-]/gi, '_').toLowerCase();
     link.href = url;
     link.download = `ksailcalc_${safeName}.json`;
     link.click();
@@ -141,7 +141,7 @@ export class ProfileService {
   importFromJson(file: File): Promise<SavedProfile> {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
-      reader.onload = (event) => {
+      reader.onload = (event): void => {
         try {
           const parsed = JSON.parse(event.target?.result as string) as unknown;
           if (!this.isValidProfile(parsed)) {
@@ -166,7 +166,7 @@ export class ProfileService {
           reject(new Error('Failed to parse profile file.'));
         }
       };
-      reader.onerror = () => reject(new Error('Failed to read file.'));
+      reader.onerror = (): void => reject(new Error('Failed to read file.'));
       reader.readAsText(file);
     });
   }
@@ -186,7 +186,7 @@ export class ProfileService {
   }
 
   private isValidProfile(obj: unknown): obj is SavedProfile {
-    if (typeof obj !== 'object' || obj === null) return false;
+    if (typeof obj !== 'object' || obj === null) {return false;}
     const p = obj as Record<string, unknown>;
     return (
       typeof p['name'] === 'string' &&
@@ -201,7 +201,7 @@ export class ProfileService {
   }
 
   private isValidCalculatorInput(input: unknown): input is CalculatorInput {
-    if (typeof input !== 'object' || input === null) return false;
+    if (typeof input !== 'object' || input === null) {return false;}
     const i = input as Record<string, unknown>;
 
     const requiredNumbers = [
@@ -216,7 +216,7 @@ export class ProfileService {
       }
     }
 
-    if (typeof i['sailInstalled'] !== 'boolean') return false;
+    if (typeof i['sailInstalled'] !== 'boolean') {return false;}
 
     const optionalNumbers = [
       'transitHours', 'transitHotelPowerKW', 'dpHours', 'dpHotelPowerKW', 'requiredDPPowerKW',
@@ -261,11 +261,11 @@ export class ProfileService {
   }
 
   private isValidBattery(battery: unknown): boolean {
-    if (typeof battery !== 'object' || battery === null) return false;
+    if (typeof battery !== 'object' || battery === null) {return false;}
     const b = battery as Record<string, unknown>;
-    if (typeof b['capacityKwh'] !== 'number' || !Number.isFinite(b['capacityKwh'])) return false;
-    if (typeof b['powerKw'] !== 'number' || !Number.isFinite(b['powerKw'])) return false;
-    if (!Array.isArray(b['relevantModes'])) return false;
+    if (typeof b['capacityKwh'] !== 'number' || !Number.isFinite(b['capacityKwh'])) {return false;}
+    if (typeof b['powerKw'] !== 'number' || !Number.isFinite(b['powerKw'])) {return false;}
+    if (!Array.isArray(b['relevantModes'])) {return false;}
     return (b['relevantModes'] as unknown[]).every(m => m === 'Transit' || m === 'DP' || m === 'Port');
   }
 

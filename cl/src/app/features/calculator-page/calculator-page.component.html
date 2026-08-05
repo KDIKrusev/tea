@@ -27,7 +27,7 @@
           <span>Validation Failed</span>
         </div>
         <ul class="validation-error-list">
-          <li *ngFor="let err of validationErrors">
+          <li *ngFor="let err of validationErrors; trackBy: trackByValue">
             <mat-icon>warning</mat-icon>
             <span>{{ err }}</span>
           </li>
@@ -43,7 +43,7 @@
 
         <!-- Profile Manager -->
         <app-profile-manager
-          (saveRequest)="onSaveRequest($event)"
+          (saveRequest)="onSaveRequest()"
           (profileLoadRequested)="onProfileLoadRequested($event)">
         </app-profile-manager>
 
@@ -67,13 +67,15 @@
           </mat-card>
         </div>
 
-        <!-- Results Section with Accordion -->
-        <!-- Results Section with Accordion -->
+        <!--
+          RESULTS COLUMN — the panels below appear on screen in exactly this order, and are
+          numbered accordingly. A number here is a place on the page, not a priority.
+        -->
         <div *ngIf="allResults.Premium && !isCalculating" class="results-accordion">
           
           <mat-accordion multi>
 
-            <!-- Validation Warnings -->
+            <!-- 01 · Validation warnings -->
             <mat-expansion-panel *ngIf="validationWarnings.length > 0" [expanded]="true" class="warnings-panel">
               <mat-expansion-panel-header>
                 <mat-panel-title>
@@ -85,7 +87,7 @@
               <app-validation-warnings [warnings]="validationWarnings"></app-validation-warnings>
             </mat-expansion-panel>
 
-            <!-- Power Demands Panel -->
+            <!-- 02 · Power demands -->
             <mat-expansion-panel [expanded]="false" class="power-demands-panel">
               <mat-expansion-panel-header>
                 <mat-panel-title>
@@ -101,7 +103,7 @@
               <app-power-demands-panel [powerDemands]="powerDemands!"></app-power-demands-panel>
             </mat-expansion-panel>
 
-            <!-- Baseline Panel -->
+            <!-- 03 · Baseline / assumed configuration -->
             <mat-expansion-panel [expanded]="false" class="baseline-panel">
               <mat-expansion-panel-header>
                 <mat-panel-title>
@@ -132,7 +134,7 @@
             </app-baseline-panel>
             </mat-expansion-panel>
 
-            <!-- Battery Contribution Panel (only when a battery is active) -->
+            <!-- 04 · Battery contribution (only when a battery is active) -->
             <mat-expansion-panel *ngIf="batteryDetails" [expanded]="false" class="battery-panel">
               <mat-expansion-panel-header>
                 <mat-panel-title>
@@ -155,7 +157,7 @@
               </app-battery-contribution-panel>
             </mat-expansion-panel>
 
-            <!-- Report + Expand/Collapse All Buttons -->
+            <!-- 05 · Report + expand/collapse toolbar -->
             <div style="display: flex; justify-content: flex-end; gap: 8px; margin: 8px 0;">
               <button mat-stroked-button color="primary" (click)="openReportDialog()"
                       *ngIf="allVariantsResult"
@@ -169,131 +171,57 @@
               </button>
             </div>
 
-                 <!-- Advanced Results -->
+            <!-- 06 · Integration levels 1–3 -->
+            <!--
+              One panel, rendered three times. These were 120 lines of near-identical markup
+              differing in six values; those six now live in TIER_PANELS on the component.
+
+              The mat-expansion-panel stays INSIDE this template on purpose: MatExpansionPanel
+              resolves its accordion with @Host(), so moving it into a child component would
+              silently detach it from <mat-accordion>. An *ngFor keeps it in the same view.
+            -->
             <mat-expansion-panel
-              [expanded]="advancedExpanded"
-              (opened)="advancedExpanded = true"
-              (closed)="advancedExpanded = false"
-              [class.recommended-panel]="isRecommended('Advanced')"
-              class="variant-panel advanced-panel">
+              *ngFor="let tier of tierPanels; trackBy: trackByTierKey"
+              [expanded]="isTierExpanded(tier.key)"
+              (opened)="setTierExpanded(tier.key, true)"
+              (closed)="setTierExpanded(tier.key, false)"
+              [class.recommended-panel]="isRecommended(tier.key)"
+              class="variant-panel"
+              [ngClass]="tier.panelClass">
               <mat-expansion-panel-header>
                 <mat-panel-title>
-                  <div style="display: flex; flex-direction: column; gap: 0.25rem;">
-                    <div style="display: flex; align-items: center; gap: 0.5rem;">
-                      <mat-icon>bolt</mat-icon>
-                      <span style="font-weight: 600;">Integration level 1</span>
-                      <mat-icon 
-                        class="info-icon" 
-                        matTooltip="Integration Level 1: Entry-level iEMS with 3% fuel consumption reduction through basic power optimization and load balancing."
+                  <div class="tier-title">
+                    <div class="tier-title-main">
+                      <mat-icon>{{ tier.icon }}</mat-icon>
+                      <span class="tier-title-text">{{ tier.name }}</span>
+                      <mat-icon
+                        class="info-icon"
+                        [matTooltip]="tier.tooltip"
                         matTooltipPosition="above">
                         info
                       </mat-icon>
                     </div>
-                    <span style="font-size: 0.75rem; color: #6b7280; font-weight: 400; margin-left: 2rem;">Optimal power system recommendation</span>
+                    <span class="tier-subtitle">{{ tier.subtitle }}</span>
                   </div>
                 </mat-panel-title>
                 <mat-panel-description>
                   <span class="description-highlight savings">
-                    Savings: {{ allResults.Advanced!.fuelSavings | number:'1.0-1' }} ton/yr | ${{ allResults.Advanced!.annualCostSavings | number:'1.0-0' }}/yr
+                    Savings: {{ allResults[tier.key]!.fuelSavings | number:'1.0-1' }} ton/yr | ${{ allResults[tier.key]!.annualCostSavings | number:'1.0-0' }}/yr
                   </span>
                 </mat-panel-description>
               </mat-expansion-panel-header>
 
               <app-variant-detail-panel
-                variant="Advanced"
-                [result]="allResults.Advanced!"
+                [variant]="tier.key"
+                [result]="allResults[tier.key]!"
                 [currentInput]="currentInput!"
                 [level1Details]="allVariantsResult?.level1Details"
                 [sailContribution]="sailContribution ?? undefined"
-                [isRecommended]="isRecommended('Advanced')">
+                [isRecommended]="isRecommended(tier.key)">
               </app-variant-detail-panel>
             </mat-expansion-panel>
 
-            
-            <!-- Pro Results -->
-            <mat-expansion-panel
-              [expanded]="proExpanded"
-              (opened)="proExpanded = true"
-              (closed)="proExpanded = false"
-              [class.recommended-panel]="isRecommended('Pro')"
-              class="variant-panel pro-panel">
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  <div style="display: flex; flex-direction: column; gap: 0.25rem;">
-                    <div style="display: flex; align-items: center; gap: 0.5rem;">
-                      <mat-icon>stars</mat-icon>
-                      <span style="font-weight: 600;">Integration level 2</span>
-                      <mat-icon 
-                        class="info-icon" 
-                        matTooltip="Integration Level 2: Mid-tier iEMS with 4.5% fuel consumption reduction through enhanced load optimization and intelligent energy control functions."
-                        matTooltipPosition="above">
-                        info
-                      </mat-icon>
-                    </div>
-                    <span style="font-size: 0.75rem; color: #6b7280; font-weight: 400; margin-left: 2rem;">Optimal power system recommendation + Continuous optimization</span>
-                  </div>
-                </mat-panel-title>
-                <mat-panel-description>
-                  <span class="description-highlight savings">
-                    Savings: {{ allResults.Pro!.fuelSavings | number:'1.0-1' }} ton/yr | ${{ allResults.Pro!.annualCostSavings | number:'1.0-0' }}/yr
-                  </span>
-                </mat-panel-description>
-              </mat-expansion-panel-header>
-              
-              <app-variant-detail-panel
-                variant="Pro"
-                [result]="allResults.Pro!"
-                [currentInput]="currentInput!"
-                [level1Details]="allVariantsResult?.level1Details"
-                [sailContribution]="sailContribution ?? undefined"
-                [isRecommended]="isRecommended('Pro')">
-              </app-variant-detail-panel>
-            </mat-expansion-panel>
-            
-            <!-- Premium Results -->
-            <mat-expansion-panel
-              [expanded]="premiumExpanded"
-              (opened)="premiumExpanded = true"
-              (closed)="premiumExpanded = false"
-              [class.recommended-panel]="isRecommended('Premium')"
-              class="variant-panel premium-panel">
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  <div style="display: flex; flex-direction: column; gap: 0.25rem;">
-                    <div style="display: flex; align-items: center; gap: 0.5rem;">
-                      <mat-icon>diamond</mat-icon>
-                      <span style="font-weight: 600;">Integration level 3</span>
-                      <mat-icon 
-                        class="info-icon" 
-                        matTooltip="Integration Level 3: Premium iEMS with 6% fuel consumption reduction through AI-driven continuous optimization integrated with weather forecast and mission planning."
-                        matTooltipPosition="above">
-                        info
-                      </mat-icon>
-                    </div>
-                    <span style="font-size: 0.75rem; color: #6b7280; font-weight: 400; margin-left: 2rem;">IL1 + IL2 + Energy control functions + Integration with weather forecast and mission plan</span>
-                  </div>
-                </mat-panel-title>
-                <mat-panel-description>
-                  <span class="description-highlight savings">
-                    Savings: {{ allResults.Premium!.fuelSavings | number:'1.0-1' }} ton/yr | ${{ allResults.Premium!.annualCostSavings | number:'1.0-0' }}/yr
-                  </span>
-                </mat-panel-description>
-              </mat-expansion-panel-header>
-              
-              <app-variant-detail-panel
-                variant="Premium"
-                [result]="allResults.Premium!"
-                [currentInput]="currentInput!"
-                [level1Details]="allVariantsResult?.level1Details"
-                [sailContribution]="sailContribution ?? undefined"
-                [isRecommended]="isRecommended('Premium')">
-              </app-variant-detail-panel>
-            </mat-expansion-panel>
-
-
-       
-
-            <!-- Sail Contribution Details -->
+            <!-- 07 · Sail contribution -->
             <mat-expansion-panel [expanded]="false" *ngIf="sailContribution" class="sail-panel">
               <mat-expansion-panel-header>
                 <mat-panel-title>
@@ -316,7 +244,7 @@
               </div>
             </mat-expansion-panel>
 
-            <!-- Tier Comparison Table -->
+            <!-- 08 · Integration level comparison -->
             <mat-expansion-panel [expanded]="false" class="comparison-table-panel" *ngIf="allVariantsResult">
               <mat-expansion-panel-header>
                 <mat-panel-title>
@@ -330,7 +258,7 @@
               <app-tier-comparison [results]="allVariantsResult!" [baseline]="baselineData" [recommendedTier]="recommendedTier"></app-tier-comparison>
             </mat-expansion-panel>
 
-            <!-- Comparison Chart - FOC -->
+            <!-- 09 · Fuel consumption chart -->
             <mat-expansion-panel [expanded]="true" class="chart-panel">
               <mat-expansion-panel-header>
                 <mat-panel-title>
@@ -348,7 +276,7 @@
               </app-savings-chart>
             </mat-expansion-panel>
 
-            <!-- Comparison Chart - CO2 -->
+            <!-- 10 · CO2 chart -->
             <mat-expansion-panel [expanded]="true" class="chart-panel">
               <mat-expansion-panel-header>
                 <mat-panel-title>

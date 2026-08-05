@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, Inject } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -47,14 +47,12 @@ import { ReportData, ReportService } from './report.service';
   `]
 })
 export class ReportDialogComponent {
-  clientName = '';
+  private dialogRef = inject<MatDialogRef<ReportDialogComponent>>(MatDialogRef);
+  private reportService = inject(ReportService);
+  private snackBar = inject(MatSnackBar);
+  private data = inject<ReportData>(MAT_DIALOG_DATA);
 
-  constructor(
-    private dialogRef: MatDialogRef<ReportDialogComponent>,
-    private reportService: ReportService,
-    private snackBar: MatSnackBar,
-    @Inject(MAT_DIALOG_DATA) private data: ReportData
-  ) {}
+  clientName = '';
 
   generate(): void {
     const trimmed = this.clientName.trim();

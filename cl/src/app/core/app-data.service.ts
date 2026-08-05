@@ -61,21 +61,6 @@ export class AppDataService {
     return this.inFlight$;
   }
 
-  /**
-   * Get current app data (synchronous)
-   * Returns null if not loaded yet
-   */
-  getCurrentData(): AppInitialData | null {
-    return this.appData$.value;
-  }
-
-  /**
-   * Get app data as observable (emits when data changes)
-   */
-  getAppData(): Observable<AppInitialData | null> {
-    return this.appData$.asObservable();
-  }
-
   // ==================== VESSEL CATEGORY METHODS ====================
 
   /**
