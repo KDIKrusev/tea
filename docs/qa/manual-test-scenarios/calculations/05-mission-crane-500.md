@@ -1,5 +1,22 @@
 # 05 — Mission Crane 500 kW (cascade continues below)
 
+<!-- header:auto -->
+
+> **Proves** · The Mission row: a crane's full rating is its swing, and the cascade continues below it.
+>
+> **Mechanics this scenario turns on**
+> - A **Mission** row takes `H` = the heavy consumer's full rating — a crane can start at any moment, so its whole draw is a potential peak.
+> - Cascade per row: `H` = what it wants · `I = min(remaining budget, H)` · `J = I × CoverageFactor` (covered) · `L = H − J` (left to the gensets). Priority: DpReserve → DpDemand → Mission → Propulsion → Hotel. Invariant `ΣJ + ΣL = ΣH` — the sea sets the swing, the battery moves the split.
+> - Only the **uncovered** part rejoins the demand: `propulsion' = propulsion + L`, `hotel' = hotel + L`. Covered power (`J`) is never subtracted from anything.
+>
+> **Panels described below** · Battery Contribution · Power Demands — the crane lands on the HOTEL side · Baseline & IL1 · Battery Benefit
+>
+> **Anything not described here** behaves exactly as in `01-excel-baseline` — same plant, same hours; only what this scenario changes is worked through below.
+>
+> **Trust** · verified against the reference workbook. These figures are proof.
+>
+> **Read after** · scenario 04.
+
 Test 01's vessel + **Mission Heavy-Consumer Max = 500** (battery 1260, Transit).
 
 ## Battery Contribution (budget 1260)

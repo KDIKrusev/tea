@@ -1,5 +1,22 @@
 # 02 — Small Battery 300 kW (budget exhausts mid-cascade)
 
+<!-- header:auto -->
+
+> **Proves** · What happens when the budget runs out mid-cascade: propulsion takes all 300, the hotel row gets nothing.
+>
+> **Mechanics this scenario turns on**
+> - Cascade per row: `H` = what it wants · `I = min(remaining budget, H)` · `J = I × CoverageFactor` (covered) · `L = H − J` (left to the gensets). Priority: DpReserve → DpDemand → Mission → Propulsion → Hotel. Invariant `ΣJ + ΣL = ΣH` — the sea sets the swing, the battery moves the split.
+> - Peak-shaving `H` = average × VariationFactor (propulsion 5 %, hotel 2 %). CoverageFactor is a modelling assumption about how much of a swing a battery can realistically catch — propulsion 0.35, hotel 0.05. Both live in `appsettings.json`, not in code.
+> - Past saturation extra battery power buys nothing: once `ΣH` is fully taken, the remaining budget has no swing left to cover.
+>
+> **Panels described below** · Battery Contribution · Power Demands · Baseline & IL1 · Battery Benefit
+>
+> **Anything not described here** behaves exactly as in `01-excel-baseline` — same plant, same hours; only what this scenario changes is worked through below.
+>
+> **Trust** · verified against the reference workbook. These figures are proof.
+>
+> **Read after** · scenario 01.
+
 Same vessel as 01; only battery power 1260 → **300**.
 
 ## Battery Contribution

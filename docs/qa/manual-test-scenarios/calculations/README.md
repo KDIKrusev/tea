@@ -4,8 +4,20 @@ One markdown file per test scenario in the parent folder. Load the scenario, cal
 the matching file side-by-side with the result panel: each section of the file mirrors a section
 of the panel and shows the arithmetic behind the numbers on screen.
 
+> ### New here? Read [**00-ORIENTATION**](00-ORIENTATION.md) first.
+>
+> This file is a **formula sheet** — it assumes you already know what a shaft generator is and why
+> a coverage factor exists. `00-ORIENTATION.md` explains the vocabulary, the reasoning behind each
+> step, the three demand "worlds" that are easy to confuse, and a **reverse index**: *"I see this
+> number on the screen — which step produced it, and which scenario shows it most clearly?"*
+
 All figures were verified against a live API instance built from commit `559aef2` (2026-07-22).
 Fuel price is **$780/ton** unless the file says otherwise — $ figures scale linearly with price.
+
+**The arithmetic below is still current.** The backend has been refactored since that commit, but
+every step was proven behaviour-preserving against 18 golden snapshots compared byte-for-byte, and
+the client was refactored without touching the request it sends. See
+`docs/refactoring/backend-refactor-design.md` and `docs/refactoring/client-refactor-design.md`.
 
 ## The 7-step recipe (used by every walkthrough)
 
@@ -57,10 +69,45 @@ twice: world A (with battery, demand = avg + ΣL) and world B (reference: budget
 avg + ΣH). `Benefit = max(0, FOC_B_optimal − FOC_A_optimal) × hours`, summed per mode;
 `$ = benefit × fuel price`. The baseline radio never touches this number.
 
+> **Do not try to reproduce a Benefit by unticking "Enable Battery" in the UI.** That produces a
+> *third* world — raw demand with the swing carried by nobody at all — which burns **less** than
+> the battery case and makes the benefit look negative. World B is scenario **03**: the same ship
+> with the full swing written into the loads. `00-ORIENTATION.md` Part 4 has the three side by side.
+
 ## Files
 
-01–12 mirror the first-wave scenarios, 13–18 the second wave. Error scenarios (09, 17) explain
-the rejection math instead of panels; 18 explains the deliberate absence of the battery panel.
+`00-ORIENTATION.md` — start here: vocabulary, the reasoning behind each step, the three worlds,
+and the reverse index.
+
+`00a-PIPELINE-DIAGRAM.html` — the same machine drawn, with scenario 01's numbers flowing through
+it. Three figures: how the cascade splits a constant, how demand becomes fuel, and why the Battery
+Benefit needs two runs of the pipeline. Read it beside `00-ORIENTATION`.
+
+01–12 mirror the first-wave scenarios, 13–18 the second wave, 19–35 the third (see below).
+Error scenarios (09, 17) explain the rejection math instead of panels; 18 explains the deliberate
+absence of the battery panel.
+
+**A reading order that covers every mechanism without reading all 35:**
+`01 → 02 → 03 → 04 → 19 → 11 → 05 + 06 → 09 → 12`. Full reasoning in `00-ORIENTATION.md` Part 7.
+
+### PDF versions
+
+`pdf/` holds a rendering of every file here, plus the two documents one level up that are needed to
+actually run the tests — the scenario list with its expected results
+(`SCENARIOS-AND-EXPECTED-RESULTS.pdf`) and `COVERAGE-MATRIX.pdf`.
+
+Regenerate after any edit:
+
+```
+node build-pdf.cjs
+```
+
+No dependencies — a small Markdown renderer plus headless Chrome, found automatically
+(override with `CHROME_BIN`). Links between documents are rewritten to point at the `.pdf`.
+
+*The set used to be produced by hand. It drifted: the last manual render covered 01–18 only, missed
+the 2026-07-28 revision of card 04, and mangled the cascade tables — cells landed on the wrong rows,
+which is exactly the content these documents exist for. A script beats a habit.*
 
 ---
 

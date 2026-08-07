@@ -1,5 +1,21 @@
 # 18 — Battery for Port, Port Hours = 0: the Zero-Effect Guard (G2/B10)
 
+<!-- header:auto -->
+
+> **Proves** · The zero-effect guard: a battery assigned to a mode with no hours must change nothing, silently.
+>
+> **Mechanics this scenario turns on**
+> - A battery assigned to a mode with zero hours must change nothing and say nothing — no panel, no warning, no effect on the result.
+> - Every active mode runs its **own** Level 1 — own demand, own combinations, own baseline, own optimum, own t/h. There is no single "tonnes per hour" for the vessel; the year is `Σ (mode t/h × mode hours)`.
+>
+> **Panels described below** · What "no effect" must look like
+>
+> **Anything not described here** behaves exactly as in `01-excel-baseline` — same plant, same hours; only what this scenario changes is worked through below.
+>
+> **Trust** · verified against the reference workbook. These figures are proof.
+>
+> **Read after** · scenario 01.
+
 Test 01's vessel; battery 1260 assigned to **Port only**, but Port hours = **0**.
 
 ## What "no effect" must look like (all four observed)

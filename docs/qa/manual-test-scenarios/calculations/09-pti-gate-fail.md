@@ -1,5 +1,21 @@
 # 09 — PTI 50: the Gate Blocks (expected 400 error, no results)
 
+<!-- header:auto -->
+
+> **Proves** · The PTI gate blocking: the app refuses to calculate, and the message names the missing kW.
+>
+> **Mechanics this scenario turns on**
+> - PTI is the shaft motor: the battery pushing power through the main engine's shaft. A gate checks that the installed PTI capacity can carry the propulsion band the battery is asked to shave; if not, the whole calculation is refused with a 400.
+> - Validation runs **before** Level 1. A plant that cannot carry its load is rejected there, with a different message and a different code path from the Level 1 rejections.
+>
+> **Panels described below** · The rejection arithmetic · Expected screen · Why 400 and not 500
+>
+> **Anything not described here** behaves exactly as in `01-excel-baseline` — same plant, same hours; only what this scenario changes is worked through below.
+>
+> **Trust** · verified against the reference workbook. These figures are proof.
+>
+> **Read after** · scenario 08.
+
 Test 01 + **PTI = 50**. This scenario is SUPPOSED to fail — the red banner is the pass criterion.
 
 ## The rejection arithmetic

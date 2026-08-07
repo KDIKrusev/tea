@@ -1,5 +1,21 @@
 # 31 — Level 2 with a shaft generator present
 
+<!-- header:auto -->
+
+> **Proves** · Level 2 with a shaft generator in the mix.
+>
+> **Mechanics this scenario turns on**
+> - Level 2 redistributes the hotel load between the shaft generator and the auxiliaries, looking for a cheaper split. It can only find one when there is something to redistribute — with the SG at its ceiling and a single aux, it returns zero.
+> - The shaft generator is filled before any auxiliary starts (the main engine is already turning), and its output is a load **on** that main engine — which is why the ME figure exceeds propulsion. SG capacity scales with the number of running MEs.
+>
+> **Panels described below** · The two rules, side by side · The plant · The setpoint table · Result
+>
+> **Anything not described here** — the mechanics above name the step that produced it; `00-ORIENTATION` Part 6 has the full number-to-step index.
+>
+> **Trust** · characterisation snapshot, generated from the code. It detects change; it does NOT prove correctness. Figures marked *pending reference verification* have never been checked against anything outside the application.
+>
+> **Read after** · scenario 19.
+
 Scenario 19 proves Level 2 can save fuel, but on a plant with **no** shaft generator. This adds one,
 because the SG travels through Level 2 on a different rule from the aux engines and that rule had no
 end-to-end coverage.

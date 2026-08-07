@@ -1,5 +1,21 @@
 # 29 — Saturated battery: the surplus does nothing
 
+<!-- header:auto -->
+
+> **Proves** · A battery budget past saturation: more power, identical result.
+>
+> **Mechanics this scenario turns on**
+> - Past saturation extra battery power buys nothing: once `ΣH` is fully taken, the remaining budget has no swing left to cover.
+> - Cascade per row: `H` = what it wants · `I = min(remaining budget, H)` · `J = I × CoverageFactor` (covered) · `L = H − J` (left to the gensets). Priority: DpReserve → DpDemand → Mission → Propulsion → Hotel. Invariant `ΣJ + ΣL = ΣH` — the sea sets the swing, the battery moves the split.
+>
+> **Panels described below** · The invariant under test · Verified, side by side · Why this is worth a scenario rather than a unit test · The remaining 9 350.9 kW
+>
+> **Anything not described here** — the mechanics above name the step that produced it; `00-ORIENTATION` Part 6 has the full number-to-step index.
+>
+> **Trust** · characterisation snapshot, generated from the code. It detects change; it does NOT prove correctness. Figures marked *pending reference verification* have never been checked against anything outside the application.
+>
+> **Read after** · scenario 10.
+
 Scenario 01's vessel with the battery power raised from **1 260 kW to 10 000 kW**. Everything else
 identical, which makes this a controlled comparison against 01.
 

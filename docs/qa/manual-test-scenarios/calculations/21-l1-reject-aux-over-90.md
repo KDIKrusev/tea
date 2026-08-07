@@ -1,5 +1,21 @@
 # 21 — Level 1 rejects: the auxiliary engines would run above 90 %
 
+<!-- header:auto -->
+
+> **Proves** · Level 1 rejecting because the auxiliaries would have to run above the 90 % limit.
+>
+> **Mechanics this scenario turns on**
+> - Validation runs **before** Level 1. A plant that cannot carry its load is rejected there, with a different message and a different code path from the Level 1 rejections.
+> - The shaft generator is filled before any auxiliary starts (the main engine is already turning), and its output is a load **on** that main engine — which is why the ME figure exceeds propulsion. SG capacity scales with the number of running MEs.
+>
+> **Panels described below** · The 100 % / 90 % gap · The plant · The response
+>
+> **Anything not described here** — the mechanics above name the step that produced it; `00-ORIENTATION` Part 6 has the full number-to-step index.
+>
+> **Trust** · characterisation snapshot, generated from the code. It detects change; it does NOT prove correctness. Figures marked *pending reference verification* have never been checked against anything outside the application.
+>
+> **Read after** · scenario 20.
+
 The second uncovered rejection branch. This one is subtle because **validation and Level 1 disagree
 on purpose**.
 

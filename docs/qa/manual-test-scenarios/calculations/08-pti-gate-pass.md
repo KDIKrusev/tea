@@ -1,5 +1,21 @@
 # 08 — PTI 3250: the Discharge Gate Passes Silently
 
+<!-- header:auto -->
+
+> **Proves** · The PTI discharge gate passing silently: enough shaft-motor capacity, no change to any result.
+>
+> **Mechanics this scenario turns on**
+> - PTI is the shaft motor: the battery pushing power through the main engine's shaft. A gate checks that the installed PTI capacity can carry the propulsion band the battery is asked to shave; if not, the whole calculation is refused with a 400.
+> - Cascade per row: `H` = what it wants · `I = min(remaining budget, H)` · `J = I × CoverageFactor` (covered) · `L = H − J` (left to the gensets). Priority: DpReserve → DpDemand → Mission → Propulsion → Hotel. Invariant `ΣJ + ΣL = ΣH` — the sea sets the swing, the battery moves the split.
+>
+> **Panels described below** · What the PTI field switches on · The gate arithmetic · Result panels
+>
+> **Anything not described here** behaves exactly as in `01-excel-baseline` — same plant, same hours; only what this scenario changes is worked through below.
+>
+> **Trust** · verified against the reference workbook. These figures are proof.
+>
+> **Read after** · scenario 01.
+
 Test 01 + **PTI Capacity per Main Engine = 3 250**. Everything else identical.
 
 ## What the PTI field switches on

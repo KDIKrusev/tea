@@ -1,5 +1,21 @@
 # 26 — Unknown vessel type: L3 falls back to the 500 kW default
 
+<!-- header:auto -->
+
+> **Proves** · An unrecognised vessel type falling back to the 500 kW default variation.
+>
+> **Mechanics this scenario turns on**
+> - When the Level 3 variation field is empty the backend looks it up from the vessel type (Bulk 250 · Container 1 500 · LNG 1 000 · otherwise the 500 default), all from `appsettings.json`.
+> - Level 3 (DRC) damps the hotel/mission swing: `variation × 0.8`, minus whatever the battery already shaved, so the same kilowatt is never counted twice.
+>
+> **Panels described below** · The input · Why it shares a plant with 19, 25 and 33
+>
+> **Anything not described here** — the mechanics above name the step that produced it; `00-ORIENTATION` Part 6 has the full number-to-step index.
+>
+> **Trust** · characterisation snapshot, generated from the code. It detects change; it does NOT prove correctness. Figures marked *pending reference verification* have never been checked against anything outside the application.
+>
+> **Read after** · scenario 14.
+
 The fourth branch of the variation lookup, and the one a real user hits most often — the vessel
 catalogue is far larger than the three-entry variation table.
 

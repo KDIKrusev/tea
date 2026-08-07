@@ -1,5 +1,22 @@
 # 32 — PTI assist actually engaged
 
+<!-- header:auto -->
+
+> **Proves** · PTI assist actually engaging, inside DP mode.
+>
+> **Mechanics this scenario turns on**
+> - PTI is the shaft motor: the battery pushing power through the main engine's shaft. A gate checks that the installed PTI capacity can carry the propulsion band the battery is asked to shave; if not, the whole calculation is refused with a 400.
+> - Every active mode runs its **own** Level 1 — own demand, own combinations, own baseline, own optimum, own t/h. There is no single "tonnes per hour" for the vessel; the year is `Σ (mode t/h × mode hours)`.
+> - A **Reserve** row is not a swing: `H` = the full requirement, `CoverageFactor` = 1.00 (kW for kW), and it counts toward Spinning Reserve but **not** toward Peak Shaving. A covered reserve is readiness, so it never appears in the demand.
+>
+> **Panels described below** · Why it had to be DP · The plant · The arithmetic, verified in the response · What this scenario would catch
+>
+> **Anything not described here** — the mechanics above name the step that produced it; `00-ORIENTATION` Part 6 has the full number-to-step index.
+>
+> **Trust** · characterisation snapshot, generated from the code. It detects change; it does NOT prove correctness. Figures marked *pending reference verification* have never been checked against anything outside the application.
+>
+> **Read after** · scenario 08.
+
 Scenarios 08 and 09 are named after the PTI gate, but neither ever **engages** the shaft motors —
 their plants have no main-engine deficit, so PTI capacity sits there unused. Until this scenario the
 whole assist mechanism (Increment C / G) had only unit-test coverage.

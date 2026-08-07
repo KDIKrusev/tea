@@ -1,5 +1,21 @@
 # 25 — Container vessel: L3 variation 1 500 kW from the lookup
 
+<!-- header:auto -->
+
+> **Proves** · A Container vessel picking up its 1 500 kW Level 3 variation from the lookup table.
+>
+> **Mechanics this scenario turns on**
+> - When the Level 3 variation field is empty the backend looks it up from the vessel type (Bulk 250 · Container 1 500 · LNG 1 000 · otherwise the 500 default), all from `appsettings.json`.
+> - Level 3 (DRC) damps the hotel/mission swing: `variation × 0.8`, minus whatever the battery already shaved, so the same kilowatt is never counted twice.
+>
+> **Panels described below** · How the variation is chosen · What 1 500 kW does downstream
+>
+> **Anything not described here** — the mechanics above name the step that produced it; `00-ORIENTATION` Part 6 has the full number-to-step index.
+>
+> **Trust** · characterisation snapshot, generated from the code. It detects change; it does NOT prove correctness. Figures marked *pending reference verification* have never been checked against anything outside the application.
+>
+> **Read after** · scenario 14.
+
 `CalculatorSettings.VesselVariations` holds three entries. Only Bulk Carrier (250) had a scenario;
 this adds Container, and 33 adds LNG.
 

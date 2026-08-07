@@ -1,5 +1,22 @@
 # 15 — User-Picked Baseline (rule D1) + a Found Client Bug
 
+<!-- header:auto -->
+
+> **Proves** · A user-pinned baseline (rule D1) — and the client bug the import revealed.
+>
+> **Mechanics this scenario turns on**
+> - Baseline rule: **no battery → the worst combination** (`count − 1`); **battery active → the third from worst** (`Math.Max(0, count − 3)`). It models what the ship is assumed to do today.
+> - The **Assumed Configuration** table shows Transit's combinations only, in t/h. The Fuel Consumption figure above it is the annual total across **all** modes.
+> - Level 2 and Level 3 are computed for **Transit only** (decision D4/Q5 — no workbook counterpart elsewhere). Other modes get an empty result, and the pinned-baseline radio does not reach them.
+>
+> **Panels described below** · Expected math once row 4 is selected · What the import actually revealed · How to close the test manually
+>
+> **Anything not described here** behaves exactly as in `01-excel-baseline` — same plant, same hours; only what this scenario changes is worked through below.
+>
+> **Trust** · verified against the reference workbook. These figures are proof.
+>
+> **Read after** · scenario 01.
+
 Test 01's vessel and battery; the file carries **baselineIndex: 4** — as if a user had pinned the
 WORST row (2 ME + SG, 2.6975) as "how we operate today".
 

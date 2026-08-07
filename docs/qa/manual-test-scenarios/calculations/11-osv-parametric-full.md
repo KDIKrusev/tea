@@ -1,5 +1,26 @@
 # 11 — OSV 10 kn: the Full Five-Mode Pipeline
 
+<!-- header:auto -->
+
+> **Proves** · All five operational modes at once, and the only scenario where Level 3 contributes a visible figure.
+>
+> **Mechanics this scenario turns on**
+> - Every active mode runs its **own** Level 1 — own demand, own combinations, own baseline, own optimum, own t/h. There is no single "tonnes per hour" for the vessel; the year is `Σ (mode t/h × mode hours)`.
+> - Level 2 and Level 3 are computed for **Transit only** (decision D4/Q5 — no workbook counterpart elsewhere). Other modes get an empty result, and the pinned-baseline radio does not reach them.
+> - Savings are a **difference**, so a mode whose baseline equals its optimum contributes zero — it is present on both sides and cancels, not excluded.
+> - `Math.Max(0, …)` bites on short lists: with only two combinations, `2 − 3` clamps to **0** — the optimum itself — so that mode reports **zero** Level 1 savings. A battery in a mode can therefore suppress that mode's Level 1 savings; the value moves to the Battery Benefit badge instead.
+> - With several modes the Power Demands tables gain one row per mode, and the header is an **hours-weighted average** (total energy ÷ total hours), not a sum.
+> - Level 3 (DRC) damps the hotel/mission swing: `variation × 0.8`, minus whatever the battery already shaved, so the same kilowatt is never counted twice.
+> - When the Level 3 variation field is empty the backend looks it up from the vessel type (Bulk 250 · Container 1 500 · LNG 1 000 · otherwise the 500 default), all from `appsettings.json`.
+>
+> **Panels described below** · Battery Contribution · Power Demands · Per-mode FOC with the actual curve · Baseline, savings, tiers · Battery Benefit
+>
+> **Anything not described here** — the mechanics above name the step that produced it; `00-ORIENTATION` Part 6 has the full number-to-step index.
+>
+> **Trust** · verified against the reference workbook. These figures are proof.
+>
+> **Read after** · scenario 04.
+
 Parametric Offshore Support vessel: curve 10 kn → **1 500 kW**, SM 15 % → effective **1 725**.
 Plant: ME 2×15 000 (Diesel 2-stroke Medium, id 2) · SG 2 000 · AE 4×1 000. Modes: Transit 4 000 h
 (hotel 220) · DP 2 360 h (thrust 3 500, hotel 300, Calm) · Port 1 200/150 · Anchor 800/200 ·

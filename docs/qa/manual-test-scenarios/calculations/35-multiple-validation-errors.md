@@ -1,5 +1,20 @@
 # 35 — Several validation errors at once
 
+<!-- header:auto -->
+
+> **Proves** · Several validation errors reported together in one response.
+>
+> **Mechanics this scenario turns on**
+> - Validation runs **before** Level 1. A plant that cannot carry its load is rejected there, with a different message and a different code path from the Level 1 rejections.
+>
+> **Panels described below** · The deliberately broken input · The response — and its order · What is deliberately not here
+>
+> **Anything not described here** — the mechanics above name the step that produced it; `00-ORIENTATION` Part 6 has the full number-to-step index.
+>
+> **Trust** · characterisation snapshot, generated from the code. It detects change; it does NOT prove correctness. Figures marked *pending reference verification* have never been checked against anything outside the application.
+>
+> **Read after** · scenario 17.
+
 Every other 400 in the suite carries exactly **one** error. This one carries five, which is what
 tests the *shape* of the failure response rather than any single message.
 

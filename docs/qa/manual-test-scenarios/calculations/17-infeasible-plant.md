@@ -1,5 +1,20 @@
 # 17 — Infeasible Plant: ME Too Small (expected 400, no results)
 
+<!-- header:auto -->
+
+> **Proves** · Validation refusing the plant before Level 1 ever runs — a different failure path from 09.
+>
+> **Mechanics this scenario turns on**
+> - Validation runs **before** Level 1. A plant that cannot carry its load is rejected there, with a different message and a different code path from the Level 1 rejections.
+>
+> **Panels described below** · The rejection arithmetic · Two different guards — compare with test 09
+>
+> **Anything not described here** behaves exactly as in `01-excel-baseline` — same plant, same hours; only what this scenario changes is worked through below.
+>
+> **Trust** · verified against the reference workbook. These figures are proof.
+>
+> **Read after** · scenario 09.
+
 Excel loads (11 463 / 3 800) but ME **2×5 000**, SG 0, AE 4×4 000, no battery. Supposed to fail —
 the red banner is the pass criterion.
 

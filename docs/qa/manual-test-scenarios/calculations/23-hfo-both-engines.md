@@ -1,5 +1,20 @@
 # 23 — HFO on Both Engines
 
+<!-- header:auto -->
+
+> **Proves** · HFO on both engines — one fuel factor, applied to both sides.
+>
+> **Mechanics this scenario turns on**
+> - ME and AE each use **their own fuel's** CO2 factor (MGO/MDO 3.93267 · HFO 3.114 · LNG 2.753 · Ammonia 0.35154). The two per-engine cards must sum to the panel total.
+>
+> **Panels described below** · What it guards · Verified figures
+>
+> **Anything not described here** — the mechanics above name the step that produced it; `00-ORIENTATION` Part 6 has the full number-to-step index.
+>
+> **Trust** · characterisation snapshot, generated from the code. It detects change; it does NOT prove correctness. Figures marked *pending reference verification* have never been checked against anything outside the application.
+>
+> **Read after** · scenario 13.
+
 Scenario 19's plant with both fuels set to **HFO** and the fuel price at its default **$420/ton**.
 
 ## What it guards

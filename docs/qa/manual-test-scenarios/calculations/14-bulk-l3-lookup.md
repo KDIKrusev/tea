@@ -1,5 +1,22 @@
 # 14 — Bulk Carrier: L3 Variation from Vessel-Type Lookup
 
+<!-- header:auto -->
+
+> **Proves** · The Level 3 variation looked up from the vessel type when the field is left empty.
+>
+> **Mechanics this scenario turns on**
+> - When the Level 3 variation field is empty the backend looks it up from the vessel type (Bulk 250 · Container 1 500 · LNG 1 000 · otherwise the 500 default), all from `appsettings.json`.
+> - Level 3 (DRC) damps the hotel/mission swing: `variation × 0.8`, minus whatever the battery already shaved, so the same kilowatt is never counted twice.
+> - Baseline rule: **no battery → the worst combination** (`count − 1`); **battery active → the third from worst** (`Math.Max(0, count − 3)`). It models what the ship is assumed to do today.
+>
+> **Panels described below** · The point of the test: the L3 lookup · Power Demands · Baseline & IL1 — an honest zero
+>
+> **Anything not described here** behaves exactly as in `01-excel-baseline` — same plant, same hours; only what this scenario changes is worked through below.
+>
+> **Trust** · verified against the reference workbook. These figures are proof.
+>
+> **Read after** · scenario 11.
+
 Small bulk carrier from the DB row: curve 12 kn → **1 365 kW**, SM **20 %**, ME 1×12 000
 (Diesel 4-stroke Medium), SG 200, AE 2×500. Profile modes: Transit 5 717 h/165 · Port 2 592/110 ·
 Anchor 451/180 · Maneuvering 175 (400/190). No battery. **Load Variation field left EMPTY.**

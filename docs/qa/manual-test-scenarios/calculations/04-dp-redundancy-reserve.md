@@ -1,5 +1,26 @@
 # 04 — DP Redundancy 400 kW (the RESERVE function)
 
+<!-- header:auto -->
+
+> **Proves** · RESERVE ≠ PEAK SHAVING, and two operational modes inside one calculation.
+>
+> **Mechanics this scenario turns on**
+> - A **Reserve** row is not a swing: `H` = the full requirement, `CoverageFactor` = 1.00 (kW for kW), and it counts toward Spinning Reserve but **not** toward Peak Shaving. A covered reserve is readiness, so it never appears in the demand.
+> - Every active mode runs its **own** Level 1 — own demand, own combinations, own baseline, own optimum, own t/h. There is no single "tonnes per hour" for the vessel; the year is `Σ (mode t/h × mode hours)`.
+> - Level 2 and Level 3 are computed for **Transit only** (decision D4/Q5 — no workbook counterpart elsewhere). Other modes get an empty result, and the pinned-baseline radio does not reach them.
+> - The **Assumed Configuration** table shows Transit's combinations only, in t/h. The Fuel Consumption figure above it is the annual total across **all** modes.
+> - Savings are a **difference**, so a mode whose baseline equals its optimum contributes zero — it is present on both sides and cancels, not excluded.
+> - `Math.Max(0, …)` bites on short lists: with only two combinations, `2 − 3` clamps to **0** — the optimum itself — so that mode reports **zero** Level 1 savings. A battery in a mode can therefore suppress that mode's Level 1 savings; the value moves to the Battery Benefit badge instead.
+> - With several modes the Power Demands tables gain one row per mode, and the header is an **hours-weighted average** (total energy ÷ total hours), not a sum.
+>
+> **Panels described below** · Battery Contribution · Power Demands · Baseline — two modes, two different rules · IL1 · Battery Benefit
+>
+> **Anything not described here** behaves exactly as in `01-excel-baseline` — same plant, same hours; only what this scenario changes is worked through below.
+>
+> **Trust** · verified against the reference workbook. These figures are proof.
+>
+> **Read after** · scenario 03.
+
 Two modes: Transit 5 000 h (11 463/3 800, NO battery there) and DP 2 000 h (thrust 2 500,
 hotel 1 500, redundancy 400). Battery 500 kW, **DP only**.
 

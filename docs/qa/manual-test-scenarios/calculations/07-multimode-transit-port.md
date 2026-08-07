@@ -1,5 +1,23 @@
 # 07 — Multi-Mode: Transit + Port
 
+<!-- header:auto -->
+
+> **Proves** · Modes never overlap in time, so each one runs its own cascade with the FULL budget.
+>
+> **Mechanics this scenario turns on**
+> - Every active mode runs its **own** Level 1 — own demand, own combinations, own baseline, own optimum, own t/h. There is no single "tonnes per hour" for the vessel; the year is `Σ (mode t/h × mode hours)`.
+> - Cascade per row: `H` = what it wants · `I = min(remaining budget, H)` · `J = I × CoverageFactor` (covered) · `L = H − J` (left to the gensets). Priority: DpReserve → DpDemand → Mission → Propulsion → Hotel. Invariant `ΣJ + ΣL = ΣH` — the sea sets the swing, the battery moves the split.
+> - With several modes the Power Demands tables gain one row per mode, and the header is an **hours-weighted average** (total energy ÷ total hours), not a sum.
+> - Level 2 and Level 3 are computed for **Transit only** (decision D4/Q5 — no workbook counterpart elsewhere). Other modes get an empty result, and the pinned-baseline radio does not reach them.
+>
+> **Panels described below** · Battery Contribution — one cascade PER MODE, each with the FULL budget · Power Demands · Baseline & IL1 · Battery Benefit
+>
+> **Anything not described here** behaves exactly as in `01-excel-baseline` — same plant, same hours; only what this scenario changes is worked through below.
+>
+> **Trust** · verified against the reference workbook. These figures are proof.
+>
+> **Read after** · scenario 01.
+
 Test 01's vessel + Port 1 000 h / hotel 500. Battery 1260 for **both** Transit and Port.
 
 ## Battery Contribution — one cascade PER MODE, each with the FULL budget

@@ -1,5 +1,22 @@
 # 06 — Mission Crane 3000 kW (budget devoured, plant reshuffles)
 
+<!-- header:auto -->
+
+> **Proves** · Priority devouring the whole budget — and the anti-double-counting rule between the battery and Level 3.
+>
+> **Mechanics this scenario turns on**
+> - A **Mission** row takes `H` = the heavy consumer's full rating — a crane can start at any moment, so its whole draw is a potential peak.
+> - Cascade per row: `H` = what it wants · `I = min(remaining budget, H)` · `J = I × CoverageFactor` (covered) · `L = H − J` (left to the gensets). Priority: DpReserve → DpDemand → Mission → Propulsion → Hotel. Invariant `ΣJ + ΣL = ΣH` — the sea sets the swing, the battery moves the split.
+> - Level 3 (DRC) damps the hotel/mission swing: `variation × 0.8`, minus whatever the battery already shaved, so the same kilowatt is never counted twice.
+>
+> **Panels described below** · Battery Contribution · Power Demands — the reshuffle · Baseline & IL1 · Battery Benefit & IL3
+>
+> **Anything not described here** behaves exactly as in `01-excel-baseline` — same plant, same hours; only what this scenario changes is worked through below.
+>
+> **Trust** · verified against the reference workbook. These figures are proof.
+>
+> **Read after** · scenario 05.
+
 Test 01's vessel + **Mission Max = 3000** (battery 1260, Transit).
 
 ## Battery Contribution

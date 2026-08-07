@@ -1,5 +1,24 @@
 # 19 — Two Aux Engines: the only scenario that exercises Level 2
 
+<!-- header:auto -->
+
+> **Proves** · The only scenario where Level 2 does visible work — and Level 3 with it.
+>
+> **Mechanics this scenario turns on**
+> - Level 2 redistributes the hotel load between the shaft generator and the auxiliaries, looking for a cheaper split. It can only find one when there is something to redistribute — with the SG at its ceiling and a single aux, it returns zero.
+> - Level 3 (DRC) damps the hotel/mission swing: `variation × 0.8`, minus whatever the battery already shaved, so the same kilowatt is never counted twice.
+> - Level 2 and Level 3 are computed for **Transit only** (decision D4/Q5 — no workbook counterpart elsewhere). Other modes get an empty result, and the pinned-baseline radio does not reach them.
+> - The shaft generator is filled before any auxiliary starts (the main engine is already turning), and its output is a load **on** that main engine — which is why the ME figure exceeds propulsion. SG capacity scales with the number of running MEs.
+> - Baseline rule: **no battery → the worst combination** (`count − 1`); **battery active → the third from worst** (`Math.Max(0, count − 3)`). It models what the ship is assumed to do today.
+>
+> **Panels described below** · Why Level 2 was invisible · The plant, built for exactly that · Level 1 · Level 2 — the point of the scenario · Result · Open question for the workbook
+>
+> **Anything not described here** — the mechanics above name the step that produced it; `00-ORIENTATION` Part 6 has the full number-to-step index.
+>
+> **Trust** · characterisation snapshot, generated from the code. It detects change; it does NOT prove correctness. Figures marked *pending reference verification* have never been checked against anything outside the application.
+>
+> **Read after** · scenario 11.
+
 **Why it exists.** Level 2 produced **zero savings in all 18 original scenarios**. A whole
 optimization level — the recursive sweep — had no end-to-end coverage: break it so it returns zero
 and every snapshot would still pass.

@@ -1,5 +1,22 @@
 # 03 — No-Battery Reference World (the hand-built "twin ship")
 
+<!-- header:auto -->
+
+> **Proves** · The no-battery reference world — this scenario IS world B of 01's Battery Benefit, written down as its own file.
+>
+> **Mechanics this scenario turns on**
+> - Battery Benefit runs the pipeline **twice**: world A (demand = average + uncovered `L`) and world B (demand = average + the full swing `H`). `Benefit = (FOC_B − FOC_A) × hours`. Both are **optima**; a pinned baseline is ignored. Unticking "Enable Battery" in the UI gives a *third* world — raw demand, swing carried by nobody — which burns less than A and is not the comparison.
+> - Baseline rule: **no battery → the worst combination** (`count − 1`); **battery active → the third from worst** (`Math.Max(0, count − 3)`). It models what the ship is assumed to do today.
+> - The shaft generator is filled before any auxiliary starts (the main engine is already turning), and its output is a load **on** that main engine — which is why the ME figure exceeds propulsion. SG capacity scales with the number of running MEs.
+>
+> **Panels described below** · Battery Contribution · Power Demands · Baseline & IL1 · The proof this file exists for
+>
+> **Anything not described here** behaves exactly as in `01-excel-baseline` — same plant, same hours; only what this scenario changes is worked through below.
+>
+> **Trust** · verified against the reference workbook. These figures are proof.
+>
+> **Read after** · scenario 01.
+
 No battery; loads pre-inflated to average + FULL swing: propulsion **12 036.15** (11 463+573.15),
 hotel **3 876** (3 800+76). This is exactly the internal "world B" the Battery Benefit is
 computed against — built by hand so you can see it.

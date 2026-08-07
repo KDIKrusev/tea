@@ -1,5 +1,20 @@
 # 24 — Ammonia Main + MGO Aux: an 11× factor gap on one vessel
 
+<!-- header:auto -->
+
+> **Proves** · Ammonia main + MGO aux: an 11× factor gap on one vessel, the strongest fuel guard in the suite.
+>
+> **Mechanics this scenario turns on**
+> - ME and AE each use **their own fuel's** CO2 factor (MGO/MDO 3.93267 · HFO 3.114 · LNG 2.753 · Ammonia 0.35154). The two per-engine cards must sum to the panel total.
+>
+> **Panels described below** · Why this is the strongest fuel guard in the suite · Verified figures
+>
+> **Anything not described here** — the mechanics above name the step that produced it; `00-ORIENTATION` Part 6 has the full number-to-step index.
+>
+> **Trust** · characterisation snapshot, generated from the code. It detects change; it does NOT prove correctness. Figures marked *pending reference verification* have never been checked against anything outside the application.
+>
+> **Read after** · scenario 13.
+
 The widest CO2 spread the model can produce, on scenario 19's plant so both engines burn.
 
 ```

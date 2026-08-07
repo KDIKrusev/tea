@@ -1,5 +1,22 @@
 # 12 — Sail On: Wind 10 m/s @ 90° Shrinks the Cascade
 
+<!-- header:auto -->
+
+> **Proves** · Sail: an intervention applied BEFORE the cascade, which shrinks the swing itself.
+>
+> **Mechanics this scenario turns on**
+> - Sail thrust is subtracted from propulsion **before** the cascade runs, so it shrinks the swing itself — not just the average load.
+> - Cascade per row: `H` = what it wants · `I = min(remaining budget, H)` · `J = I × CoverageFactor` (covered) · `L = H − J` (left to the gensets). Priority: DpReserve → DpDemand → Mission → Propulsion → Hotel. Invariant `ΣJ + ΣL = ΣH` — the sea sets the swing, the battery moves the split.
+> - Battery Benefit runs the pipeline **twice**: world A (demand = average + uncovered `L`) and world B (demand = average + the full swing `H`). `Benefit = (FOC_B − FOC_A) × hours`. Both are **optima**; a pinned baseline is ignored. Unticking "Enable Battery" in the UI gives a *third* world — raw demand, swing carried by nobody — which burns less than A and is not the comparison.
+>
+> **Panels described below** · The wind → cascade chain · Power Demands · Baseline & IL1 · Battery Benefit — and why it FELL
+>
+> **Anything not described here** behaves exactly as in `01-excel-baseline` — same plant, same hours; only what this scenario changes is worked through below.
+>
+> **Trust** · verified against the reference workbook. These figures are proof.
+>
+> **Read after** · scenario 01.
+
 Test 01's vessel + sail enabled, true wind 10 m/s at 90°, vessel 12.5 kn.
 
 ## The wind → cascade chain (test point B8)

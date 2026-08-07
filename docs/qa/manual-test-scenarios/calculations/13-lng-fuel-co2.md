@@ -1,5 +1,21 @@
 # 13 (v2) — LNG Main Fuel: Per-Fuel CO2 Split (D6 fix #3)
 
+<!-- header:auto -->
+
+> **Proves** · Per-fuel CO2: ME and AE burning different fuels must produce two splits that sum to the panel total.
+>
+> **Mechanics this scenario turns on**
+> - ME and AE each use **their own fuel's** CO2 factor (MGO/MDO 3.93267 · HFO 3.114 · LNG 2.753 · Ammonia 0.35154). The two per-engine cards must sum to the panel total.
+> - SFOC (g/kWh) depends on **load**: a large 2-stroke burns ~167 at 63 % and over 230 at 5 %. That curve, not the arithmetic, is why running spare engines at low load is expensive.
+>
+> **Panels described below** · Battery Contribution — UNCHANGED · Power Demands · Baseline — THE core check: two fuels, two factors, cards must sum · IL1 · Battery Benefit
+>
+> **Anything not described here** behaves exactly as in `01-excel-baseline` — same plant, same hours; only what this scenario changes is worked through below.
+>
+> **Trust** · verified against the reference workbook. These figures are proof.
+>
+> **Read after** · scenario 01.
+
 Excel loads, but the plant is LNG-capable: **Dual Fuel Engine id 5, 2×22 000, SG 2 800** ·
 AE 4×4 000 (MGO) · fuel price $620 (LNG default).
 

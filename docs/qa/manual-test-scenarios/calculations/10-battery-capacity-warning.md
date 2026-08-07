@@ -1,5 +1,21 @@
 # 10 — Capacity Warning: 1000 kW on a 400 kWh Tank
 
+<!-- header:auto -->
+
+> **Proves** · Capacity (kWh) drives a warning only — beyond saturation, extra battery power buys nothing.
+>
+> **Mechanics this scenario turns on**
+> - Only `powerKw` enters the fuel calculation. `capacityKwh` drives one plausibility warning — can it sustain that power for 30 minutes — and changes no number on the results panel.
+> - Past saturation extra battery power buys nothing: once `ΣH` is fully taken, the remaining budget has no swing left to cover.
+>
+> **Panels described below** · The warning · Why the results equal test 01 exactly
+>
+> **Anything not described here** behaves exactly as in `01-excel-baseline` — same plant, same hours; only what this scenario changes is worked through below.
+>
+> **Trust** · verified against the reference workbook. These figures are proof.
+>
+> **Read after** · scenario 01.
+
 Test 01's vessel; battery **power 1 000 / capacity 400** (Transit).
 
 ## The warning (yellow, not red)

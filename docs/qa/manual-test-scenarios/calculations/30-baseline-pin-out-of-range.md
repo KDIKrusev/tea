@@ -1,5 +1,22 @@
 # 30 — Pinned baseline index out of range
 
+<!-- header:auto -->
+
+> **Proves** · A pinned baseline index outside the valid range, and how it is handled.
+>
+> **Mechanics this scenario turns on**
+> - Baseline rule: **no battery → the worst combination** (`count − 1`); **battery active → the third from worst** (`Math.Max(0, count − 3)`). It models what the ship is assumed to do today.
+> - `Math.Max(0, …)` bites on short lists: with only two combinations, `2 − 3` clamps to **0** — the optimum itself — so that mode reports **zero** Level 1 savings. A battery in a mode can therefore suppress that mode's Level 1 savings; the value moves to the Battery Benefit badge instead.
+> - The **Assumed Configuration** table shows Transit's combinations only, in t/h. The Fuel Consumption figure above it is the annual total across **all** modes.
+>
+> **Panels described below** · The rule · Verified against scenario 01 · Where a bad index comes from
+>
+> **Anything not described here** — the mechanics above name the step that produced it; `00-ORIENTATION` Part 6 has the full number-to-step index.
+>
+> **Trust** · characterisation snapshot, generated from the code. It detects change; it does NOT prove correctness. Figures marked *pending reference verification* have never been checked against anything outside the application.
+>
+> **Read after** · scenario 15.
+
 Scenario 15 pins a **valid** row. This pins row **99** on a five-row table.
 
 ## The rule

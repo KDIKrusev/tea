@@ -1,5 +1,23 @@
 # 28 — Transit + Maneuvering
 
+<!-- header:auto -->
+
+> **Proves** · Transit plus Maneuvering — a second mode that has both propulsion and hotel.
+>
+> **Mechanics this scenario turns on**
+> - Every active mode runs its **own** Level 1 — own demand, own combinations, own baseline, own optimum, own t/h. There is no single "tonnes per hour" for the vessel; the year is `Σ (mode t/h × mode hours)`.
+> - Level 2 and Level 3 are computed for **Transit only** (decision D4/Q5 — no workbook counterpart elsewhere). Other modes get an empty result, and the pinned-baseline radio does not reach them.
+> - With several modes the Power Demands tables gain one row per mode, and the header is an **hours-weighted average** (total energy ÷ total hours), not a sum.
+> - Savings are a **difference**, so a mode whose baseline equals its optimum contributes zero — it is present on both sides and cancels, not excluded.
+>
+> **Panels described below** · What makes it distinct · The numbers · Why 800 hours matters to the annual figure
+>
+> **Anything not described here** — the mechanics above name the step that produced it; `00-ORIENTATION` Part 6 has the full number-to-step index.
+>
+> **Trust** · characterisation snapshot, generated from the code. It detects change; it does NOT prove correctness. Figures marked *pending reference verification* have never been checked against anything outside the application.
+>
+> **Read after** · scenario 07.
+
 Maneuvering is the **only mode besides Transit and DP that carries propulsion**, and it had never
 been tested alone.
 

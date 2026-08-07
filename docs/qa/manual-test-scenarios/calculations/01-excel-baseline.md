@@ -1,5 +1,24 @@
 # 01 — Excel Baseline (battery 1260 kW, Transit)
 
+<!-- header:auto -->
+
+> **Proves** · The whole pipeline on the reference plant — every Excel "Load Demands" cell reproduced 1:1.
+>
+> **Mechanics this scenario turns on**
+> - Cascade per row: `H` = what it wants · `I = min(remaining budget, H)` · `J = I × CoverageFactor` (covered) · `L = H − J` (left to the gensets). Priority: DpReserve → DpDemand → Mission → Propulsion → Hotel. Invariant `ΣJ + ΣL = ΣH` — the sea sets the swing, the battery moves the split.
+> - Peak-shaving `H` = average × VariationFactor (propulsion 5 %, hotel 2 %). CoverageFactor is a modelling assumption about how much of a swing a battery can realistically catch — propulsion 0.35, hotel 0.05. Both live in `appsettings.json`, not in code.
+> - Only the **uncovered** part rejoins the demand: `propulsion' = propulsion + L`, `hotel' = hotel + L`. Covered power (`J`) is never subtracted from anything.
+> - The shaft generator is filled before any auxiliary starts (the main engine is already turning), and its output is a load **on** that main engine — which is why the ME figure exceeds propulsion. SG capacity scales with the number of running MEs.
+> - SFOC (g/kWh) depends on **load**: a large 2-stroke burns ~167 at 63 % and over 230 at 5 %. That curve, not the arithmetic, is why running spare engines at low load is expensive.
+> - Baseline rule: **no battery → the worst combination** (`count − 1`); **battery active → the third from worst** (`Math.Max(0, count − 3)`). It models what the ship is assumed to do today.
+> - Battery Benefit runs the pipeline **twice**: world A (demand = average + uncovered `L`) and world B (demand = average + the full swing `H`). `Benefit = (FOC_B − FOC_A) × hours`. Both are **optima**; a pinned baseline is ignored. Unticking "Enable Battery" in the UI gives a *third* world — raw demand, swing carried by nobody — which burns less than A and is not the comparison.
+>
+> **Panels described below** · Battery Contribution · Power Demands · Baseline · Integration Levels · Battery Benefit
+>
+> **This is the reference card.** The other Excel-plant scenarios (02–10, 12–18) describe only what they change and refer back to this one for the rest.
+>
+> **Trust** · verified against the reference workbook. These figures are proof.
+
 The workbook's saved scenario: propulsion 11 463 · hotel 3 800 · SM 0 · ME 2×24 000 · SG 3 250 ·
 AE 4×4 000 · Transit 5 000 h · battery 1260/2000 (Transit).
 

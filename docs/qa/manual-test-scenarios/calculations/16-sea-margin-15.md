@@ -1,5 +1,22 @@
 # 16 — Sea Margin 15 %: Heavier Sea Swells the Cascade
 
+<!-- header:auto -->
+
+> **Proves** · Sea margin multiplies propulsion BEFORE the swing is computed, so the whole cascade grows.
+>
+> **Mechanics this scenario turns on**
+> - Cascade per row: `H` = what it wants · `I = min(remaining budget, H)` · `J = I × CoverageFactor` (covered) · `L = H − J` (left to the gensets). Priority: DpReserve → DpDemand → Mission → Propulsion → Hotel. Invariant `ΣJ + ΣL = ΣH` — the sea sets the swing, the battery moves the split.
+> - Peak-shaving `H` = average × VariationFactor (propulsion 5 %, hotel 2 %). CoverageFactor is a modelling assumption about how much of a swing a battery can realistically catch — propulsion 0.35, hotel 0.05. Both live in `appsettings.json`, not in code.
+> - Only the **uncovered** part rejoins the demand: `propulsion' = propulsion + L`, `hotel' = hotel + L`. Covered power (`J`) is never subtracted from anything.
+>
+> **Panels described below** · The chain, number by number · Baseline & IL1 · Battery Benefit
+>
+> **Anything not described here** behaves exactly as in `01-excel-baseline` — same plant, same hours; only what this scenario changes is worked through below.
+>
+> **Trust** · verified against the reference workbook. These figures are proof.
+>
+> **Read after** · scenario 01.
+
 Test 01's vessel with **SM = 15** — the only Vessel-section field that enters the FOC math
 directly (type/size/speed only prefill the calm-water value).
 
