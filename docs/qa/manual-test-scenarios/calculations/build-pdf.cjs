@@ -248,21 +248,29 @@ function findChrome() {
 function main() {
   const stamp = process.env['BUILD_DATE'] || new Date().toISOString().slice(0, 10);
   const chrome = findChrome();
-  fs.mkdirSync(OUT, { recursive: true });
+
+  // Single-file mode: `node build-pdf.cjs <file.md>` renders one document next to its source.
+  // Used for one-off notes (e.g. customer explainers) that do not belong in the scenario set.
+  const single = process.argv[2] ? path.resolve(process.argv[2]) : null;
+  const outDir = single ? path.dirname(single) : OUT;
+  fs.mkdirSync(outDir, { recursive: true });
 
   // Every walkthrough, plus the two documents one level up that the rendered set used to omit:
   // the scenario list with its expected results, and the coverage matrix. Both are needed to
   // actually run the tests, and neither existed as a PDF before.
   // `.html` sources are passed through unrendered — that is how the diagram page carries inline
   // SVG, which the Markdown renderer would escape into visible angle brackets.
-  const sources = [
-    ...fs.readdirSync(DIR).filter(f => /\.(md|html)$/.test(f)).sort()
-      .map(f => ({ src: path.join(DIR, f), out: f.replace(/\.(md|html)$/, '.pdf') })),
-    { src: path.join(DIR, '..', 'README.md'), out: 'SCENARIOS-AND-EXPECTED-RESULTS.pdf' },
-    { src: path.join(DIR, '..', 'COVERAGE-MATRIX.md'), out: 'COVERAGE-MATRIX.pdf' },
-  ].filter(s => fs.existsSync(s.src));
+  const sources = (single
+    ? [{ src: single, out: path.basename(single).replace(/\.(md|html)$/, '.pdf') }]
+    : [
+        ...fs.readdirSync(DIR).filter(f => /\.(md|html)$/.test(f)).sort()
+          .map(f => ({ src: path.join(DIR, f), out: f.replace(/\.(md|html)$/, '.pdf') })),
+        { src: path.join(DIR, '..', 'README.md'), out: 'SCENARIOS-AND-EXPECTED-RESULTS.pdf' },
+        { src: path.join(DIR, '..', 'COVERAGE-MATRIX.md'), out: 'COVERAGE-MATRIX.pdf' },
+      ]
+  ).filter(s => fs.existsSync(s.src));
 
-  const tmp = path.join(OUT, '.tmp.html');
+  const tmp = path.join(outDir, '.tmp.html');
   let ok = 0;
 
   for (const { src, out } of sources) {
@@ -274,7 +282,7 @@ function main() {
       : (source.match(/^#\s+(.*)$/m) || [, file])[1];
     fs.writeFileSync(tmp, page(title, isHtml ? source : render(source), stamp), 'utf8');
 
-    const pdf = path.join(OUT, out);
+    const pdf = path.join(outDir, out);
     execFileSync(chrome, [
       '--headless', '--disable-gpu', '--no-sandbox',
       '--no-pdf-header-footer',
@@ -287,7 +295,7 @@ function main() {
   }
 
   fs.unlinkSync(tmp);
-  console.log(`\n${ok} PDF(s) written to ${OUT}`);
+  console.log(`\n${ok} PDF(s) written to ${outDir}`);
 }
 
 main();
