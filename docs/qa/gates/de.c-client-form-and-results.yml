@@ -1,0 +1,57 @@
+schema: 1
+story: 'de.c'
+story_title: 'Diesel-Electric C — Client Form and Results at 0 ME'
+gate: PASS
+status_reason: >-
+  meCount 0 is enterable; the four shaft-bound controls park (disabled + cleared) so required
+  validators step aside while the wire carries explicit zeros; un-park re-prefills from the
+  catalogue only on a genuine user transition. The restore path — where findings 4/5/6 lived —
+  initially escaped the gating because profile patches are silent (emitEvent:false); fixed with
+  the existing refresh-hook idiom and pinned by a dedicated spec that failed first for the right
+  reason. 76/76 client specs, build and lint clean, backend untouched.
+reviewer: 'Quinn (Test Architect)'
+updated: '2026-08-13T00:00:00Z'
+
+top_issues: []
+waiver: { active: false }
+
+quality_score: 95
+expires: null
+
+evidence:
+  tests_reviewed: 4
+  risks_identified: 3
+  trace:
+    ac_covered: [1, 2, 4, 5]
+    ac_gaps: [3]
+  verification:
+    - 'AC1: ME_COUNT.MIN 0 / AE_COUNT.MIN 1 split in constants + schema + template min="0"'
+    - 'AC2: park/wake specs — disabled+cleared at 0; catalogue re-prefill (9000/id 3) on user wake; no-stomp spec for ordinary count edits; edit-tracker re-baselined on both transitions'
+    - 'AC4: restore spec — a meCount:0 draft arrives parked, wire carries meCount 0 and finite numbers (schema stays v3; importer typeof-number check accepts 0)'
+    - 'AC5: npm run test:ci 76/76 (1 pre-existing skip) · ng build clean (1.20 MB) · ng lint clean'
+    - 'AC3 (partial): results-panel guards at 0 ME were code-verified in the analyst brief (PowerDemandsBuilder, baseline-panel activeMeCount guard); a rendered end-to-end pass at 0 ME lands with DE-D scenario 36 — tracked below'
+
+nfr_validation:
+  security: { status: PASS, notes: 'No new inputs; parked controls only narrow what is sendable.' }
+  performance: { status: PASS, notes: 'One extra control-level subscription; all writes emitEvent:false — no new emission sources (finding-6 family respected).' }
+  reliability:
+    status: PASS
+    notes: >-
+      The user path and the restore path are covered by separate specs because they are separate
+      code paths — the red run proved they diverge. The transition guard prevents catalogue
+      prefill from stomping user or profile values.
+  maintainability:
+    status: PASS
+    notes: >-
+      Gating is one method pair (park/wake) with the cross-section batteryMaxPtiKw choice
+      documented inline; the refresh hook mirrors refreshDpAvailability so the next silent-patch
+      consumer has a pattern to follow.
+
+recommendations:
+  immediate: []
+  future:
+    - action: >-
+        DE-D: close AC3's rendered half — load scenario 36 in the running app and verify the
+        results panels (Power Demands ME 0 row, AE-only combination table, tier cards) render
+        without artifacts; add a rendered-output spec if any panel misbehaves.
+      refs: ['docs/stories/brownfield-de-d-golden-scenarios-and-docs.md']

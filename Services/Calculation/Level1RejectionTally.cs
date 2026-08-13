@@ -55,8 +55,17 @@ internal sealed class Level1RejectionTally
                  + "engine count, or reduce the propulsion/hotel power for this mode.";
 
         if (AuxOverloaded > 0)
+        {
+            // Diesel-electric plant: the AEs carry propulsion too, so name that lever as well.
+            // The MeCount >= 1 wording below is pinned by exact message — do not touch it.
+            if (input.MeCount == 0)
+                return $"the auxiliary engines would run above 90% load carrying the whole diesel-electric "
+                     + $"demand in {mode} mode. Increase auxiliary engine capacity or count, or reduce "
+                     + "the propulsion or hotel/mission power.";
+
             return $"the auxiliary engines would run above 90% load in {mode} mode. Increase auxiliary "
                  + "engine capacity or count, or reduce the hotel/mission power.";
+        }
 
         return $"no engine configuration can cover the {mode} demand. Check the engine capacities, "
              + "engine counts and the power demands for this mode.";

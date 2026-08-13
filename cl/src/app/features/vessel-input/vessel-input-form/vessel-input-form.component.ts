@@ -417,6 +417,10 @@ export class VesselInputFormComponent implements OnInit, OnDestroy, AfterViewIni
     // patchValue above used emitEvent:false — the battery section's dpHours subscription
     // did not fire, so re-evaluate DP checkbox availability explicitly
     this.batteryConfigSection?.refreshDpAvailability();
+    // Same silent-patch consequence for the diesel-electric gating: a restored meCount of 0
+    // must park the shaft-bound controls (and a conventional profile must wake them) without
+    // the catalogue prefill — the profile owns the values (Epic E1, story DE-C).
+    this.engineConfigSection?.refreshDieselElectricState();
     // patchValue used emitEvent:false, so the debounced recalculation of the weighted hotel load
     // did not run — do it here, while the profile's mode hours are the current ones.
     this.updateWeightedAverageHotelLoad();

@@ -53,8 +53,37 @@ internal static class Level1CandidateBuilder
     /// </summary>
     internal static EngineCombination? TryDistribute(
         EngineCombination combo, CalculatorInput input, OperationalMode mode,
-        double propulsion, double hotel)
+        double propulsion, double hotel, double electricPropulsionLossFactor = 0)
     {
+        // Diesel-electric plant (no MEs installed, Epic E1): the auxiliaries carry the WHOLE
+        // demand — propulsion reaches thrusters/pods through the electric chain, grossed up by
+        // the configured loss factor (default 0, D-DE2). This branch is the epic's only entry
+        // into the distribution; everything below it is the unchanged diesel-mechanic path.
+        if (PlantShape.IsDieselElectric(input))
+        {
+            // Only pure-AE states exist: no shaft to spin an SG, no ME to run.
+            if (combo.ActiveMeCount > 0 || combo.SgEnabled)
+                return null;
+
+            var electricDemand = hotel + propulsion * (1 + electricPropulsionLossFactor);
+            var deAeCapacity = combo.ActiveAeCount * input.AeCapacityPerEngine;
+            var deAePower = Math.Min(electricDemand, deAeCapacity);
+
+            if (deAePower < electricDemand - PlantLimits.PowerToleranceKw)
+                return null; // this many AEs cannot carry the load
+            if (combo.ActiveAeCount > 0 && deAePower == 0)
+                return null; // idle AE, same rule as the mechanic path
+
+            return combo with
+            {
+                MePowerKw = 0,
+                SgPowerKw = 0,
+                AePowerKw = deAePower,
+                MeLoadPercent = 0,
+                AeLoadPercent = CalculationHelpers.LoadPercent(deAePower, deAeCapacity)
+            };
+        }
+
         // ME=0 invalid for Transit/Maneuvering (vessel needs ME for propulsion)
         if ((mode == OperationalMode.Transit || mode == OperationalMode.Maneuvering) && combo.ActiveMeCount == 0)
             return null;

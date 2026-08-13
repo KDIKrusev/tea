@@ -1,0 +1,69 @@
+schema: 1
+story: 'de.b'
+story_title: 'Diesel-Electric B — Distribution Branch and the Electric Loss Factor'
+gate: PASS
+status_reason: >-
+  The distribution branch lands exactly where the architecture drew it: one gated early branch in
+  TryDistribute, everything upstream (cascade, adjustments, baseline rules, Benefit worlds)
+  provably unchanged. Hand-derived ACs all verified: 90% cap polices the whole electric load,
+  ranking and both baseline rules behave, loss factor grosses up propulsion only, battery L/J
+  land on the AE side and the two worlds differ by exactly the covered band, DP thrust and
+  uncovered DpReserve ride the AEs with no PTI gate. Full suite 460/460; goldens byte-untouched.
+  One architecture assumption was corrected by its own characterization test (see top_issues).
+reviewer: 'Quinn (Test Architect)'
+updated: '2026-08-13T00:00:00Z'
+
+top_issues:
+  - severity: info
+    finding: >-
+      AC7 disproved design §8.3's "L2 empty at zero SG": Level 2 sweeps unequal splits across
+      active AEs and finds ~0.0009 t/h at 0 ME on the test plant. Not a defect — a live feature
+      for diesel-electric vessels. Design doc and decisions log corrected in the same change;
+      DE-D documentation must present it as such.
+
+waiver: { active: false }
+
+quality_score: 100
+expires: null
+
+evidence:
+  tests_reviewed: 11
+  risks_identified: 3
+  trace:
+    ac_covered: [1, 2, 3, 4, 5, 6, 7, 8]
+    ac_gaps: []
+  verification:
+    - 'AC1: WholeDemandLandsOnTheAuxiliaries_And90PercentCapPolicesIt — sole survivor ae=4 @ 68.75%, baseline=optimal'
+    - 'AC2: TwoSurvivors_RankByFuel_BaselineIsTheWorse — ae=3 optimal, ae=4 baseline (count−1)'
+    - 'AC3: LossFactorGrossesUpThePropulsionSideOnly (7 850) + LossFactorDefaultsToZero (config default + optional ctor arg)'
+    - 'AC4: CascadeNumbersMatchTheHandDerivation (500/175/325, 60/3/57, PS 178, SR 382) + BatteryWorldA (13 382, baseline clamps to 0)'
+    - 'AC5: BatteryBenefit_WorldsDifferByTheCoveredBand — demand gap exactly 178, FOC_B > FOC_A'
+    - 'AC6: DpThrustLandsOnTheAuxiliaries (4 500 × 3 survivors) + DpUncoveredRedundancyRaisesTheAuxDemand (4 870)'
+    - 'AC7: Level2AtZeroSg_OptimizesTheAeSplit — characterization pin ~0.0009 t/h'
+    - 'AC8: 460/460 via BaseOutputPath redirect; git status --porcelain has no Golden/Expected/ entries'
+    - 'Rejection wording: AllRejectedByTheCap_ExplainsWithTheDieselElectricSentence — new DE sentence; pinned MeCount>=1 texts untouched (Level1RejectionDiagnosticsTests green)'
+
+nfr_validation:
+  security: { status: PASS, notes: 'No new input surface; config key is a plain double.' }
+  performance: { status: PASS, notes: 'One boolean gate per candidate on the MeCount >= 1 path; DE path is strictly smaller search space.' }
+  reliability:
+    status: PASS
+    notes: >-
+      The optional constructor parameter keeps every existing construction site compiling and
+      behaviourally identical (factor 0). DI supplies the registered options in production —
+      verified by DependencyInjectionTests staying green.
+  maintainability:
+    status: PASS
+    notes: >-
+      The branch cites the design doc; PlantShape documents WHY it is not a model property.
+      The architecture correction is recorded in three places (design, decisions log, test
+      comment) with the same story, so the next reader cannot resurrect the dead assumption.
+
+recommendations:
+  immediate: []
+  future:
+    - action: >-
+        DE-D: present Level 2 as live for diesel-electric (unequal genset dispatch) in the
+        scenario cards and the ORIENTATION 0-ME note — reverse index row "Level 2 contribution"
+        currently names scenario 19 as the only non-zero case; a DE scenario may join it.
+      refs: ['docs/qa/manual-test-scenarios/calculations/00-ORIENTATION.md']

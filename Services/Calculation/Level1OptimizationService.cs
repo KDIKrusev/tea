@@ -21,10 +21,18 @@ namespace KSailCalc.Api.Services.Calculation;
 public class Level1OptimizationService : ILevel1OptimizationService
 {
     private readonly BatterySettings _batterySettings;
+    private readonly double _electricPropulsionLossFactor;
 
-    public Level1OptimizationService(IOptions<BatterySettings> batterySettings)
+    /// <param name="calculatorSettings">
+    /// Optional so the many existing test call sites keep compiling; DI always supplies it.
+    /// Only <see cref="CalculatorSettings.ElectricPropulsionLossFactor"/> is read (Epic E1).
+    /// </param>
+    public Level1OptimizationService(
+        IOptions<BatterySettings> batterySettings,
+        IOptions<CalculatorSettings>? calculatorSettings = null)
     {
         _batterySettings = batterySettings.Value;
+        _electricPropulsionLossFactor = calculatorSettings?.Value.ElectricPropulsionLossFactor ?? 0;
     }
 
     public Level1Result FindOptimalCombination(
@@ -104,7 +112,8 @@ public class Level1OptimizationService : ILevel1OptimizationService
 
             // Structural feasibility and load distribution in one pass — they share the same
             // plant arithmetic, so computing it twice is how the two drift apart.
-            var distributed = Level1CandidateBuilder.TryDistribute(candidate, input, mode, propulsion, hotel);
+            var distributed = Level1CandidateBuilder.TryDistribute(
+                candidate, input, mode, propulsion, hotel, _electricPropulsionLossFactor);
             if (distributed is null)
             {
                 rejections.Structural++;

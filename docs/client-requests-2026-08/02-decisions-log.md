@@ -12,12 +12,14 @@ and **block** their epic until resolved. Numbering continues the D-series style 
 | **D-DE2** | Electric-drive loss (AE → converter → thruster) | **New config key `ElectricPropulsionLossFactor` in appsettings, default 0** (user enters demand at the switchboard). | No Excel authority for thruster losses; default 0 keeps the client's hand-checks against his workbook clean. Changing to e.g. 5 % (Excel I4 PTI precedent) is a config edit, no code. |
 | **D-DE3** | Validation strictness at MeCount = 0 | **Blocking errors** for SG capacity > 0 and PTI > 0 (not silent zeroing). ME type + ME capacity become not-required. | Silent ignoring is the behaviour class that produced Finding 3 ("DP redundancy persists invisibly"). |
 | **D-DE4** | 90 % `MaxAuxLoadFraction` cap at 0 ME | **Keep the cap** — it now applies to propulsion + hotel combined. | Spinning-reserve realism. Documented consequence: AE capacity must be ≥ (propulsion + hotel)/0.9 or the plant is infeasible. |
-| **D-DE5** | Presentation at 0 ME | Values stay honest (ME 0 kW); **cosmetic "diesel-electric" label deferred to the end of the epic**. | `PowerDemandsBuilder` and client guards already handle 0 correctly; cosmetics must not block the model. |
+| **D-DE5** | Presentation at 0 ME | Values stay honest (ME 0 kW); **cosmetic "diesel-electric" label deferred to the end of the epic**. | `PowerDemandsBuilder` and client guards already handle 0 correctly; cosmetics must not block the model. **Closed 2026-08-13 (DE-D): deferral stands** — the panels render honest zeros (pinned by scenario 36's snapshot); a "diesel-electric" hint ships only if the client asks after seeing it. |
 
 ## Logged limitations (not decisions to revisit now)
 
-- **L2 at zero SG**: expected to return an empty redistribution; requires a characterization test
-  in the epic (proof, not belief — lesson of Finding 5).
+- **L2 at zero SG**: was "expected to return an empty redistribution" — the DE-B characterization
+  test **disproved this** (2026-08-13): L2 sweeps unequal splits across the active AEs and finds
+  real savings at 0 ME (~0.0009 t/h on the test plant). Recorded as a feature; the "empty"
+  expectation was the belief, the test was the proof — lesson of Finding 5 applied correctly.
 - **L3 DRC stays hotel-only** under diesel-electric; no Excel authority to extend DRC to the
   propulsion swing. Documented limitation.
 

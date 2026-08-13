@@ -167,11 +167,24 @@ is additionally pinned by `Level1RejectionDiagnosticsTests`.
 3. **Scenario 14 remains 175 h over a year.** It now carries the advisory warning rather than being
    corrected, so the scenario also documents what an over-long profile looks like.
 
+## Diesel-electric wave (36–39, Epic E1)
+
+| Mechanism | Covered by |
+|---|---|
+| 0-ME distribution (AE = hotel + propulsion × (1 + loss factor)) | 36, 37, 38 |
+| 90 % AE cap policing the whole electric load | 36 (ae=3 rejected at 91.7 %) |
+| **Level 2 live with no SG** (unequal AE split) | **36** (+41.675 t/yr — only 19 also has non-zero L2) |
+| DP thrust + uncovered DpReserve on the AE side, PTI gate inert | 37 |
+| Cascade + both Benefit worlds at 0 ME; with-battery baseline clamp | 38 (world gap = PS 178 exactly) |
+| Diesel-electric AE-capacity 400 (ME-shaped messages absent) | 39 |
+| Not covered by a scenario: the L1 rejection sentence when the 90 % cap kills every combination after validation passes | unit test (`AllRejectedByTheCap_ExplainsWithTheDieselElectricSentence`) |
+| Not covered: `ElectricPropulsionLossFactor ≠ 0` end-to-end | unit test only (config default is 0; a non-zero value is a product decision away) |
+
 ## Approval status
 
 Scenarios 01–18 were verified against the reference workbook during the original QA passes.
 
-**Scenarios 19–35 were generated from the current code.** They are *characterisation* snapshots:
+**Scenarios 19–39 were generated from the current code.** They are *characterisation* snapshots:
 they prove the behaviour does not change silently, and each one was checked to actually reach the
 path it targets. Where an expected figure could be derived by hand it is shown in the matching card
 under **Hand-check**. Figures that require the workbook are marked **pending reference verification**

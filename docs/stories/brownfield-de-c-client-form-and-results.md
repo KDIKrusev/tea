@@ -3,7 +3,7 @@
 <!-- Source: PRD v1.0 §6 (story DE-C); architecture 04-architecture-diesel-electric.md §6 -->
 <!-- Depends on: DE-A (validation), DE-B (calculation). -->
 
-## Status: Approved (ready for Dev after DE-B)
+## Status: Done
 
 ## Story
 
@@ -39,15 +39,36 @@ results**.
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Constants/schema/template split
-- [ ] Task 2: Field gating + tracker transitions
-- [ ] Task 3: DOM + round-trip specs
-- [ ] Task 4: `npm run test:ci` + `ng build`; record counts
+- [x] Task 1: Constants/schema/template split
+- [x] Task 2: Field gating + tracker transitions
+- [x] Task 3: DOM + round-trip specs
+- [x] Task 4: `npm run test:ci` + `ng build`; record counts
 
 ## Dev Agent Record
 
-_(pending)_
+- `VALIDATION_LIMITS.COUNT` split into `ME_COUNT { MIN: 0 }` / `AE_COUNT { MIN: 1 }`; schema and
+  template follow (`min="0"` on the meCount input).
+- Gating lives in `EngineConfigSectionComponent`: a meCount `valueChanges` subscription (a
+  reaction to an existing emission source, never a new one — every setValue/disable runs with
+  `emitEvent: false`) parks the four shaft-bound controls (`meCapacityPerEngine`,
+  `mainEngineTypeId`, `sgCapacityPerEngine`, `batteryMaxPtiKw` — the last renders in the battery
+  section but is a control of the shared form). Parked = disabled + cleared: disabled controls
+  drop out of form validity (the `required` validators step aside for free, and validity gates
+  every emission) while `getRawValue()` still carries explicit zeros to the wire.
+- **Restore-path lesson (cost one red run):** `applyProfileInputValues` patches with
+  `emitEvent: false`, so the subscription never fires on restore. Fixed with the codebase's own
+  idiom — a public `refreshDieselElectricState()` called by the parent after the silent patch,
+  exactly like `refreshDpAvailability`. The two wake paths differ deliberately: a USER bringing
+  engines back gets the catalogue prefill; a restored profile is the authority and wakes the
+  controls without prefill.
+- Un-park re-prefill is transition-guarded: an ordinary meCount edit (2 → 3) never re-prefills —
+  pinned by its own spec (the findings-4/5/6 bug family).
+- Test results: 4 new behaviour specs (`diesel-electric-form.spec.ts`) — park + wire zeros,
+  catalogue re-prefill, restore-parked, no-stomp. Full client suite **76/76 green** (1
+  pre-existing skip), `ng build` clean, `ng lint` clean. Backend untouched.
 
 ## QA Results
 
-_(pending)_
+**Gate: PASS** — `docs/qa/gates/de.c-client-form-and-results.yml` (Quinn, 2026-08-13).
+AC3 (results panels at 0 ME) covered by the existing guards verified in the analyst brief plus
+the DE-D manual pass to come; the form/wire half of the story is spec-pinned.

@@ -16,7 +16,10 @@ export const DEFAULT_VALUES = {
 export const VALIDATION_LIMITS = {
   SEA_MARGIN: { MIN: 0, MAX: 100 },
   POWER: { MIN: 0, MIN_POSITIVE: 1 },
-  COUNT: { MIN: 1 },
+  // Split limits (Epic E1): 0 main engines is a legal diesel-electric plant;
+  // a vessel with 0 auxiliary engines is not a plant at all.
+  ME_COUNT: { MIN: 0 },
+  AE_COUNT: { MIN: 1 },
   FUEL_PRICE: { MIN: 1 }
 } as const;
 

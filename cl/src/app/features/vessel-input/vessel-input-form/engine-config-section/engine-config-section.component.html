@@ -93,7 +93,7 @@
           <span class="edited-label">(edited)</span>
         }
       </mat-label>
-      <input matInput type="number" formControlName="meCount" step="1" min="1">
+      <input matInput type="number" formControlName="meCount" step="1" min="0">
       <mat-hint>Total installed main engines</mat-hint>
       @if (meCount?.invalid && meCount?.touched) {
         <mat-error>{{ getValidationError('meCount') }}</mat-error>

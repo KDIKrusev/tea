@@ -141,9 +141,9 @@ public class TestServiceFactory
         // Wire real services
         factory.SfocService = new SfocService(factory.AppDataMock.Object, new Mock<ILogger<SfocService>>().Object);
         factory.SailContributionService = new SailContributionService(factory.SailRepoMock.Object);
-        factory.Level1Service = new Level1OptimizationService(Options.Create(new BatterySettings()));
-        factory.Level2Service = new Level2OptimizationService();
         var settings = Options.Create(new CalculatorSettings());
+        factory.Level1Service = new Level1OptimizationService(Options.Create(new BatterySettings()), settings);
+        factory.Level2Service = new Level2OptimizationService();
         factory.Level3Service = new Level3DrcService(settings);
         factory.BatteryAllocationService = new BatteryAllocationService(Options.Create(new BatterySettings()));
         factory.Curves = factory.CurvesFor(CalculatorInputBuilder.Default().Build());

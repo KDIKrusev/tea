@@ -78,6 +78,82 @@ export class EngineConfigSectionComponent implements OnInit, OnDestroy {
 			.pipe(takeUntil(this.destroy$)).subscribe(() => this.cdr.markForCheck());
 		this.parentForm.get('aeCapacityPerEngine')?.valueChanges
 			.pipe(takeUntil(this.destroy$)).subscribe(() => this.cdr.markForCheck());
+		// Diesel-electric gating (Epic E1, story DE-C): at meCount == 0 the shaft-bound controls
+		// step aside. This is a REACTION to an existing emission source (the user's meCount edit),
+		// not a new one — every setValue/disable below runs with emitEvent: false.
+		this.parentForm.get('meCount')?.valueChanges
+			.pipe(takeUntil(this.destroy$))
+			.subscribe(count => this.syncDieselElectricState(Number(count)));
+	}
+
+	/**
+	 * Controls that physically hang off the main-engine shaft. `batteryMaxPtiKw` renders in the
+	 * battery section, but it is a control of the SHARED form and a property of the shaft — gating
+	 * it here keeps the whole diesel-electric rule in one method.
+	 */
+	private static readonly SHAFT_BOUND_CONTROLS =
+		['meCapacityPerEngine', 'mainEngineTypeId', 'sgCapacityPerEngine', 'batteryMaxPtiKw'] as const;
+
+	/** True while the shaft-bound controls are parked by the diesel-electric state. */
+	private dieselElectricParked = false;
+
+	/**
+	 * meCount == 0 ⇒ disable + clear the shaft-bound controls: disabled controls drop out of form
+	 * validity (so `Validators.required` on ME capacity/type stops applying) while `getRawValue()`
+	 * still carries their explicit nulls → zeros to the wire, which backend story DE-A accepts.
+	 * meCount back ≥ 1 ⇒ re-enable and re-prefill from the catalogue — but ONLY on a real
+	 * transition, so ordinary meCount edits (2 → 3) never stomp user capacities.
+	 */
+	private syncDieselElectricState(meCount: number): void {
+		if (meCount === 0 && !this.dieselElectricParked) {
+			this.parkShaftBoundControls();
+		} else if (meCount >= 1 && this.dieselElectricParked) {
+			this.wakeShaftBoundControls();
+			// A USER brought the main engines back — restore the catalogue prefill (capacity,
+			// type id, SG when the model has one, fuel). applyMainEngineChange also re-baselines
+			// the edit tracker for everything it patches.
+			const engine = this.mainEngineTypes[0];
+			if (engine) {
+				this.applyMainEngineChange(engine);
+			}
+		}
+	}
+
+	/**
+	 * Parent hook for the restore path: `applyProfileInputValues` patches with emitEvent:false,
+	 * so the meCount subscription never fires there — same idiom as
+	 * `BatteryConfigSectionComponent.refreshDpAvailability`. Unlike the user transition above,
+	 * a restored profile is the authority on every value, so waking the controls does NOT
+	 * re-prefill from the catalogue.
+	 */
+	refreshDieselElectricState(): void {
+		const meCount = Number(this.parentForm.get('meCount')?.value);
+		if (meCount === 0 && !this.dieselElectricParked) {
+			this.parkShaftBoundControls();
+		} else if (meCount >= 1 && this.dieselElectricParked) {
+			this.wakeShaftBoundControls();
+		}
+	}
+
+	private parkShaftBoundControls(): void {
+		this.dieselElectricParked = true;
+		for (const name of EngineConfigSectionComponent.SHAFT_BOUND_CONTROLS) {
+			const control = this.parentForm.get(name);
+			if (!control) {continue;}
+			control.setValue(null, { emitEvent: false });
+			control.disable({ emitEvent: false });
+			this.editTracker.updateOriginalValue(name, null);
+		}
+		this.selectedMainEngineTypeId = null;
+		this.cdr.markForCheck();
+	}
+
+	private wakeShaftBoundControls(): void {
+		this.dieselElectricParked = false;
+		for (const name of EngineConfigSectionComponent.SHAFT_BOUND_CONTROLS) {
+			this.parentForm.get(name)?.enable({ emitEvent: false });
+		}
+		this.cdr.markForCheck();
 	}
 
 	/**

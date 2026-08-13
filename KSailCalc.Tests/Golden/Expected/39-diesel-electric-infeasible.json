@@ -1,0 +1,7 @@
+{
+  "status": 400,
+  "result": null,
+  "errors": [
+    "Auxiliary engine capacity cannot carry propulsion and hotel load. Consider reducing propulsion power, decreasing sea margin, reducing hotel/mission load or increasing auxiliary engine capacity."
+  ]
+}

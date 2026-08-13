@@ -148,6 +148,10 @@ comparison.
 1. **JSON drift via model members** — mitigated by §1 (helper, not property).
 2. **400-order regression** — mitigated by append-only rule + the pinned-order suite (§4).
 3. **L2 at zero SG** unproven — characterization test in DE-B *before* DE-D freezes scenarios.
+   **RESOLVED 2026-08-13, assumption corrected:** the test proved L2 is **live** at 0 ME, not
+   empty — it sweeps unequal splits across the active AEs and beats Level 1's equal split
+   (~0.0009 t/h on the test plant). Diesel-electric vessels therefore get genuine Level 2 value
+   (unequal genset dispatch). DE-D's cards and ORIENTATION note must present it as a feature.
 4. **Client cascade re-prefill fighting the disabled fields** — the known emission-cascade family;
    DE-C touches it only through the tracker baseline, no new emission sources.
 5. **Numbers without an authority** — new scenarios stay "characterisation — pending reference

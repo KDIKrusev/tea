@@ -1,0 +1,60 @@
+schema: 1
+story: 'de.d'
+story_title: 'Diesel-Electric D — Golden Scenarios and Documentation'
+gate: PASS
+status_reason: >-
+  Four import-ready scenarios freeze the diesel-electric family; every generated snapshot was
+  reviewed against the DE-B hand-derivations before approval and all matched (kW figures exact,
+  FOC from the fixture curve). The GOLDEN_UPDATE run is proven non-destructive: git shows 4
+  additions and a byte-empty diff on the 35 frozen snapshots. Documentation closes the epic —
+  cards, README wave section, ORIENTATION Part 3c, coverage matrix with its two named
+  unit-test-only gaps, and the D-DE5 deferral recorded. Full suite 472/472.
+reviewer: 'Quinn (Test Architect)'
+updated: '2026-08-13T00:00:00Z'
+
+top_issues: []
+waiver: { active: false }
+
+quality_score: 100
+expires: null
+
+evidence:
+  tests_reviewed: 12
+  risks_identified: 2
+  trace:
+    ac_covered: [1, 2, 3, 4, 5]
+    ac_gaps: []
+  verification:
+    - 'AC1: ScenarioImportContractTests green over 36–39 (legacy fields present; numeric zeros pass the importer typeof checks)'
+    - 'AC2: GoldenMasterTests 40/40 incl. 39 pinning the 400 text verbatim'
+    - 'AC3: contract untouched — schema v3, no importer change'
+    - 'AC4: cards 36–39 carry the hand arithmetic (cascade rows, 90% cap table, world gap = PS); README/ORIENTATION/COVERAGE updated; L2-at-0-ME presented as a feature per the DE-B correction'
+    - 'AC5: git diff --stat on Golden/Expected/ empty; git status shows only the 4 new files'
+    - 'Host changes reviewed: fixture guard skip is gated on MeCount == 0 only; calcOptions wiring is a production mirror with provably identical behaviour (key absent → 0)'
+
+nfr_validation:
+  security: { status: PASS, notes: 'Data and docs only; host changes are test infrastructure.' }
+  performance: { status: PASS, notes: 'Four more golden theories; suite duration unchanged (~0.7s).' }
+  reliability:
+    status: PASS
+    notes: >-
+      The snapshots mirror what the parked client form actually sends (mainEngineTypeId 0), so
+      the golden contract tracks the real wire, not an idealised input.
+  maintainability:
+    status: PASS
+    notes: >-
+      Scenario 36 doubles as the living proof that L2 is meaningful at 0 ME; the coverage matrix
+      names what is deliberately NOT scenario-covered so nobody mistakes the gaps for accidents.
+
+recommendations:
+  immediate: []
+  future:
+    - action: >-
+        Promote 36–39 from characterisation to proof once the client verifies at least one
+        against his own reference (D4 discipline) — same promotion path 01–18 took.
+      refs: ['docs/qa/manual-test-scenarios/README.md']
+    - action: >-
+        AC3 of DE-C (rendered pass at 0 ME in the running app) — import scenario 36 in the UI on
+        the next manual QA session; the parked form and honest-zero panels are spec-covered, the
+        eyeball pass is the remaining nicety.
+      refs: ['docs/qa/gates/de.c-client-form-and-results.yml']

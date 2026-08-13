@@ -170,12 +170,42 @@ Battery 1260 configured for Port only; Port hours 0.
   IL1 FOC = pure no-battery result **12 892.7 t/yr**. The battery silently does nothing —
   exactly as designed.
 
+## Third wave — diesel-electric plants (Epic E1, 0 main engines)
+
+`meCount: 0` is a legal plant since Epic E1: the AEs carry propulsion + hotel as one electric
+load (`× (1 + ElectricPropulsionLossFactor)`, config default 0), SG/PTI are refused by
+validation, and the parked client form sends `meCapacityPerEngine: 0` / `mainEngineTypeId: 0` —
+which these files mirror deliberately.
+
+### 36 — Diesel-electric transit (AE 4×4000, prop 8000, hotel 3000)
+Demand 11 000; ae=3 dies on the 90 % cap (91.7 %), **ae=4 sole survivor @ 68.75 %** →
+FOC **2.140875 t/h → 10 704.375 t/yr**, IL1 savings 0 (baseline = optimal).
+- **IL2 adds 41.675 t/yr** — Level 2 is LIVE at 0 ME (unequal AE split; the suite's only other
+  non-zero L2 is scenario 19). IL3 total 68.735.
+
+### 37 — Diesel-electric DP (battery 500 DP-only, redundancy 800)
+DP allocation: DpReserve **800/500/500/300**, Hotel 70/0/0/70 → tiles **SR 370 / PS 0** (the
+covered reserve is excluded from PS — the relabelled totals explain it).
+- DP AE demand **4 870** (= 1000+300+3500+70); Transit 11 000 @ 2.140875 t/h
+- Benefit **92.63 t/yr ≈ $72 251/yr**
+
+### 38 — Diesel-electric with battery in Transit (800 kW, prop 10 000)
+Cascade: Propulsion 500/500/175/325 · Hotel 60/60/3/57 → **PS 178 / SR 382**.
+- World A: AE **13 382** @ 83.6375 % → **12 931.27 t/yr**; single survivor ⇒ battery baseline
+  clamps ⇒ IL1 savings 0 · Benefit **177.47 t/yr ≈ $138 428/yr** (world gap = exactly PS 178)
+
+### 39 — Diesel-electric infeasible (expect a 400, NOT results)
+AE 2×4000 cannot carry 11 463 + 3 800. Expected red error: *"Auxiliary engine capacity cannot
+carry propulsion and hotel load. Consider reducing propulsion power, decreasing sea margin,
+reducing hotel/mission load or increasing auxiliary engine capacity."* — the diesel-electric
+twin of scenario 17, with the ME-shaped messages deliberately absent.
+
 ## Coverage
 
-See **COVERAGE-MATRIX.md** for what the 35 scenarios do and do not reach, verified against the
+See **COVERAGE-MATRIX.md** for what the scenarios do and do not reach, verified against the
 approved snapshots rather than against the scenario files.
 
-Scenarios 01–18 were verified against the reference workbook. **19–35 were generated from the
+Scenarios 01–18 were verified against the reference workbook. **19–39 were generated from the
 current code** and are characterisation snapshots — they detect change, and each was checked to
 actually reach the path it targets, but figures marked "pending reference verification" in their
 cards are not yet correctness proofs.

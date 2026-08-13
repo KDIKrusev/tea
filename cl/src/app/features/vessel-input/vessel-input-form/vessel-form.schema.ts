@@ -19,14 +19,14 @@ export function buildVesselForm(fb: FormBuilder): FormGroup {
 
     // Main Engine — rated power is a required manual input (ratings always differ)
     meCapacityPerEngine: [null, [Validators.required, Validators.min(VALIDATION_LIMITS.POWER.MIN_POSITIVE)]],
-    meCount: [DEFAULT_VALUES.ME_COUNT, [Validators.min(VALIDATION_LIMITS.COUNT.MIN)]],
+    meCount: [DEFAULT_VALUES.ME_COUNT, [Validators.min(VALIDATION_LIMITS.ME_COUNT.MIN)]],
 
     // Shaft Generator — optional (0 = no shaft generator)
     sgCapacityPerEngine: [null, [Validators.min(VALIDATION_LIMITS.POWER.MIN)]],
 
     // Auxiliary Engine — rated power is a required manual input
     aeCapacityPerEngine: [null, [Validators.required, Validators.min(VALIDATION_LIMITS.POWER.MIN_POSITIVE)]],
-    aeCount: [DEFAULT_VALUES.AE_COUNT, [Validators.min(VALIDATION_LIMITS.COUNT.MIN)]],
+    aeCount: [DEFAULT_VALUES.AE_COUNT, [Validators.min(VALIDATION_LIMITS.AE_COUNT.MIN)]],
 
     // Engine Type IDs
     mainEngineTypeId: [null, [Validators.required]],

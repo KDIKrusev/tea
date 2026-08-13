@@ -3,7 +3,7 @@
 <!-- Source: PRD v1.0 §6 (story DE-B); architecture 04-architecture-diesel-electric.md §1–3, §7 -->
 <!-- Context: the heart of Epic E1. After this story a 0-ME input calculates end-to-end. -->
 
-## Status: Approved (ready for Dev)
+## Status: Done
 
 ## Story
 
@@ -58,16 +58,30 @@ as they do for a conventional one**.
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: PlantShape helper + settings key + options threading
-- [ ] Task 2: TryDistribute branch (architecture §2 verbatim)
-- [ ] Task 3: RejectionTally diesel-electric wording
-- [ ] Task 4: Tests AC1–AC7 (`Level1CandidateBuilder`/`Level1OptimizationService`/battery/L2)
-- [ ] Task 5: Full suite + golden byte check; record counts
+- [x] Task 1: PlantShape helper + settings key + options threading
+- [x] Task 2: TryDistribute branch (architecture §2 verbatim)
+- [x] Task 3: RejectionTally diesel-electric wording
+- [x] Task 4: Tests AC1–AC7 (`Level1CandidateBuilder`/`Level1OptimizationService`/battery/L2)
+- [x] Task 5: Full suite + golden byte check; record counts
 
 ## Dev Agent Record
 
-_(pending)_
+- `Services/Helpers/PlantShape.cs` (new), `CalculatorSettings.ElectricPropulsionLossFactor`
+  (default 0; note: the real appsettings section is `CalculatorSettings`, not `Calculator` as the
+  architecture doc first wrote — key is `CalculatorSettings:ElectricPropulsionLossFactor`),
+  DE branch at the top of `TryDistribute` with the factor passed as an optional parameter
+  (builder stays pure; existing call sites compile unchanged), optional
+  `IOptions<CalculatorSettings>` on the `Level1OptimizationService` constructor (DI supplies it;
+  the many direct test constructions keep compiling), DE-aware AuxOverloaded sentence in
+  `Level1RejectionTally` (existing pinned texts untouched), `TestServiceFactory` wires the
+  settings through.
+- **AC7 finding — architecture assumption corrected:** L2 at 0 ME is NOT empty. It sweeps
+  unequal splits across the active AEs and beat Level 1's equal split by ~0.0009 t/h on the test
+  plant. Recorded in the design doc §8.3 and the decisions log; DE-D must present L2 as live for
+  diesel-electric. The characterization test now pins the real figure.
+- Test results: 11 new tests (AC1–AC7 + rejection wording), full suite **460/460 green** via the
+  BaseOutputPath redirect; `git status` shows no `Golden/Expected/` entries — CR1 held.
 
 ## QA Results
 
-_(pending)_
+**Gate: PASS** — `docs/qa/gates/de.b-distribution-and-loss-factor.yml` (Quinn, 2026-08-13).

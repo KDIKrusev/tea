@@ -75,7 +75,7 @@ internal sealed class GoldenScenarioHost
 
         var pipelineRunner = new ModePipelineRunner(
             sfoc,
-            new Level1OptimizationService(batteryOptions),
+            new Level1OptimizationService(batteryOptions, calcOptions),
             new Level2OptimizationService(),
             new Level3DrcService(calcOptions),
             new BatteryAllocationService(batteryOptions),
@@ -120,7 +120,10 @@ internal sealed class GoldenScenarioHost
     /// </summary>
     private void AssertFixtureCovers(CalculatorInput input)
     {
-        if (!_fixtureMainEngineIds.Contains(input.MainEngineTypeId))
+        // Diesel-electric plant (MeCount == 0, Epic E1): the client parks the ME type field and
+        // sends mainEngineTypeId 0, and the main curve is never read (WithFuelConsumption guards
+        // on MePowerKw > 0) — so the main-engine coverage rule does not apply.
+        if (input.MeCount >= 1 && !_fixtureMainEngineIds.Contains(input.MainEngineTypeId))
             throw new InvalidOperationException(
                 $"Main engine id {input.MainEngineTypeId} is not in the golden fixture " +
                 $"(has: {string.Join(", ", _fixtureMainEngineIds.OrderBy(i => i))}). " +

@@ -46,6 +46,15 @@ public class CalculatorSettings
     public double DefaultVesselVariationKw { get; set; } = 500;
 
     /// <summary>
+    /// Electric-drive loss factor for a diesel-electric plant (MeCount == 0): the auxiliary
+    /// engines carry propulsion × (1 + factor). Default 0 — the user enters demand at the
+    /// switchboard, and no Excel authority exists for thruster-chain losses, so any non-zero
+    /// value is an explicit configuration decision (D-DE2). Applied at the distribution step
+    /// only; the battery cascade and all displayed demands keep the entered values.
+    /// </summary>
+    public double ElectricPropulsionLossFactor { get; set; }
+
+    /// <summary>
     /// CO2 factor (kg CO2 / kg fuel) for the given fuel type, or the global <see cref="Co2Factor"/>
     /// fallback when the fuel is null/empty/unknown. This fallback is what keeps no-fuel requests
     /// numerically identical to the pre-fuel behaviour.

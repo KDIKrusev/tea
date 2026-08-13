@@ -304,6 +304,27 @@ A fourth figure, weighted by hours across **all** modes, is computed in `PowerDe
 (`CalculateWeightedLoadPercent`) and drives the Power Demands header — that one is not a Transit
 figure.
 
+### Part 3c — When the ship has no main engines (diesel-electric, scenarios 36–39)
+
+`meCount = 0` is a legal plant (Epic E1): propulsion reaches thrusters/pods electrically, so the
+**auxiliary engines carry everything** as one load:
+
+```
+AE power = hotel' + propulsion' × (1 + ElectricPropulsionLossFactor)     factor: config, default 0
+```
+
+What changes and what does not:
+
+| Unchanged | Changed |
+|---|---|
+| the battery cascade, rows and factors (steps 1–2) | step 3 collapses: no SG, no ME row — one AE figure |
+| both baseline rules and the clamp | the 90 % AE cap now polices the WHOLE demand |
+| the two Benefit worlds (step 7) | SG > 0 or PTI > 0 are validation errors at 0 ME |
+| SFOC from the AE curve (step 4) | **Level 2 is LIVE**: it picks the unequal split across the running AEs — scenario 36 shows +41.675 t/yr where intuition says "no SG, nothing to do" |
+
+Level 3 stays hotel-only (no Excel authority extends DRC to an electric propulsion swing — a
+documented limitation, not an oversight).
+
 ## Part 4 — The three worlds (and the trap)
 
 The pipeline can be run against three different demands, and only two of them are used by the
@@ -383,7 +404,7 @@ but two rules that shape its result are not.
 | A **second row** in a Power Demands table | Part 3b | one row per active mode; the header is hours-weighted | 04, 11 |
 | **Baseline FOC ton/yr** | Step 6 | baseline t/h × hours | 01 |
 | **Integration level 1** savings | Step 5 + 6 | baseline − optimal | 03 |
-| **Level 2** contribution | Level 2 | redistributes hotel between SG and AEs | **19** (the only place it is non-zero) |
+| **Level 2** contribution | Level 2 | redistributes hotel between SG and AEs — and picks the unequal split across running AEs | **19** · **36** (diesel-electric, no SG at all) |
 | **Level 3** contribution | Level 3 | DRC damping of the hotel swing | **11** (32.2 t) · 14 (vessel-type lookup) |
 | **CO2 ton/yr** per engine | Step 6 | FOC × that engine's fuel factor | 13 (two different fuels) |
 | **Fuel Cost / Cost Savings** | Step 6 | FOC × fuel price | 01 |
@@ -430,7 +451,7 @@ it does not click, take it apart in the app instead of re-reading:
 | Scenarios | Status |
 |---|---|
 | **01–18** | verified against the reference workbook `PowerPlantSetupAdvisesIncludingPTIOAndbatteries_test.xlsx`. These are proof. |
-| **19–35** | **characterisation snapshots generated from the code.** They detect change; they do **not** prove correctness. A figure marked "pending reference verification" has never been checked against anything outside the application. |
+| **19–39** | **characterisation snapshots generated from the code.** They detect change; they do **not** prove correctness. A figure marked "pending reference verification" has never been checked against anything outside the application. (36–39 are the diesel-electric family — no workbook counterpart exists yet; the client's Wärtsilä mode reference in `docs/pics/` is the qualitative source.) |
 
 The distinction is not pedantry. Finding 5 (`baselineIndex` lost on restore) was recorded as
 **FIXED** on 2026-08-03 and was not actually fixed until 2026-08-05 — it was believed rather than
