@@ -1,0 +1,57 @@
+schema: 1
+story: 'de.a'
+story_title: 'Diesel-Electric A — Validation Opens the 0-ME Door'
+gate: PASS
+status_reason: >-
+  Validation now admits MeCount = 0 behind exactly the rules the architecture prescribed:
+  negative-count error, conditional ME capacity/type, blocking SG/PTI errors appended after the
+  existing plant checks, and a single diesel-electric AE-capacity check replacing the three
+  ME-shaped capacity checks (battery/DP advisories verified still live). 8 new tests incl. the
+  MeCount>=1 regression pins. Full suite 449/449 green via BaseOutputPath redirect;
+  git status shows Golden/Expected/ untouched. Known intermediate state: a valid 0-ME input
+  still 400s in L1 (no distribution branch) until DE-B — by design, stories are sequential.
+reviewer: 'Quinn (Test Architect)'
+updated: '2026-08-13T00:00:00Z'
+
+top_issues: []
+waiver: { active: false }
+
+quality_score: 100
+expires: null
+
+evidence:
+  tests_reviewed: 8
+  risks_identified: 2
+  trace:
+    ac_covered: [1, 2, 3, 4, 5, 6]
+    ac_gaps: []
+  verification:
+    - 'AC1: DieselElectric_ZeroMainEngines_IsValid — AE 4×4000 carries 8000+3000, Valid, zero errors'
+    - 'AC2: NegativeMainEngineCount_ReturnsError'
+    - 'AC3: DieselElectric_WithShaftGenerator/_WithPti_ReturnsBlockingError'
+    - 'AC4: DieselElectric_MeCapacityAndTypeAreNotRequired + ConventionalPlant_MeCapacityAndTypeStayRequired (regression pin)'
+    - 'AC5: DieselElectric_InsufficientAuxPlant_ReturnsTheOneAeCapacityError — 11463+3800 > 2×4000, no co-firing ME messages; advisory tail proven live by DieselElectric_BatteryAndDpAdvisories_StillRun'
+    - 'AC6: dotnet test -p:BaseOutputPath=<scratchpad>\testbin\ → 449/449 (441+8); git status --porcelain: no Golden/Expected/ entries'
+
+nfr_validation:
+  security: { status: PASS, notes: 'Input validation only; new messages carry no user-echoed content beyond existing style.' }
+  performance: { status: PASS, notes: 'Constant-time checks; MeCount >= 1 path structurally identical.' }
+  reliability:
+    status: PASS
+    notes: >-
+      Append-only rule respected: new errors fire only at MeCount == 0, so no pinned 400 order
+      can move for existing inputs (golden 35 input has meCount: 2 — verified before the change).
+  maintainability:
+    status: PASS
+    notes: >-
+      The DE capacity branch is one if/else in ValidateSystemCapacity with the reason in a
+      comment; the plant-slice additions cite D-DE3 inline.
+
+recommendations:
+  immediate: []
+  future:
+    - action: >-
+        DE-B must land before any user-facing exposure of 0 ME: until the distribution branch
+        exists, a validated 0-ME calculate call returns the L1 no-valid-combination 400. The
+        client UI keeps min=1 until DE-C, so the state is unreachable from the app today.
+      refs: ['docs/stories/brownfield-de-b-distribution-and-loss-factor.md']

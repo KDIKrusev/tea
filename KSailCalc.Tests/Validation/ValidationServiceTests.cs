@@ -163,4 +163,128 @@ public class ValidationServiceTests
         result.Warnings.Should().HaveCountGreaterThan(1);
         result.Warnings[^1].Type.Should().Be("operating-hours");
     }
+
+    // ── Diesel-electric plant: MeCount == 0 (Epic E1, story DE-A) ───────────────
+    //
+    // A 0-ME plant is legal when nothing hangs off the absent shaft and the AEs can carry the
+    // whole electric load. Everything here validates ONLY — the distribution branch that makes
+    // such an input calculable is story DE-B.
+
+    /// <summary>AE 4×4000 = 16 000 kW carries propulsion 8 000 (SM 0) + hotel 3 000 with room.</summary>
+    private static CalculatorInput DieselElectric()
+    {
+        var input = CalculatorInputBuilder.Default()
+            .WithMainEngines(0, 0)
+            .WithShaftGenerators(0)
+            .WithAuxiliaryEngines(4000, 4)
+            .WithPropulsionPower(8000)
+            .WithSeaMargin(0)
+            .WithTransitMode(5000, 3000)
+            .Build();
+        input.MainEngineTypeId = 0;
+        return input;
+    }
+
+    [Fact]
+    public void DieselElectric_ZeroMainEngines_IsValid()
+    {
+        var result = _sut.ValidateInput(DieselElectric());
+
+        result.Valid.Should().BeTrue("MeCount == 0 with a sufficient AE plant is a legal diesel-electric vessel");
+        result.Errors.Should().BeEmpty();
+    }
+
+    [Fact]
+    public void NegativeMainEngineCount_ReturnsError()
+    {
+        var input = DieselElectric();
+        input.MeCount = -1;
+
+        var result = _sut.ValidateInput(input);
+
+        result.Valid.Should().BeFalse();
+        result.Errors.Should().Contain("Number of main engines cannot be negative");
+    }
+
+    [Fact]
+    public void DieselElectric_WithShaftGenerator_ReturnsBlockingError()
+    {
+        // D-DE3: blocking error, not silent zeroing — silent ignoring is the behaviour class
+        // that produced the "DP redundancy persists invisibly" finding.
+        var input = DieselElectric();
+        input.SgCapacityPerEngine = 500;
+
+        var result = _sut.ValidateInput(input);
+
+        result.Valid.Should().BeFalse();
+        result.Errors.Should().Contain(e => e.Contains("Shaft generators require a main engine"));
+    }
+
+    [Fact]
+    public void DieselElectric_WithPti_ReturnsBlockingError()
+    {
+        var input = DieselElectric();
+        input.MaxPtiPerEngineKw = 500;
+
+        var result = _sut.ValidateInput(input);
+
+        result.Valid.Should().BeFalse();
+        result.Errors.Should().Contain(e => e.Contains("PTI requires a main engine shaft"));
+    }
+
+    [Fact]
+    public void DieselElectric_MeCapacityAndTypeAreNotRequired()
+    {
+        // DieselElectric() already carries capacity 0 and type id 0 — neither may error.
+        var result = _sut.ValidateInput(DieselElectric());
+
+        result.Errors.Should().NotContain(e => e.Contains("Main engine capacity"));
+        result.Errors.Should().NotContain(e => e.Contains("Main engine type"));
+    }
+
+    [Fact]
+    public void ConventionalPlant_MeCapacityAndTypeStayRequired()
+    {
+        // Regression pin: relaxing the two requirements must be gated on MeCount == 0.
+        var input = CalculatorInputBuilder.Default().WithMainEngines(0, 1).Build();
+        input.MainEngineTypeId = 0;
+
+        var result = _sut.ValidateInput(input);
+
+        result.Errors.Should().Contain("Main engine capacity per engine must be greater than 0");
+        result.Errors.Should().Contain("Main engine type must be selected");
+    }
+
+    [Fact]
+    public void DieselElectric_InsufficientAuxPlant_ReturnsTheOneAeCapacityError()
+    {
+        // The Excel-plant loads against a small AE fleet: 11 463 + 3 800 > 2×4 000.
+        var input = DieselElectric();
+        input.PropulsionPower = 11463;
+        input.TransitHotelPowerKW = 3800;
+        input.AeCapacityPerEngine = 4000;
+        input.AeCount = 2;
+
+        var result = _sut.ValidateInput(input);
+
+        result.Valid.Should().BeFalse();
+        result.Errors.Should().Contain(e => e.Contains("Auxiliary engine capacity cannot carry propulsion and hotel load"));
+        // The ME-shaped capacity checks are skipped — no misleading co-firing messages.
+        result.Errors.Should().NotContain(e => e.Contains("Main engine utilization"));
+        result.Errors.Should().NotContain(e => e.Contains("exceeds combined shaft generator"));
+    }
+
+    [Fact]
+    public void DieselElectric_BatteryAndDpAdvisories_StillRun()
+    {
+        // The DE capacity branch replaces the ME checks, not the advisory tail.
+        var input = DieselElectric();
+        input.DpRedundancyRequirementKw = 400; // DP mode not enabled → advisory warning
+
+        var result = _sut.ValidateInput(input);
+
+        result.Valid.Should().BeTrue();
+        result.Warnings.Should().Contain(w =>
+            w.Message.Contains("DP redundancy requirement is set but DP mode is not enabled"));
+    }
 }

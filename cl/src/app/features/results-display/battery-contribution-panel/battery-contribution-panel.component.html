@@ -32,7 +32,7 @@
         <tr>
           <th>Load</th>
           <th>Function</th>
-          <th>Variation (kW)</th>
+          <th>Variation &plusmn; (kW)</th>
           <th>Battery Used (kW)</th>
           <th>Covered ± (kW)</th>
           <th>Uncovered Reserve (kW)</th>
@@ -50,9 +50,11 @@
       </tbody>
       <tfoot>
         <tr>
-          <td colspan="3">Totals</td>
+          <td colspan="3">Totals (Covered: peak-shaving rows only)</td>
           <td>{{ alloc.committedBatteryKw | number:'1.0-1' }}</td>
-          <td>{{ alloc.peakShavingBandKw | number:'1.0-1' }}</td>
+          <td title="Sum of Covered ± over peak-shaving rows only. A covered reserve (e.g. DP redundancy) is readiness, not peak shaving, so it appears in its row but not in this total.">
+            {{ alloc.peakShavingBandKw | number:'1.0-1' }}
+          </td>
           <td>{{ alloc.additionalSpinningReserveKw | number:'1.0-1' }}</td>
         </tr>
       </tfoot>
@@ -63,4 +65,7 @@
 <p class="battery-note">
   Default baseline with battery: 3rd-highest consumption configuration (you can still pick any row
   in the Baseline panel). Plant demand above includes the uncovered spinning reserve.
+  The Covered total sums peak-shaving rows only — a covered reserve (e.g. DP redundancy) is a
+  readiness requirement, not a peak being flattened, so it shows in its own row but is excluded
+  from that total.
 </p>

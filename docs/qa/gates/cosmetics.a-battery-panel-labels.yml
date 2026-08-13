@@ -1,0 +1,49 @@
+schema: 1
+story: 'cosmetics.a'
+story_title: 'Cosmetics A — Battery Panel Labels (Variation ± and the Covered total)'
+gate: PASS
+status_reason: >-
+  Client-only label change, implemented exactly to scope: Variation header carries ± in the
+  Covered style, the Covered total names its peak-shaving-only scope in the row label, tooltip
+  and footnote carry the reason. First DOM specs for the component pin all three, using the
+  test23 DpReserve shape (row covered 800, total 0). Full suite 72/72 green, ng build clean,
+  bundle unchanged (1.20 MB). No API surface touched; goldens not reachable from this change.
+reviewer: 'Quinn (Test Architect)'
+updated: '2026-08-13T00:00:00Z'
+
+top_issues: []
+waiver: { active: false }
+
+quality_score: 100
+expires: null
+
+evidence:
+  tests_reviewed: 3
+  risks_identified: 1
+  trace:
+    ac_covered: [1, 2, 3, 4]
+    ac_gaps: []
+  verification:
+    - 'AC1+AC2: battery-contribution-panel.component.spec.ts pins "Variation ± (kW)", "Covered ± (kW)", the totals label and the tooltip text'
+    - 'AC3: DpReserve fixture — 800 rendered in the reserve row Covered cell, 0 in the peak-shaving total, label present in the same tfoot'
+    - 'AC4: npm run test:ci → 72/72 SUCCESS (1 skipped, pre-existing); npm run build → clean, initial total 1.20 MB'
+    - 'API untouched: change confined to one .html template + one new .spec.ts'
+
+nfr_validation:
+  security: { status: PASS, notes: 'Static labels only; no user input, no bindings beyond existing pipes.' }
+  performance: { status: PASS, notes: 'No logic change; bundle total unchanged.' }
+  reliability: { status: PASS, notes: 'OnPush component; template-only change cannot alter change detection.' }
+  maintainability:
+    status: PASS
+    notes: >-
+      The component gained its first spec file; future label edits now break a named expectation
+      instead of silently drifting from the customer note.
+
+recommendations:
+  immediate: []
+  future:
+    - action: >-
+        Update the Bulgarian client note (polza-ot-bateriata-test23.md) and the English test23
+        note §4 wording once the client confirms the new labels read right — the note currently
+        still promises the relabel in future tense.
+      refs: ['docs/qa/customer-notes/test23-battery-explained.md']
