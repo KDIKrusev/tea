@@ -23,7 +23,20 @@ and **block** their epic until resolved. Numbering continues the D-series style 
 - **L3 DRC stays hotel-only** under diesel-electric; no Excel authority to extend DRC to the
   propulsion swing. Documented limitation.
 
-## Open — blocking Epic 2 (battery input rows)
+## Epic 2 unblocked — O-1..O-5 resolved provisionally (Kamen, 2026-08-13)
+
+Kamen's delegation: *"следвай твоите препоръки, после при нужда ще променяме"* — every decision
+below is provisional and reversible on client feedback; each names its revert lever.
+
+| # | Decision | Chosen option | Revert lever |
+|---|---|---|---|
+| **D-BI1** (was O-1) | Mission row scope | **DP-only.** The client's message is treated as the authority superseding our reading of the workbook ("mission heavy consumer... са само в DP mode... което е грешно" — his own words about his own model). The Mission ROW is removed from Transit entirely (not left as a zero row): an inert row he called wrong would keep reading as participation. | one line in `GetLoadInputs` |
+| **D-BI2** (was O-2) | Golden unfreeze | **Numbers move only in 05/06** (their mission value becomes inert in Transit — both become numerically identical to 01, retained as regression pins). **Structurally** every battery-in-Transit/Port snapshot swaps the zero Mission row for the Others row — zero-value changes, listed in the BI story's diff review. | regenerate after revert |
+| **D-BI3** (was O-3) | Others semantics | **Full value per relevant non-DP mode** — modes never overlap in time, exactly how the budget already works (scenario 07). No splitting. | config/coverage only |
+| **D-BI4** (was O-4) | Others row shape | **Mirrors Mission:** H = entered kW as-is (can start at any moment), function PeakShaving, coverage **0.50**, priority **right after Mission** (before Propulsion), hotel side. New row in `appsettings.json` LoadPriorities + code defaults. | all four are config |
+| **D-BI5** (was O-5) | Which modes get Others | **Transit and Port** (battery modes stay Transit/DP/Port per D4; DP keeps Mission). Anchor/Maneuvering stay outside the battery — unchanged D4 scope. | mode match in `GetLoadInputs` |
+
+## Superseded — original open questions (kept for the record)
 
 | # | Question | Options on the table |
 |---|---|---|

@@ -223,7 +223,8 @@ export class ProfileService {
       'portHotelPowerKW', 'portHours', 'anchorHotelPowerKW', 'anchorHours',
       'maneuveringPropulsionPowerKW', 'maneuveringHotelPowerKW', 'maneuveringHours',
       'hotelLoadVariationKw', 'trueWindSpeed', 'windAngleRelVessel', 'baselineIndex',
-      'maxPtiPerEngineKw', 'dpRedundancyRequirementKw', 'missionHeavyConsumerMaxKw'
+      'maxPtiPerEngineKw', 'dpRedundancyRequirementKw', 'missionHeavyConsumerMaxKw',
+      'othersConsumerMaxKw'
     ];
 
     for (const key of optionalNumbers) {

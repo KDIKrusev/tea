@@ -81,7 +81,7 @@ The battery has a power budget (its `powerKw`). It is handed out to the loads **
 order**, and the order is data, not code — it lives in `appsettings.json`:
 
 ```
-DpReserve  →  DpDemand  →  Mission  →  Propulsion  →  Hotel
+DpReserve  →  DpDemand  →  Mission  →  Others  →  Propulsion  →  Hotel
 ```
 
 Each row is described by four numbers:
@@ -98,7 +98,8 @@ Each row is described by four numbers:
 | Row type | H = | Why |
 |---|---|---|
 | **Peak shaving** (Propulsion, Hotel) | average × VariationFactor | only the fluctuating band needs shaving — 5 % of propulsion, 2 % of hotel |
-| **Mission** (a crane) | the machine's full rating | it can start at *any* moment, so its whole draw is a potential peak |
+| **Mission** (a crane) — **DP only** since Epic E2 (D-BI1) | the machine's full rating | it can start at *any* moment, so its whole draw is a potential peak |
+| **Others** — Transit/Port (Epic E2) | the entered kW, as-is | the non-DP twin of Mission: battery demand of the remaining modes, same full-kW logic |
 | **Reserve** (DP redundancy) | the full requirement | a class rule demands that much *readiness*; there is no "35 % of a rule" |
 
 **CoverageFactor is the number people get stuck on.** It is a modelling assumption: *what fraction
@@ -386,7 +387,7 @@ but two rules that shape its result are not.
 |---|---|---|---|
 | **Spinning Reserve** | Step 1 | Σ L over all rows | 01 |
 | **Peak Shaving** | Step 1 | Σ J over peak-shaving rows **only** | 04 (shows why the reserve is excluded) |
-| A row's **Variation (kW)** | Step 1 | H — three formulas, see Step 1 | 05 (mission), 04 (reserve) |
+| A row's **Variation (kW)** | Step 1 | H — three formulas, see Step 1 | 05's card (read Mission as Others — its banner explains), 04 (reserve) |
 | A row's **Battery Used** | Step 1 | I = min(remaining budget, H) | 02 (budget runs out mid-cascade) |
 | A row's **Covered ±** | Step 1 | J = I × CoverageFactor | 01 |
 | **Battery Benefit** | Step 7 | (FOC_B − FOC_A) × hours | 01, verified against 03 |

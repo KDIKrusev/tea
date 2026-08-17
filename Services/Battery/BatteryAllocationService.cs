@@ -99,17 +99,21 @@ public class BatteryAllocationService : IBatteryAllocationService
     private static (double Average, double? VariationOverride)? GetLoadInputs(
         BatteryLoadType load, OperationalMode mode, CalculatorInput input)
     {
-        // Which rows EXIST per mode stays here — that matrix is the Excel sheet's own shape.
-        // What each row's demand IS comes from the mode registry, so a hotel/propulsion figure
-        // is never defined twice. Note DP's thrust arrives as the DpDemand row, so DP must NOT
-        // also produce a Propulsion row (it would double-count the same kW).
+        // Which rows EXIST per mode stays here. The matrix originally mirrored our reading of
+        // the Excel sheet; the client corrected it for Mission (Epic E2, D-BI1: mission
+        // operations are a DP affair — the row does NOT exist in Transit) and added Others for
+        // the remaining relevant modes (D-BI4/5: mirrors Mission — full kW, hotel side).
+        // Note DP's thrust arrives as the DpDemand row, so DP must NOT also produce a
+        // Propulsion row (it would double-count the same kW).
         return (load, mode) switch
         {
             (BatteryLoadType.DpReserve, OperationalMode.DP) => (input.DpRedundancyRequirementKw ?? 0, null),
             (BatteryLoadType.DpDemand, OperationalMode.DP)
                 => (OperationalModes.For(mode).PropulsionKw(input), null),
-            (BatteryLoadType.Mission, OperationalMode.Transit or OperationalMode.DP)
+            (BatteryLoadType.Mission, OperationalMode.DP)
                 => (0, input.MissionHeavyConsumerMaxKw ?? 0),
+            (BatteryLoadType.Others, OperationalMode.Transit or OperationalMode.Port)
+                => (0, input.OthersConsumerMaxKw ?? 0),
             (BatteryLoadType.Propulsion, OperationalMode.Transit or OperationalMode.Maneuvering)
                 => (OperationalModes.For(mode).PropulsionKw(input), null),
             (BatteryLoadType.Hotel, _) => (OperationalModes.For(mode).HotelKw(input), null),

@@ -2,6 +2,14 @@
 
 <!-- header:auto -->
 
+> ⚠️ **SUPERSEDED by Epic E2 (2026-08-13, D-BI1):** mission operations are DP-only since the
+> client's correction — this scenario's mission input is **inert** and every figure now equals
+> scenario 01 (`Card06_MissionCrane3000_IsInertInTransit_IdenticalToCard01` pins it). The
+> budget-devoured walkthrough below survives verbatim as the **Others** row's arithmetic
+> (D-BI4) and is pinned with these exact numbers in
+> `OthersMax_VariationIsFullValue_AndOutranksPropulsion` and `H3_OthersMax_EndToEnd` — read
+> "Mission" as "Others" throughout.
+
 > **Proves** · Priority devouring the whole budget — and the anti-double-counting rule between the battery and Level 3.
 >
 > **Mechanics this scenario turns on**

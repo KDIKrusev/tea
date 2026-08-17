@@ -91,6 +91,14 @@ describe('vessel-form mapper', () => {
       expect(buildCalculatorInput(formValueFrom({ dpHours: 0 }), 'X').dpEnabled).toBe(false);
       expect(buildCalculatorInput(formValueFrom({ dpHours: 2000 }), 'X').dpEnabled).toBe(true);
     });
+
+    it('maps the Others battery demand and drops it when unset (Epic E2)', () => {
+      // Same truthiness contract as its sibling batteryMissionMaxKw: absent/0 must NOT appear on
+      // the wire, so the frozen request bodies of pre-E2 profiles stay byte-identical.
+      expect(buildCalculatorInput(formValueFrom({ batteryOthersMaxKw: 300 }), 'X').othersConsumerMaxKw).toBe(300);
+      expect(buildCalculatorInput(formValueFrom({}), 'X').othersConsumerMaxKw).toBeUndefined();
+      expect(buildCalculatorInput(formValueFrom({ batteryOthersMaxKw: 0 }), 'X').othersConsumerMaxKw).toBeUndefined();
+    });
   });
 
   describe('battery payload', () => {

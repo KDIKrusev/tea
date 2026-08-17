@@ -167,70 +167,50 @@ public class CalculationCardTests
     // ─── 05 — Mission crane 500 kW (cascade continues below) ───────────────────
 
     [Fact]
-    public async Task Card05_MissionCrane500_TakesFullValueAndLandsOnTheHotelSide()
+    public async Task Card05_MissionCrane500_IsInertInTransit_IdenticalToCard01()
     {
+        // Epic E2 (D-BI1): mission operations are a DP affair — the client's correction of our
+        // workbook reading. Scenario 05 differs from 01 ONLY by missionHeavyConsumerMaxKw: 500,
+        // so since the correction it must be numerically identical to 01. The scenario is
+        // retained as the regression pin that Transit ignores the field.
         var r = await GoldenScenario.CalculateAsync("05-mission-crane-500.json");
+        var baseline = await GoldenScenario.CalculateAsync("01-excel-baseline.json");
         var transit = SingleAllocation(r);
 
-        // "The crane's H is its FULL kW (Excel G7 = I3), covered at 50 %: 500 → J 250 / L 250"
-        var mission = Row(transit, BatteryLoadType.Mission);
-        mission.VariationKw.Should().BeApproximately(500, Kw);
-        mission.CoveredBandKw.Should().BeApproximately(250, Kw);
-        mission.UncoveredReserveKw.Should().BeApproximately(250, Kw);
+        transit.Loads.Should().NotContain(l => l.Load == BatteryLoadType.Mission);
+        Row(transit, BatteryLoadType.Others).VariationKw.Should().Be(0); // no Others input either
 
-        // "Everyone got paid" — the propulsion row is unchanged from card 01
         Row(transit, BatteryLoadType.Propulsion).CoveredBandKw.Should().BeApproximately(200.6025, Kw);
-        transit.RemainingBatteryKw.Should().BeApproximately(110.85, Kw);
-
-        r.BatteryDetails!.PeakShavingKw.Should().BeApproximately(454.4025, Kw);
-        r.BatteryDetails.SpinningReserveKw.Should().BeApproximately(694.7475, Kw);
-
-        // "Hotel' = 3 800+250+72.2 → AE 872 · ME identical to test 01: the ME never felt the crane"
-        r.PowerDemands.AuxiliaryEnginePowerKw.Should().BeApproximately(872.2, 0.5);
-        r.PowerDemands.MainEnginePowerKw.Should().BeApproximately(15085.5, 0.5);
-
-        r.BaselineFOC.Should().BeApproximately(13590.7, TonPerYear);
-        r.Advanced.OptimizedFOC.Should().BeApproximately(13554.1, TonPerYear);
-        r.BatteryDetails.BenefitFocTonPerYear.Should().BeApproximately(422.25, 0.01);
+        r.BatteryDetails!.PeakShavingKw.Should().BeApproximately(baseline.BatteryDetails!.PeakShavingKw, 1e-9);
+        r.BatteryDetails.SpinningReserveKw.Should().BeApproximately(baseline.BatteryDetails.SpinningReserveKw, 1e-9);
+        r.BaselineFOC.Should().BeApproximately(baseline.BaselineFOC, 1e-9);
+        r.Advanced.OptimizedFOC.Should().BeApproximately(baseline.Advanced.OptimizedFOC, 1e-9);
+        r.BatteryDetails.BenefitFocTonPerYear
+            .Should().BeApproximately(baseline.BatteryDetails.BenefitFocTonPerYear, 1e-9);
     }
 
     // ─── 06 — Mission crane 3000 kW (budget devoured, plant reshuffles) ────────
 
     [Fact]
-    public async Task Card06_MissionCrane3000_DrainsBudgetAndFlipsTheOptimalPlant()
+    public async Task Card06_MissionCrane3000_IsInertInTransit_IdenticalToCard01()
     {
+        // Epic E2 (D-BI1): same correction as card 05 — even a crane bigger than the whole
+        // battery budget changes NOTHING in Transit. The pre-E2 behaviour (mission drains the
+        // budget, the plant reshuffles, Benefit 631.29) now belongs to the Others row and is
+        // pinned with these exact numbers in OthersMax_VariationIsFullValue_AndOutranksPropulsion
+        // and H3_OthersMax_EndToEnd tests.
         var r = await GoldenScenario.CalculateAsync("06-mission-crane-3000.json");
+        var baseline = await GoldenScenario.CalculateAsync("01-excel-baseline.json");
         var transit = SingleAllocation(r);
 
-        // "Mission takes ALL 1 260 → J 630 / L 2 370; propulsion and hotel starve"
-        var mission = Row(transit, BatteryLoadType.Mission);
-        mission.BatteryUsedKw.Should().BeApproximately(1260, Kw);
-        mission.CoveredBandKw.Should().BeApproximately(630, Kw);
-        mission.UncoveredReserveKw.Should().BeApproximately(2370, Kw);
-        Row(transit, BatteryLoadType.Propulsion).BatteryUsedKw.Should().Be(0);
-        Row(transit, BatteryLoadType.Hotel).BatteryUsedKw.Should().Be(0);
+        transit.Loads.Should().NotContain(l => l.Load == BatteryLoadType.Mission);
 
-        r.BatteryDetails!.PeakShavingKw.Should().BeApproximately(630, Kw);
-        r.BatteryDetails.SpinningReserveKw.Should().BeApproximately(3019.15, Kw);
-
-        // "The optimizer picks 2 ME + both SGs + 0 AE — the row that was WORST in test 01"
-        r.Level1Details!.ActiveMeCount.Should().Be(2);
-        r.Level1Details.ActiveAeCount.Should().Be(0);
-        r.PowerDemands.MainEnginePowerKw.Should().BeApproximately(18282.15, 0.5);
-        r.PowerDemands.AuxiliaryEnginePowerKw.Should().Be(0);
-
-        r.BaselineFOC.Should().BeApproximately(15890.0, TonPerYear);
-        r.Advanced.OptimizedFOC.Should().BeApproximately(15547.3, TonPerYear);
-        r.Advanced.FuelSavings.Should().BeApproximately(342.7, 0.05);
-
-        // "Benefit = the ceiling for this battery (630 = 1 260 × 50 %) → 631.3 t/yr"
-        r.BatteryDetails.BenefitFocTonPerYear.Should().BeApproximately(631.29, 0.01);
-
-        // "Anti-double-counting (Q4/D4): variation 0, batteryShaved 500, L3 component 0"
-        var l3 = r.Premium.Level3Details!;
-        l3.VariationPerGeneratorKw.Should().Be(0);
-        l3.BatteryShavedVariationKw.Should().BeApproximately(500, Kw);
-        l3.DrcSavingsTonPerYear.Should().Be(0);
+        r.BatteryDetails!.PeakShavingKw.Should().BeApproximately(baseline.BatteryDetails!.PeakShavingKw, 1e-9);
+        r.BatteryDetails.SpinningReserveKw.Should().BeApproximately(baseline.BatteryDetails.SpinningReserveKw, 1e-9);
+        r.BaselineFOC.Should().BeApproximately(baseline.BaselineFOC, 1e-9);
+        r.Advanced.OptimizedFOC.Should().BeApproximately(baseline.Advanced.OptimizedFOC, 1e-9);
+        r.BatteryDetails.BenefitFocTonPerYear
+            .Should().BeApproximately(baseline.BatteryDetails.BenefitFocTonPerYear, 1e-9);
     }
 
     // ─── 07 — Multi-mode Transit + Port ────────────────────────────────────────
@@ -245,8 +225,9 @@ public class CalculationCardTests
         var transit = r.BatteryDetails.ModeAllocations.Single(m => m.Mode == OperationalMode.Transit);
         var port = r.BatteryDetails.ModeAllocations.Single(m => m.Mode == OperationalMode.Port);
 
-        // "Port table: a single row — H = 500×2 % = 10 → J 0.5 / L 9.5; 1 250 left unused"
-        port.Loads.Should().ContainSingle();
+        // "Port table: Others (0, Epic E2) + Hotel — H = 500×2 % = 10 → J 0.5 / L 9.5; 1 250 unused"
+        port.Loads.Should().HaveCount(2);
+        Row(port, BatteryLoadType.Others).VariationKw.Should().Be(0);
         var portHotel = Row(port, BatteryLoadType.Hotel);
         portHotel.VariationKw.Should().BeApproximately(10, Kw);
         portHotel.CoveredBandKw.Should().BeApproximately(0.5, Kw);

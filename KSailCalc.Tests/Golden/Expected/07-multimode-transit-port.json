@@ -115,7 +115,7 @@
           "mode": "Transit",
           "loads": [
             {
-              "load": "Mission",
+              "load": "Others",
               "function": "PeakShaving",
               "coverageFactor": 0.5,
               "averageLoadKw": 0,
@@ -153,6 +153,16 @@
         {
           "mode": "Port",
           "loads": [
+            {
+              "load": "Others",
+              "function": "PeakShaving",
+              "coverageFactor": 0.5,
+              "averageLoadKw": 0,
+              "variationKw": 0,
+              "batteryUsedKw": 0,
+              "coveredBandKw": 0,
+              "uncoveredReserveKw": 0
+            },
             {
               "load": "Hotel",
               "function": "PeakShaving",

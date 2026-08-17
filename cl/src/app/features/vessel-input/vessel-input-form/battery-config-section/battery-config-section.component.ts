@@ -91,7 +91,8 @@ export class BatteryConfigSectionComponent implements OnInit, OnDestroy {
         batteryModePort: false,
         batteryMaxPtiKw: null,
         batteryDpRedundancyKw: null,
-        batteryMissionMaxKw: null
+        batteryMissionMaxKw: null,
+        batteryOthersMaxKw: null
       });
     } else {
       // ADR-5: suggest the SG rating as PTI capacity (the same shaft machine in motor mode);

@@ -1,0 +1,8 @@
+{
+  "status": 400,
+  "result": null,
+  "errors": [
+    "Shaft generators require a main engine. Set shaft generator capacity to 0 for a diesel-electric plant.",
+    "PTI requires a main engine shaft. Clear the PTI capacity for a diesel-electric plant."
+  ]
+}

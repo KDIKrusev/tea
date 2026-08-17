@@ -1,5 +1,12 @@
 # Battery Contribution and Battery Benefit — how the numbers in your case are produced
 
+> ⚠️ **Model change after this note was written (Epic E2, per your request):** the Mission
+> heavy-consumer now participates **only in DP mode** — the Transit tables below will no longer
+> show a Mission row when you rerun this case, and Transit's numbers change accordingly (the
+> 250 kW crane no longer takes from the Transit budget). A new **Others (kW)** input covers
+> battery demand of the non-DP modes with the same full-kW logic, and the Covered/Peak-Shaving
+> labels you flagged in §4 have been clarified on screen. The DP walkthrough below is unchanged.
+
 For the example you sent, this note explains how each figure in the result panel was produced, what
 it includes, and how you can reproduce the Battery Benefit yourself. It follows your own scenario
 throughout: **800 kW battery**, active in Transit and DP, four modes — Transit 2 500 h · DP 1 000 h

@@ -1,0 +1,71 @@
+schema: 1
+story: 'bi.a'
+story_title: 'Battery Inputs A — Mission DP-Only and the Others Row'
+gate: PASS
+status_reason: >-
+  The matrix change is one line per row and every consequence was traced: the golden diff (15
+  files) splits cleanly into two verified classes — 05/06 whose mission input is now inert
+  (proven numerically identical to 01 at 1e-9) and pure row-renames/zero-row additions
+  everywhere else. The Excel-verified mission arithmetic was re-homed to the Others row and
+  re-pinned with the original numbers, not deleted. A coverage hole the change itself opened
+  (no value-carrying Mission test left anywhere) was caught and closed in the same story.
+  Backend 476/476, client 77/77, build+lint clean. Everything rests on provisional decisions
+  D-BI1..5 with named revert levers.
+reviewer: 'Quinn (Test Architect)'
+updated: '2026-08-13T00:00:00Z'
+
+top_issues:
+  - severity: info
+    finding: >-
+      The decisions are PROVISIONAL (Kamen's delegation, not client answers). The client-facing
+      letter should present the implemented semantics (full value per mode, 0.50 coverage,
+      priority after Mission, Transit/Port) as defaults he can veto — the revert levers are
+      config/one-liners by design.
+
+waiver: { active: false }
+
+quality_score: 95
+expires: null
+
+evidence:
+  tests_reviewed: 10
+  risks_identified: 3
+  trace:
+    ac_covered: [1, 2, 3, 4, 5, 6]
+    ac_gaps: []
+  verification:
+    - 'Golden diff review: git diff on 01 shows exactly "Mission"→"Others" in the zero row; 05 vs 01 compared field-by-field (baselineFOC, PS, benefit) — identical to full precision'
+    - 'Cards 05/06 rewritten as comparison tests vs 01; old numbers re-pinned in Others unit tests'
+    - 'MissionInDp_KeepsTheFullValueBehaviour closes the coverage hole the move opened'
+    - 'Config: 6-row LoadPriorities pinned incl. Others (0.50, after Mission); appsettings re-copied to the session root for the path-relative tests'
+    - 'Client: Mission+DP Redundancy now DP-gated in the form (the client model made visible); Others always available; disable-reset includes the new control; mapper truthiness spec keeps pre-E2 request bodies frozen'
+    - 'Suites: 476/476 backend, 77/77 client, ng build 1.20 MB, lint clean'
+
+nfr_validation:
+  security: { status: PASS, notes: 'One optional numeric input, validated non-negative.' }
+  performance: { status: PASS, notes: 'One more cascade row per Transit/Port allocation — constant work.' }
+  reliability:
+    status: PASS
+    notes: >-
+      The re-homing strategy (Others inherits Mission arithmetic verbatim) means the
+      Excel-verified numbers still guard the cascade; nothing proven was discarded.
+  maintainability:
+    status: PASS
+    notes: >-
+      All Others knobs are configuration; the decisions log names a revert lever per decision.
+      Cards carry SUPERSEDED banners instead of silent rewrites — the history of why numbers
+      changed is on the page.
+
+recommendations:
+  immediate:
+    - action: >-
+        Include in the client letter: the implemented Others defaults (full kW per mode, 0.50
+        coverage, priority after Mission, Transit/Port) and the request to verify one
+        diesel-electric scenario — both waves ride the same letter.
+      refs: ['docs/client-requests-2026-08/02-decisions-log.md']
+  future:
+    - action: >-
+        If the client confirms D-BI1 as an Excel-reading bug (O-1 option a), consider promoting
+        the Others unit-test numbers into a scenario so the mechanism is golden-covered again
+        end-to-end (a "40-others-crane" mirroring old 05).
+      refs: ['docs/qa/manual-test-scenarios/README.md']

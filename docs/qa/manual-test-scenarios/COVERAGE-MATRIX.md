@@ -180,11 +180,38 @@ is additionally pinned by `Level1RejectionDiagnosticsTests`.
 | Not covered by a scenario: the L1 rejection sentence when the 90 % cap kills every combination after validation passes | unit test (`AllRejectedByTheCap_ExplainsWithTheDieselElectricSentence`) |
 | Not covered: `ElectricPropulsionLossFactor ≠ 0` end-to-end | unit test only (config default is 0; a non-zero value is a product decision away) |
 
+## Battery-row rules (Epic E2) — and the audit that found the hole
+
+E2 moved the Mission row to DP and introduced Others. The first cut shipped with **unit-test
+coverage only**: no scenario carried `othersConsumerMaxKw`, and the only scenarios with a mission
+value (05/06) had become inertness pins. Scenarios 40–42 close it.
+
+| Mechanism | Covered by |
+|---|---|
+| Others row: full-kW H, 0.50, hotel side, served before Propulsion in Transit | **40** (reproduces 05's workbook-verified figures exactly) |
+| Mission row with a value, in its DP-only home | **41** |
+| Priority rationing a budget across reserve → mission → hotel | **41** (reserve 400 of 500, crane gets 100) |
+| Mission inert in Transit | 05, 06 (both now numerically identical to 01) |
+| Others absent in DP · Mission absent in Transit | unit tests (`OthersRow_ExistsInPort_ButNotInDp`, `MissionInTransit_IsInert_TheRowDoesNotExist`) |
+| Others in **Port** | unit test only — no scenario yet (Port + battery + Others) |
+| Client: Mission/DP-Redundancy visible only with DP; Others always | `cl/src/testing/behaviour/battery-input-fields.spec.ts` |
+
+## Diesel-electric validation (Epic E1)
+
+| Mechanism | Covered by |
+|---|---|
+| AE capacity cannot carry the load → 400 | 39 |
+| SG > 0 and PTI > 0 at `meCount 0` → 400, both messages in order | **42** (unreachable from the UI by design — the form parks those fields) |
+| 90 % cap killing every combination after validation passes | unit test only (`AllRejectedByTheCap_ExplainsWithTheDieselElectricSentence`) |
+| `ElectricPropulsionLossFactor ≠ 0` | unit test only — it is configuration, not input, so no scenario can express it |
+
 ## Approval status
 
 Scenarios 01–18 were verified against the reference workbook during the original QA passes.
 
-**Scenarios 19–39 were generated from the current code.** They are *characterisation* snapshots:
+**Scenarios 19–42 were generated from the current code.** One exception worth naming: **40**
+reproduces the workbook-verified figures of the pre-E2 scenario 05 digit for digit, so it carries
+proof status by inheritance — the row was renamed, not recalculated. They are *characterisation* snapshots:
 they prove the behaviour does not change silently, and each one was checked to actually reach the
 path it targets. Where an expected figure could be derived by hand it is shown in the matching card
 under **Hand-check**. Figures that require the workbook are marked **pending reference verification**

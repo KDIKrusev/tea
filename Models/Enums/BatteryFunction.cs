@@ -29,8 +29,14 @@ public enum BatteryLoadType
     /// <summary>DP thruster load demand variation.</summary>
     DpDemand,
 
-    /// <summary>Mission heavy-consumer load (e.g. crane operation).</summary>
+    /// <summary>Mission heavy-consumer load (e.g. crane operation). DP mode only (D-BI1).</summary>
     Mission,
+
+    /// <summary>
+    /// Battery demand of the remaining (non-DP) relevant modes — Transit and Port (D-BI4/5).
+    /// Mirrors Mission: the entered kW is the full variation (can start at any moment).
+    /// </summary>
+    Others,
 
     /// <summary>Propeller/propulsion load variation (environmental).</summary>
     Propulsion,

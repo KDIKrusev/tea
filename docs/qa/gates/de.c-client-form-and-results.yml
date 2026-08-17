@@ -12,7 +12,20 @@ status_reason: >-
 reviewer: 'Quinn (Test Architect)'
 updated: '2026-08-13T00:00:00Z'
 
-top_issues: []
+top_issues:
+  - severity: high
+    status: FIXED 2026-08-14
+    finding: >-
+      Manual testing found that a diesel-electric plant never reached the backend at all:
+      CalculatorPageComponent.onFormChange required meCapacityPerEngine > 0 before calculating,
+      and silently did nothing otherwise. Loading scenario 36 produced an empty results panel and
+      no request on any edit, with no error shown. The story's specs mounted the form, not the
+      page, so the guard one level up was never exercised. Fixed via describesACalculablePlant
+      (meCount === 0 || meCapacityPerEngine > 0) + three page-level specs in
+      cl/src/testing/behaviour/diesel-electric-page.spec.ts, proven red-before/green-after.
+      AC3's "rendered pass" gap in this gate is exactly where it hid — form-level evidence was
+      accepted for an app-level claim.
+
 waiver: { active: false }
 
 quality_score: 95

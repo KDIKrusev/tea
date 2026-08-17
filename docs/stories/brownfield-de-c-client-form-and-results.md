@@ -67,8 +67,34 @@ results**.
   catalogue re-prefill, restore-parked, no-stomp. Full client suite **76/76 green** (1
   pre-existing skip), `ng build` clean, `ng lint` clean. Backend untouched.
 
+## Post-gate finding — manual testing, 2026-08-14 (FIXED)
+
+Loading scenario 36 in the running app produced **nothing**: empty results panel, and editing any
+field triggered no calculation — with no error message anywhere.
+
+**Cause:** `CalculatorPageComponent.onFormChange` carried a pre-check
+(`propulsionPower > 0 && hotelLoad > 0 && meCapacityPerEngine > 0 && aeCapacityPerEngine > 0`)
+whose `else` branch was an empty comment. A diesel-electric plant sends `meCapacityPerEngine: 0`
+legitimately, so **every** calculation was dropped silently — no request, no results, no message.
+The form was working perfectly; the page never asked.
+
+**Why the specs missed it:** DE-C's specs mounted the FORM (`mountForm`) and asserted the
+`formChanged` emission. The guard lives one level up, in the page. The wire — the only place the
+two are distinguishable — was never watched for a diesel-electric input.
+
+**Fix:** the guard now reads the plant shape (`meCount === 0 || meCapacityPerEngine > 0`),
+extracted into `describesACalculablePlant` with the reason documented. Three page-level specs
+added (`cl/src/testing/behaviour/diesel-electric-page.spec.ts`): the load posts, an edit posts
+again, and a mechanical plant with no rating still stays silent. Verified red before the fix
+(exactly the two diesel-electric specs failed; the third passed), green after. Client suite
+**80/80**, build and lint clean.
+
+**Lesson for the next form-level feature:** a spec that proves the form emits does not prove the
+app calculates.
+
 ## QA Results
 
-**Gate: PASS** — `docs/qa/gates/de.c-client-form-and-results.yml` (Quinn, 2026-08-13).
+**Gate: PASS** — `docs/qa/gates/de.c-client-form-and-results.yml` (Quinn, 2026-08-13),
+amended 2026-08-14 with the post-gate finding above.
 AC3 (results panels at 0 ME) covered by the existing guards verified in the analyst brief plus
 the DE-D manual pass to come; the form/wire half of the story is spec-pinned.

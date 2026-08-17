@@ -44,6 +44,7 @@ export function buildCalculatorInput(
     maxPtiPerEngineKw: v['batteryMaxPtiKw'] ? Number(v['batteryMaxPtiKw']) : undefined,
     dpRedundancyRequirementKw: v['batteryDpRedundancyKw'] ? Number(v['batteryDpRedundancyKw']) : undefined,
     missionHeavyConsumerMaxKw: v['batteryMissionMaxKw'] ? Number(v['batteryMissionMaxKw']) : undefined,
+    othersConsumerMaxKw: v['batteryOthersMaxKw'] ? Number(v['batteryOthersMaxKw']) : undefined,
     fuelPrice: Number(v['fuelPrice']),
     mainFuelType: v['mainFuelType'] || undefined,
     auxFuelType: v['auxFuelType'] || undefined,

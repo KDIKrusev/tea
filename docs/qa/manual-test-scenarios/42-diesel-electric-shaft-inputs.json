@@ -1,0 +1,31 @@
+{
+  "name": "42 Diesel-electric with shaft-bound inputs - SG and PTI refused (expect 400)",
+  "vesselTypeName": "Offshore Support 11,000 dwt",
+  "vesselCategory": "Offshore Support",
+  "vesselSize": 11000,
+  "vesselSpeed": 12.5,
+  "version": 3,
+  "input": {
+    "propulsionPower": 8000,
+    "hotelLoad": 3000,
+    "seaMargin": 0,
+    "meCapacityPerEngine": 0,
+    "meCount": 0,
+    "sgCapacityPerEngine": 500,
+    "aeCapacityPerEngine": 4000,
+    "aeCount": 4,
+    "mainEngineTypeId": 0,
+    "auxEngineTypeId": 8,
+    "mainFuelType": "MDO",
+    "auxFuelType": "MGO",
+    "sailInstalled": false,
+    "sailEnabled": false,
+    "batteryCapacity": 0,
+    "maxPtiPerEngineKw": 300,
+    "fuelPrice": 780,
+    "transitHours": 5000,
+    "transitHotelPowerKW": 3000,
+    "vesselTypeName": "Offshore Support 11,000 dwt",
+    "vesselSpeedKnots": 12.5
+  }
+}

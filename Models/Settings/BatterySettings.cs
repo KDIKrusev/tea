@@ -36,6 +36,7 @@ public class BatterySettings
         new() { Load = BatteryLoadType.DpReserve,  Function = BatteryFunction.Reserve,     CoverageFactor = 1.00, VariationFactor = 0.00 },
         new() { Load = BatteryLoadType.DpDemand,   Function = BatteryFunction.PeakShaving, CoverageFactor = 0.50, VariationFactor = 0.00 },
         new() { Load = BatteryLoadType.Mission,    Function = BatteryFunction.PeakShaving, CoverageFactor = 0.50, VariationFactor = 0.00 },
+        new() { Load = BatteryLoadType.Others,     Function = BatteryFunction.PeakShaving, CoverageFactor = 0.50, VariationFactor = 0.00 },
         new() { Load = BatteryLoadType.Propulsion, Function = BatteryFunction.PeakShaving, CoverageFactor = 0.35, VariationFactor = 0.05 },
         new() { Load = BatteryLoadType.Hotel,      Function = BatteryFunction.PeakShaving, CoverageFactor = 0.05, VariationFactor = 0.02 }
     };

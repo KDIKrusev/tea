@@ -76,17 +76,17 @@ DP mode 2 000 h, DP hotel 1 500, thrust 2 500, redundancy 400, battery 500 **DP-
 - Note: Excel's J10 would show 401.5 (it sums the reserve row too); the PS tile counts
   peak-shaving rows only — not a mismatch.
 
-### 05 — Mission crane 500 kW (cascade continues below)
-Crane's variation = its FULL kW (starts at any moment). Mission row **500/500/250/250**, then
-Propulsion 573.15 (J 200.6025/L 372.5475), Hotel 76 (J 3.8/L 72.2), remaining **110.85**.
-- Tiles: **SR 694.75 / PS 454.4** · Benefit **422.25 t/yr**
+### 05 — Mission crane 500 kW (SUPERSEDED by Epic E2: inert in Transit)
+Mission is **DP-only** since the client's correction (D-BI1) — this scenario's mission input
+changes nothing and every figure equals **01** (SR 444.7 / PS 204.4 / Benefit 173.66). Retained
+as the regression pin that Transit ignores the field. The original full-kW arithmetic
+(500/500/250/250, tiles SR 694.75 / PS 454.4) now belongs to the **Others** row — see its card's
+banner.
 
-### 06 — Mission crane 3000 kW (budget devoured by priority)
-Mission I=**1260** (whole budget), J=630, L=2370; Propulsion and Hotel get **zero**.
-- Tiles: **SR 3019.15 / PS 630** · Benefit **631.29 t/yr**
-- Bonus check (anti-double-counting, rule Q4/D4): the mission covered band (630, hotel side)
-  fully absorbs the ±500 DRC variation → IL3 details show variation **0**, batteryShaved **500**,
-  L3 component **0 t/yr**.
+### 06 — Mission crane 3000 kW (SUPERSEDED by Epic E2: inert in Transit)
+Same correction — identical to **01** now. The budget-devoured behaviour (Others I=1260, J=630,
+L=2370; propulsion and hotel starve; DRC fully absorbed) is pinned by the Others unit tests with
+the original Excel-verified numbers.
 
 ### 07 — Multi-mode Transit + Port
 Each mode cascades with the FULL 1260 budget (modes never overlap in time). Two allocation tables:
@@ -200,12 +200,38 @@ carry propulsion and hotel load. Consider reducing propulsion power, decreasing 
 reducing hotel/mission load or increasing auxiliary engine capacity."* — the diesel-electric
 twin of scenario 17, with the ME-shaped messages deliberately absent.
 
+## Fourth wave — closing the Epic E2 coverage hole (40–42)
+
+Added after a coverage audit found that E2 had left the battery-row rules with **unit-test
+coverage only**: `othersConsumerMaxKw` appeared in no scenario at all, and the only scenarios
+carrying a mission value (05/06) had become inertness pins.
+
+### 40 — Others 500 kW in Transit
+Scenario 01's plant + `othersConsumerMaxKw: 500`. Others **500/500/250/250**, then Propulsion
+573.15 (J 200.6025 / L 372.5475), Hotel 76 (J 3.8 / L 72.2), remaining **110.85**.
+- Tiles **SR 694.75 / PS 454.40** · Benefit **422.25 t/yr** · Baseline **13 590.7 t/yr**
+- **Proof by inheritance:** these are the pre-E2 scenario-05 figures, digit for digit — the row
+  changed its name, not its arithmetic.
+
+### 41 — Mission crane 500 kW in DP
+Scenario 04's plant + `missionHeavyConsumerMaxKw: 500` (battery 500 kW, DP-only).
+- DP cascade: DpReserve **400/400/400/0** takes the budget first, Mission gets the leftover
+  **500/100/50/450**, Hotel 30/0/0/30
+- Tiles **SR 480 / PS 50** — the clearest "committed ≠ peak-shaved" case in the suite
+- Benefit **156.69 t/yr** · Baseline **14 692.1 t/yr**
+
+### 42 — Diesel-electric with SG and PTI set (expect a 400, NOT results)
+`meCount 0` + `sgCapacityPerEngine 500` + `maxPtiPerEngineKw 300` → both D-DE3 errors, in order:
+*"Shaft generators require a main engine…"* and *"PTI requires a main engine shaft…"*. The client
+form parks those fields, so this input is unreachable by clicking — which is precisely why it
+needs a file-level pin.
+
 ## Coverage
 
 See **COVERAGE-MATRIX.md** for what the scenarios do and do not reach, verified against the
 approved snapshots rather than against the scenario files.
 
-Scenarios 01–18 were verified against the reference workbook. **19–39 were generated from the
+Scenarios 01–18 were verified against the reference workbook. **19–42 were generated from the
 current code** and are characterisation snapshots — they detect change, and each was checked to
 actually reach the path it targets, but figures marked "pending reference verification" in their
 cards are not yet correctness proofs.

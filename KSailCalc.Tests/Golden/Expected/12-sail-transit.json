@@ -115,7 +115,7 @@
           "mode": "Transit",
           "loads": [
             {
-              "load": "Mission",
+              "load": "Others",
               "function": "PeakShaving",
               "coverageFactor": 0.5,
               "averageLoadKw": 0,

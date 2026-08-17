@@ -68,8 +68,9 @@ Notes the implementer must not lose:
 
 ## 3. Loss factor: config surface and threading
 
-- **Key:** `Calculator:ElectricPropulsionLossFactor`, bound on `CalculatorSettings`
-  (same pattern as `VesselVariations` / `DefaultVesselVariationKw`). Default **0** (D-DE2).
+- **Key:** `CalculatorSettings:ElectricPropulsionLossFactor`, bound on `CalculatorSettings`
+  (same pattern as `VesselVariations` / `DefaultVesselVariationKw`; the section name is
+  `CalculatorSettings`, corrected from this document's first draft). Default **0** (D-DE2).
 - **Threading:** `Level1OptimizationService` receives `IOptions<CalculatorSettings>` alongside the
   existing `IOptions<BatterySettings>` and passes the factor into `TryDistribute` as a parameter
   (the builder is static and stays pure — no options access inside).

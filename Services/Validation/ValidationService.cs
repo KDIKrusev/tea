@@ -1,5 +1,6 @@
 using KSailCalc.Api.Models;
 using KSailCalc.Api.Models.Enums;
+using KSailCalc.Api.Services.Helpers;
 using KSailCalc.Api.Services.Interfaces;
 
 namespace KSailCalc.Api.Services.Validation;
@@ -88,10 +89,10 @@ public class ValidationService : IValidationService
         // Diesel-electric plant: nothing may hang off the absent shaft (D-DE3 — blocking errors,
         // not silent zeroing). Appended after the existing checks so the pinned 400 order of
         // MeCount >= 1 inputs cannot move.
-        if (input.MeCount == 0 && input.SgCapacityPerEngine > 0)
+        if (PlantShape.IsDieselElectric(input) && input.SgCapacityPerEngine > 0)
             errors.Add("Shaft generators require a main engine. Set shaft generator capacity to 0 for a diesel-electric plant.");
 
-        if (input.MeCount == 0 && input.MaxPtiPerEngineKw > 0)
+        if (PlantShape.IsDieselElectric(input) && input.MaxPtiPerEngineKw > 0)
             errors.Add("PTI requires a main engine shaft. Clear the PTI capacity for a diesel-electric plant.");
     }
 
@@ -126,6 +127,8 @@ public class ValidationService : IValidationService
             errors.Add("DP redundancy requirement cannot be negative");
         if ((input.MissionHeavyConsumerMaxKw ?? 0) < 0)
             errors.Add("Mission heavy-consumer maximum cannot be negative");
+        if ((input.OthersConsumerMaxKw ?? 0) < 0)
+            errors.Add("Others battery demand cannot be negative");
     }
 
     private static void ValidateOperationalModes(CalculatorInput input, List<string> errors)
@@ -196,77 +199,10 @@ public class ValidationService : IValidationService
     {
         var warnings = new List<ValidationWarning>();
 
-        if (input.MeCount == 0)
-        {
-            // Diesel-electric plant: the ME-shaped checks below would mislead (there is no
-            // shaft). One question replaces them — can the auxiliaries carry the whole
-            // electric load? Battery and DP advisories further down still apply.
-            if (input.EffectivePropulsionPower + input.TransitHotelPowerKW > input.TotalAeCapacity)
-            {
-                warnings.Add(new ValidationWarning
-                {
-                    Type = "aux-engine",
-                    Message = "Auxiliary engine capacity cannot carry propulsion and hotel load. Consider reducing propulsion power, decreasing sea margin, reducing hotel/mission load or increasing auxiliary engine capacity.",
-                    Severity = WarningSeverity.Error
-                });
-            }
-        }
+        if (PlantShape.IsDieselElectric(input))
+            ValidateDieselElectricCapacity(input, warnings);
         else
-        {
-            var meCapacityTotal = input.TotalMeCapacity;
-            var sgCapacityTotal = input.TotalSgCapacity;
-            var aeCapacityTotal = input.TotalAeCapacity;
-
-            var sgPowerActual = Math.Min(input.TransitHotelPowerKW, sgCapacityTotal);
-            var mePropulsionPower = input.EffectivePropulsionPower;
-            var meTotalPower = mePropulsionPower + sgPowerActual;
-
-            var meUtilization = meCapacityTotal > 0 ? (meTotalPower / meCapacityTotal) * 100 : 0;
-            if (meUtilization > 100)
-            {
-                warnings.Add(new ValidationWarning
-                {
-                    Type = "main-engine",
-                    Message = "Main engine utilization > 100%. Consider reducing propulsion power, decreasing sea margin, reduce hotel/mission load or increasing main engine capacity.",
-                    Severity = WarningSeverity.Error
-                });
-            }
-
-            var aePowerNeeded = Math.Max(0, input.TransitHotelPowerKW - sgCapacityTotal);
-            var aeUtilization = aeCapacityTotal > 0 ? (aePowerNeeded / aeCapacityTotal) * 100 : 0;
-
-            // Check if hotel load exceeds combined SG + AE capacity
-            if (input.TransitHotelPowerKW > sgCapacityTotal + aeCapacityTotal)
-            {
-                warnings.Add(new ValidationWarning
-                {
-                    Type = "hotel-load",
-                    Message = "Hotel/mission load exceeds combined shaft generator and auxiliary engine capacity. Consider reducing hotel/mission load or increasing shaft generator capacity.",
-                    Severity = WarningSeverity.Error
-                });
-            }
-
-            // Check if AE specifically is over 100% utilization (can co-exist with hotel-load warning)
-            if (aeUtilization > 100)
-            {
-                warnings.Add(new ValidationWarning
-                {
-                    Type = "aux-engine",
-                    Message = "Auxiliary engine utilization > 100%. Consider reducing hotel/mission load or increasing auxiliary engine capacity.",
-                    Severity = WarningSeverity.Error
-                });
-            }
-
-            if (input.SgCapacityPerEngine > input.MeCapacityPerEngine)
-            {
-                warnings.Add(new ValidationWarning
-                {
-                    Type = "shaft-capacity",
-                    Message = "Shaft generator capacity cannot exceed main engine capacity.",
-                    Severity = WarningSeverity.Error
-                });
-            }
-        }
+            ValidateMechanicalPlantCapacity(input, warnings);
 
         // Battery advisory warnings (non-blocking)
         if (input.Battery is { PowerKw: > 0 } battery)
@@ -305,5 +241,81 @@ public class ValidationService : IValidationService
         }
 
         return warnings;
+    }
+
+    /// <summary>
+    /// Diesel-electric plant (Epic E1): the ME-shaped checks would mislead — there is no shaft.
+    /// One question replaces them: can the auxiliaries carry the whole electric load?
+    /// The battery and DP advisories in the caller's tail still apply.
+    /// </summary>
+    private static void ValidateDieselElectricCapacity(CalculatorInput input, List<ValidationWarning> warnings)
+    {
+        if (input.EffectivePropulsionPower + input.TransitHotelPowerKW > input.TotalAeCapacity)
+        {
+            warnings.Add(new ValidationWarning
+            {
+                Type = "aux-engine",
+                Message = "Auxiliary engine capacity cannot carry propulsion and hotel load. Consider reducing propulsion power, decreasing sea margin, reducing hotel/mission load or increasing auxiliary engine capacity.",
+                Severity = WarningSeverity.Error
+            });
+        }
+    }
+
+    /// <summary>The pre-E1 capacity checks, verbatim: ME utilisation, hotel vs SG+AE, AE overload, shaft capacity.</summary>
+    private static void ValidateMechanicalPlantCapacity(CalculatorInput input, List<ValidationWarning> warnings)
+    {
+        var meCapacityTotal = input.TotalMeCapacity;
+        var sgCapacityTotal = input.TotalSgCapacity;
+        var aeCapacityTotal = input.TotalAeCapacity;
+
+        var sgPowerActual = Math.Min(input.TransitHotelPowerKW, sgCapacityTotal);
+        var mePropulsionPower = input.EffectivePropulsionPower;
+        var meTotalPower = mePropulsionPower + sgPowerActual;
+
+        var meUtilization = meCapacityTotal > 0 ? (meTotalPower / meCapacityTotal) * 100 : 0;
+        if (meUtilization > 100)
+        {
+            warnings.Add(new ValidationWarning
+            {
+                Type = "main-engine",
+                Message = "Main engine utilization > 100%. Consider reducing propulsion power, decreasing sea margin, reduce hotel/mission load or increasing main engine capacity.",
+                Severity = WarningSeverity.Error
+            });
+        }
+
+        var aePowerNeeded = Math.Max(0, input.TransitHotelPowerKW - sgCapacityTotal);
+        var aeUtilization = aeCapacityTotal > 0 ? (aePowerNeeded / aeCapacityTotal) * 100 : 0;
+
+        // Check if hotel load exceeds combined SG + AE capacity
+        if (input.TransitHotelPowerKW > sgCapacityTotal + aeCapacityTotal)
+        {
+            warnings.Add(new ValidationWarning
+            {
+                Type = "hotel-load",
+                Message = "Hotel/mission load exceeds combined shaft generator and auxiliary engine capacity. Consider reducing hotel/mission load or increasing shaft generator capacity.",
+                Severity = WarningSeverity.Error
+            });
+        }
+
+        // Check if AE specifically is over 100% utilization (can co-exist with hotel-load warning)
+        if (aeUtilization > 100)
+        {
+            warnings.Add(new ValidationWarning
+            {
+                Type = "aux-engine",
+                Message = "Auxiliary engine utilization > 100%. Consider reducing hotel/mission load or increasing auxiliary engine capacity.",
+                Severity = WarningSeverity.Error
+            });
+        }
+
+        if (input.SgCapacityPerEngine > input.MeCapacityPerEngine)
+        {
+            warnings.Add(new ValidationWarning
+            {
+                Type = "shaft-capacity",
+                Message = "Shaft generator capacity cannot exceed main engine capacity.",
+                Severity = WarningSeverity.Error
+            });
+        }
     }
 }

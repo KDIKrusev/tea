@@ -310,18 +310,28 @@ export class CalculatorPageComponent {
       this.selectedBaselineIndex = undefined;
     }
 
-    // Add validation: only calculate if all required fields are > 0
-    if (
-      input &&
-      input.propulsionPower > 0 &&
-      input.hotelLoad > 0 &&
-      input.meCapacityPerEngine > 0 &&
-      input.aeCapacityPerEngine > 0
-    ) {
+    if (input && this.describesACalculablePlant(input)) {
       this.calculate(input);
-    } else {
-      // Validation failed - missing required fields
     }
+    // Otherwise the plant is not described yet (a cascade still filling the form) — stay silent.
+  }
+
+  /**
+   * Is there enough of a plant to ask the backend about?
+   *
+   * A cheap pre-check that keeps half-filled cascade states off the wire; the backend owns the
+   * real validation. Main-engine capacity is required only on a MECHANICAL plant: a
+   * diesel-electric vessel (meCount 0, Epic E1) legitimately sends 0 there and the auxiliaries
+   * carry propulsion and hotel alike. Before that exemption this guard dropped every
+   * diesel-electric calculation silently — no request, no results, no message.
+   */
+  private describesACalculablePlant(input: CalculatorInput): boolean {
+    const mainEngineDescribed = input.meCount === 0 || input.meCapacityPerEngine > 0;
+
+    return input.propulsionPower > 0
+      && input.hotelLoad > 0
+      && mainEngineDescribed
+      && input.aeCapacityPerEngine > 0;
   }
 
   onBaselineIndexChanged(index: number): void {

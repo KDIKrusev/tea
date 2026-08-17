@@ -34,6 +34,7 @@ export function profileToFormPatch(profile: CalculatorInput): Record<string, unk
     batteryMaxPtiKw: profile.maxPtiPerEngineKw ?? null,
     batteryDpRedundancyKw: profile.dpRedundancyRequirementKw ?? null,
     batteryMissionMaxKw: profile.missionHeavyConsumerMaxKw ?? null,
+    batteryOthersMaxKw: profile.othersConsumerMaxKw ?? null,
     fuelPrice: profile.fuelPrice,
     mainFuelType: profile.mainFuelType ?? DEFAULT_FUEL,
     auxFuelType: profile.auxFuelType ?? DEFAULT_FUEL,

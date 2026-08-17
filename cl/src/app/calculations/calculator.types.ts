@@ -40,6 +40,8 @@ export interface CalculatorInput {
 
   /** Mission heavy-consumer max [kW] — the Mission row's full variation (Excel I3). */
   missionHeavyConsumerMaxKw?: number;
+  /** Battery demand of the remaining (non-DP) relevant modes [kW] — Transit/Port (Epic E2). */
+  othersConsumerMaxKw?: number;
   
   // Financial Parameters
   fuelPrice: number; // USD/ton

@@ -48,6 +48,8 @@ export function buildVesselForm(fb: FormBuilder): FormGroup {
     // Excel load inputs (Increment F): DP redundancy (RESERVE) + mission heavy-consumer max
     batteryDpRedundancyKw: [null, [Validators.min(0)]],
     batteryMissionMaxKw: [null, [Validators.min(0)]],
+    // Battery demand of the remaining (non-DP) relevant modes — Epic E2 (D-BI4/5)
+    batteryOthersMaxKw: [null, [Validators.min(0)]],
 
     // Financial
     fuelPrice: [DEFAULT_VALUES.FUEL_PRICE, [Validators.min(VALIDATION_LIMITS.FUEL_PRICE.MIN)]],

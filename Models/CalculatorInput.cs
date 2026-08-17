@@ -56,8 +56,17 @@ public class CalculatorInput
     /// variation is this FULL value when mission operations exist (G7 = IF(E7&gt;0, I3, 0)) —
     /// the heavy consumer can start at any moment. The average mission load itself is already
     /// part of the Hotel/Mission power input (no double counting). Increment F / D4.
+    /// DP mode only since Epic E2 (D-BI1 — the client's correction of our workbook reading).
     /// </summary>
     public double? MissionHeavyConsumerMaxKw { get; set; }
+
+    /// <summary>
+    /// Battery demand of the remaining (non-DP) relevant modes [kW] — Transit and Port
+    /// (Epic E2, D-BI3/4/5). Mirrors <see cref="MissionHeavyConsumerMaxKw"/>: each relevant
+    /// mode's cascade carries this FULL value as the Others row's variation (modes never
+    /// overlap in time), hotel side, coverage per configuration.
+    /// </summary>
+    public double? OthersConsumerMaxKw { get; set; }
     
     // Financial Parameters
     public double FuelPrice { get; set; } // USD/ton

@@ -74,22 +74,25 @@ public class BatteryExcelLoadInputTests
     // ── AC4: Mission heavy-consumer max — variation is the FULL value ────────
 
     [Fact]
-    public void MissionHeavyConsumerMax_VariationIsFullValue_AndOutranksPropulsion()
+    public void OthersMax_VariationIsFullValue_AndOutranksPropulsion()
     {
+        // Epic E2: this used to be the Mission-in-Transit test; the Others row carries the
+        // identical arithmetic (full kW, coverage 0.50, hotel side) — deliberately, so the
+        // Excel-verified numbers survive as a regression pin under the new row name (D-BI4).
         var input = CalculatorInputBuilder.Default()
             .WithPropulsionPower(11463).WithSeaMargin(0)
             .WithTransitMode(5000, 3800)
             .WithBattery(1260, 2000, OperationalMode.Transit).Build();
-        input.MissionHeavyConsumerMaxKw = 3000; // Excel I3
+        input.OthersConsumerMaxKw = 3000;
 
         var result = Allocator().Allocate(OperationalMode.Transit, input);
 
-        var mission = result.Loads.Single(l => l.Load == BatteryLoadType.Mission);
-        mission.AverageLoadKw.Should().Be(0);                              // avg lives in Hotel/Mission input
-        mission.VariationKw.Should().BeApproximately(3000, Precision);     // H = I3 as-is (not avg×factor)
-        mission.BatteryUsedKw.Should().BeApproximately(1260, Precision);   // whole budget
-        mission.CoveredBandKw.Should().BeApproximately(630, Precision);    // × 50%
-        mission.UncoveredReserveKw.Should().BeApproximately(2370, Precision);
+        var others = result.Loads.Single(l => l.Load == BatteryLoadType.Others);
+        others.AverageLoadKw.Should().Be(0);                              // avg lives in Hotel/Mission input
+        others.VariationKw.Should().BeApproximately(3000, Precision);     // H = entered kW as-is
+        others.BatteryUsedKw.Should().BeApproximately(1260, Precision);   // whole budget
+        others.CoveredBandKw.Should().BeApproximately(630, Precision);    // × 50%
+        others.UncoveredReserveKw.Should().BeApproximately(2370, Precision);
 
         // Nothing left for the lower-priority rows
         result.Loads.Single(l => l.Load == BatteryLoadType.Propulsion)
@@ -99,6 +102,64 @@ public class BatteryExcelLoadInputTests
 
         result.PeakShavingBandKw.Should().BeApproximately(630, Precision);
         result.AdditionalSpinningReserveKw.Should().BeApproximately(3019.15, Precision);
+    }
+
+    [Fact]
+    public void MissionInTransit_IsInert_TheRowDoesNotExist()
+    {
+        // D-BI1: the client's correction — mission operations are a DP affair. A mission value
+        // entered alongside a Transit battery must change nothing.
+        var input = CalculatorInputBuilder.Default()
+            .WithPropulsionPower(11463).WithSeaMargin(0)
+            .WithTransitMode(5000, 3800)
+            .WithBattery(1260, 2000, OperationalMode.Transit).Build();
+        input.MissionHeavyConsumerMaxKw = 3000;
+
+        var result = Allocator().Allocate(OperationalMode.Transit, input);
+
+        result.Loads.Should().NotContain(l => l.Load == BatteryLoadType.Mission);
+        // With the budget free of the crane, Transit allocates exactly like scenario 01:
+        result.PeakShavingBandKw.Should().BeApproximately(204.4025, Precision);
+        result.AdditionalSpinningReserveKw.Should().BeApproximately(444.7475, Precision);
+    }
+
+    [Fact]
+    public void MissionInDp_KeepsTheFullValueBehaviour()
+    {
+        // Coverage note: pre-E2 the full-value mission tests ran in Transit; they became Others
+        // tests. This is now the only value-carrying Mission pin, in its one remaining home.
+        var input = CalculatorInputBuilder.Default()
+            .WithDPMode(2000, 1500, 4000)
+            .WithBattery(1260, 2000, OperationalMode.DP).Build();
+        input.MissionHeavyConsumerMaxKw = 500;
+
+        var result = Allocator().Allocate(OperationalMode.DP, input);
+
+        var mission = result.Loads.Single(l => l.Load == BatteryLoadType.Mission);
+        mission.VariationKw.Should().BeApproximately(500, Precision);   // H = full value, as-is
+        mission.BatteryUsedKw.Should().BeApproximately(500, Precision); // budget 1260 suffices
+        mission.CoveredBandKw.Should().BeApproximately(250, Precision); // × 50%
+    }
+
+    [Fact]
+    public void OthersRow_ExistsInPort_ButNotInDp()
+    {
+        // D-BI5: Others covers the remaining relevant modes (Transit, Port); DP keeps Mission.
+        var input = CalculatorInputBuilder.Default()
+            .WithDPMode(2000, 1500, 4000)
+            .WithBattery(500, 1000, OperationalMode.DP, OperationalMode.Port).Build();
+        input.PortHours = 500;
+        input.PortHotelPowerKW = 2000;
+        input.OthersConsumerMaxKw = 300;
+
+        var port = Allocator().Allocate(OperationalMode.Port, input);
+        var others = port.Loads.Single(l => l.Load == BatteryLoadType.Others);
+        others.VariationKw.Should().BeApproximately(300, Precision);
+        others.CoveredBandKw.Should().BeApproximately(150, Precision);    // × 50%
+
+        var dp = Allocator().Allocate(OperationalMode.DP, input);
+        dp.Loads.Should().NotContain(l => l.Load == BatteryLoadType.Others);
+        dp.Loads.Should().Contain(l => l.Load == BatteryLoadType.Mission);
     }
 
     // ── AC5 + AC1: absent inputs ⇒ rows stay 0 (zero regression) ─────────────
@@ -176,13 +237,15 @@ public class BatteryExcelLoadInputTests
     }
 
     [Fact]
-    public async Task H3_MissionMax_EndToEnd_RaisesHotelDemand_AndAbsorbsDrcVariation()
+    public async Task H3_OthersMax_EndToEnd_RaisesHotelDemand_AndAbsorbsDrcVariation()
     {
+        // Epic E2: was the Mission end-to-end test; Others carries the identical arithmetic in
+        // Transit (D-BI4), so every expected number below is unchanged.
         var factory = TestServiceFactory.Create();
-        // Bigger aux plant: uncovered mission reserve (2370 kW) lands on the HOTEL side
+        // Bigger aux plant: uncovered Others reserve (2370 kW) lands on the HOTEL side
         var input = ExcelPlant().WithAuxiliaryEngines(2000, 3)
             .WithBattery(1260, 2000, OperationalMode.Transit).Build();
-        input.MissionHeavyConsumerMaxKw = 3000;
+        input.OthersConsumerMaxKw = 3000;
         input.HotelLoadVariationKw = 500;
 
         var result = await factory.CalculatorService.CalculateAllVariantsAsync(input);
@@ -196,7 +259,7 @@ public class BatteryExcelLoadInputTests
         l1.ValidCombinationsCount.Should().Be(2);        // {1 ME, SG, 3 AE} and {2 ME, SG, 3 AE}
         l1.SelectedBaselineIndex.Should().Be(0);         // max(0, 2 − 3)
 
-        // Mission's covered band (630, hotel side) fully absorbs the ±500 DRC variation (clamped)
+        // Others' covered band (630, hotel side) fully absorbs the ±500 DRC variation (clamped)
         var l3 = result.Premium.Level3Details!;
         l3.BatteryShavedVariationKw.Should().BeApproximately(500, Precision);
         l3.VariationPerGeneratorKw.Should().Be(0);
@@ -206,15 +269,17 @@ public class BatteryExcelLoadInputTests
     // ── AC6: validation ──────────────────────────────────────────────────────
 
     [Theory]
-    [InlineData(-1, 0, "DP redundancy requirement cannot be negative")]
-    [InlineData(0, -1, "Mission heavy-consumer maximum cannot be negative")]
+    [InlineData(-1, 0, 0, "DP redundancy requirement cannot be negative")]
+    [InlineData(0, -1, 0, "Mission heavy-consumer maximum cannot be negative")]
+    [InlineData(0, 0, -1, "Others battery demand cannot be negative")]
     public void Validate_NegativeExcelLoadInputs_ProduceErrors(
-        double dpRedundancy, double missionMax, string expectedError)
+        double dpRedundancy, double missionMax, double othersMax, string expectedError)
     {
         var service = new ValidationService();
         var input = CalculatorInputBuilder.Default().Build();
         input.DpRedundancyRequirementKw = dpRedundancy;
         input.MissionHeavyConsumerMaxKw = missionMax;
+        input.OthersConsumerMaxKw = othersMax;
 
         var result = service.ValidateInput(input);
 

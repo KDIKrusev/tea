@@ -2,6 +2,15 @@
 
 <!-- header:auto -->
 
+> ⚠️ **SUPERSEDED by Epic E2 (2026-08-13, D-BI1):** the client corrected the model — mission
+> operations are a **DP affair**, and the Mission row no longer exists in Transit. This
+> scenario's mission input is now **inert**: every figure equals scenario 01, and the snapshot
+> pins exactly that (`Card05_MissionCrane500_IsInertInTransit_IdenticalToCard01`). The
+> walkthrough below is preserved because its arithmetic now belongs verbatim to the **Others**
+> row (same full-kW H, same 0.50 coverage, same hotel side — D-BI4): read "Mission" as "Others"
+> and every number still teaches the mechanism. The Excel-verified "proof" status applies to
+> that arithmetic, not to this scenario's current output.
+
 > **Proves** · The Mission row: a crane's full rating is its swing, and the cascade continues below it.
 >
 > **Mechanics this scenario turns on**

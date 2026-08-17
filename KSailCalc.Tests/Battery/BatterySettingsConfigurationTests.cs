@@ -32,16 +32,18 @@ public class BatterySettingsConfigurationTests
         settings.DischargeEfficiency.Should().Be(0.97);
         settings.ElectricMotorEfficiency.Should().Be(0.965);
 
-        settings.LoadPriorities.Should().HaveCount(5);
+        // Others added by Epic E2 (D-BI4): mirrors Mission, right after it in the queue.
+        settings.LoadPriorities.Should().HaveCount(6);
         settings.LoadPriorities.Select(p => p.Load).Should().ContainInOrder(
             BatteryLoadType.DpReserve, BatteryLoadType.DpDemand, BatteryLoadType.Mission,
-            BatteryLoadType.Propulsion, BatteryLoadType.Hotel);
+            BatteryLoadType.Others, BatteryLoadType.Propulsion, BatteryLoadType.Hotel);
 
         var byLoad = settings.LoadPriorities.ToDictionary(p => p.Load);
         byLoad[BatteryLoadType.DpReserve].Function.Should().Be(BatteryFunction.Reserve);
         byLoad[BatteryLoadType.DpReserve].CoverageFactor.Should().Be(1.00);
         byLoad[BatteryLoadType.DpDemand].CoverageFactor.Should().Be(0.50);
         byLoad[BatteryLoadType.Mission].CoverageFactor.Should().Be(0.50);
+        byLoad[BatteryLoadType.Others].CoverageFactor.Should().Be(0.50);
         byLoad[BatteryLoadType.Propulsion].CoverageFactor.Should().Be(0.35);
         byLoad[BatteryLoadType.Propulsion].VariationFactor.Should().Be(0.05);
         byLoad[BatteryLoadType.Hotel].CoverageFactor.Should().Be(0.05);

@@ -1,6 +1,7 @@
 using System.Globalization;
 using KSailCalc.Api.Models;
 using KSailCalc.Api.Models.Enums;
+using KSailCalc.Api.Services.Helpers;
 
 namespace KSailCalc.Api.Services.Calculation;
 
@@ -58,7 +59,7 @@ internal sealed class Level1RejectionTally
         {
             // Diesel-electric plant: the AEs carry propulsion too, so name that lever as well.
             // The MeCount >= 1 wording below is pinned by exact message — do not touch it.
-            if (input.MeCount == 0)
+            if (PlantShape.IsDieselElectric(input))
                 return $"the auxiliary engines would run above 90% load carrying the whole diesel-electric "
                      + $"demand in {mode} mode. Increase auxiliary engine capacity or count, or reduce "
                      + "the propulsion or hotel/mission power.";

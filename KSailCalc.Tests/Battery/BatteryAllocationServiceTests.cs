@@ -65,11 +65,13 @@ public class BatteryAllocationServiceTests
 
         var result = service.Allocate(OperationalMode.Transit, ExcelReferenceInput());
 
-        // Transit rows in priority order: Mission → Propulsion → Hotel
+        // Transit rows in priority order: Others → Propulsion → Hotel.
+        // Mission is DP-only since Epic E2 (D-BI1) — its row must NOT exist here.
         result.Loads.Select(l => l.Load).Should().ContainInOrder(
-            BatteryLoadType.Mission, BatteryLoadType.Propulsion, BatteryLoadType.Hotel);
+            BatteryLoadType.Others, BatteryLoadType.Propulsion, BatteryLoadType.Hotel);
         result.Loads.Should().NotContain(l =>
-            l.Load == BatteryLoadType.DpReserve || l.Load == BatteryLoadType.DpDemand);
+            l.Load == BatteryLoadType.DpReserve || l.Load == BatteryLoadType.DpDemand
+            || l.Load == BatteryLoadType.Mission);
     }
 
     // ── AC2: budget exhaustion ───────────────────────────────────────────────

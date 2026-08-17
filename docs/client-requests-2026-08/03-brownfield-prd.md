@@ -101,7 +101,7 @@ realistic.
 |---|---|---|---|
 | **E3** | Battery panel cosmetics (± Variation, Covered relabel) | **Ready** — no dependencies | 1st |
 | **E1** | Diesel-electric plant (0 main engines) | **Ready for Architect** — D-DE1..D-DE5 confirmed | 2nd |
-| **E2** | Battery input rows (Mission DP-only + "Others") | **BLOCKED** on O-1..O-5 (`02-decisions-log.md`) | 3rd |
+| **E2** | Battery input rows (Mission DP-only + "Others") | **DONE 2026-08-13** — O-1..O-5 resolved provisionally as D-BI1..5 (revert levers named); implemented as story BI-A | 3rd |
 
 ## 5. Epic E3 — Battery panel cosmetics
 
