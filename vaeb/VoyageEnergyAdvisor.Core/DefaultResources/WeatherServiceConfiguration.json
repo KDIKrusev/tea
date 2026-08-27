@@ -1,0 +1,14 @@
+{
+  "WeatherServiceConfiguration": {
+    "SelectedWeatherProvider": "StormglassWeatherProvider"
+  },
+  "MeteomaticsWeatherServiceProviderConfig":
+  {
+    "User": "kongsbergmaritime_olsen_lasse",
+    "Password": "Z515AngwMN"
+  },
+  "StormglassWeatherProviderConfig":
+  {
+    "ApiKey": "2565a64c-d588-11f0-a148-0242ac130003-2565a73c-d588-11f0-a148-0242ac130003"
+  }
+}

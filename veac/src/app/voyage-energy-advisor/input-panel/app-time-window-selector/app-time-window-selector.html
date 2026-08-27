@@ -1,0 +1,40 @@
+<!-- time-window-selector.component.html - Cleaned and optimized -->
+<div class="time-window-selector">
+  <div class="selector-heading" *ngIf="heading">{{ heading }}</div>
+  
+  <div class="toggle-container">
+    <div class="toggle-option"
+         [class.toggle-option-active]="selectedMode === 'etd'"
+         (click)="selectMode('etd')"
+         role="button"
+         tabindex="0"
+         [attr.aria-pressed]="selectedMode === 'etd'"
+         (keydown.enter)="selectMode('etd')"
+         (keydown.space)="selectMode('etd')">
+      <span class="toggle-icon">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M8 3V8L11 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/>
+        </svg>
+      </span>
+      <span class="toggle-text">Departure (ETD)</span>
+    </div>
+    
+    <div class="toggle-option"
+         [class.toggle-option-active]="selectedMode === 'eta'"
+         (click)="selectMode('eta')"
+         role="button"
+         tabindex="0"
+         [attr.aria-pressed]="selectedMode === 'eta'"
+         (keydown.enter)="selectMode('eta')"
+         (keydown.space)="selectMode('eta')">
+      <span class="toggle-icon">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M8 3V8L5 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/>
+        </svg>
+      </span>
+      <span class="toggle-text">Arrival (ETA)</span>
+    </div>
+  </div>
+</div>

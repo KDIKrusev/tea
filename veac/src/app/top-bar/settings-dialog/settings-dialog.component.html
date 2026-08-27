@@ -1,0 +1,81 @@
+<div class="settings-overlay" *ngIf="isOpen" (click)="close()">
+  <div class="settings-dialog" (click)="$event.stopPropagation()">
+    <div class="settings-header">
+      <h2>Display format</h2>
+      <button class="close-btn" (click)="close()">✕</button>
+    </div>
+    
+    <div class="settings-content">
+      <!-- Loading State -->
+      <div *ngIf="isLoading" class="loading-container">
+        <div class="loading-spinner"></div>
+        <p>Loading configuration...</p>
+      </div>
+
+      <!-- Content (hidden while loading) -->
+      <div *ngIf="!isLoading">
+        <!-- Display Format Section -->
+        <div class="settings-section">
+          <h3>Display format</h3>
+          <div class="radio-group">
+            <label class="radio-option">
+              <input type="radio"
+                     name="displayFormat"
+                     value="energy"
+                     [(ngModel)]="settings.displayFormat"
+                     (ngModelChange)="onDisplayFormatChange($event)">
+              <span>Energy [kWh]</span>
+            </label>
+            <label class="radio-option">
+              <input type="radio"
+                     name="displayFormat"
+                     value="fuel"
+                     [(ngModel)]="settings.displayFormat"
+                     (ngModelChange)="onDisplayFormatChange($event)">
+              <span>Fuel consumption [kg]</span>
+            </label>
+            <label class="radio-option">
+              <input type="radio"
+                     name="displayFormat"
+                     value="cost"
+                     [(ngModel)]="settings.displayFormat"
+                     (ngModelChange)="onDisplayFormatChange($event)">
+              <span>Fuel cost [$]</span>
+            </label>
+          </div>
+        </div>
+        
+        <!-- Fuel Price Section -->
+        <div class="settings-section">
+          <h3>Fuel price</h3>
+          <div class="input-wrapper">
+            <input type="number"
+                   step="1"
+                   min="0"
+                   [(ngModel)]="settings.fuelPricePerTon"
+                   (ngModelChange)="onFuelPriceChange()"
+                   class="price-input"
+                   [disabled]="isSaving">
+            <span class="input-suffix">$/t</span>
+          </div>
+        </div>
+
+        <!-- Error Message Only (no success message) -->
+        <div *ngIf="saveError" class="error-message">
+          ✕ {{ saveError }}
+        </div>
+      </div>
+    </div>
+    
+    <div class="settings-footer">
+      <div class="footer-actions">
+        <button class="btn-cancel" (click)="close()">Cancel</button>
+        <button class="btn-ok"
+                (click)="saveAndClose()"
+                [disabled]="isSaving || !hasUnsavedChanges">
+          <span *ngIf="!isSaving">Ok</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

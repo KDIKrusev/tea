@@ -1,0 +1,153 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<route xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.cirm.org/RTZ/1/0"
+       xsi:schemaLocation="http://www.cirm.org/rtz/RTZ Schema version 1_0.xsd" version="1.0">
+	<routeInfo routeName="Shanghai_to_LosAngeles_SouthernRoute_20251013" />
+
+	<waypoints>
+		<!-- Shanghai departure -->
+		<waypoint id="1" revision="1" name="WP01_Shanghai" radius="0.5">
+			<position lat="30.633888" lon="122.084504" />
+			<leg starboardXTD="2.0" portsideXTD="2.0" safetyContour="100" safetyDepth="50"
+				 geometryType="Orthodrome" staticUKC="0" dynamicUKC="0" />
+		</waypoint>
+		
+		<!-- Exit East China Sea -->
+		<waypoint id="2" revision="1" name="WP02" radius="0.5">
+			<position lat="30.000000" lon="126.000000" />
+			<leg starboardXTD="2.0" portsideXTD="2.0" safetyContour="100" safetyDepth="50"
+				 geometryType="Orthodrome" staticUKC="0" dynamicUKC="0" />
+		</waypoint>
+
+		<!-- Go south and clear Japan -->
+		<waypoint id="3" revision="1" name="WP03" radius="0.5">
+			<position lat="28.000000" lon="132.000000" />
+			<leg starboardXTD="2.0" portsideXTD="2.0" safetyContour="100" safetyDepth="50"
+				 geometryType="Orthodrome" staticUKC="0" dynamicUKC="0" />
+		</waypoint>
+
+		<!-- Southern arc across Pacific -->
+		<waypoint id="4" revision="1" name="WP04" radius="0.5">
+			<position lat="26.000000" lon="140.000000" />
+			<leg starboardXTD="2.0" portsideXTD="2.0" safetyContour="100" safetyDepth="50"
+				 geometryType="Orthodrome" staticUKC="0" dynamicUKC="0" />
+		</waypoint>
+
+		<waypoint id="5" revision="1" name="WP05" radius="0.5">
+			<position lat="25.000000" lon="150.000000" />
+			<leg starboardXTD="2.0" portsideXTD="2.0" safetyContour="100" safetyDepth="50"
+				 geometryType="Orthodrome" staticUKC="0" dynamicUKC="0" />
+		</waypoint>
+
+		<waypoint id="6" revision="1" name="WP06" radius="0.5">
+			<position lat="24.500000" lon="160.000000" />
+			<leg starboardXTD="2.0" portsideXTD="2.0" safetyContour="100" safetyDepth="50"
+				 geometryType="Orthodrome" staticUKC="0" dynamicUKC="0" />
+		</waypoint>
+
+		<waypoint id="7" revision="1" name="WP07" radius="0.5">
+			<position lat="24.500000" lon="170.000000" />
+			<leg starboardXTD="2.0" portsideXTD="2.0" safetyContour="100" safetyDepth="50"
+				 geometryType="Orthodrome" staticUKC="0" dynamicUKC="0" />
+		</waypoint>
+
+		<!-- Stay south, approach date line area -->
+		<waypoint id="8" revision="1" name="WP08" radius="0.5">
+			<position lat="25.000000" lon="175.000000" />
+			<leg starboardXTD="2.0" portsideXTD="2.0" safetyContour="100" safetyDepth="50"
+				 geometryType="Orthodrome" staticUKC="0" dynamicUKC="0" />
+		</waypoint>
+
+		<waypoint id="9" revision="1" name="WP09" radius="0.5">
+			<position lat="25.300000" lon="177.000000" />
+			<leg starboardXTD="2.0" portsideXTD="2.0" safetyContour="100" safetyDepth="50"
+				 geometryType="Orthodrome" staticUKC="0" dynamicUKC="0" />
+		</waypoint>
+
+		<waypoint id="10" revision="1" name="WP10" radius="0.5">
+			<position lat="25.500000" lon="179.000000" />
+			<leg starboardXTD="2.0" portsideXTD="2.0" safetyContour="100" safetyDepth="50"
+				 geometryType="Orthodrome" staticUKC="0" dynamicUKC="0" />
+		</waypoint>
+
+		<waypoint id="11" revision="1" name="WP11" radius="0.5">
+			<position lat="25.600000" lon="-179.000000" />
+			<leg starboardXTD="2.0" portsideXTD="2.0" safetyContour="100" safetyDepth="50"
+				 geometryType="Orthodrome" staticUKC="0" dynamicUKC="0" />
+		</waypoint>
+
+		<waypoint id="12" revision="1" name="WP12" radius="0.5">
+			<position lat="25.800000" lon="-177.000000" />
+			<leg starboardXTD="2.0" portsideXTD="2.0" safetyContour="100" safetyDepth="50"
+				 geometryType="Orthodrome" staticUKC="0" dynamicUKC="0" />
+		</waypoint>
+
+		<!-- Continue in Western Hemisphere, staying south -->
+		<waypoint id="13" revision="1" name="WP13" radius="0.5">
+			<position lat="26.000000" lon="-175.000000" />
+			<leg starboardXTD="2.0" portsideXTD="2.0" safetyContour="100" safetyDepth="50"
+				 geometryType="Orthodrome" staticUKC="0" dynamicUKC="0" />
+		</waypoint>
+
+		<waypoint id="14" revision="1" name="WP14" radius="0.5">
+			<position lat="27.000000" lon="-165.000000" />
+			<leg starboardXTD="2.0" portsideXTD="2.0" safetyContour="100" safetyDepth="50"
+				 geometryType="Orthodrome" staticUKC="0" dynamicUKC="0" />
+		</waypoint>
+
+		<waypoint id="15" revision="1" name="WP15" radius="0.5">
+			<position lat="28.000000" lon="-155.000000" />
+			<leg starboardXTD="2.0" portsideXTD="2.0" safetyContour="100" safetyDepth="50"
+				 geometryType="Orthodrome" staticUKC="0" dynamicUKC="0" />
+		</waypoint>
+
+		<waypoint id="16" revision="1" name="WP16" radius="0.5">
+			<position lat="29.000000" lon="-145.000000" />
+			<leg starboardXTD="2.0" portsideXTD="2.0" safetyContour="100" safetyDepth="50"
+				 geometryType="Orthodrome" staticUKC="0" dynamicUKC="0" />
+		</waypoint>
+
+		<!-- Climb toward California -->
+		<waypoint id="17" revision="1" name="WP17" radius="0.5">
+			<position lat="30.500000" lon="-135.000000" />
+			<leg starboardXTD="2.0" portsideXTD="2.0" safetyContour="100" safetyDepth="50"
+				 geometryType="Orthodrome" staticUKC="0" dynamicUKC="0" />
+		</waypoint>
+
+		<waypoint id="18" revision="1" name="WP18" radius="0.5">
+			<position lat="32.000000" lon="-128.000000" />
+			<leg starboardXTD="2.0" portsideXTD="2.0" safetyContour="100" safetyDepth="50"
+				 geometryType="Orthodrome" staticUKC="0" dynamicUKC="0" />
+		</waypoint>
+
+		<waypoint id="19" revision="1" name="WP19" radius="0.5">
+			<position lat="33.500000" lon="-122.000000" />
+			<leg starboardXTD="2.0" portsideXTD="2.0" safetyContour="100" safetyDepth="50"
+				 geometryType="Orthodrome" staticUKC="0" dynamicUKC="0" />
+		</waypoint>
+
+		<waypoint id="20" revision="1" name="WP20_LosAngeles" radius="0.5">
+			<position lat="33.701440" lon="-118.265740" />
+			<leg starboardXTD="2.0" portsideXTD="2.0" safetyContour="100" safetyDepth="50"
+				 geometryType="Orthodrome" staticUKC="0" dynamicUKC="0" />
+		</waypoint>
+
+		<waypoint id="21" revision="1" name="WP20_LosAngeles" radius="0.5">
+			<position lat="33.706763" lon="-118.246857" />
+			<leg starboardXTD="2.0" portsideXTD="2.0" safetyContour="100" safetyDepth="50"
+				 geometryType="Orthodrome" staticUKC="0" dynamicUKC="0" />
+		</waypoint>
+
+		<waypoint id="22" revision="1" name="WP20_LosAngeles" radius="0.5">
+			<position lat="33.714084" lon="-118.258752" />
+			<leg starboardXTD="2.0" portsideXTD="2.0" safetyContour="100" safetyDepth="50"
+				 geometryType="Orthodrome" staticUKC="0" dynamicUKC="0" />
+		</waypoint>
+
+		<!-- Arrival Los Angeles -->
+		<waypoint id="23" revision="1" name="WP20_LosAngeles" radius="0.5">
+			<position lat="33.728168" lon="-118.26482" />
+			<leg starboardXTD="2.0" portsideXTD="2.0" safetyContour="100" safetyDepth="50"
+				 geometryType="Orthodrome" staticUKC="0" dynamicUKC="0" />
+		</waypoint>
+	</waypoints>
+</route>

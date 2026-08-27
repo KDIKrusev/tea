@@ -1,0 +1,79 @@
+<!-- Updated Live Mode Dashboard Template with Auto-Follow Button -->
+<div class="live-dashboard-container">
+  <!-- Clean Top Controls Bar -->
+  <div class="live-controls-bar">
+    <div class="route-section">
+      <span class="route-label">Route:</span>
+      <div class="route-selector-container">
+        <app-route-selector [viewContext]="'live'"></app-route-selector>
+      </div>
+    </div>
+        
+    <div class="status-section">
+      <!-- NEW: Auto-Follow Toggle Button -->
+      <div class="auto-follow-control">
+        <button 
+          class="auto-follow-btn" 
+          [class.active]="autoFollowEnabled"
+          (click)="toggleAutoFollow()"
+          title="{{ autoFollowEnabled ? 'Disable auto-follow to explore map manually' : 'Enable auto-follow to track vessel automatically' }}">
+          <span class="follow-icon">📍</span>
+          <span class="follow-text">{{ autoFollowStatusText }}</span>
+        </button>
+      </div>
+      
+      <div class="vessel-running-status">
+        <div class="running-indicator"
+             [class.stopped]="!isVesselRunning"></div>
+        <span class="running-text">{{ isVesselRunning ? 'Running' : 'Stopped' }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content Area -->
+  <div class="live-main-content">
+            
+    <!-- Power Chart Section (Full Width on Top) -->
+    <div class="power-chart-section">
+      <div class="power-chart-wrapper">
+        <!-- Power Chart -->
+        <div class="results-card power-chart-card">
+          <app-voyage-power-chart
+            [selectedVoyageOption]="liveVoyageData"
+            (segmentSelected)="onSegmentSelected($event)">
+          </app-voyage-power-chart>
+        </div>
+                        
+        <!-- Compass/Segment Details -->
+        <div class="results-card compass-card">
+          <app-segment-details
+            [selectedSegment]="liveSegmentData">
+          </app-segment-details>
+        </div>
+      </div>
+    </div>
+
+    <!-- Map and Details Section (Side by Side) -->
+    <div class="map-details-section">
+      <!-- Map Container -->
+      <div class="map-container">
+        <app-voyage-route-analysis
+          [selectedVoyageOption]="liveVoyageData"
+          [isLiveMode]="true"
+          [currentVesselPosition]="currentVesselPosition"
+          [autoFollow]="autoFollowEnabled"
+          (closeRequested)="onMapCloseRequested()">
+        </app-voyage-route-analysis>
+      </div>
+            
+      <!-- Live Vessel Details Panel -->
+      <div class="voyage-details-panel">
+        <app-live-vessel-details
+          [currentVesselPosition]="currentVesselPosition"
+          [liveTrackingInfo]="liveTrackingInfo">
+        </app-live-vessel-details>
+      </div>
+    </div>
+
+  </div>
+</div>

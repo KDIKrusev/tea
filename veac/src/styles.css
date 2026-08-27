@@ -1,0 +1,39 @@
+/* You can add global styles to this file, and also import other style files */
+@import "../node_modules/c3/c3.min.css";
+body, html {
+    font-family: 'Roboto', sans-serif;
+}
+
+:host {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  
+  app-voyage-energy-advisor {
+    display: block;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  app-voyage-map {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .leaflet-container {
+    width: 100% ;
+    height: 100% ;
+  }
+  
+  .vea-map-container, .voyage-map {
+    max-height: none ;
+  }
+  
+  .leaflet-tile-container img {
+    width: auto ;
+    height: auto ;
+  }
+

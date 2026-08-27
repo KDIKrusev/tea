@@ -1,0 +1,696 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<route xmlns="http://www.cirm.org/RTZ/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.1" xmlns:stm="http://stmvalidation.eu/STM/1/0/0" xsi:schemaLocation="http://stmvalidation.eu/STM/1/0/0 stm_extensions.xsd">
+    <routeInfo routeName="Rivofjord - Jetty 511" routeStatus="SafetyChecked" vesselName="TERN ISLAND" vesselMMSI="219029722" vesselIMO="9909649" vesselVoyage="urn:mrn:stm:voyage:id:transas:24029_de4b4f0d-0648-4130-b127-f8261e182d89">
+        <extensions>
+            <extension manufacturer="Furuno" name="AdditionalRouteInfo" version="1.0">
+                <property income="0" channelLimitMode="0" safetyContour="30" ukcLimit="30.000000"/>
+            </extension>
+            <extension routeStatusEnum="5" routeVersion="0868416F-4A8C-48F2-A038-20B2109BD2D4" xsi:type="stm:RouteInfoExtension" name="routeInfoEx" manufacturer="STM" version="1.0.0">
+                <stm:routeChanges>
+                    <stm:historyItem author="NS" reason="creation" dateTime="2024-09-25T09:13:10Z"/>
+                    <stm:historyItem author="NS" reason="correction" dateTime="2024-10-03T12:50:30Z"/>
+                    <stm:historyItem author="NS" reason="correction" dateTime="2024-10-08T10:03:32Z"/>
+                    <stm:historyItem author="NS" reason="correction" dateTime="2024-10-08T10:03:37Z"/>
+                    <stm:historyItem author="NS" reason="correction" dateTime="2024-10-08T10:03:55Z"/>
+                    <stm:historyItem author="NS" reason="correction" dateTime="2024-10-08T10:03:59Z"/>
+                    <stm:historyItem author="NS" reason="correction" dateTime="2024-11-03T13:07:24Z"/>
+                    <stm:historyItem author="NS" reason="correction" dateTime="2024-12-18T09:39:48Z"/>
+                    <stm:historyItem author="NS" reason="correction" dateTime="2024-12-18T09:43:39Z"/>
+                    <stm:historyItem author="NS" reason="correction" dateTime="2024-12-18T09:43:40Z"/>
+                </stm:routeChanges>
+            </extension>
+            <extension routeId="urn:mrn:transas:route:id:7c6cfbb6-29c6-44c4-bc69-0a97f41d7db9" routeStatusEx="1" totalLength="3.243" name="routeInfoTrs" manufacturer="Transas" version="1.0.0"/>
+        </extensions>
+    </routeInfo>
+    <waypoints>
+        <defaultWaypoint radius="0.20">
+            <leg portsideXTD="0.07" starboardXTD="0.08" safetyContour="10.00" safetyDepth="10.00" draughtForward="9.10" draughtAft="9.10" staticUKC="0.00" dynamicUKC="5.90" geometryType="Loxodrome"/>
+            <extensions>
+                <extension value="Manual" name="auto_routing" manufacturer="Transas" version="1.0.0"/>
+            </extensions>
+        </defaultWaypoint>
+        <waypoint id="4" name="Rivo1">
+            <position lat="57.67159972" lon="11.78560237"/>
+            <leg/>
+        </waypoint>
+        <waypoint id="3" name="Svinholm" radius="0.10">
+            <position lat="57.67851397" lon="11.80903042"/>
+            <leg portsideXTD="0.11" starboardXTD="0.11" dynamicUKC="4.70"/>
+        </waypoint>
+        <waypoint id="2" name="Goteborgsgrund" radius="0.10">
+            <position lat="57.68166667" lon="11.82666667"/>
+            <leg portsideXTD="0.10" starboardXTD="0.09" dynamicUKC="4.70"/>
+        </waypoint>
+        <waypoint id="74" name="Off Jetty" radius="0.10">
+            <position lat="57.68685586" lon="11.87407779"/>
+            <leg portsideXTD="0.06" starboardXTD="0.06" dynamicUKC="4.30"/>
+        </waypoint>
+        <waypoint id="1" name="Skarvik" radius="0.00">
+            <position lat="57.69009981" lon="11.87776193"/>
+            <leg portsideXTD="0.04" starboardXTD="0.03" dynamicUKC="4.00"/>
+        </waypoint>
+        <extensions>
+            <extension name="branches" manufacturer="Transas" version="1.0.0">
+                <branch id="2" name="">
+                    <defaultWaypoint radius="0.10">
+                        <leg portsideXTD="0.10" starboardXTD="0.10" safetyContour="30.00" safetyDepth="30.00" draughtForward="7.20" draughtAft="7.20" staticUKC="0.00" dynamicUKC="0.00" geometryType="Loxodrome"/>
+                        <extensions>
+                            <extension name="auto_routing" manufacturer="Transas" version="1.0.0" value="Manual"/>
+                        </extensions>
+                    </defaultWaypoint>
+                    <refWaypoint id="131073" radius="0.10" wp_id="257">
+                        <position lat="57.63064897" lon="11.69343197"/>
+                        <leg portsideXTD="0.10" starboardXTD="0.10" safetyContour="30.00" safetyDepth="30.00" dynamicUKC="0.00"/>
+                    </refWaypoint>
+                    <waypoint id="131074">
+                        <position lat="57.63361667" lon="11.69696667"/>
+                    </waypoint>
+                    <waypoint id="131075">
+                        <position lat="57.66905000" lon="11.68855000"/>
+                    </waypoint>
+                    <waypoint id="131076">
+                        <position lat="57.67785000" lon="11.71758333"/>
+                    </waypoint>
+                    <waypoint id="131077">
+                        <position lat="57.67573333" lon="11.73988333"/>
+                    </waypoint>
+                    <waypoint id="131078">
+                        <position lat="57.67921667" lon="11.79255000"/>
+                    </waypoint>
+                    <refWaypoint id="131079" radius="0.10" wp_id="261">
+                        <position lat="57.67871892" lon="11.81044767"/>
+                        <leg portsideXTD="0.10" starboardXTD="0.10" safetyContour="30.00" safetyDepth="30.00" dynamicUKC="0.00"/>
+                    </refWaypoint>
+                </branch>
+            </extension>
+            <extension last_change_time="2024-12-18T09:39:30.073439Z" name="geometry_change" manufacturer="Transas" version="1.0.0"/>
+        </extensions>
+    </waypoints>
+    <schedules>
+        <schedule id="0" name="BaseCalc"/>
+        <extensions>
+            <extension name="branches" manufacturer="Transas" version="1.0.0">
+                <branch id="2" name="">
+                    <schedule id="1" name="BaseCalc">
+                        <manual>
+                            <scheduleElement waypointId="131073" etd="2019-05-06T08:39:11Z"/>
+                            <scheduleElement waypointId="131079" eta="2019-05-06T09:00:16Z"/>
+                            <extensions>
+                                <extension name="schedule_change" manufacturer="Transas" version="1.0.0" last_change_time="2019-05-04T14:09:58.209694Z"/>
+                            </extensions>
+                        </manual>
+                        <calculated>
+                            <scheduleElement waypointId="131073" etd="2019-05-06T08:39:11Z"/>
+                            <scheduleElement waypointId="131074" eta="2019-05-06T08:39:30Z" etd="2019-05-06T08:39:30Z" speed="18.30"/>
+                            <scheduleElement waypointId="131075" eta="2019-05-06T08:46:26Z" etd="2019-05-06T08:46:26Z" speed="18.30"/>
+                            <scheduleElement waypointId="131076" eta="2019-05-06T08:50:00Z" etd="2019-05-06T08:50:00Z" speed="18.30"/>
+                            <scheduleElement waypointId="131077" eta="2019-05-06T08:52:27Z" etd="2019-05-06T08:52:27Z" speed="18.30"/>
+                            <scheduleElement waypointId="131078" eta="2019-05-06T08:58:05Z" etd="2019-05-06T08:58:05Z" speed="18.30"/>
+                            <scheduleElement waypointId="131079" eta="2019-05-06T09:00:16Z" speed="18.30"/>
+                            <extensions>
+                                <extension name="schedule_change" manufacturer="Transas" version="1.0.0" last_change_time="2019-05-04T14:10:00.693297Z"/>
+                            </extensions>
+                        </calculated>
+                    </schedule>
+                </branch>
+            </extension>
+        </extensions>
+    </schedules>
+    <extensions>
+        <extension name="ActivePath" manufacturer="Transas" version="1.0.0">
+            <path>
+                <wp_ids>
+                    <wp_id value="2"/>
+                    <wp_id value="137"/>
+                    <wp_id value="3"/>
+                    <wp_id value="4"/>
+                    <wp_id value="5"/>
+                    <wp_id value="6"/>
+                    <wp_id value="7"/>
+                    <wp_id value="8"/>
+                    <wp_id value="9"/>
+                    <wp_id value="10"/>
+                    <wp_id value="11"/>
+                    <wp_id value="12"/>
+                    <wp_id value="13"/>
+                    <wp_id value="14"/>
+                    <wp_id value="142"/>
+                    <wp_id value="143"/>
+                    <wp_id value="15"/>
+                    <wp_id value="145"/>
+                    <wp_id value="146"/>
+                    <wp_id value="147"/>
+                    <wp_id value="16"/>
+                    <wp_id value="144"/>
+                    <wp_id value="17"/>
+                    <wp_id value="18"/>
+                    <wp_id value="19"/>
+                    <wp_id value="20"/>
+                    <wp_id value="21"/>
+                    <wp_id value="22"/>
+                    <wp_id value="23"/>
+                    <wp_id value="24"/>
+                    <wp_id value="25"/>
+                    <wp_id value="26"/>
+                    <wp_id value="27"/>
+                    <wp_id value="148"/>
+                    <wp_id value="28"/>
+                    <wp_id value="149"/>
+                    <wp_id value="29"/>
+                    <wp_id value="30"/>
+                    <wp_id value="31"/>
+                    <wp_id value="150"/>
+                    <wp_id value="32"/>
+                    <wp_id value="151"/>
+                    <wp_id value="152"/>
+                    <wp_id value="33"/>
+                    <wp_id value="34"/>
+                    <wp_id value="35"/>
+                    <wp_id value="153"/>
+                    <wp_id value="154"/>
+                    <wp_id value="36"/>
+                    <wp_id value="155"/>
+                    <wp_id value="37"/>
+                    <wp_id value="38"/>
+                    <wp_id value="156"/>
+                    <wp_id value="39"/>
+                    <wp_id value="141"/>
+                    <wp_id value="40"/>
+                    <wp_id value="157"/>
+                    <wp_id value="158"/>
+                    <wp_id value="159"/>
+                    <wp_id value="41"/>
+                    <wp_id value="160"/>
+                    <wp_id value="161"/>
+                    <wp_id value="42"/>
+                    <wp_id value="43"/>
+                    <wp_id value="44"/>
+                    <wp_id value="45"/>
+                    <wp_id value="46"/>
+                    <wp_id value="47"/>
+                    <wp_id value="48"/>
+                    <wp_id value="49"/>
+                    <wp_id value="50"/>
+                    <wp_id value="139"/>
+                    <wp_id value="51"/>
+                    <wp_id value="52"/>
+                    <wp_id value="53"/>
+                    <wp_id value="54"/>
+                    <wp_id value="55"/>
+                    <wp_id value="107"/>
+                    <wp_id value="134"/>
+                    <wp_id value="108"/>
+                    <wp_id value="135"/>
+                    <wp_id value="109"/>
+                    <wp_id value="110"/>
+                    <wp_id value="111"/>
+                    <wp_id value="162"/>
+                    <wp_id value="136"/>
+                    <wp_id value="140"/>
+                    <wp_id value="112"/>
+                    <wp_id value="113"/>
+                    <wp_id value="114"/>
+                    <wp_id value="163"/>
+                    <wp_id value="115"/>
+                    <wp_id value="166"/>
+                    <wp_id value="116"/>
+                    <wp_id value="117"/>
+                    <wp_id value="118"/>
+                    <wp_id value="119"/>
+                    <wp_id value="120"/>
+                    <wp_id value="121"/>
+                    <wp_id value="122"/>
+                    <wp_id value="123"/>
+                    <wp_id value="124"/>
+                    <wp_id value="125"/>
+                    <wp_id value="126"/>
+                    <wp_id value="127"/>
+                    <wp_id value="128"/>
+                    <wp_id value="129"/>
+                    <wp_id value="130"/>
+                    <wp_id value="164"/>
+                    <wp_id value="131"/>
+                    <wp_id value="165"/>
+                    <wp_id value="132"/>
+                    <wp_id value="133"/>
+                </wp_ids>
+            </path>
+        </extension>
+        <extension name="bwe_areas" manufacturer="Transas" version="1.0.0">
+            <area name="Ballast Waters (12 NM) (12 nautical mile zone)" info="Germany" legs="0-13,20-63"/>
+            <area name="Ballast Waters (50 NM) (50 nautical mile zone)" info="Ballast water exchange prohibited exempt of vessels which conduct treated ballast water exchange in compliance with the regulation D-2 standard of BWMS" legs="0-63"/>
+            <area name="Ballast Waters (200 NM) (200 nautical mile zone)" info="Ballast water exchange shall be allowed in compliance with the regulations B-4, D-1 standard of BWMS.Treated ballast water exchange is allowed pursuant to the regulation D-2" legs="0-63"/>
+            <area name="Regional Special Areas (Baltic Sea)" info="Regional Special Area" legs="0-9"/>
+            <area name="Designated BWE Areas (Intra-North sea Designated BWE Area)" info="A ship on a voyage between two North Sea ports, which must at least meet the standards D-1 of the Convention, may conduct ballast water exchange in these areas" legs="8-9,11-21"/>
+            <area name="Regional Special Areas (North Sea)" info="Regional Special Area" legs="9-63"/>
+        </extension>
+        <extension name="dangers" manufacturer="Transas" version="1.0.0">
+            <danger ref_id="74" type="reppoint" name="3" text="Communication channel: [13]
+Information: For further information see Administration Area"/>
+            <danger ref_id="74" type="reppoint" name="3" text="Communication channel: [13]
+Information: For further information see Administration Area"/>
+            <danger ref_id="74" type="reppoint" name="3" text="Communication channel: [13]
+Information: For further information see Administration Area"/>
+            <danger ref_id="5" type="reppoint" name="1" text="Communication channel: [13]
+Information: For further information see Administration Area"/>
+            <danger ref_id="5" type="reppoint" name="1" text="Communication channel: [13]
+Information: For further information see Administration Area"/>
+            <danger ref_id="7" type="reppoint" name="Q" text="Communication channel: [13]
+Information: For further information see Administration Area"/>
+            <danger ref_id="7" type="reppoint" name="Q" text="Communication channel: [13]
+Information: For further information see Administration Area"/>
+            <danger ref_id="7" type="reppoint" name="R" text="Communication channel: [13]
+Information: For further information see Administration Area"/>
+            <danger ref_id="7" type="reppoint" name="" text="Communication channel: [13]
+Information: For further information see Administration Area"/>
+            <danger ref_id="7" type="reppoint" name="" text="Communication channel: [13]
+Information: For further information see Administration Area"/>
+            <danger ref_id="7" type="reppoint" name="No 2" text=""/>
+            <danger ref_id="7" type="reppoint" name="VLCC" text=""/>
+            <danger ref_id="7" type="reppoint" name="No 2" text=""/>
+            <danger ref_id="7" type="reppoint" name="VLCC" text=""/>
+            <danger ref_id="7" type="reppoint" name="No 2" text=""/>
+            <danger ref_id="14" type="reppoint" name="Weser/Jade Pilot" text="Communication channel: [06]
+Information: Inbound"/>
+            <danger ref_id="14" type="reppoint" name="Weser/Jade Pilot" text="Communication channel: [06]
+Information: Inbound"/>
+            <danger ref_id="72" type="reppoint" name="Weser/Jade Pilot" text="Communication channel: [06]
+Information: Inbound"/>
+            <danger ref_id="72" type="reppoint" name="Weser/Jade Pilot" text="Communication channel: [06]
+Information: Inbound"/>
+            <danger ref_id="72" type="reppoint" name="Jade Radar I" text="Communication channel: [63]"/>
+            <danger ref_id="72" type="reppoint" name="Jade Radar I" text="Communication channel: [63]"/>
+            <danger ref_id="16" type="reppoint" name="Bremerhaven Weser Traffic" text="Communication channel: [22]"/>
+            <danger ref_id="16" type="reppoint" name="Bremerhaven Weser Traffic" text="Communication channel: [22]"/>
+            <danger ref_id="16" type="reppoint" name="Bremerhaven Weser Traffic" text="Communication channel: [22]"/>
+            <danger ref_id="16" type="reppoint" name="Weser/Jade Pilot" text="Communication channel: [06]
+Information: Inbound"/>
+            <danger ref_id="16" type="reppoint" name="Weser/Jade Pilot" text="Communication channel: [06]
+Information: Inbound"/>
+            <danger ref_id="16" type="reppoint" name="Weser/Jade Pilot" text="Communication channel: [06]
+Information: Inbound"/>
+            <danger ref_id="16" type="reppoint" name="Alte Weser Radar" text="Communication channel: [22]"/>
+            <danger ref_id="16" type="reppoint" name="Alte Weser Radar" text="Communication channel: [22]"/>
+            <danger ref_id="16" type="reppoint" name="Jade Radar I" text="Communication channel: [63]"/>
+            <danger ref_id="16" type="reppoint" name="Jade Radar I" text="Communication channel: [63]"/>
+            <danger ref_id="16" type="reppoint" name="Alte Weser Radar" text="Communication channel: [22]"/>
+            <danger ref_id="17" type="reppoint" name="Alte Weser Radar" text="Communication channel: [22]"/>
+            <danger ref_id="18" type="reppoint" name="Alte Weser Radar" text="Communication channel: [22]"/>
+            <danger ref_id="18" type="reppoint" name="Hohe Weg Radar I + II" text="Communication channel: [02]"/>
+            <danger ref_id="18" type="reppoint" name="Alte Weser Radar" text="Communication channel: [22]"/>
+            <danger ref_id="18" type="reppoint" name="Alte Weser Radar" text="Communication channel: [22]"/>
+            <danger ref_id="19" type="reppoint" name="Hohe Weg Radar I + II" text="Communication channel: [02]"/>
+            <danger ref_id="20" type="reppoint" name="Hohe Weg Radar I + II" text="Communication channel: [02]"/>
+            <danger ref_id="20" type="reppoint" name="Hohe Weg Radar I + II" text="Communication channel: [02]"/>
+            <danger ref_id="21" type="reppoint" name="Robbenplate Radar" text="Communication channel: [04]"/>
+            <danger ref_id="21" type="reppoint" name="Hohe Weg Radar I + II" text="Communication channel: [02]"/>
+            <danger ref_id="22" type="reppoint" name="Blexen Radar I" text="Communication channel: [07]"/>
+            <danger ref_id="22" type="reppoint" name="Robbenplate Radar" text="Communication channel: [04]"/>
+            <danger ref_id="22" type="reppoint" name="Robbenplate Radar" text="Communication channel: [04]"/>
+            <danger ref_id="23" type="reppoint" name="Blexen Radar I" text="Communication channel: [07]"/>
+            <danger ref_id="23" type="reppoint" name="Blexen Radar II" text="Communication channel: [07]"/>
+            <danger ref_id="23" type="reppoint" name="Blexen Radar I" text="Communication channel: [07]"/>
+            <danger ref_id="24" type="reppoint" name="Bremerhaven Weser Traffic" text="Communication channel: [07]"/>
+            <danger ref_id="24" type="reppoint" name="Bremerhaven Weser Traffic" text="Communication channel: [07]"/>
+            <danger ref_id="24" type="reppoint" name="Blexen Radar I" text="Communication channel: [07]"/>
+            <danger ref_id="24" type="reppoint" name="Blexen Radar II" text="Communication channel: [07]"/>
+            <danger ref_id="24" type="reppoint" name="Blexen Radar I" text="Communication channel: [07]"/>
+            <danger ref_id="24" type="reppoint" name="Blexen Radar II" text="Communication channel: [07]"/>
+            <danger ref_id="25" type="reppoint" name="Luneplate Radar I" text="Communication channel: [05]"/>
+            <danger ref_id="25" type="reppoint" name="Blexen Radar II" text="Communication channel: [07]"/>
+            <danger ref_id="25" type="reppoint" name="Luneplate Radar I" text="Communication channel: [05]"/>
+            <danger ref_id="25" type="reppoint" name="Blexen Radar II" text="Communication channel: [07]"/>
+            <danger ref_id="26" type="reppoint" name="Bremerhaven Weser Traffic" text="Communication channel: [05]"/>
+            <danger ref_id="26" type="reppoint" name="Bremerhaven Weser Traffic" text="Communication channel: [05]"/>
+            <danger ref_id="26" type="reppoint" name="Luneplate Radar I" text="Communication channel: [05]"/>
+            <danger ref_id="26" type="reppoint" name="Blexen Radar II" text="Communication channel: [07]"/>
+            <danger ref_id="26" type="reppoint" name="Luneplate Radar I" text="Communication channel: [05]"/>
+            <danger ref_id="26" type="reppoint" name="Blexen Radar II" text="Communication channel: [07]"/>
+            <danger ref_id="27" type="reppoint" name="Luneplate Radar I" text="Communication channel: [05]"/>
+            <danger ref_id="27" type="reppoint" name="Luneplate Radar II" text="Communication channel: [82]"/>
+            <danger ref_id="27" type="reppoint" name="Luneplate Radar I" text="Communication channel: [05]"/>
+            <danger ref_id="27" type="reppoint" name="Luneplate Radar II" text="Communication channel: [82]"/>
+            <danger ref_id="28" type="reppoint" name="Luneplate Radar II" text="Communication channel: [82]"/>
+            <danger ref_id="28" type="reppoint" name="Luneplate Radar II" text="Communication channel: [82]"/>
+            <danger ref_id="29" type="reppoint" name="Luneplate Radar II" text="Communication channel: [82]"/>
+            <danger ref_id="29" type="reppoint" name="Dedesdorf Radar" text="Communication channel: [82]"/>
+            <danger ref_id="29" type="reppoint" name="Luneplate Radar II" text="Communication channel: [82]"/>
+            <danger ref_id="29" type="reppoint" name="Luneplate Radar II" text="Communication channel: [82]"/>
+            <danger ref_id="30" type="reppoint" name="Sandstedt Radar" text="Communication channel: [21]"/>
+            <danger ref_id="30" type="reppoint" name="Dedesdorf Radar" text="Communication channel: [82]"/>
+            <danger ref_id="30" type="reppoint" name="Sandstedt Radar" text="Communication channel: [21]"/>
+            <danger ref_id="31" type="reppoint" name="Sandstedt Radar" text="Communication channel: [21]"/>
+            <danger ref_id="31" type="reppoint" name="Sandstedt Radar" text="Communication channel: [21]"/>
+            <danger ref_id="32" type="reppoint" name="Sandstedt Radar" text="Communication channel: [21]"/>
+            <danger ref_id="32" type="reppoint" name="Sandstedt Radar" text="Communication channel: [21]"/>
+            <danger ref_id="33" type="reppoint" name="Sandstedt Radar" text="Communication channel: [21]"/>
+            <danger ref_id="33" type="reppoint" name="Harriersand Radar I" text="Communication channel: [21]"/>
+            <danger ref_id="33" type="reppoint" name="Harriersand Radar I" text="Communication channel: [21]"/>
+            <danger ref_id="33" type="reppoint" name="Sandstedt Radar" text="Communication channel: [21]"/>
+            <danger ref_id="34" type="reppoint" name="Harriersand Radar I" text="Communication channel: [21]"/>
+            <danger ref_id="35" type="reppoint" name="Bremerhaven Weser Traffic" text="Communication channel: [21]"/>
+            <danger ref_id="35" type="reppoint" name="Bremen Weser Traffic" text="Communication channel: [19]"/>
+            <danger ref_id="35" type="reppoint" name="Harriersand Radar II" text="Communication channel: [19]"/>
+            <danger ref_id="35" type="reppoint" name="Elsflether Sand Radar" text="Communication channel: [19]"/>
+            <danger ref_id="35" type="reppoint" name="Harriersand Radar II" text="Communication channel: [19]"/>
+            <danger ref_id="35" type="reppoint" name="Harriersand Radar I" text="Communication channel: [21]"/>
+            <danger ref_id="35" type="reppoint" name="Elsflether Sand Radar" text="Communication channel: [19]"/>
+            <danger ref_id="35" type="reppoint" name="Harriersand Radar I" text="Communication channel: [21]"/>
+            <danger ref_id="36" type="reppoint" name="Elsflether Sand Radar" text="Communication channel: [19]"/>
+            <danger ref_id="36" type="reppoint" name="Elsflether Sand Radar" text="Communication channel: [19]"/>
+            <danger ref_id="37" type="reppoint" name="Elsflether Sand Radar" text="Communication channel: [19]"/>
+            <danger ref_id="38" type="reppoint" name="Bremen Weser Traffic" text="Communication channel: [19]"/>
+            <danger ref_id="38" type="reppoint" name="Elsflether Sand Radar" text="Communication channel: [19]"/>
+            <danger ref_id="39" type="reppoint" name="Rönnebeck Radar" text="Communication channel: [78]"/>
+            <danger ref_id="39" type="reppoint" name="Elsflether Sand Radar" text="Communication channel: [19]"/>
+            <danger ref_id="40" type="reppoint" name="Ritzenbüttel Radar" text="Communication channel: [78]"/>
+            <danger ref_id="40" type="reppoint" name="Rönnebeck Radar" text="Communication channel: [78]"/>
+            <danger ref_id="40" type="reppoint" name="Ritzenbüttel Radar" text="Communication channel: [78]"/>
+            <danger ref_id="41" type="reppoint" name="Ritzenbüttel Radar" text="Communication channel: [78]"/>
+            <danger ref_id="41" type="reppoint" name="Schönebeck Radar" text="Communication channel: [78]"/>
+            <danger ref_id="41" type="reppoint" name="Ritzenbüttel Radar" text="Communication channel: [78]"/>
+            <danger ref_id="42" type="reppoint" name="Schönebeck Radar" text="Communication channel: [78]"/>
+            <danger ref_id="43" type="reppoint" name="Schönebeck Radar" text="Communication channel: [78]"/>
+            <danger ref_id="44" type="reppoint" name="Schönebeck Radar" text="Communication channel: [78]"/>
+            <danger ref_id="45" type="reppoint" name="Ochtumersand Radar" text="Communication channel: [81]"/>
+            <danger ref_id="45" type="reppoint" name="Schönebeck Radar" text="Communication channel: [78]"/>
+            <danger ref_id="46" type="reppoint" name="Ochtumersand Radar" text="Communication channel: [81]"/>
+            <danger ref_id="47" type="reppoint" name="Ochtumersand Radar" text="Communication channel: [81]"/>
+            <danger ref_id="48" type="reppoint" name="Bremen Weser Traffic" text="Communication channel: [81]"/>
+            <danger ref_id="48" type="reppoint" name="Ochtumersand Radar" text="Communication channel: [81]"/>
+            <danger ref_id="48" type="reppoint" name="Seehausen Radar" text="Communication channel: [81]"/>
+            <danger ref_id="49" type="reppoint" name="Seehausen Radar" text="Communication channel: [81]"/>
+            <danger ref_id="50" type="reppoint" name="Seehausen Radar" text="Communication channel: [81]"/>
+            <danger ref_id="65" type="reppoint" name="Seehausen Radar" text="Communication channel: [81]"/>
+            <danger ref_id="51" type="reppoint" name="Seehausen Radar" text="Communication channel: [81]"/>
+            <danger ref_id="1" type="area" text="Restricted area"/>
+            <danger ref_id="1" type="area" text="Restricted area"/>
+            <danger ref_id="1" type="area" text="Restricted area"/>
+            <danger ref_id="1" type="area" text="Restricted area"/>
+            <danger ref_id="1" type="area" text="Restricted area"/>
+            <danger ref_id="1" type="area" text="Caution area"/>
+            <danger ref_id="74" type="area" text="Restricted area"/>
+            <danger ref_id="74" type="area" text="Restricted area"/>
+            <danger ref_id="74" type="area" text="Caution area"/>
+            <danger ref_id="3" type="area" text="Caution area"/>
+            <danger ref_id="4" type="area" text="Restricted area"/>
+            <danger ref_id="4" type="area" text="Restricted area"/>
+            <danger ref_id="4" type="area" text="Restricted area"/>
+            <danger ref_id="4" type="area" text="Restricted area"/>
+            <danger ref_id="4" type="area" text="Restricted area"/>
+            <danger ref_id="4" type="area" text="Caution area"/>
+            <danger ref_id="4" type="area" text="Caution area"/>
+            <danger ref_id="5" type="area" text="Restricted area"/>
+            <danger ref_id="5" type="area" text="Restricted area"/>
+            <danger ref_id="5" type="area" text="Restricted area"/>
+            <danger ref_id="5" type="area" text="Caution area"/>
+            <danger ref_id="7" type="area" text="Caution area"/>
+            <danger ref_id="7" type="area" text="Caution area"/>
+            <danger ref_id="7" type="area" text="Caution area"/>
+            <danger ref_id="7" type="area" text="Caution area"/>
+            <danger ref_id="57" type="area" text="Traffic separation zone"/>
+            <danger ref_id="57" type="area" text="Traffic separation zone"/>
+            <danger ref_id="57" type="area" text="Traffic separation zone"/>
+            <danger ref_id="8" type="area" text="Traffic separation zone"/>
+            <danger ref_id="8" type="area" text="Traffic separation zone"/>
+            <danger ref_id="8" type="area" text="Traffic separation zone"/>
+            <danger ref_id="8" type="area" text="Caution area"/>
+            <danger ref_id="8" type="area" text="Caution area"/>
+            <danger ref_id="9" type="area" text="Caution area"/>
+            <danger ref_id="9" type="area" text="Caution area"/>
+            <danger ref_id="9" type="area" text="Caution area"/>
+            <danger ref_id="9" type="area" text="Caution area"/>
+            <danger ref_id="9" type="area" text="Caution area"/>
+            <danger ref_id="9" type="area" text="Caution area"/>
+            <danger ref_id="9" type="area" text="Caution area"/>
+            <danger ref_id="9" type="area" text="Offshore production area"/>
+            <danger ref_id="71" type="area" text="Caution area"/>
+            <danger ref_id="71" type="area" text="Caution area"/>
+            <danger ref_id="71" type="area" text="Offshore production area"/>
+            <danger ref_id="12" type="area" text="Caution area"/>
+            <danger ref_id="62" type="area" text="Caution area"/>
+            <danger ref_id="61" type="area" text="Restricted area"/>
+            <danger ref_id="61" type="area" text="Restricted area"/>
+            <danger ref_id="61" type="area" text="Restricted area"/>
+            <danger ref_id="61" type="area" text="Restricted area"/>
+            <danger ref_id="61" type="area" text="Military practice area"/>
+            <danger ref_id="61" type="area" text="Military practice area"/>
+            <danger ref_id="61" type="area" text="Military practice area"/>
+            <danger ref_id="61" type="area" text="Military practice area"/>
+            <danger ref_id="61" type="area" text="Military practice area"/>
+            <danger ref_id="66" type="area" text="Traffic separation zone"/>
+            <danger ref_id="66" type="area" text="Traffic separation zone"/>
+            <danger ref_id="66" type="area" text="Traffic separation zone"/>
+            <danger ref_id="14" type="area" text="Traffic separation zone"/>
+            <danger ref_id="14" type="area" text="Traffic separation zone"/>
+            <danger ref_id="14" type="area" text="Traffic separation zone"/>
+            <danger ref_id="72" type="area" text="Traffic separation zone"/>
+            <danger ref_id="72" type="area" text="Traffic separation zone"/>
+            <danger ref_id="72" type="area" text="Traffic separation zone"/>
+            <danger ref_id="72" type="area" text="Traffic separation zone"/>
+            <danger ref_id="72" type="area" text="Traffic separation zone"/>
+            <danger ref_id="72" type="area" text="Traffic separation zone"/>
+            <danger ref_id="72" type="area" text="Traffic separation zone"/>
+            <danger ref_id="72" type="area" text="Traffic separation zone"/>
+            <danger ref_id="72" type="area" text="Traffic separation zone"/>
+            <danger ref_id="72" type="area" text="Traffic separation zone"/>
+            <danger ref_id="72" type="area" text="Traffic separation zone"/>
+            <danger ref_id="72" type="area" text="Traffic separation zone"/>
+            <danger ref_id="72" type="area" text="Traffic separation zone"/>
+            <danger ref_id="72" type="area" text="Traffic separation zone"/>
+            <danger ref_id="72" type="area" text="Traffic separation zone"/>
+            <danger ref_id="72" type="area" text="Restricted area"/>
+            <danger ref_id="72" type="area" text="Restricted area"/>
+            <danger ref_id="72" type="area" text="Restricted area"/>
+            <danger ref_id="72" type="area" text="Restricted area"/>
+            <danger ref_id="72" type="area" text="Restricted area"/>
+            <danger ref_id="72" type="area" text="Restricted area"/>
+            <danger ref_id="72" type="area" text="Anchorage area"/>
+            <danger ref_id="72" type="area" text="Anchorage area"/>
+            <danger ref_id="72" type="area" text="Anchorage area"/>
+            <danger ref_id="16" type="area" text="Restricted area"/>
+            <danger ref_id="16" type="area" text="Restricted area"/>
+            <danger ref_id="16" type="area" text="Restricted area"/>
+            <danger ref_id="16" type="area" text="Restricted area"/>
+            <danger ref_id="16" type="area" text="Restricted area"/>
+            <danger ref_id="16" type="area" text="Restricted area"/>
+            <danger ref_id="16" type="area" text="Restricted area"/>
+            <danger ref_id="16" type="area" text="Restricted area"/>
+            <danger ref_id="16" type="area" text="Caution area"/>
+            <danger ref_id="16" type="area" text="Caution area"/>
+            <danger ref_id="17" type="area" text="Restricted area"/>
+            <danger ref_id="17" type="area" text="Restricted area"/>
+            <danger ref_id="17" type="area" text="Restricted area"/>
+            <danger ref_id="18" type="area" text="Restricted area"/>
+            <danger ref_id="18" type="area" text="Restricted area"/>
+            <danger ref_id="18" type="area" text="Restricted area"/>
+            <danger ref_id="18" type="area" text="Restricted area"/>
+            <danger ref_id="18" type="area" text="Restricted area"/>
+            <danger ref_id="18" type="area" text="Caution area"/>
+            <danger ref_id="19" type="area" text="Restricted area"/>
+            <danger ref_id="20" type="area" text="Restricted area"/>
+            <danger ref_id="20" type="area" text="Restricted area"/>
+            <danger ref_id="20" type="area" text="Restricted area"/>
+            <danger ref_id="20" type="area" text="Restricted area"/>
+            <danger ref_id="20" type="area" text="Caution area"/>
+            <danger ref_id="20" type="area" text="Caution area"/>
+            <danger ref_id="21" type="area" text="Restricted area"/>
+            <danger ref_id="21" type="area" text="Restricted area"/>
+            <danger ref_id="21" type="area" text="Restricted area"/>
+            <danger ref_id="21" type="area" text="Restricted area"/>
+            <danger ref_id="21" type="area" text="Caution area"/>
+            <danger ref_id="21" type="area" text="Caution area"/>
+            <danger ref_id="22" type="area" text="Restricted area"/>
+            <danger ref_id="22" type="area" text="Restricted area"/>
+            <danger ref_id="22" type="area" text="Caution area"/>
+            <danger ref_id="22" type="area" text="Caution area"/>
+            <danger ref_id="23" type="area" text="Restricted area"/>
+            <danger ref_id="23" type="area" text="Restricted area"/>
+            <danger ref_id="23" type="area" text="Restricted area"/>
+            <danger ref_id="23" type="area" text="Caution area"/>
+            <danger ref_id="23" type="area" text="Caution area"/>
+            <danger ref_id="24" type="area" text="Restricted area"/>
+            <danger ref_id="24" type="area" text="Restricted area"/>
+            <danger ref_id="24" type="area" text="Restricted area"/>
+            <danger ref_id="24" type="area" text="Restricted area"/>
+            <danger ref_id="24" type="area" text="Caution area"/>
+            <danger ref_id="24" type="area" text="Caution area"/>
+            <danger ref_id="25" type="area" text="Caution area"/>
+            <danger ref_id="25" type="area" text="Caution area"/>
+            <danger ref_id="26" type="area" text="Caution area"/>
+            <danger ref_id="26" type="area" text="Caution area"/>
+            <danger ref_id="27" type="area" text="Caution area"/>
+            <danger ref_id="27" type="area" text="Caution area"/>
+            <danger ref_id="28" type="area" text="Restricted area"/>
+            <danger ref_id="28" type="area" text="Restricted area"/>
+            <danger ref_id="28" type="area" text="Caution area"/>
+            <danger ref_id="28" type="area" text="Caution area"/>
+            <danger ref_id="29" type="area" text="Restricted area"/>
+            <danger ref_id="29" type="area" text="Restricted area"/>
+            <danger ref_id="29" type="area" text="Caution area"/>
+            <danger ref_id="29" type="area" text="Caution area"/>
+            <danger ref_id="30" type="area" text="Restricted area"/>
+            <danger ref_id="30" type="area" text="Restricted area"/>
+            <danger ref_id="30" type="area" text="Caution area"/>
+            <danger ref_id="30" type="area" text="Caution area"/>
+            <danger ref_id="31" type="area" text="Restricted area"/>
+            <danger ref_id="31" type="area" text="Restricted area"/>
+            <danger ref_id="31" type="area" text="Caution area"/>
+            <danger ref_id="32" type="area" text="Restricted area"/>
+            <danger ref_id="32" type="area" text="Restricted area"/>
+            <danger ref_id="32" type="area" text="Caution area"/>
+            <danger ref_id="33" type="area" text="Caution area"/>
+            <danger ref_id="34" type="area" text="Caution area"/>
+            <danger ref_id="35" type="area" text="Restricted area"/>
+            <danger ref_id="36" type="area" text="Restricted area"/>
+            <danger ref_id="37" type="area" text="Restricted area"/>
+            <danger ref_id="38" type="area" text="Restricted area"/>
+            <danger ref_id="40" type="area" text="Restricted area"/>
+            <danger ref_id="40" type="area" text="Restricted area"/>
+            <danger ref_id="41" type="area" text="Restricted area"/>
+            <danger ref_id="41" type="area" text="Restricted area"/>
+        </extension>
+        <extension name="e-publications" manufacturer="Transas" version="1.0.0">
+            <item name="e-NP18 Baltic Pilot Vol 1" edition="18/2018" update_info="28-02-2021" chart_status="ok"/>
+            <item name="e-NP19 Baltic Pilot Vol 2" edition="17/2018" update_info="28-02-2021" chart_status="ok"/>
+            <item name="e-NP20 Baltic Pilot Vol 3" edition="14/2019" update_info="28-02-2021" chart_status="ok"/>
+        </extension>
+        <extension name="enc_charts" manufacturer="Transas" version="1.0.0">
+            <item name="DK1NORSO" issue_date="45504.0423726852" correction_date="45545.0423726852" format="SENC" edition="35" update_info="3" update_to="WK39-24" chart_status="ok"/>
+            <item name="DK2NORSO" issue_date="45505.0423726852" correction_date="45541.0423726852" format="SENC" edition="79" update_info="5" update_to="WK39-24" chart_status="ok"/>
+            <item name="DK2SKARK" issue_date="45496.0423726852" correction_date="45534.0423726852" format="SENC" edition="38" update_info="2" update_to="WK39-24" chart_status="ok"/>
+            <item name="DK30529D" issue_date="45461.0423726852" correction_date="45545.0423726852" format="SENC" edition="1" update_info="1" update_to="WK40-24" chart_status="ok"/>
+            <item name="DK31337D" issue_date="45477.0423726852" format="SENC" edition="1" update_to="WK39-24" chart_status="ok"/>
+            <item name="DK31341D" issue_date="45477.0423726852" correction_date="45525.0423726852" format="SENC" edition="1" update_info="2" update_to="WK39-24" chart_status="ok"/>
+            <item name="DK31345D" issue_date="45477.0423726852" format="SENC" edition="1" update_to="WK39-24" chart_status="ok"/>
+            <item name="DE110000" issue_date="45126.0423726852" correction_date="45350.0423726852" format="SENC" edition="9" update_info="1" update_to="WK39-24" chart_status="ok"/>
+            <item name="DE1NO000" issue_date="45169.0423726852" correction_date="45406.0423726852" format="SENC" edition="2" update_info="3" update_to="WK39-24" chart_status="ok"/>
+            <item name="DE2NO000" issue_date="45394.0423726852" correction_date="45539.0423726852" format="SENC" edition="4" update_info="14" update_to="WK39-24" chart_status="ok"/>
+            <item name="DE3NO02D" issue_date="45400.0423726852" correction_date="45539.0423726852" format="SENC" edition="4" update_info="7" update_to="WK39-24" chart_status="ok"/>
+            <item name="DE3NO03D" issue_date="45294.0423726852" correction_date="45539.0423726852" format="SENC" edition="3" update_info="3" update_to="WK39-24" chart_status="ok"/>
+            <item name="DE4NO05L" issue_date="44900.0423726852" correction_date="45112.0423726852" format="SENC" edition="2" update_info="3" update_to="WK39-24" chart_status="ok"/>
+            <item name="DE4NO06L" issue_date="44900.0423726852" correction_date="45441.0423726852" format="SENC" edition="2" update_info="2" update_to="WK39-24" chart_status="ok"/>
+            <item name="DE4NO12M" issue_date="44664.0423726852" format="SENC" edition="2" update_to="WK39-24" chart_status="ok"/>
+            <item name="DE4NO12N" issue_date="45364.0423726852" correction_date="45497.0423726852" format="SENC" edition="6" update_info="1" update_to="WK39-24" chart_status="ok"/>
+            <item name="DE4NO13N" issue_date="45364.0423726852" correction_date="45546.0423726852" format="SENC" edition="7" update_info="2" update_to="WK39-24" chart_status="ok"/>
+            <item name="DE4NO13O" issue_date="45532.0423726852" correction_date="45539.0423726852" format="SENC" edition="11" update_info="1" update_to="WK39-24" chart_status="ok"/>
+            <item name="DE4NO14O" issue_date="45392.0423726852" correction_date="45532.0423726852" format="SENC" edition="15" update_info="7" update_to="WK39-24" chart_status="ok"/>
+            <item name="DE4NO14P" issue_date="45331.0423726852" correction_date="45546.0423726852" format="SENC" edition="10" update_info="5" update_to="WK39-24" chart_status="ok"/>
+            <item name="DE4NO15P" issue_date="45546.0423726852" correction_date="45553.0423726852" format="SENC" edition="13" update_info="1" update_to="WK39-24" chart_status="ok"/>
+            <item name="DE4NO16P" issue_date="45364.0423726852" correction_date="45546.0423726852" format="SENC" edition="7" update_info="7" update_to="WK39-24" chart_status="ok"/>
+            <item name="DE4NO17P" issue_date="44720.0423726852" correction_date="45511.0423726852" format="SENC" edition="4" update_info="10" update_to="WK39-24" chart_status="ok"/>
+            <item name="DE5NOBHV" issue_date="45546.0423726852" format="SENC" edition="12" update_to="WK39-24" chart_status="ok"/>
+            <item name="DE5NOBRK" issue_date="45364.0423726852" correction_date="45546.0423726852" format="SENC" edition="5" update_info="4" update_to="WK39-24" chart_status="ok"/>
+            <item name="DE5NOBRM" issue_date="44720.0423726852" format="SENC" edition="3" update_to="WK39-24" chart_status="ok"/>
+            <item name="DE5NOELS" issue_date="44720.0423726852" correction_date="45511.0423726852" format="SENC" edition="3" update_info="2" update_to="WK39-24" chart_status="ok"/>
+            <item name="DE5NONDG" issue_date="45364.0423726852" correction_date="45539.0423726852" format="SENC" edition="4" update_info="1" update_to="WK39-24" chart_status="ok"/>
+            <item name="SE2BHS0W" issue_date="45279.0423726852" correction_date="45532.0423726852" format="SENC" edition="24" update_info="4" update_to="WK39-24" chart_status="ok"/>
+            <item name="SE3DI7L8" issue_date="45279.0423726852" correction_date="45484.0423726852" format="SENC" edition="26" update_info="2" update_to="WK39-24" chart_status="ok"/>
+            <item name="SE3DI7LA" issue_date="45483.0423726852" format="SENC" edition="47" update_to="WK39-24" chart_status="ok"/>
+            <item name="SE4DI7L8" issue_date="45408.0423726852" correction_date="45456.0423726852" format="SENC" edition="45" update_info="1" update_to="WK39-24" chart_status="ok"/>
+            <item name="SE4EI7LA" issue_date="45321.0423726852" correction_date="45498.0423726852" format="SENC" edition="83" update_info="6" update_to="WK39-24" chart_status="ok"/>
+            <item name="SE4EI7LB" issue_date="45415.0423726852" correction_date="45471.0423726852" format="SENC" edition="83" update_info="2" update_to="WK39-24" chart_status="ok"/>
+            <item name="SE5DI7L8" issue_date="45317.0423726852" correction_date="45456.0423726852" format="SENC" edition="38" update_info="1" update_to="WK39-24" chart_status="ok"/>
+            <item name="SE5EI7LA" issue_date="45317.0423726852" correction_date="45498.0423726852" format="SENC" edition="86" update_info="4" update_to="WK39-24" chart_status="ok"/>
+            <item name="SE5HI7LB" issue_date="45415.0423726852" correction_date="45519.0423726852" format="SENC" edition="71" update_info="4" update_to="WK39-24" chart_status="ok"/>
+            <item name="SE5II7LB" issue_date="45317.0423726852" format="SENC" edition="38" update_to="WK39-24" chart_status="ok"/>
+            <item name="SE6DI7LA" issue_date="45415.0423726852" correction_date="45519.0423726852" format="SENC" edition="145" update_info="6" update_to="WK39-24" chart_status="ok"/>
+        </extension>
+        <extension name="marpol_areas" manufacturer="Transas" version="1.0.0">
+            <area name="Oil and oily waters from cargo spaces (Baltic Sea)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution from cargo spaces by oil or oil waters is required" legs="0-9"/>
+            <area name="Oil and oily waters from machinery spaces (Baltic Sea)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution from mashinery spaces by oil or oil waters is required" legs="0-9"/>
+            <area name="Not comminuted or disinfected sewage (Baltic Sea)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution by Not comminuted or disinfected sewage is required" legs="0-8"/>
+            <area name="Comminuted and disinfected sewage (Baltic Sea)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution by comminuted and disinfected sewage is required" legs="0-9"/>
+            <area name="Food waste comminuted or ground (12 nautical mile zone)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution by food waste comminuted or ground is required" legs="0-13,20-63"/>
+            <area name="Food waste not comminuted or ground (Baltic Sea)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution by food waste not comminuted or ground is required" legs="0-9"/>
+            <area name="Cargo residues not contained in wash water (Baltic Sea)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution by cargo residues not contained in wash water is required" legs="0-9"/>
+            <area name="Cargo residues contained in wash water (12 nautical mile zone)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution by cargo residues contained in wash water is required" legs="0-13,20-63"/>
+            <area name="Cleaning agents and additives contained in cargo hold wash water (12 nautical mile zone)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution by cleaning agents and additives contained in cargo hold wash water is required" legs="0-13,20-63"/>
+            <area name="Carcasses of animals carried on board as cargo and which died during the voyage (Baltic Sea)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution by carcasses of animals carried on board as cargo and which died during the voyage is required" legs="0-9"/>
+            <area name="Sulphur Oxides (Baltic Sea - Emission Control Area)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution by sulphur oxides is required" legs="0-9"/>
+            <area name="Sulphur Oxides (GOTEBORG)" info="The EU Directive establishes 0.1% maximum sulphur requirement for fuels used by ships at berth, meaning securely moored or anchored in EU ports" legs="0-4"/>
+            <area name="Nitrogen Oxides (Baltic Sea - Emission Control Area)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution by nitrous oxides is required" legs="0-9"/>
+            <area name="Particularly sensitive sea areas (Baltic Sea Area)" info="Particularly Sensitive Sea Areas. Areas of the marine environment that needs special protection through action by the International Maritime Organization (IMO)" legs="0-9"/>
+            <area name="Noxious liquid substances (12 nautical mile zone)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution by noxious liquid substances in bulk is required" legs="0-13,20-63"/>
+            <area name="Not comminuted or disinfected sewage (12 nautical mile zone)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution by Not comminuted or disinfected sewage is required" legs="8-13,20-63"/>
+            <area name="Oil and oily waters from cargo spaces (North West European Waters)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution from cargo spaces by oil or oil waters is required" legs="9-63"/>
+            <area name="Oil and oily waters from machinery spaces (North West European Waters)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution from mashinery spaces by oil or oil waters is required" legs="9-63"/>
+            <area name="Food waste not comminuted or ground (North Sea)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution by food waste not comminuted or ground is required" legs="9-63"/>
+            <area name="Cargo residues not contained in wash water (North Sea)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution by cargo residues not contained in wash water is required" legs="9-63"/>
+            <area name="Carcasses of animals carried on board as cargo and which died during the voyage (North Sea)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution by carcasses of animals carried on board as cargo and which died during the voyage is required" legs="9-63"/>
+            <area name="Sulphur Oxides (North Sea - Emission Control Area)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution by sulphur oxides is required" legs="9-63"/>
+            <area name="Nitrogen Oxides (North Sea - Emission Control Area)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution by nitrous oxides is required" legs="9-63"/>
+            <area name="Comminuted and disinfected sewage (3 nautical mile zone)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution by comminuted and disinfected sewage is required" legs="22-63"/>
+            <area name="Particularly sensitive sea areas (Wadden Sea)" info="Particularly Sensitive Sea Areas. Areas of the marine environment that needs special protection through action by the International Maritime Organization (IMO)" legs="27-29"/>
+            <area name="Sulphur Oxides (BREMERHAVEN)" info="The EU Directive establishes 0.1% maximum sulphur requirement for fuels used by ships at berth, meaning securely moored or anchored in EU ports" legs="29-47"/>
+            <area name="Sulphur Oxides (BREMEN)" info="The EU Directive establishes 0.1% maximum sulphur requirement for fuels used by ships at berth, meaning securely moored or anchored in EU ports" legs="47-63"/>
+        </extension>
+        <extension name="nav_areas" manufacturer="Transas" version="1.0.0">
+            <navarea danger="yes" id="NO-NXIX-127-2022" area="" title="NAVAREA XIX 127. NAVAREA XIX WARNINGS INFORCE AT 161830 UTC SEP 22" category="in-force bulletin"/>
+            <navarea danger="yes" id="US-NIV-940-2022" area="NORTH ATLANTIC" title="NAVAREA IV 940. NAVAREA IV WARNINGS IN FORCE AS OF 161300Z SEP" category="in-force bulletin"/>
+            <navarea danger="yes" id="GB-NI-149-2022" area="BRITISH ISLES WEST COAST. INCLUDING THE IRISH SEA" title="NAVAREA I 149. NAVTEX STATION OFF AIR 
+Affected charts: GB 2 (INT 160)" category="DGPS"/>
+            <navarea danger="yes" id="GB-NI-150-2022" area="" title="NAVAREA I 150. NAVAREA I WARNINGS IN FORCE" category="in-force bulletin"/>
+            <navarea danger="yes" id="GB-NI-152-2022" area="" title="NAVAREA I 152. RIGLIST. Correct at 120500 UTC Sep 22" category="offshore structures"/>
+            <navarea danger="yes" id="US-NIV-923-2022" area="NORTH ATLANTIC" title="NAVAREA IV 923. CABLE OPERATIONS" category="cable laying operations"/>
+            <navarea danger="yes" id="FR-NII-280-2022" area="" title="NAVAREA II 280. NAVAREA II WARNINGS IN FORCE" category="in-force bulletin"/>
+            <navarea danger="yes" id="GB-NI-140-2022" area="NORTH SEA, NORWEGIAN SECTOR. Bergen Bank" title="NAVAREA I 140. Seismic survey in progress 
+Affected charts: GB 2182C (INT 1041)" category="seismic surveys"/>
+            <navarea danger="yes" id="GB-NI-144-2022" area="â€‹SCOTLAND EAST COAST. Long Forties." title="NAVAREA I 144. Seismic survey in progress 
+Affected charts: GB 273" category="seismic surveys"/>
+            <navarea danger="yes" id="GB-NI-131-2022" area="NORTH SEA, NORWEGIAN SECTOR. Floro South-westwards" title="NAVAREA I 131. Seismic survey in progress 
+Affected charts: GB 2182D (INT 1040)" category="seismic surveys"/>
+            <navarea danger="yes" id="FR-NII-257-2022" area="IROISE. IROISE - NAVTEX STATION" title="NAVAREA II 257. NAVTEX STATION CORSEN UNAVAILABLE" category="NAVTEX"/>
+            <navarea danger="yes" id="GB-NI-114-2022" area="NORTH SEA, UK SECTOR. Long Forties Eastwards" title="NAVAREA I 114. Seismic survey in progress 
+Affected charts: GB 2182B (INT 1042)" category="seismic surveys"/>
+            <navarea danger="yes" id="GB-NI-100-2022" area="NORTH SEA, UK SECTOR. Thames Gas Field" title="NAVAREA I 100. Safety Zone 
+Affected charts: GB 1503 (INT 1509)" category="offshore structures"/>
+            <navarea danger="yes" id="GB-NI-101-2022" area="NORTH SEA, UK SECTOR. Cawdor Oil Field North-westwards" title="NAVAREA I 101. Safety Zone 
+Affected charts: GB 272" category="offshore structures"/>
+            <navarea danger="yes" id="GB-NI-75-2022" area="NORTH SEA, NORWEGIAN SECTOR. Bergen Bank" title="NAVAREA I 75. Seismic survey in progress 
+Affected charts: GB 294" category="seismic surveys"/>
+            <navarea danger="yes" id="GB-NI-68-2022" area="â€‹SCOTLAND EAST COAST. Moray Firth" title="NAVAREA I 68. Buoys permanently discontinued 
+Affected charts: GB 115 (INT 1503)" category="buoys"/>
+            <navarea danger="yes" id="US-NIV-362-2022" area="EASTERN CARIBBEAN SEA. MARTINIQUE" title="NAVAREA IV 362. MEASURES TO COMBAT COVID-19" category="regulations"/>
+        </extension>
+        <extension name="overhead" manufacturer="Transas" version="1.0.0">
+            <overhead ref_id="4" air_draught="31.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="3" air_draught="31.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="2" air_draught="31.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="74" air_draught="31.9"/>
+        </extension>
+        <extension name="port_data" manufacturer="Transas" version="1.0.0">
+            <item name="Tromso" country="Norway" type="Port" cargotype="Oil, General/Dry" from="0" to="1"/>
+            <item name="Harstad" country="Norway" type="Port" cargotype="Oil, General/Dry" from="54" to="55"/>
+            <item name="Bodo" country="Norway" type="Port" cargotype="Oil, General/Dry" from="90" to="91"/>
+        </extension>
+        <extension name="portcdm_services" manufacturer="Transas" version="1.0.0">
+            <waypoint name="departure" amss="" broker="" vis_connector=""/>
+            <waypoint name="arrival" amss="" broker="" vis_connector=""/>
+        </extension>
+        <extension name="publications" manufacturer="Transas" version="1.0.0">
+            <item name="ADLL Area 1-2 Northern Europe and The Baltic" update_to="20/2020" last_expires="28-02-21" chart_status="ok"/>
+            <item name="ADRS1345 Area 1 - UK, Europe, Africa and parts of Asia" update_to="20/2020" last_expires="28-02-21" chart_status="ok"/>
+            <item name="ADRS2 Area 1 - UK, Europe, Africa and parts of Asia" update_to="20/2020" last_expires="28-02-21" chart_status="ok"/>
+            <item name="ADRS6 Area 3 - Baltic and Northern Waters" update_to="20/2020" last_expires="28-02-21" chart_status="ok"/>
+            <item name="ATT Area 1-4 - Europe, Northern Waters and Mediterranean" update_to="20/2020" last_expires="28-02-21" chart_status="ok"/>
+        </extension>
+        <extension name="remarks" manufacturer="Transas" version="1.0.0">
+            <point ref_id="4" text="UKC 5.9m @ 13 knots BWL 3 Confine waters"/>
+            <point ref_id="3" text="UKC 4.7m @ 13 knots BWL 3 Confine waters"/>
+            <point ref_id="2" text="UKC 4.7m @ 13 knots BWL 3 Confine waters"/>
+            <point ref_id="74" text="UKC 4.3m @ 6 knots BWL 3 Confine waters"/>
+        </extension>
+        <extension name="routeInfo" manufacturer="Transas" version="1.0.0" routeName="Anchorage B -  Staholmen crew change" vesselName="TERNVIK" vesselMMSI="219083000" vesselIMO="9221267" vesselVoyage="urn:mrn:stm:voyage:id:transas:b595fe2a-6b76-4de4-9853-e5a97baa19ff"/>
+        <extension name="route_check_info" manufacturer="Transas" version="1.0.0" check_time="2024-12-18T09:43:37Z"/>
+        <extension name="ukccalc" manufacturer="Transas" version="1.0.0">
+            <ukc ref_id="4" draught="9.10" static_draught="7.10" squat="0.00" ukc="5.90" ukc_status="ok" passage_type="coastal_waters" catzoc="unassesed" catzoc_status=""/>
+            <ukc ref_id="3" draught="9.10" static_draught="7.10" squat="0.00" ukc="4.70" ukc_status="ok" passage_type="coastal_waters" catzoc="unassesed" catzoc_status=""/>
+            <ukc ref_id="2" draught="9.10" static_draught="7.10" squat="0.00" ukc="4.70" ukc_status="ok" passage_type="coastal_waters" catzoc="unassesed" catzoc_status=""/>
+            <ukc ref_id="74" draught="9.10" static_draught="7.10" squat="0.00" ukc="4.30" ukc_status="ok" passage_type="coastal_waters" catzoc="unassesed" catzoc_status=""/>
+            <ukc ref_id="1" draught="9.10" static_draught="7.10" ukc="4.00" ukc_status="ok" passage_type="coastal_waters" catzoc="unassesed" catzoc_status=""/>
+        </extension>
+        <extension arrival_draft="7.1" depart_draft="7.1" voyage_no="24029" start_point="Bremen" end_point="Gothenburg" transit_point="Skaw" name="voyage_info" manufacturer="Transas" version="1.0.0" dbirth_refid="55" dbirth_name="" dpilot_refid="16" dpilot_name="" abirth_refid="1" abirth_name="" apilot_refid="16" apilot_name=""/>
+        <extension name="voyage_status" manufacturer="Transas" version="1.0.0" value="2"/>
+    </extensions>
+</route>

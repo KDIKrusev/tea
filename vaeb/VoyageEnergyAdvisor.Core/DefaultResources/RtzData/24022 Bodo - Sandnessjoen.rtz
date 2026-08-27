@@ -1,0 +1,845 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<route xmlns="http://www.cirm.org/RTZ/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.1" xmlns:stm="http://stmvalidation.eu/STM/1/0/0" xsi:schemaLocation="http://stmvalidation.eu/STM/1/0/0 stm_extensions.xsd">
+    <routeInfo routeName="Bodo - Sandnessjoen" vesselName="TERN SEA" vesselMMSI="219814000" vesselIMO="9747974" vesselVoyage="urn:mrn:stm:voyage:id:transas:b6c2c1a8-438c-4cb2-b6dc-5e54fae8e7d3">
+        <extensions>
+            <extension xsi:type="stm:RouteInfoExtension" name="routeInfoEx" manufacturer="STM" version="1.0.0" routeStatusEnum="1" routeVersion="B6C2C1A8-438C-4CB2-B6DC-5E54FAE8E7D3">
+                <stm:routeChanges>
+                    <stm:historyItem author="NS" reason="creation" dateTime="2019-01-20T12:55:36Z"/>
+                    <stm:historyItem author="NS" reason="correction" dateTime="2019-01-20T12:55:58Z"/>
+                    <stm:historyItem author="NS" reason="correction" dateTime="2019-01-20T12:56:04Z"/>
+                    <stm:historyItem author="NS" reason="correction" dateTime="2019-01-22T04:04:37Z"/>
+                </stm:routeChanges>
+            </extension>
+        </extensions>
+    </routeInfo>
+    <waypoints>
+        <defaultWaypoint radius="0.10">
+            <leg portsideXTD="0.10" starboardXTD="0.10" safetyContour="30.00" safetyDepth="30.00" staticUKC="0.00" dynamicUKC="0.00" geometryType="Loxodrome"/>
+        </defaultWaypoint>
+        <waypoint id="1" name="Buroya  Bodo">
+            <position lat="67.29000000" lon="14.38575448"/>
+        </waypoint>
+        <waypoint id="36" name="Off Jetty">
+            <position lat="67.28908333" lon="14.38091190"/>
+            <leg portsideXTD="0.03" starboardXTD="0.03" safetyContour="10.00" safetyDepth="10.00"/>
+        </waypoint>
+        <waypoint id="3" name="Nyholmen">
+            <position lat="67.28716210" lon="14.37716667"/>
+            <leg portsideXTD="0.03" starboardXTD="0.03" safetyContour="10.00" safetyDepth="10.00"/>
+        </waypoint>
+        <waypoint id="4" name="Rundholmen">
+            <position lat="67.28466667" lon="14.35950000"/>
+            <leg portsideXTD="0.03" starboardXTD="0.03" safetyContour="10.00" safetyDepth="10.00"/>
+        </waypoint>
+        <waypoint id="5" name="Schonninggrunnen">
+            <position lat="67.27466667" lon="14.31666667"/>
+            <leg portsideXTD="0.05" starboardXTD="0.05" safetyContour="10.00" safetyDepth="10.00"/>
+        </waypoint>
+        <waypoint id="44" name="Sirisksjaret">
+            <position lat="67.27472503" lon="14.29534433"/>
+            <leg portsideXTD="0.05" starboardXTD="0.05" safetyContour="10.00" safetyDepth="10.00"/>
+        </waypoint>
+        <waypoint id="6" name="Litle Svartoksen">
+            <position lat="67.27067318" lon="14.26691145"/>
+            <leg portsideXTD="0.05" starboardXTD="0.05" safetyContour="10.00" safetyDepth="10.00"/>
+        </waypoint>
+        <waypoint id="45" name="Store Svartoksen">
+            <position lat="67.26666912" lon="14.22655790"/>
+            <leg safetyContour="10.00" safetyDepth="10.00"/>
+        </waypoint>
+        <waypoint id="37" name="Store Svartoksen">
+            <position lat="67.23566667" lon="14.11366667"/>
+            <leg safetyContour="10.00" safetyDepth="10.00"/>
+        </waypoint>
+        <waypoint id="8" name="Mesjogrunnen">
+            <position lat="67.20166667" lon="13.99833333"/>
+            <leg portsideXTD="0.27" starboardXTD="0.27" safetyContour="10.00" safetyDepth="10.00"/>
+        </waypoint>
+        <waypoint id="41" name="mesjogrunnen">
+            <position lat="67.20166667" lon="13.94616667"/>
+            <leg portsideXTD="0.25" starboardXTD="0.25" safetyContour="10.00" safetyDepth="10.00"/>
+        </waypoint>
+        <waypoint id="9" name="Fleinvaer Pilot Station">
+            <position lat="67.22500000" lon="13.76866667"/>
+            <leg portsideXTD="0.35" starboardXTD="0.35" safetyContour="10.00" safetyDepth="10.00"/>
+        </waypoint>
+        <waypoint id="10" name="Off Sorboen">
+            <position lat="67.22500000" lon="13.46450000"/>
+            <leg portsideXTD="1.00" starboardXTD="1.00" safetyContour="10.00" safetyDepth="10.00"/>
+        </waypoint>
+        <waypoint id="13" name="Kalsholmen">
+            <position lat="66.89400798" lon="12.44241458"/>
+            <leg portsideXTD="2.00" starboardXTD="2.00" safetyContour="10.00" safetyDepth="10.00"/>
+        </waypoint>
+        <waypoint id="63">
+            <position lat="66.52662273" lon="11.64904918"/>
+            <leg portsideXTD="2.00" starboardXTD="2.00"/>
+        </waypoint>
+        <waypoint id="64">
+            <position lat="66.38290000" lon="11.73501667"/>
+            <leg portsideXTD="2.00" starboardXTD="2.00"/>
+        </waypoint>
+        <waypoint id="65">
+            <position lat="66.28405000" lon="12.20765000"/>
+            <leg portsideXTD="1.07" starboardXTD="1.21"/>
+        </waypoint>
+        <waypoint id="66">
+            <position lat="66.28618333" lon="12.33208333"/>
+            <leg portsideXTD="0.92" starboardXTD="0.90"/>
+        </waypoint>
+        <waypoint id="67">
+            <position lat="66.24539538" lon="12.41641815"/>
+            <leg portsideXTD="0.68" starboardXTD="0.70"/>
+        </waypoint>
+        <waypoint id="68">
+            <position lat="66.25406667" lon="12.60718333"/>
+            <leg portsideXTD="0.55" starboardXTD="0.76"/>
+        </waypoint>
+        <waypoint id="77">
+            <position lat="66.20680788" lon="12.66600830"/>
+            <leg portsideXTD="0.66" starboardXTD="0.42"/>
+        </waypoint>
+        <waypoint id="78">
+            <position lat="66.19993315" lon="12.77749650"/>
+            <leg portsideXTD="0.59" starboardXTD="0.25"/>
+        </waypoint>
+        <waypoint id="79">
+            <position lat="66.18457658" lon="12.82345693"/>
+            <leg portsideXTD="0.49" starboardXTD="0.34"/>
+        </waypoint>
+        <waypoint id="80">
+            <position lat="66.14875702" lon="12.83426990"/>
+            <leg portsideXTD="0.37" starboardXTD="0.30"/>
+        </waypoint>
+        <waypoint id="81">
+            <position lat="66.13649910" lon="12.80881745"/>
+            <leg portsideXTD="0.34" starboardXTD="0.43"/>
+        </waypoint>
+        <waypoint id="82">
+            <position lat="66.10926067" lon="12.73966728"/>
+            <leg portsideXTD="0.22" starboardXTD="0.34"/>
+        </waypoint>
+        <waypoint id="76">
+            <position lat="66.10077658" lon="12.70917215"/>
+            <leg portsideXTD="0.33" starboardXTD="0.30"/>
+        </waypoint>
+        <waypoint id="75">
+            <position lat="66.06479238" lon="12.62595295"/>
+            <leg portsideXTD="0.35" starboardXTD="0.41"/>
+        </waypoint>
+        <waypoint id="74">
+            <position lat="66.03872002" lon="12.61702847"/>
+            <leg portsideXTD="0.29" starboardXTD="0.53"/>
+        </waypoint>
+        <waypoint id="69">
+            <position lat="66.02780862" lon="12.64438260"/>
+            <leg portsideXTD="0.23" starboardXTD="0.13"/>
+        </waypoint>
+        <extensions>
+            <extension name="geometry_change" manufacturer="Transas" version="1.0.0" last_change_time="2019-01-20T12:55:39.656787Z"/>
+        </extensions>
+    </waypoints>
+    <schedules>
+        <schedule id="0" name="Base Calculation">
+            <manual>
+                <scheduleElement waypointId="1" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="36" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="3" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="4" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="5" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="44" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="6" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="45" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="37" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="8" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="41" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="9" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="10" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="13" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="63" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="64" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="65" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="66" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="67" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="68" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="77" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="78" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="79" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="80" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="81" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="82" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="76" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="75" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="74" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="69" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+            </manual>
+            <calculated>
+                <scheduleElement waypointId="1" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="36" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="3" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="4" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="5" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="44" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="6" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="45" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="37" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="8" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="41" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="9" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="10" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="13" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="63" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="64" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="65" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="66" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="67" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="68" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="77" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="78" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="79" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="80" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="81" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="82" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="76" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="75" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="74" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="69" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+            </calculated>
+        </schedule>
+    </schedules>
+    <extensions>
+        <extension name="ActivePath" manufacturer="Transas" version="1.0.0">
+            <path xmlns="">
+                <wp_ids>
+                    <wp_id value="156"/>
+                    <wp_id value="277"/>
+                    <wp_id value="155"/>
+                    <wp_id value="157"/>
+                    <wp_id value="154"/>
+                    <wp_id value="153"/>
+                    <wp_id value="152"/>
+                    <wp_id value="151"/>
+                    <wp_id value="150"/>
+                    <wp_id value="149"/>
+                    <wp_id value="147"/>
+                    <wp_id value="146"/>
+                    <wp_id value="145"/>
+                    <wp_id value="144"/>
+                    <wp_id value="143"/>
+                    <wp_id value="142"/>
+                    <wp_id value="141"/>
+                    <wp_id value="140"/>
+                    <wp_id value="139"/>
+                    <wp_id value="138"/>
+                    <wp_id value="137"/>
+                    <wp_id value="136"/>
+                    <wp_id value="135"/>
+                    <wp_id value="134"/>
+                    <wp_id value="133"/>
+                    <wp_id value="158"/>
+                    <wp_id value="159"/>
+                    <wp_id value="160"/>
+                    <wp_id value="161"/>
+                    <wp_id value="162"/>
+                    <wp_id value="163"/>
+                    <wp_id value="164"/>
+                    <wp_id value="165"/>
+                    <wp_id value="166"/>
+                    <wp_id value="167"/>
+                    <wp_id value="168"/>
+                    <wp_id value="169"/>
+                    <wp_id value="170"/>
+                    <wp_id value="171"/>
+                    <wp_id value="172"/>
+                    <wp_id value="173"/>
+                    <wp_id value="174"/>
+                    <wp_id value="175"/>
+                    <wp_id value="176"/>
+                    <wp_id value="177"/>
+                    <wp_id value="178"/>
+                    <wp_id value="179"/>
+                    <wp_id value="180"/>
+                    <wp_id value="181"/>
+                    <wp_id value="182"/>
+                    <wp_id value="183"/>
+                    <wp_id value="184"/>
+                    <wp_id value="185"/>
+                    <wp_id value="186"/>
+                    <wp_id value="187"/>
+                    <wp_id value="188"/>
+                    <wp_id value="278"/>
+                    <wp_id value="189"/>
+                    <wp_id value="190"/>
+                    <wp_id value="191"/>
+                    <wp_id value="192"/>
+                    <wp_id value="193"/>
+                    <wp_id value="194"/>
+                    <wp_id value="195"/>
+                    <wp_id value="196"/>
+                    <wp_id value="197"/>
+                    <wp_id value="198"/>
+                    <wp_id value="199"/>
+                    <wp_id value="200"/>
+                    <wp_id value="201"/>
+                    <wp_id value="202"/>
+                    <wp_id value="203"/>
+                    <wp_id value="204"/>
+                    <wp_id value="205"/>
+                    <wp_id value="206"/>
+                    <wp_id value="207"/>
+                    <wp_id value="208"/>
+                    <wp_id value="209"/>
+                    <wp_id value="210"/>
+                    <wp_id value="211"/>
+                    <wp_id value="212"/>
+                    <wp_id value="213"/>
+                    <wp_id value="239"/>
+                    <wp_id value="214"/>
+                    <wp_id value="233"/>
+                    <wp_id value="240"/>
+                    <wp_id value="226"/>
+                    <wp_id value="215"/>
+                    <wp_id value="241"/>
+                    <wp_id value="227"/>
+                    <wp_id value="228"/>
+                    <wp_id value="229"/>
+                    <wp_id value="270"/>
+                    <wp_id value="271"/>
+                    <wp_id value="272"/>
+                    <wp_id value="273"/>
+                    <wp_id value="274"/>
+                    <wp_id value="275"/>
+                    <wp_id value="276"/>
+                </wp_ids>
+            </path>
+        </extension>
+        <extension name="checklist" manufacturer="Transas" version="1.0.0">
+            <activity xmlns="" ref_id="156" name="Test main steering gear." time="-60" state="1"/>
+            <activity xmlns="" ref_id="156" name="Test auxiliary steering gear." time="-60" state="1"/>
+            <activity xmlns="" ref_id="156" name="Emergency power supply." time="-60" state="1"/>
+            <activity xmlns="" ref_id="156" name="Main and auxiliary engines." time="-60" state="1"/>
+            <activity xmlns="" ref_id="156" name="Test communication with engine room." time="-60" state="1"/>
+            <activity xmlns="" ref_id="156" name="Anchor gear." time="-60" state="1"/>
+            <activity xmlns="" ref_id="156" name="The rudder angle indicator in relation to the actual position of the rudder." time="-60" state="1"/>
+            <activity xmlns="" ref_id="156" name="Navigational and signal lights." time="-60" state="1"/>
+            <activity xmlns="" ref_id="156" name="All life saving appliances in working order and ready for immediate use." time="-60" state="1"/>
+            <activity xmlns="" ref_id="156" name="First radar." time="-60" state="1"/>
+            <activity xmlns="" ref_id="156" name="Second radar." time="-60" state="1"/>
+            <activity xmlns="" ref_id="156" name="Gyro compass." time="-60" state="1"/>
+            <activity xmlns="" ref_id="156" name="Magnetic compass." time="-60" state="1"/>
+            <activity xmlns="" ref_id="156" name="Electronic position fixing systems." time="-60" state="1"/>
+            <activity xmlns="" ref_id="156" name="Equipment for measuring speed and distance." time="-60" state="1"/>
+            <activity xmlns="" ref_id="156" name="Radio telegraphy equipment." time="-60" state="1"/>
+            <activity xmlns="" ref_id="156" name="Radio telephony equipment." time="-60" state="1"/>
+            <activity xmlns="" ref_id="156" name="GMDSS radio equipment." time="-60" state="1"/>
+            <activity xmlns="" ref_id="156" name="Radio equipment for life-saving appliances." time="-60" state="1"/>
+            <activity xmlns="" ref_id="156" name="Synchronization of time in recording instruments and clocks." time="-60" state="1"/>
+            <activity xmlns="" ref_id="226" name="Call 5 hrs notice to pilot +47 76986810" time="-300" state="1"/>
+            <activity xmlns="" ref_id="226" name="Call 2 hrs notice to pilot +47 76986810" time="-120" state="1"/>
+            <activity xmlns="" ref_id="226" name="Call Pilot boat 30mins  before arrival  for Boarding Arrangement" time="-40" state="1"/>
+            <activity xmlns="" ref_id="211" name="Press ECDIS EVENT @ SOSP" time="-5" state="1"/>
+            <activity xmlns="" ref_id="211" name="Secure for Ocean Passage" time="10" state="1"/>
+        </extension>
+        <extension name="dangers" manufacturer="Transas" version="1.0.0">
+            <danger xmlns="" ref_id="156" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="156" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="156" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="156" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="155" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="155" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="155" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="155" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="157" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="157" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="157" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="157" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="154" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="154" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="154" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="154" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="153" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="153" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="153" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="153" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="152" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="152" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="152" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="152" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="151" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="151" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="151" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="151" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="150" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="150" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="150" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="150" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="149" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="149" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="149" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="149" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="147" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="147" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="147" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="147" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="283" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="283" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="283" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="283" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="145" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="145" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="145" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="145" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="144" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="144" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="144" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="144" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="143" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="143" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="143" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="143" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="142" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="142" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="142" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="142" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="141" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="141" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="141" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="141" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="140" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="140" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="140" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="140" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="139" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="139" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="139" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="139" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="138" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="138" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="138" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="138" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="137" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="137" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="137" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="137" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="136" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="136" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="136" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="136" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="135" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="135" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="135" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="135" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="134" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="134" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="134" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="134" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="133" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="133" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="133" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="133" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="133" type="area" text="Marine farm/aquaculture"/>
+            <danger xmlns="" ref_id="158" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="158" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="158" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="158" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="159" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="159" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="159" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="159" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="160" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="160" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="160" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="160" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="161" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="161" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="161" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="161" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="162" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="162" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="162" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="162" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="163" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="163" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="163" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="163" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="164" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="164" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="164" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="164" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="288" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="288" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="288" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="288" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="165" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="165" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="165" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="165" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="166" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="166" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="166" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="166" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="166" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="166" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="166" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="167" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="167" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="167" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="167" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="168" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="168" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="168" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="168" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="169" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="169" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="169" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="169" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="170" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="170" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="170" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="170" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="171" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="171" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="171" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="171" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="172" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="172" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="172" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="172" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="287" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="287" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="287" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="287" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="174" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="174" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="174" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="174" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="175" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="175" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="175" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="175" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="176" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="176" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="176" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="176" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="177" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="177" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="177" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="177" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="178" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="178" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="178" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="178" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="179" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="179" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="179" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="179" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="179" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="179" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="179" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="180" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="180" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="180" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="180" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="181" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="181" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="181" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="181" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="181" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="181" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="181" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="182" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="182" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="182" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="182" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="182" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="182" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="182" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="183" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="183" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="183" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="183" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="184" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="184" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="184" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="184" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="185" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="185" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="185" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="185" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="185" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="185" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="185" type="area" text="Marine farm/aquaculture"/>
+            <danger xmlns="" ref_id="186" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="186" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="186" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="186" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="186" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="186" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="187" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="187" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="187" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="188" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="188" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="188" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="278" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="278" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="278" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="189" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="189" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="189" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="190" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="190" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="190" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="191" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="191" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="191" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="192" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="192" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="192" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="193" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="193" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="193" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="194" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="194" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="194" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="195" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="195" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="195" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="196" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="196" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="196" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="197" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="197" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="197" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="198" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="198" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="198" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="199" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="199" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="199" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="200" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="200" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="200" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="201" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="201" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="201" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="202" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="202" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="202" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="203" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="203" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="203" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="204" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="204" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="204" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="205" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="205" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="205" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="206" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="206" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="206" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="207" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="207" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="207" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="208" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="208" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="208" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="209" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="209" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="209" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="210" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="210" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="210" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="211" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="211" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="211" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="211" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="211" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="213" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="213" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="213" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="239" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="239" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="239" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="214" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="214" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="214" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="233" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="233" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="233" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="290" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="290" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="290" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="226" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="226" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="226" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="215" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="215" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="215" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="241" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="241" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="241" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="227" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="227" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="227" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="228" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="228" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="228" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="229" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="229" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="229" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="270" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="270" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="270" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="271" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="271" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="271" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="272" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="272" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="272" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="272" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="272" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="273" type="area" text="Restricted area"/>
+            <danger xmlns="" ref_id="273" type="area" text="Restricted area"/>
+            <danger xmlns="" ref_id="273" type="area" text="Restricted area"/>
+            <danger xmlns="" ref_id="273" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="273" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="273" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="273" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="273" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="274" type="area" text="Restricted area"/>
+            <danger xmlns="" ref_id="274" type="area" text="Restricted area"/>
+            <danger xmlns="" ref_id="274" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="274" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="274" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="274" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="274" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="275" type="area" text="Restricted area"/>
+            <danger xmlns="" ref_id="275" type="area" text="Restricted area"/>
+            <danger xmlns="" ref_id="275" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="275" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="275" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="275" type="area" text="Caution area"/>
+            <danger xmlns="" ref_id="275" type="area" text="Caution area"/>
+        </extension>
+        <extension name="enc_charts" manufacturer="Transas" version="1.0.0">
+            <item xmlns="" name="GB1B20M4" issue_date="42867.0423726852" format="SENC" edition="6" chart_status="ok"/>
+            <item xmlns="" name="NO1A3000" issue_date="42674.0423726852" correction_date="43205.0423726852" format="SENC" edition="12" update_info="5" chart_status="ok"/>
+            <item xmlns="" name="NO2A2820" issue_date="39289.0423726852" correction_date="43266.0423726852" format="SENC" edition="2" update_info="45" chart_status="ok"/>
+            <item xmlns="" name="NO2A2836" issue_date="41228.0423726852" correction_date="43266.0423726852" format="SENC" edition="4" update_info="46" chart_status="ok"/>
+            <item xmlns="" name="NO2B2424" issue_date="43080.0423726852" correction_date="43209.0423726852" format="SENC" edition="2" update_info="2" chart_status="ok"/>
+            <item xmlns="" name="NO2B2428" issue_date="38579.0423726852" correction_date="43281.0423726852" format="SENC" edition="1" update_info="64" chart_status="ok"/>
+            <item xmlns="" name="NO2B2432" issue_date="38548.0423726852" correction_date="42978.0423726852" format="SENC" edition="1" update_info="31" chart_status="ok"/>
+            <item xmlns="" name="NO3B2424" issue_date="43045.0423726852" correction_date="43224.0423726852" format="SENC" edition="1" update_info="1" chart_status="ok"/>
+            <item xmlns="" name="NO4D2429" issue_date="39661.0423726852" correction_date="43224.0423726852" format="SENC" edition="4" update_info="32" chart_status="ok"/>
+            <item xmlns="" name="NO4D2527" issue_date="39621.0423726852" correction_date="42121.0423726852" format="SENC" edition="1" update_info="2" chart_status="ok"/>
+            <item xmlns="" name="NO4D2528" issue_date="40665.0423726852" correction_date="42943.0423726852" format="SENC" edition="2" update_info="1" chart_status="ok"/>
+            <item xmlns="" name="NO4D2732" issue_date="42304.0423726852" correction_date="43271.0423726852" format="SENC" edition="8" update_info="10" chart_status="ok"/>
+            <item xmlns="" name="NO4D2734" issue_date="43104.0423726852" correction_date="43256.0423726852" format="SENC" edition="6" update_info="3" chart_status="ok"/>
+            <item xmlns="" name="NO4D2836" issue_date="43005.0423726852" correction_date="43271.0423726852" format="SENC" edition="10" update_info="3" chart_status="ok"/>
+            <item xmlns="" name="NO4E2629" issue_date="42795.0423726852" correction_date="43131.0423726852" format="SENC" edition="8" update_info="5" chart_status="ok"/>
+            <item xmlns="" name="NO4E2630" issue_date="42081.0423726852" correction_date="42879.0423726852" format="SENC" edition="4" update_info="3" chart_status="ok"/>
+            <item xmlns="" name="NO4E2631" issue_date="41330.0423726852" correction_date="43004.0423726852" format="SENC" edition="5" update_info="6" chart_status="ok"/>
+            <item xmlns="" name="NO4E2733" issue_date="42304.0423726852" correction_date="42943.0423726852" format="SENC" edition="11" update_info="3" chart_status="ok"/>
+            <item xmlns="" name="NO4E2834" issue_date="39743.0423726852" correction_date="43131.0423726852" format="SENC" edition="3" update_info="18" chart_status="ok"/>
+            <item xmlns="" name="NO4E2835" issue_date="41285.0423726852" correction_date="43257.0423726852" format="SENC" edition="4" update_info="5" chart_status="ok"/>
+            <item xmlns="" name="NO4E2936" issue_date="42550.0423726852" correction_date="43151.0423726852" format="SENC" edition="7" update_info="7" chart_status="ok"/>
+            <item xmlns="" name="NO4E2937" issue_date="41159.0423726852" correction_date="43006.0423726852" format="SENC" edition="7" update_info="9" chart_status="ok"/>
+            <item xmlns="" name="NO4E2938" issue_date="42808.0423726852" correction_date="43271.0423726852" format="SENC" edition="10" update_info="6" chart_status="ok"/>
+            <item xmlns="" name="NO4F2629" issue_date="42081.0423726852" correction_date="43018.0423726852" format="SENC" edition="4" update_info="5" chart_status="ok"/>
+            <item xmlns="" name="NO4F2630" issue_date="39993.0423726852" correction_date="43004.0423726852" format="SENC" edition="3" update_info="10" chart_status="ok"/>
+            <item xmlns="" name="NO4F2631" issue_date="41208.0423726852" correction_date="43004.0423726852" format="SENC" edition="3" update_info="3" chart_status="ok"/>
+            <item xmlns="" name="NO4F2733" issue_date="40701.0423726852" correction_date="43271.0423726852" format="SENC" edition="5" update_info="10" chart_status="ok"/>
+            <item xmlns="" name="NO4F2834" issue_date="39094.0423726852" correction_date="43143.0423726852" format="SENC" edition="1" update_info="7" chart_status="ok"/>
+            <item xmlns="" name="NO4F2835" issue_date="42887.0423726852" correction_date="43077.0423726852" format="SENC" edition="8" update_info="1" chart_status="ok"/>
+            <item xmlns="" name="NO4F2936" issue_date="39261.0423726852" correction_date="41990.0423726852" format="SENC" edition="5" update_info="4" chart_status="ok"/>
+            <item xmlns="" name="NO4F2937" issue_date="42961.0423726852" correction_date="43201.0423726852" format="SENC" edition="10" update_info="2" chart_status="ok"/>
+            <item xmlns="" name="NO4G2428" issue_date="42154.0423726852" correction_date="43077.0423726852" format="SENC" edition="5" update_info="8" chart_status="ok"/>
+            <item xmlns="" name="NO4G2529" issue_date="43039.0423726852" correction_date="43298.0423726852" format="SENC" edition="4" update_info="9" chart_status="ok"/>
+            <item xmlns="" name="NO4G2631" issue_date="39999.0423726852" correction_date="42915.0423726852" format="SENC" edition="2" update_info="11" chart_status="ok"/>
+            <item xmlns="" name="NO4G2632" issue_date="40897.0423726852" correction_date="43088.0423726852" format="SENC" edition="3" update_info="16" chart_status="ok"/>
+            <item xmlns="" name="NO4G2733" issue_date="43242.0423726852" correction_date="43284.0423726852" format="SENC" edition="12" update_info="2" chart_status="ok"/>
+            <item xmlns="" name="NO4H2428" issue_date="43213.0423726852" correction_date="43271.0423726852" format="SENC" edition="6" update_info="2" chart_status="ok"/>
+            <item xmlns="" name="NO4H2529" issue_date="43042.0423726852" correction_date="43277.0423726852" format="SENC" edition="5" update_info="7" chart_status="ok"/>
+            <item xmlns="" name="NO4H2631" issue_date="40004.0423726852" correction_date="42879.0423726852" format="SENC" edition="4" update_info="11" chart_status="ok"/>
+            <item xmlns="" name="NO4H2733" issue_date="39556.0423726852" correction_date="43228.0423726852" format="SENC" edition="4" update_info="6" chart_status="ok"/>
+            <item xmlns="" name="NO4H2835" issue_date="41036.0423726852" correction_date="43276.0423726852" format="SENC" edition="5" update_info="13" chart_status="ok"/>
+            <item xmlns="" name="NO4I2529" issue_date="40637.0423726852" correction_date="42928.0423726852" format="SENC" edition="2" update_info="3" chart_status="ok"/>
+            <item xmlns="" name="NO5D2428" issue_date="42548.0423726852" correction_date="43271.0423726852" format="SENC" edition="6" update_info="15" chart_status="ok"/>
+            <item xmlns="" name="NO5E2733" issue_date="43196.0423726852" format="SENC" edition="6" chart_status="ok"/>
+            <item xmlns="" name="NO5E2938" issue_date="42794.0423726852" correction_date="43270.0423726852" format="SENC" edition="10" update_info="5" chart_status="ok"/>
+            <item xmlns="" name="NO5F2732" issue_date="41484.0423726852" correction_date="43152.0423726852" format="SENC" edition="3" update_info="9" chart_status="ok"/>
+            <item xmlns="" name="NO5F2835" issue_date="42852.0423726852" format="SENC" edition="5" chart_status="ok"/>
+            <item xmlns="" name="NO5F2937" issue_date="42955.0423726852" correction_date="43201.0423726852" format="SENC" edition="11" update_info="2" chart_status="ok"/>
+            <item xmlns="" name="NO5H2835" issue_date="41176.0423726852" correction_date="42359.0423726852" format="SENC" edition="2" update_info="3" chart_status="ok"/>
+        </extension>
+        <extension name="overhead" manufacturer="Transas" version="1.0.0">
+            <overhead xmlns="" ref_id="36" air_draught="34" overhead="0" overhead_status="no_object"/>
+            <overhead xmlns="" ref_id="3" air_draught="34" overhead="0" overhead_status="no_object"/>
+            <overhead xmlns="" ref_id="4" air_draught="34" overhead="0" overhead_status="no_object"/>
+            <overhead xmlns="" ref_id="5" air_draught="34" overhead="0" overhead_status="no_object"/>
+            <overhead xmlns="" ref_id="44" air_draught="34" overhead="0" overhead_status="no_object"/>
+            <overhead xmlns="" ref_id="6" air_draught="34" overhead="0" overhead_status="no_object"/>
+            <overhead xmlns="" ref_id="45" air_draught="34" overhead="0" overhead_status="no_object"/>
+            <overhead xmlns="" ref_id="37" air_draught="34" overhead="0" overhead_status="no_object"/>
+            <overhead xmlns="" ref_id="8" air_draught="34" overhead="0" overhead_status="no_object"/>
+            <overhead xmlns="" ref_id="41" air_draught="34" overhead="0" overhead_status="no_object"/>
+            <overhead xmlns="" ref_id="9" air_draught="34" overhead="0" overhead_status="no_object"/>
+            <overhead xmlns="" ref_id="10" air_draught="34" overhead="0" overhead_status="no_object"/>
+            <overhead xmlns="" ref_id="13" air_draught="34" overhead="0" overhead_status="no_object"/>
+        </extension>
+        <extension name="port_data" manufacturer="Transas" version="1.0.0">
+            <item xmlns="" name="Tromso" country="Norway" type="Port" cargotype="Oil, General/Dry" from="0" to="1"/>
+            <item xmlns="" name="Harstad" country="Norway" type="Port" cargotype="Oil, General/Dry" from="54" to="55"/>
+            <item xmlns="" name="Bodo" country="Norway" type="Port" cargotype="Oil, General/Dry" from="89" to="90"/>
+        </extension>
+        <extension name="refpoints" manufacturer="Transas" version="1.0.0">
+            <refpoint xmlns="" ref_id="36" name="" lat="4037.06716666667" lon="862.072"/>
+            <refpoint xmlns="" ref_id="3" name="" lat="4037.06716666667" lon="862.072"/>
+            <refpoint xmlns="" ref_id="4" name="" lat="4037.067" lon="862.071666666667"/>
+            <refpoint xmlns="" ref_id="5" name="" lat="4037.067" lon="862.071666666667"/>
+            <refpoint xmlns="" ref_id="44" name="" lat="4037.067" lon="862.071666666667"/>
+            <refpoint xmlns="" ref_id="6" name="" lat="4037.067" lon="862.071666666667"/>
+            <refpoint xmlns="" ref_id="45" name="" lat="4038.69616666667" lon="851.1295"/>
+            <refpoint xmlns="" ref_id="37" name="Tennholmen" lat="4038.11983333333" lon="809.866"/>
+            <refpoint xmlns="" ref_id="8" name="Tennholmen" lat="4038.11983333333" lon="809.866"/>
+            <refpoint xmlns="" ref_id="41" name="Tennholmen" lat="4038.11983333333" lon="809.866"/>
+            <refpoint xmlns="" ref_id="9" name="Tennholmen" lat="4038.11983333333" lon="809.866"/>
+            <refpoint xmlns="" ref_id="10" name="Tennholmen" lat="4038.11983333333" lon="809.866"/>
+            <refpoint xmlns="" ref_id="13" name="Myken" lat="4005.87183333333" lon="748.6195"/>
+        </extension>
+        <extension name="remarks" manufacturer="Transas" version="1.0.0">
+            <point xmlns="" ref_id="1" text="UKC 2.0 M"/>
+            <point xmlns="" ref_id="36" text="UKC 4.3 M/ POS. INTERVAL 10 MINS."/>
+            <point xmlns="" ref_id="3" text="UKC 4.3 M/ POS. INTERVAL 10 MINS."/>
+            <point xmlns="" ref_id="4" text="UKC 4.3 M/ POS. INTERVAL 10 MINS."/>
+            <point xmlns="" ref_id="5" text="UKC 28.6  M/ POS. INTERVAL 10 MINS."/>
+            <point xmlns="" ref_id="44" text="UKC MORE THAN 50 M / POS.  INTERVAL 10 MINS"/>
+            <point xmlns="" ref_id="6" text="UKC MORE THAN 50 M / POS.  INTERVAL 10 MINS"/>
+            <point xmlns="" ref_id="45" text="UKC MORE THAN 50 M / POS.  INTERVAL 10 MINS"/>
+            <point xmlns="" ref_id="37" text="UKC MORE THAN SHIP'S DRAFT"/>
+            <point xmlns="" ref_id="8" text="UKC MORE THAN 50 M / POS.  INTERVAL 10 MINS"/>
+            <point xmlns="" ref_id="41" text="UKC MORE THAN 50 M / POS.  INTERVAL 10 MINS"/>
+            <point xmlns="" ref_id="9" text="UKC MORE THAN 50 M / POS.  INTERVAL 10 MINS"/>
+            <point xmlns="" ref_id="10" text="UKC MORE THAN 50 M / POS.  INTERVAL 60 MINS"/>
+            <point xmlns="" ref_id="13" text="UKC MORE THAN 50 M / POS.  INTERVAL 60 MINS"/>
+        </extension>
+        <extension name="route_check_info" manufacturer="Transas" version="1.0.0" check_time="2019-01-09T07:53:57Z"/>
+        <extension name="ukccalc" manufacturer="Transas" version="1.0.0">
+            <ukc xmlns="" ref_id="36" draught="7.1" squat="1.6" depth="0" depth_status="manual" ukc="4.3" ukc_status="manual"/>
+            <ukc xmlns="" ref_id="3" draught="7.1" squat="1.6" depth="0" depth_status="manual" ukc="4.3" ukc_status="manual"/>
+            <ukc xmlns="" ref_id="4" draught="7.1" squat="1.6" depth="0" depth_status="manual" ukc="4.3" ukc_status="manual"/>
+            <ukc xmlns="" ref_id="5" draught="7.1" squat="1.6" depth="0" depth_status="manual" ukc="28.6" ukc_status="manual"/>
+            <ukc xmlns="" ref_id="44" draught="7.1" squat="1.6" depth="0" depth_status="manual" ukc="50.9" ukc_status="manual"/>
+            <ukc xmlns="" ref_id="6" draught="7.1" squat="1.6" depth="0" depth_status="manual" ukc="50.9" ukc_status="manual"/>
+            <ukc xmlns="" ref_id="45" draught="7.1" squat="1.6" depth="0" depth_status="manual" ukc="50.9" ukc_status="manual"/>
+            <ukc xmlns="" ref_id="37" draught="7.1" squat="1.6" depth="0" depth_status="manual" ukc="50.9" ukc_status="manual"/>
+            <ukc xmlns="" ref_id="8" draught="7.1" squat="1.6" depth="0" depth_status="manual" ukc="50.9" ukc_status="manual"/>
+            <ukc xmlns="" ref_id="41" draught="7.1" squat="1.6" depth="0" depth_status="manual" ukc="50.9" ukc_status="manual"/>
+            <ukc xmlns="" ref_id="9" draught="7.1" squat="1.6" depth="0" depth_status="manual" ukc="50.9" ukc_status="manual"/>
+            <ukc xmlns="" ref_id="10" draught="7.1" squat="1.6" depth="0" depth_status="manual" ukc="50.9" ukc_status="manual"/>
+            <ukc xmlns="" ref_id="13" draught="7.1" squat="1.6" depth="0" depth_status="manual" ukc="50.9" ukc_status="manual"/>
+        </extension>
+        <extension name="voyage_info" manufacturer="Transas" version="1.0.0" voyage_no="17-031" start_point="Bodo" end_point="Trondheim" transit_point="" arrival_draft="0" depart_draft="0" abirth_refid="35" abirth_name="" apilot_refid="26" apilot_name=""/>
+    </extensions>
+</route>

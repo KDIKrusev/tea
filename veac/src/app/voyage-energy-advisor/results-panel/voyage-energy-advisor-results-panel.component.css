@@ -1,0 +1,1259 @@
+/* results-panel.component.css - Complete with iPad Pro responsive fixes */
+
+.results-panel {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background-color: #E0E0E0;
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* ===================================================================
+   INTEGRATED VOYAGE OPTIONS PANEL - Clean Design
+   =================================================================== */
+
+.voyage-options-integrated-panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #F8F9FA;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+}
+
+.voyage-options-panel-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background-color: #E0E0E0;
+  padding-right: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Panel Header */
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  background: linear-gradient(135deg, #F7F7F7 0%, #F8F9FA 100%);
+  border-bottom: 2px solid #E9ECEF;
+  flex-shrink: 0;
+  min-height: 80px;
+  border-radius: 8px;
+}
+
+.header-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.panel-header h2 {
+  margin: 0;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #2C3E50;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  letter-spacing: -0.02em;
+}
+
+.panel-header h2 i {
+  font-size: 1.5rem;
+  color: #3498DB;
+}
+
+.search-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.results-count {
+  font-size: 0.9rem;
+  color: #6C757D;
+  font-weight: 500;
+  background-color: #E9ECEF;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+}
+
+.modern-close-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: linear-gradient(135deg, #E74C3C, #C0392B);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(231, 76, 60, 0.2);
+}
+
+.modern-close-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
+  background: linear-gradient(135deg, #C0392B, #A93226);
+}
+
+.modern-close-btn:active {
+  transform: translateY(0);
+}
+
+/* Panel Content */
+.panel-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background-color: #F7F7F7;
+  margin-top: 4px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.content-wrapper {
+  flex: 1;
+  padding: 1.5rem;
+  overflow-y: auto;
+  background-color:#F7F7F7;
+}
+
+/* Panel Footer */
+.panel-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 1.5rem;
+  background: linear-gradient(135deg, #F8F9FA 0%, #E9ECEF 100%);
+  border-top: 1px solid #E9ECEF;
+  flex-shrink: 0;
+}
+
+.footer-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.selection-hint {
+  font-size: 0.9rem;
+  color: #6C757D;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+}
+
+.selection-hint i {
+  color: #3498DB;
+  font-size: 0.8rem;
+}
+
+.continue-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1.5rem;
+  background: linear-gradient(135deg, #27AE60, #2ECC71);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(39, 174, 96, 0.2);
+  letter-spacing: 0.01em;
+}
+
+.continue-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3);
+  background: linear-gradient(135deg, #229954, #27AE60);
+}
+
+.continue-btn:disabled {
+  background: linear-gradient(135deg, #BDC3C7, #95A5A6);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.continue-btn i {
+  font-size: 0.9rem;
+}
+
+/* ===================================================================
+   ANIMATIONS
+   =================================================================== */
+
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Main Results View */
+.results-main-view {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  gap: 4px;
+}
+
+.results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  background-color: #F7F7F7;
+  border-bottom: 1px solid #E5E5E5;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  flex-shrink: 0;
+  gap: 1rem;
+  min-height: 60px; 
+  margin-right: 4px;
+}
+
+.back-to-options-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  background-color: #3498DB;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.back-to-options-btn:hover {
+  background-color: #2980B9;
+  transform: translateY(-1px);
+}
+
+.back-icon {
+  font-size: 1rem; 
+  font-weight: bold;
+}
+
+/* Navigation Controls */
+.navigation-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.nav-arrow-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background-color: #3498DB;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: bold;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.nav-arrow-btn:hover:not(:disabled) {
+  background-color: #2980B9;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.nav-arrow-btn:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.nav-arrow-btn:disabled {
+  background-color: #BDC3C7;
+  color: #7F8C8D;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.nav-icon {
+  line-height: 1;
+  font-style: normal;
+}
+
+.selected-option-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  min-width: 0;
+  flex-shrink: 0;
+}
+
+.indicator-label {
+  color: #7F8C8D;
+  font-weight: 500;
+  white-space: nowrap;
+  font-size: 0.8rem;
+}
+
+.option-summary {
+  background-color: #ECF0F1;
+  padding: 0.4rem 0.8rem;
+  border-radius: 16px;
+  color: #2C3E50;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.85rem;
+  max-width: 200px;
+}
+
+/* Main Content Layout */
+.results-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 3px;
+  padding-top: 3px;
+  padding-right: 6px;
+  overflow: hidden;
+  min-height: 0;
+}
+
+.results-header.compact {
+  padding: 0.5rem 1.5rem;
+  min-height: 50px;
+}
+
+/* Power Chart Section (Top) */
+.power-chart-section {
+  flex: 0 0 auto;
+  width: 100%;
+  display: flex;
+  gap: 8px;
+}
+
+.power-chart-wrapper {
+  display: flex;
+  width: 100%;
+  gap: 4px;
+  min-height: 250px;
+}
+
+.power-chart-card {
+  flex: 1;
+  background-color: #FFFFFF;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: none;
+  min-height: 250px;
+  overflow: visible;
+  padding: 0;
+}
+
+.power-chart-card,
+.compass-card {
+  border: 1px solid #E5E5E5;
+  transition: box-shadow 0.2s ease;
+}
+
+.power-chart-card:hover,
+.compass-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.compass-card {
+  width: 320px;
+  min-width: 320px;
+  background-color: #FFFFFF;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: auto;
+  padding: 0;
+}
+
+/* Map and Details Section (Bottom - Side by Side) */
+.map-details-section {
+  display: flex;
+  flex: 1;
+  gap: 4px;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.results-card {
+  margin: 0;
+  border: none;
+}
+
+/* Map Container */
+.map-container {
+  flex: 1;
+  min-height: 400px;
+  background-color: #FFFFFF;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Ensure the map component takes full space and is interactive */
+.map-container app-voyage-route-analysis {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  overflow: hidden !important;
+  pointer-events: auto !important;
+  z-index: 1 !important;
+}
+
+.results-header.compact .back-to-options-btn {
+  padding: 0.5rem 0.8rem;
+  font-size: 0.8rem;
+}
+
+.results-header.compact .nav-arrow-btn {
+  width: 32px;
+  height: 32px;
+  font-size: 1rem;
+}
+
+.results-header.compact .selected-option-indicator {
+  font-size: 0.8rem;
+}
+
+.results-header.compact .option-summary {
+  padding: 0.3rem 0.6rem;
+  font-size: 0.8rem;
+  border-radius: 12px;
+}
+
+/* Remove all scrolling and ensure full interaction */
+.map-container app-voyage-route-analysis ::ng-deep {
+  .loading-spinner,
+  .scroll-indicator,
+  .scroll-handle,
+  .scrollbar,
+  .scroll-thumb,
+  .loading-indicator,
+  .map-loading,
+  .ol-loading,
+  .viewport-loading {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    z-index: -1 !important;
+  }
+
+  * {
+    box-sizing: border-box;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
+  
+  *::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+  }
+  
+  .expanded-map-inline-container {
+    width: 100% !important;
+    height: 100% !important;
+    overflow: hidden !important;
+    pointer-events: auto !important;
+    position: relative !important;
+  }
+
+  .expanded-map-inline-content {
+    width: 100% !important;
+    height: 100% !important;
+    overflow: hidden !important;
+    pointer-events: auto !important;
+  }
+
+  .expanded-map-inline-details-section {
+    display: none !important;
+  }
+
+  .expanded-map-inline-map-section {
+    flex: 1 !important;
+    width: 100% !important;
+    overflow: hidden !important;
+    pointer-events: auto !important;
+  }
+  
+  .map-real-container-inline,
+  .ol-viewport,
+  .ol-layer,
+  .map-wrapper,
+  .map-container {
+    width: 100% !important;
+    height: 100% !important;
+    overflow: hidden !important;
+    cursor: grab !important;
+    pointer-events: auto !important;
+    position: relative !important;
+    z-index: 1 !important;
+    touch-action: manipulation !important;
+  }
+  
+  .ol-viewport:active,
+  .map-container:active,
+  .ol-layer:active {
+    cursor: grabbing !important;
+  }
+  
+  .overlay-toggle-btn,
+  .ol-control,
+  .ol-zoom,
+  .ol-zoom-in,
+  .ol-zoom-out,
+  .ol-full-screen,
+  .right-overlay-controls,
+  .close-panel-btn,
+  button,
+  .route-feature,
+  .route-segment,
+  .vessel-marker,
+  .ol-layer *,
+  .ol-overlay,
+  .ol-feature,
+  canvas {
+    pointer-events: auto !important;
+    z-index: 1000 !important;
+    cursor: pointer !important;
+    touch-action: auto !important;
+  }
+
+  canvas {
+    cursor: grab !important;
+    touch-action: manipulation !important;
+  }
+
+  canvas:active {
+    cursor: grabbing !important;
+  }
+  
+  .map-overlay,
+  .loading-overlay,
+  .modal-overlay,
+  .backdrop {
+    display: none !important;
+    pointer-events: none !important;
+  }
+  
+  .expanded-map-inline-container::before,
+  .expanded-map-inline-container::after,
+  .ol-viewport::before,
+  .ol-viewport::after {
+    display: none !important;
+    content: none !important;
+    pointer-events: none !important;
+  }
+  
+  .active-overlays-indicator {
+    pointer-events: none !important;
+    z-index: 999 !important;
+  }
+}
+
+/* Voyage Details Panel */
+.voyage-details-panel {
+  flex: 0 0 320px;
+  background-color: #FFFFFF;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  min-height: 400px;
+}
+
+/* Segment Details Overlay */
+.segment-details-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1500;
+  animation: fadeIn 0.2s ease;
+}
+
+.segment-details-container {
+  background-color: #FFFFFF;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  max-width: 500px;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+  animation: slideIn 0.3s ease;
+}
+
+.close-segment-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #7F8C8D;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  z-index: 1501;
+}
+
+.close-segment-btn:hover {
+  background-color: #F0F0F0;
+  color: #2C3E50;
+}
+
+/* No Results Overlay */
+.no-results-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(247, 247, 247, 0.9);
+  z-index: 10;
+}
+
+.power-chart-card app-voyage-power-chart,
+.compass-card app-segment-details {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: inherit;
+}
+
+.power-chart-card app-voyage-power-chart {
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.compass-card app-segment-details {
+  border-radius: 6px;
+  overflow: auto;
+}
+
+/* ===================================================================
+   IPAD PRO RESPONSIVE FIXES (1366x1024)
+   =================================================================== */
+
+/* iPad Pro landscape (1366x1024) specific adjustments */
+@media (min-width: 1024px) and (max-width: 1366px) and (orientation: landscape) {
+  
+  /* Adjust power chart section height to match live dashboard proportions */
+  .power-chart-section {
+    flex: 0 0 320px;
+    height: 320px;
+    min-height: 320px;
+    max-height: 320px;
+  }
+
+  .power-chart-wrapper {
+    height: 100%;
+    min-height: 320px;
+  }
+
+  .power-chart-card {
+    min-height: 320px;
+    height: 100%;
+  }
+
+  .compass-card {
+    width: 300px;
+    min-width: 300px;
+    height: 100%;
+    min-height: 320px;
+  }
+
+  /* Ensure map section gets more space - this is the key fix */
+  .map-details-section {
+    flex: 1;
+    min-height: 420px;
+    height: calc(100vh - 48px - 60px - 320px - 16px);
+  }
+
+  .map-container {
+    flex: 1;
+    min-height: 420px;
+    height: 100%;
+  }
+
+  .voyage-details-panel {
+    flex: 0 0 300px;
+    min-width: 300px;
+    min-height: 420px;
+    height: 100%;
+  }
+
+  /* Optimize results content to use available space better */
+  .results-content {
+    height: calc(100vh - 48px - 60px - 8px);
+    min-height: calc(100vh - 48px - 60px - 8px);
+    max-height: calc(100vh - 48px - 60px - 8px);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Ensure results main view uses full height */
+  .results-main-view {
+    height: 100vh;
+    max-height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Make results header more compact for iPad Pro */
+  .results-header {
+    padding: 0.5rem 1.5rem;
+    min-height: 50px;
+    flex-shrink: 0;
+  }
+
+  .results-header.compact {
+    padding: 0.4rem 1.5rem;
+    min-height: 45px;
+  }
+
+
+  /* Optimize navigation controls for iPad Pro */
+  .nav-arrow-btn {
+    width: 34px;
+    height: 34px;
+    font-size: 1rem;
+  }
+
+  .selected-option-indicator {
+    font-size: 0.85rem;
+  }
+
+  .option-summary {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+    max-width: 180px;
+  }
+
+  /* Ensure proper gap distribution */
+  .results-content {
+    gap: 8px;
+    padding: 4px 6px 4px 4px;
+  }
+
+  .power-chart-section {
+    margin-bottom: 0;
+  }
+
+  .map-details-section {
+    gap: 8px;
+  }
+}
+
+/* Additional fix for the overall container height */
+@media (min-width: 1024px) and (max-width: 1366px) {
+  .results-panel {
+    height: 100vh;
+    max-height: 100vh;
+    overflow: hidden;
+  }
+
+   .compact-header{
+  margin-bottom: 0;
+ }
+
+  .voyage-options-integrated-panel {
+    height: 100vh;
+    max-height: 100vh;
+  }
+
+  .voyage-options-panel-container {
+    height: 100%;
+    max-height: 100vh;
+  }
+}
+
+/* Fine-tune for iPad Pro portrait if needed */
+@media (min-width: 1024px) and (max-width: 1366px) and (orientation: portrait) {
+  .power-chart-section {
+    height: 280px;
+    flex: 0 0 280px;
+  }
+  
+
+  .power-chart-wrapper {
+    min-height: 280px;
+  }
+
+  .power-chart-card,
+  .compass-card {
+    min-height: 280px;
+  }
+
+  .map-details-section {
+    min-height: 380px;
+  }
+
+  .map-container,
+  .voyage-details-panel {
+    min-height: 380px;
+  }
+}
+
+/* ===================================================================
+   EXISTING RESPONSIVE DESIGN - DESKTOP/TABLET
+   =================================================================== */
+
+@media (max-width: 1200px) {
+  .option-summary {
+    max-width: 150px;
+  }
+}
+
+@media (max-width: 1400px) {
+  .compass-card {
+    width: 300px;
+    min-width: 300px;
+    display: none;
+  }
+
+   .compact-header{
+  margin-bottom: 0;
+ }
+
+  .voyage-details-panel {
+    flex: 0 0 280px;
+  }
+
+}
+
+@media (max-width: 1200px) {
+  .voyage-details-panel {
+    flex: 0 0 260px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .panel-header {
+    padding: 1rem 1.5rem;
+    min-height: 70px;
+  }
+  
+  .panel-header h2 {
+    font-size: 1.5rem;
+  }
+  
+  .panel-footer {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+  }
+  
+  .continue-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+   .compass-card {
+    width: 280px;
+    min-width: 280px;
+  }
+  
+  .power-chart-wrapper {
+    min-height: 230px;
+  }
+  
+  .power-chart-card {
+    min-height: 230px;
+  }
+}
+
+@media (max-width: 992px) {
+  .results-header {
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    align-items: stretch;
+  }
+  
+  .navigation-controls {
+    justify-content: center;
+    margin-left: 0;
+  }
+  
+  .back-to-options-btn {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .option-summary {
+    max-width: none;
+  }
+
+  .results-content {
+    gap: 6px;
+    padding: 6px;
+  }
+  
+  .map-details-section {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .map-container {
+    min-height: 350px;
+  }
+
+  .voyage-details-panel {
+    flex: 0 0 auto;
+    min-height: 280px;
+  }
+
+  .power-chart-section {
+    flex-direction: column;
+    gap: 6px;
+  }
+  
+  .power-chart-wrapper {
+    flex-direction: column;
+    gap: 6px;
+    min-height: auto;
+  }
+  
+  .compass-card {
+    width: 100%;
+    min-width: 100%;
+    max-width: none;
+  }
+  
+  .power-chart-card {
+    min-height: 200px;
+  }
+}
+
+@media (max-width: 768px) {
+  .navigation-controls {
+    gap: 0.5rem;
+  }
+  
+  .nav-arrow-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+  }
+  
+  .selected-option-indicator {
+    font-size: 0.8rem;
+  }
+  
+  .option-summary {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.8rem;
+  }
+
+  .power-chart-card {
+    min-height: 200px;
+  }
+
+  .map-container {
+    min-height: 300px;
+  }
+
+  .voyage-details-panel {
+    min-height: 250px;
+  }
+
+  .panel-header {
+    padding: 1rem;
+    min-height: 60px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .panel-header h2 {
+    font-size: 1.25rem;
+  }
+  
+  .content-wrapper {
+    padding: 1rem;
+  }
+
+  .power-chart-card {
+    min-height: 180px;
+  }
+  
+  .power-chart-wrapper {
+    gap: 4px;
+  }
+  
+  .power-chart-section {
+    gap: 4px;
+  }
+}
+
+/* ===================================================================
+   ANIMATIONS
+   =================================================================== */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ===================================================================
+   DARK THEME SUPPORT
+   =================================================================== */
+
+:host-context(.dark-theme) .results-panel {
+  background-color: #1a1d23;
+}
+
+:host-context(.dark-theme) .voyage-options-integrated-panel {
+  background-color: #2d3035;
+}
+
+:host-context(.dark-theme) .voyage-options-panel-container {
+  background-color: #2d3035;
+}
+
+:host-context(.dark-theme) .panel-header {
+  background: linear-gradient(135deg, #2d3035 0%, #252830 100%);
+  border-bottom-color: #444;
+}
+
+:host-context(.dark-theme) .panel-header h2 {
+  color: #FFFFFF;
+}
+
+:host-context(.dark-theme) .results-count {
+  background-color: #34495E;
+  color: #BDC3C7;
+}
+
+:host-context(.dark-theme) .panel-content {
+  background-color: #2d3035;
+}
+
+:host-context(.dark-theme) .content-wrapper {
+  background-color: #2d3035;
+}
+
+:host-context(.dark-theme) .panel-footer {
+  background: linear-gradient(135deg, #252830 0%, #1a1d23 100%);
+  border-top-color: #444;
+}
+
+:host-context(.dark-theme) .selection-hint {
+  color: #BDC3C7;
+}
+
+:host-context(.dark-theme) .results-header {
+  background-color: #2d3035;
+  border-bottom-color: #444;
+}
+
+:host-context(.dark-theme) .indicator-label {
+  color: #BDC3C7;
+}
+
+:host-context(.dark-theme) .option-summary {
+  background-color: #34495E;
+  color: #FFFFFF;
+}
+
+:host-context(.dark-theme) .nav-arrow-btn:not(:disabled) {
+  background-color: #3498DB;
+}
+
+:host-context(.dark-theme) .nav-arrow-btn:hover:not(:disabled) {
+  background-color: #2980B9;
+}
+
+:host-context(.dark-theme) .nav-arrow-btn:disabled {
+  background-color: #34495E;
+  color: #7F8C8D;
+}
+
+:host-context(.dark-theme) .power-chart-card,
+:host-context(.dark-theme) .map-container,
+:host-context(.dark-theme) .voyage-details-panel {
+  background-color: #2d3035;
+  border-color: #444;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+:host-context(.dark-theme) .segment-details-container {
+  background-color: #2d3035;
+}
+
+:host-context(.dark-theme) .close-segment-btn {
+  color: #BDC3C7;
+}
+
+:host-context(.dark-theme) .close-segment-btn:hover {
+  background-color: #34495E;
+  color: #FFFFFF;
+}
+
+:host-context(.dark-theme) .no-results-overlay {
+  background-color: rgba(26, 29, 35, 0.9);
+}
+
+/* ===================================================================
+   PRINT STYLES
+   =================================================================== */
+
+@media print {
+  .results-panel {
+    background-color: white;
+  }
+  
+  .voyage-options-integrated-panel {
+    display: none;
+  }
+  
+  .results-header {
+    background-color: white;
+    box-shadow: none;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .navigation-controls,
+  .back-to-options-btn {
+    display: none;
+  }
+  
+  .power-chart-card,
+  .map-container,
+  .voyage-details-panel {
+    box-shadow: none;
+    border: 1px solid #ddd;
+  }
+  
+  .segment-details-overlay,
+  .no-results-overlay {
+    display: none;
+  }
+}
+
+.optimal-voyage-card {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.75rem 1rem;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  padding: 1rem 1.25rem;
+  background: #eef6ff;
+  border: 1px solid #b8d8f5;
+  border-radius: 8px;
+}
+
+.optimal-voyage-card h3,
+.optimal-voyage-card p {
+  margin: 0;
+}
+
+.optimal-voyage-card h3 {
+  color: #24415c;
+  font-size: 1rem;
+}
+
+.optimal-voyage-card p {
+  color: #587083;
+  font-size: 0.875rem;
+}
+
+.optimal-voyage-button,
+.optimal-voyage-select {
+  border: 0;
+  border-radius: 6px;
+  padding: 0.65rem 1rem;
+  background: #1976d2;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.optimal-voyage-button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.optimal-voyage-result {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: #24415c;
+  font-weight: 600;
+}
+
+.optimal-voyage-error {
+  grid-column: 1 / -1;
+  color: #b42318 !important;
+}

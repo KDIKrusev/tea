@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<route xmlns="http://www.cirm.org/RTZ/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.1" xmlns:stm="http://stmvalidation.eu/STM/1/0/0" xsi:schemaLocation="http://stmvalidation.eu/STM/1/0/0 stm_extensions.xsd">
+    <routeInfo routeName="Anchorage - Skjelnan" routeStatus="SafetyChecked" vesselName="TERN ISLAND" vesselMMSI="219029722" vesselIMO="9909649" vesselVoyage="urn:mrn:stm:voyage:id:transas:7c137725-5d32-4afa-9333-2d28bb0cff94">
+        <extensions>
+            <extension routeStatusEnum="5" routeVersion="5376D512-90E1-4612-94AA-6A3CA70EB0BA" xsi:type="stm:RouteInfoExtension" name="routeInfoEx" manufacturer="STM" version="1.0.0">
+                <stm:routeChanges>
+                    <stm:historyItem author="NS" reason="creation" dateTime="2024-12-24T13:15:33Z"/>
+                    <stm:historyItem author="NS" reason="correction" dateTime="2024-12-24T13:15:58Z"/>
+                    <stm:historyItem author="NS" reason="correction" dateTime="2024-12-24T13:16:09Z"/>
+                    <stm:historyItem author="NS" reason="correction" dateTime="2024-12-24T13:16:10Z"/>
+                </stm:routeChanges>
+            </extension>
+            <extension routeId="urn:mrn:transas:route:id:9b872224-b667-412b-9d30-f02c3d74b0ed" routeStatusEx="1" totalLength="2.559" name="routeInfoTrs" manufacturer="Transas" version="1.0.0"/>
+        </extensions>
+    </routeInfo>
+    <waypoints>
+        <defaultWaypoint radius="0.10">
+            <leg portsideXTD="0.10" starboardXTD="0.10" safetyContour="10.00" safetyDepth="12.00" staticUKC="0.00" dynamicUKC="0.00" geometryType="Loxodrome"/>
+            <extensions>
+                <extension value="Manual" name="auto_routing" manufacturer="Transas" version="1.0.0"/>
+            </extensions>
+        </defaultWaypoint>
+        <waypoint id="1" name="Anchorage">
+            <position lat="69.66658333" lon="18.99270000"/>
+            <leg/>
+        </waypoint>
+        <waypoint id="2" name="berth approach">
+            <position lat="69.69583333" lon="19.06310000"/>
+            <leg/>
+        </waypoint>
+        <waypoint id="3" name="ST1">
+            <position lat="69.69771667" lon="19.07441667"/>
+            <leg portsideXTD="0.03" starboardXTD="0.02"/>
+        </waypoint>
+        <extensions>
+            <extension last_change_time="2024-12-24T13:15:09.440145Z" name="geometry_change" manufacturer="Transas" version="1.0.0"/>
+        </extensions>
+    </waypoints>
+    <schedules>
+        <schedule id="0" name="Schedule 1"/>
+    </schedules>
+    <extensions>
+        <extension check_time="2024-12-24T13:16:05Z" name="route_check_info" manufacturer="Transas" version="1.0.0"/>
+    </extensions>
+</route>

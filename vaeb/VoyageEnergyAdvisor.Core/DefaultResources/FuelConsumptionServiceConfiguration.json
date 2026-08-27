@@ -1,0 +1,41 @@
+{
+  "FuelConsumptionServiceConfiguration": {
+    "PropulsionEfficiencyItems": [
+      {
+        "SpeedMetersPerSecond": 0,
+        "OverallPropulsionEfficiency": 0.74
+      }
+    ],
+    "FuelConversionFactorItems": [
+      {
+        "EngineLoadPercent": 25,
+        "FuelConsumptionKgPerKWh": 0.18578
+      },
+      {
+        "EngineLoadPercent": 50,
+        "FuelConsumptionKgPerKWh": 0.16205
+      },
+      {
+        "EngineLoadPercent": 73,
+        "FuelConsumptionKgPerKWh": 0.15655
+      },
+      {
+        "EngineLoadPercent": 75,
+        "FuelConsumptionKgPerKWh": 0.15726
+      },
+      {
+        "EngineLoadPercent": 80,
+        "FuelConsumptionKgPerKWh": 0.165
+      },
+      {
+        "EngineLoadPercent": 100,
+        "FuelConsumptionKgPerKWh": 0.16755
+      },
+      {
+        "EngineLoadPercent": 110,
+        "FuelConsumptionKgPerKWh": 0.17205
+      }
+    ],
+    "AssumedEngineLoadPercent": 80
+  }
+}

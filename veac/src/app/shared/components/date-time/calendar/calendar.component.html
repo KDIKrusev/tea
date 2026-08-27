@@ -1,0 +1,48 @@
+<!-- calendar.component.html - Cleaned and optimized -->
+<div class="calendar-picker">
+  <!-- Calendar Container -->
+  <div class="calendar-content">
+    <!-- Month Navigation -->
+    <div class="calendar-header">
+      <span class="calendar-month">{{ currentMonth }}</span>
+      <div class="calendar-nav">
+        <button class="nav-btn nav-btn-prev" (click)="previousMonth()">
+          &lt;
+        </button>
+        <button class="nav-btn nav-btn-today" (click)="goToToday()">
+          Today
+        </button>
+        <button class="nav-btn nav-btn-next" (click)="nextMonth()">
+          &gt;
+        </button>
+      </div>
+    </div>
+    
+    <!-- Weekdays -->
+    <div class="calendar-weekdays">
+      <div *ngFor="let day of weekDays" class="calendar-weekday">
+        {{ day }}
+      </div>
+    </div>
+    
+    <!-- Calendar Days -->
+    <div class="calendar-days">
+      <div *ngFor="let day of calendarDays"
+           class="calendar-day"
+           [class.calendar-day-other]="!day.currentMonth"
+           [class.calendar-day-today]="day.isToday"
+           [class.calendar-day-selected]="day.isSelected"
+           (click)="selectDate(day)">
+        {{ day.date.getDate() }}
+      </div>
+    </div>
+  </div>
+  
+  <!-- Footer with action buttons -->
+  <div class="calendar-footer">
+    <div class="calendar-actions">
+      <button class="btn btn-cancel" (click)="cancel()">Cancel</button>
+      <button class="btn btn-apply" (click)="applySelection()">Ok</button>
+    </div>
+  </div>
+</div>

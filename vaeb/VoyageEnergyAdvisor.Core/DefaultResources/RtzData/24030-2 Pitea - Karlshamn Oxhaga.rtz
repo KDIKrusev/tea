@@ -1,0 +1,2300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<route xmlns="http://www.cirm.org/RTZ/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.1" xmlns:stm="http://stmvalidation.eu/STM/1/0/0" xsi:schemaLocation="http://stmvalidation.eu/STM/1/0/0 stm_extensions.xsd">
+    <routeInfo routeName="Pitea - Karlshamn Oxhaga" routeStatus="SafetyChecked" vesselName="TERN ISLAND" vesselMMSI="219029722" vesselIMO="9909649" vesselVoyage="urn:mrn:stm:voyage:id:transas:24030_29525aa0-cc33-4389-93fb-c8302f65615c">
+        <extensions>
+            <extension manufacturer="Furuno" name="AdditionalRouteInfo" version="1.0">
+                <property income="0" channelLimitMode="0" safetyContour="30" ukcLimit="30.000000"/>
+            </extension>
+            <extension routeStatusEnum="5" routeVersion="29525AA0-CC33-4389-93FB-C8302F65615C" xsi:type="stm:RouteInfoExtension" name="routeInfoEx" manufacturer="STM" version="1.0.0">
+                <stm:routeChanges>
+                    <stm:historyItem author="NS" reason="creation" dateTime="2024-10-08T10:20:52Z"/>
+                    <stm:historyItem author="NS" reason="correction" dateTime="2024-10-14T12:44:32Z"/>
+                    <stm:historyItem author="NS" reason="correction" dateTime="2024-10-15T00:44:58Z"/>
+                    <stm:historyItem author="NS" reason="correction" dateTime="2024-10-15T00:47:39Z"/>
+                    <stm:historyItem author="NS" reason="correction" dateTime="2024-10-15T11:24:51Z"/>
+                    <stm:historyItem author="NS" reason="correction" dateTime="2024-10-15T11:36:01Z"/>
+                    <stm:historyItem author="NS" reason="correction" dateTime="2024-10-15T11:41:49Z"/>
+                    <stm:historyItem author="NS" reason="correction" dateTime="2024-10-15T11:43:20Z"/>
+                    <stm:historyItem author="NS" reason="correction" dateTime="2024-10-15T11:43:22Z"/>
+                    <stm:historyItem author="NS" reason="correction" dateTime="2024-11-03T13:07:22Z"/>
+                </stm:routeChanges>
+            </extension>
+            <extension routeId="urn:mrn:transas:route:id:8319616d-b473-4c0b-80a5-334fa98479cc" routeStatusEx="1" totalLength="677.035" name="routeInfoTrs" manufacturer="Transas" version="1.0.0"/>
+        </extensions>
+    </routeInfo>
+    <waypoints>
+        <defaultWaypoint radius="0.00">
+            <leg portsideXTD="0.10" starboardXTD="0.10" safetyContour="10.00" safetyDepth="13.00" staticUKC="0.00" dynamicUKC="0.00" geometryType="Loxodrome"/>
+            <extensions>
+                <extension value="Manual" name="auto_routing" manufacturer="Transas" version="1.0.0"/>
+            </extensions>
+        </defaultWaypoint>
+        <waypoint id="1" name="Haraholmen Berth">
+            <position lat="65.23367863" lon="21.62918523"/>
+            <leg/>
+        </waypoint>
+        <waypoint id="2" name="Grytan">
+            <position lat="65.23124017" lon="21.63074225"/>
+            <leg portsideXTD="0.03" starboardXTD="0.05" safetyDepth="10.00" draughtForward="7.10" draughtAft="7.10" dynamicUKC="7.10"/>
+        </waypoint>
+        <waypoint id="3" name="by Hallskar" radius="0.10">
+            <position lat="65.22291912" lon="21.64802400"/>
+            <leg portsideXTD="0.05" starboardXTD="0.05" safetyDepth="10.00" draughtForward="7.10" draughtAft="7.10" dynamicUKC="6.00"/>
+        </waypoint>
+        <waypoint id="4" name="by Storstensgrund" radius="0.10">
+            <position lat="65.21141078" lon="21.65473743"/>
+            <leg portsideXTD="0.08" starboardXTD="0.05" safetyDepth="10.00" draughtForward="7.10" draughtAft="7.10" dynamicUKC="1.50"/>
+        </waypoint>
+        <waypoint id="5" name="Storstensgrund" radius="0.01">
+            <position lat="65.20530460" lon="21.64099142"/>
+            <leg portsideXTD="0.06" starboardXTD="0.04" safetyDepth="10.00" draughtForward="7.10" draughtAft="7.10" dynamicUKC="9.79"/>
+        </waypoint>
+        <waypoint id="6" name="Hamviken" radius="0.30">
+            <position lat="65.18547650" lon="21.59161100"/>
+            <leg portsideXTD="0.06" starboardXTD="0.06" safetyDepth="10.00" draughtForward="7.10" draughtAft="7.10" dynamicUKC="10.00"/>
+        </waypoint>
+        <waypoint id="7" name="Leskar" radius="0.30">
+            <position lat="65.13760088" lon="21.63954635"/>
+            <leg portsideXTD="0.07" safetyDepth="10.00" draughtForward="7.10" draughtAft="7.10" dynamicUKC="2.90"/>
+        </waypoint>
+        <waypoint id="8" name="Pitea Pilot" radius="0.10">
+            <position lat="65.10883537" lon="21.65614608"/>
+            <leg portsideXTD="0.30" starboardXTD="0.20" safetyDepth="10.00" draughtForward="7.10" draughtAft="7.10" dynamicUKC="9.00"/>
+        </waypoint>
+        <waypoint id="9" name="Nygran" radius="0.10">
+            <position lat="65.01885490" lon="21.74672345"/>
+            <leg portsideXTD="0.50" starboardXTD="0.50" safetyDepth="12.00" draughtForward="7.10" draughtAft="7.10" dynamicUKC="20.00"/>
+        </waypoint>
+        <waypoint id="12" name="Bjuroklubb" radius="0.10">
+            <position lat="64.46982931" lon="21.93343713"/>
+            <leg portsideXTD="2.00" starboardXTD="2.05" safetyDepth="12.00" draughtForward="7.10" draughtAft="7.10" dynamicUKC="20.00"/>
+        </waypoint>
+        <waypoint id="13" name="Ostra Kvarken" radius="0.10">
+            <position lat="63.59247723" lon="21.08268845"/>
+            <leg portsideXTD="2.00" starboardXTD="2.30" safetyDepth="12.00" draughtForward="7.10" draughtAft="7.10" dynamicUKC="20.00"/>
+        </waypoint>
+        <waypoint id="14" name="by Ostra Kvarken" radius="0.10">
+            <position lat="63.55635900" lon="20.87452790"/>
+            <leg portsideXTD="0.15" safetyDepth="12.00" draughtForward="7.10" draughtAft="7.10" dynamicUKC="8.00"/>
+        </waypoint>
+        <waypoint id="15" name="Nordvalen" radius="0.10">
+            <position lat="63.53886190" lon="20.71881028"/>
+            <leg safetyDepth="12.00" draughtForward="7.10" draughtAft="7.10" dynamicUKC="4.80"/>
+        </waypoint>
+        <waypoint id="16" name="TSS" radius="0.10">
+            <position lat="63.46682165" lon="20.63839810"/>
+            <leg starboardXTD="0.20" safetyDepth="12.00" draughtForward="7.10" draughtAft="7.10" dynamicUKC="6.90"/>
+        </waypoint>
+        <waypoint id="17" name="by Odelgrund" radius="0.10">
+            <position lat="63.42120912" lon="20.56994012"/>
+            <leg starboardXTD="0.20" safetyDepth="12.00" draughtForward="7.10" draughtAft="7.10" dynamicUKC="5.60"/>
+        </waypoint>
+        <waypoint id="18" name="Bothnia VTS" radius="0.10">
+            <position lat="63.27001881" lon="20.33044139"/>
+            <leg portsideXTD="1.00" starboardXTD="3.00" safetyDepth="12.00" draughtForward="7.10" draughtAft="7.10" dynamicUKC="6.90"/>
+        </waypoint>
+        <waypoint id="19" name="Kvarken S" radius="0.10">
+            <position lat="60.49907665" lon="18.98657750"/>
+            <leg portsideXTD="3.00" starboardXTD="3.00" safetyDepth="12.00" draughtForward="7.10" draughtAft="7.10" dynamicUKC="30.00"/>
+        </waypoint>
+        <waypoint id="20" name="E Sodra Kvarken" radius="0.10">
+            <position lat="60.42580000" lon="18.97928333"/>
+            <leg portsideXTD="0.57" starboardXTD="0.59" safetyDepth="12.00" draughtForward="7.10" draughtAft="7.10" dynamicUKC="18.00"/>
+        </waypoint>
+        <waypoint id="21" name="Oldbergsrund" radius="0.10">
+            <position lat="60.31205218" lon="19.00502708"/>
+            <leg portsideXTD="0.25" starboardXTD="0.35" safetyDepth="12.00" draughtForward="7.10" draughtAft="7.10" dynamicUKC="10.50"/>
+        </waypoint>
+        <waypoint id="22" name="Leaving TSS" radius="0.10">
+            <position lat="60.25231380" lon="19.00228320"/>
+            <leg portsideXTD="0.20" starboardXTD="0.36" safetyDepth="12.00" draughtForward="7.10" draughtAft="7.10" dynamicUKC="18.00"/>
+        </waypoint>
+        <waypoint id="23" name="E Svartklubben" radius="0.10">
+            <position lat="60.18333333" lon="19.00000000"/>
+            <leg portsideXTD="0.38" starboardXTD="0.84" safetyDepth="12.00" draughtForward="7.10" draughtAft="7.10" dynamicUKC="192.89"/>
+        </waypoint>
+        <waypoint id="24" name="SE Solovjeva" radius="0.10">
+            <position lat="60.15146667" lon="19.05355000"/>
+            <leg portsideXTD="0.69" starboardXTD="0.71" safetyDepth="12.00" draughtForward="7.10" draughtAft="7.10" dynamicUKC="192.89"/>
+        </waypoint>
+        <waypoint id="25" name="S Solovjeva" radius="0.10">
+            <position lat="60.11155000" lon="19.12056667"/>
+            <leg portsideXTD="1.28" starboardXTD="3.63" safetyDepth="12.00" draughtForward="7.10" draughtAft="7.10" dynamicUKC="125.89"/>
+        </waypoint>
+        <waypoint id="26" name="E Flotjan" radius="0.10">
+            <position lat="59.80270902" lon="19.63629702"/>
+            <leg portsideXTD="1.75" starboardXTD="1.90" safetyDepth="12.00" draughtForward="7.10" draughtAft="7.10" dynamicUKC="24.00"/>
+        </waypoint>
+        <waypoint id="27" name="Entering TSS" radius="0.10">
+            <position lat="59.77687060" lon="19.67988537"/>
+            <leg portsideXTD="1.11" starboardXTD="0.90" safetyDepth="12.00" draughtForward="7.10" draughtAft="7.10" dynamicUKC="35.00"/>
+        </waypoint>
+        <waypoint id="28" name="S Flotjan" radius="0.10">
+            <position lat="59.69332342" lon="19.82195937"/>
+            <leg portsideXTD="0.48" starboardXTD="0.90" safetyDepth="12.00" draughtForward="7.10" draughtAft="7.10" dynamicUKC="24.00"/>
+        </waypoint>
+        <waypoint id="29" name="Troskeln Ostra" radius="0.10">
+            <position lat="59.66061555" lon="19.87889787"/>
+            <leg portsideXTD="0.40" starboardXTD="0.44" safetyDepth="12.00" draughtForward="7.10" draughtAft="7.10" dynamicUKC="14.20"/>
+        </waypoint>
+        <waypoint id="30" name="NE Svenska Bjorn" radius="0.10">
+            <position lat="59.58210357" lon="19.97381893"/>
+            <leg portsideXTD="0.44" starboardXTD="0.50" safetyDepth="12.00" draughtForward="7.10" draughtAft="7.10" dynamicUKC="8.00"/>
+        </waypoint>
+        <waypoint id="31" name="Leaving TSS" radius="0.10">
+            <position lat="59.49868713" lon="19.93652015"/>
+            <leg portsideXTD="0.80" starboardXTD="0.57" safetyDepth="12.00" draughtForward="7.10" draughtAft="7.10" dynamicUKC="8.00"/>
+        </waypoint>
+        <waypoint id="32" name="SW Svenska Bjorn" radius="0.10">
+            <position lat="59.46299447" lon="19.91151407"/>
+            <leg portsideXTD="1.80" starboardXTD="1.57" safetyDepth="12.00" draughtForward="7.10" draughtAft="7.10" dynamicUKC="10.00"/>
+        </waypoint>
+        <waypoint id="33" name="Almagrundet" radius="0.10">
+            <position lat="59.24211667" lon="19.65473333"/>
+            <leg portsideXTD="5.65" starboardXTD="2.78" safetyDepth="12.00" draughtForward="7.10" draughtAft="7.10" dynamicUKC="12.00"/>
+        </waypoint>
+        <waypoint id="34" name="E Knolls Grund" radius="0.10">
+            <position lat="57.51563370" lon="17.72472880"/>
+            <leg portsideXTD="2.91" starboardXTD="3.15" safetyDepth="14.00" draughtForward="7.10" draughtAft="7.10" dynamicUKC="36.00"/>
+        </waypoint>
+        <waypoint id="35" name="W Gotland" radius="0.10">
+            <position lat="57.44969267" lon="17.66241098"/>
+            <leg portsideXTD="1.41" starboardXTD="1.48" safetyDepth="12.00" draughtForward="7.10" draughtAft="7.10" dynamicUKC="75.89"/>
+        </waypoint>
+        <waypoint id="36" name="E Oland Sodra Udde" radius="0.10">
+            <position lat="56.21273333" lon="16.78626667"/>
+            <leg portsideXTD="2.39" starboardXTD="4.85" safetyDepth="12.00" draughtForward="7.10" draughtAft="7.10" dynamicUKC="8.70"/>
+        </waypoint>
+        <waypoint id="37" name="NE Oland Sodra" radius="0.10">
+            <position lat="56.14438905" lon="16.73868908"/>
+            <leg portsideXTD="1.28" starboardXTD="1.26" safetyDepth="12.00" draughtForward="7.10" draughtAft="7.10" dynamicUKC="14.00"/>
+        </waypoint>
+        <waypoint id="38" name="Leaving TSS land" radius="0.10">
+            <position lat="56.06677810" lon="16.53691420"/>
+            <leg portsideXTD="1.42" starboardXTD="1.24" safetyDepth="12.00" draughtForward="7.10" draughtAft="7.10" dynamicUKC="18.00"/>
+        </waypoint>
+        <waypoint id="39" name="S Utklippan" radius="0.10">
+            <position lat="55.89998840" lon="15.70055260"/>
+            <leg portsideXTD="2.54" starboardXTD="2.02" safetyDepth="12.00" draughtForward="7.10" draughtAft="7.10" dynamicUKC="6.10"/>
+        </waypoint>
+        <waypoint id="40" name="Anchorage Approach" radius="0.10">
+            <position lat="56.08284044" lon="14.86213075"/>
+            <leg portsideXTD="1.71" starboardXTD="1.59" safetyDepth="12.00" draughtForward="7.10" draughtAft="7.10" dynamicUKC="13.50"/>
+        </waypoint>
+        <waypoint id="41" name="Karlshamn Pilot West" radius="0.10">
+            <position lat="56.10923164" lon="14.82530306"/>
+            <leg portsideXTD="0.72" starboardXTD="1.11" safetyDepth="12.00" draughtForward="7.10" draughtAft="7.10" dynamicUKC="13.89"/>
+        </waypoint>
+        <waypoint id="43" name="Stilleryd" radius="0.10">
+            <position lat="56.11963357" lon="14.81274812"/>
+            <leg portsideXTD="0.30" starboardXTD="0.24" safetyDepth="10.00" draughtForward="7.10" draughtAft="7.10" dynamicUKC="9.79"/>
+        </waypoint>
+        <waypoint id="44" name="Entrance" radius="0.10">
+            <position lat="56.15414927" lon="14.82396282"/>
+            <leg portsideXTD="0.05" starboardXTD="0.03" safetyDepth="10.00" draughtForward="7.10" draughtAft="7.10" dynamicUKC="6.89"/>
+        </waypoint>
+        <waypoint id="45" name="Oxhaga STS" radius="0.10">
+            <position lat="56.15516733" lon="14.82717304"/>
+            <leg portsideXTD="0.03" starboardXTD="0.05" safetyDepth="10.00" draughtForward="7.10" draughtAft="7.10" dynamicUKC="5.89"/>
+        </waypoint>
+        <extensions>
+            <extension name="branches" manufacturer="Transas" version="1.0.0">
+                <branch id="2" name="">
+                    <defaultWaypoint radius="0.10">
+                        <leg portsideXTD="0.20" starboardXTD="0.20" safetyContour="10.00" safetyDepth="10.00" draughtForward="7.30" draughtAft="7.30" staticUKC="0.00" dynamicUKC="0.00" geometryType="Loxodrome"/>
+                        <extensions>
+                            <extension value="Manual" name="auto_routing" manufacturer="Transas" version="1.0.0"/>
+                        </extensions>
+                    </defaultWaypoint>
+                    <waypoint id="131074">
+                        <position lat="62.62340000" lon="6.23703333"/>
+                        <leg/>
+                    </waypoint>
+                    <waypoint id="131075">
+                        <position lat="62.64315000" lon="6.19703333"/>
+                        <leg/>
+                    </waypoint>
+                    <waypoint id="131076" radius="0.20">
+                        <position lat="62.64980000" lon="6.14660000"/>
+                        <leg/>
+                    </waypoint>
+                    <waypoint id="131077" radius="0.20">
+                        <position lat="62.64533333" lon="6.12106667"/>
+                        <leg/>
+                    </waypoint>
+                    <waypoint id="131078" radius="0.20">
+                        <position lat="62.63185000" lon="6.09386667"/>
+                        <leg/>
+                    </waypoint>
+                    <waypoint id="131079" radius="0.20">
+                        <position lat="62.62355000" lon="6.09985000"/>
+                        <leg/>
+                    </waypoint>
+                    <waypoint id="131080" radius="0.20">
+                        <position lat="62.60795000" lon="6.13316667"/>
+                        <leg/>
+                    </waypoint>
+                </branch>
+            </extension>
+            <extension last_change_time="2024-10-15T11:41:49.033755Z" name="geometry_change" manufacturer="Transas" version="1.0.0"/>
+        </extensions>
+    </waypoints>
+    <schedules>
+        <schedule id="0" name="Base Calculation">
+            <manual>
+                <scheduleElement waypointId="1" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="2" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="3" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="4" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="5" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="6" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="7" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="8" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="9" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="12" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="13" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="14" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="15" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="16" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="17" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="18" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="19" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <extensions>
+                    <extension last_change_time="2024-10-08T10:21:11.932519Z" name="schedule_change" manufacturer="Transas" version="1.0.0"/>
+                </extensions>
+            </manual>
+            <calculated>
+                <scheduleElement waypointId="1" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="2" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="3" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="4" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="5" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="6" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="7" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="8" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="9" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="12" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="13" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="14" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="15" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="16" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="17" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="18" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="19" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z"/>
+                <extensions>
+                    <extension last_change_time="2024-10-08T10:21:11.916364Z" name="schedule_change" manufacturer="Transas" version="1.0.0"/>
+                </extensions>
+            </calculated>
+        </schedule>
+        <extensions>
+            <extension name="branches" manufacturer="Transas" version="1.0.0">
+                <branch id="2" name="">
+                    <schedule id="0" name="Schedule 1"/>
+                    <schedule id="0" name="Schedule 1"/>
+                    <schedule id="0" name="Schedule 1"/>
+                    <schedule id="0" name="Schedule 1"/>
+                    <schedule id="0" name="Schedule 1"/>
+                    <schedule id="0" name="Schedule 1"/>
+                    <schedule id="0" name="Schedule 1"/>
+                </branch>
+            </extension>
+            <extension name="completeness" manufacturer="Transas" version="1.0.0">
+                <schedule_ids>
+                    <schedule_id value="0" complete="on"/>
+                </schedule_ids>
+            </extension>
+        </extensions>
+    </schedules>
+    <extensions>
+        <extension name="ActivePath" manufacturer="Transas" version="1.0.0">
+            <path>
+                <wp_ids>
+                    <wp_id value="2"/>
+                    <wp_id value="137"/>
+                    <wp_id value="3"/>
+                    <wp_id value="4"/>
+                    <wp_id value="5"/>
+                    <wp_id value="6"/>
+                    <wp_id value="7"/>
+                    <wp_id value="8"/>
+                    <wp_id value="9"/>
+                    <wp_id value="10"/>
+                    <wp_id value="11"/>
+                    <wp_id value="12"/>
+                    <wp_id value="13"/>
+                    <wp_id value="14"/>
+                    <wp_id value="142"/>
+                    <wp_id value="143"/>
+                    <wp_id value="15"/>
+                    <wp_id value="145"/>
+                    <wp_id value="146"/>
+                    <wp_id value="147"/>
+                    <wp_id value="16"/>
+                    <wp_id value="144"/>
+                    <wp_id value="17"/>
+                    <wp_id value="18"/>
+                    <wp_id value="19"/>
+                    <wp_id value="20"/>
+                    <wp_id value="21"/>
+                    <wp_id value="22"/>
+                    <wp_id value="23"/>
+                    <wp_id value="24"/>
+                    <wp_id value="25"/>
+                    <wp_id value="26"/>
+                    <wp_id value="27"/>
+                    <wp_id value="148"/>
+                    <wp_id value="28"/>
+                    <wp_id value="149"/>
+                    <wp_id value="29"/>
+                    <wp_id value="30"/>
+                    <wp_id value="31"/>
+                    <wp_id value="150"/>
+                    <wp_id value="32"/>
+                    <wp_id value="151"/>
+                    <wp_id value="152"/>
+                    <wp_id value="33"/>
+                    <wp_id value="34"/>
+                    <wp_id value="35"/>
+                    <wp_id value="153"/>
+                    <wp_id value="154"/>
+                    <wp_id value="36"/>
+                    <wp_id value="155"/>
+                    <wp_id value="37"/>
+                    <wp_id value="38"/>
+                    <wp_id value="156"/>
+                    <wp_id value="39"/>
+                    <wp_id value="141"/>
+                    <wp_id value="40"/>
+                    <wp_id value="157"/>
+                    <wp_id value="158"/>
+                    <wp_id value="159"/>
+                    <wp_id value="41"/>
+                    <wp_id value="160"/>
+                    <wp_id value="161"/>
+                    <wp_id value="42"/>
+                    <wp_id value="43"/>
+                    <wp_id value="44"/>
+                    <wp_id value="45"/>
+                    <wp_id value="46"/>
+                    <wp_id value="47"/>
+                    <wp_id value="48"/>
+                    <wp_id value="49"/>
+                    <wp_id value="50"/>
+                    <wp_id value="139"/>
+                    <wp_id value="51"/>
+                    <wp_id value="52"/>
+                    <wp_id value="53"/>
+                    <wp_id value="54"/>
+                    <wp_id value="55"/>
+                    <wp_id value="107"/>
+                    <wp_id value="134"/>
+                    <wp_id value="108"/>
+                    <wp_id value="135"/>
+                    <wp_id value="109"/>
+                    <wp_id value="110"/>
+                    <wp_id value="111"/>
+                    <wp_id value="162"/>
+                    <wp_id value="136"/>
+                    <wp_id value="140"/>
+                    <wp_id value="112"/>
+                    <wp_id value="113"/>
+                    <wp_id value="114"/>
+                    <wp_id value="163"/>
+                    <wp_id value="115"/>
+                    <wp_id value="166"/>
+                    <wp_id value="116"/>
+                    <wp_id value="117"/>
+                    <wp_id value="118"/>
+                    <wp_id value="119"/>
+                    <wp_id value="120"/>
+                    <wp_id value="121"/>
+                    <wp_id value="122"/>
+                    <wp_id value="123"/>
+                    <wp_id value="124"/>
+                    <wp_id value="125"/>
+                    <wp_id value="126"/>
+                    <wp_id value="127"/>
+                    <wp_id value="128"/>
+                    <wp_id value="129"/>
+                    <wp_id value="130"/>
+                    <wp_id value="164"/>
+                    <wp_id value="131"/>
+                    <wp_id value="165"/>
+                    <wp_id value="132"/>
+                    <wp_id value="133"/>
+                </wp_ids>
+            </path>
+        </extension>
+        <extension name="astronomical" manufacturer="Transas" version="1.0.0">
+            <schedule_info schedule_index="1">
+                <event_info celestial="1" event_type="1" moonphase="4" place_lat="3481.45508451042" place_lon="670.741973465059" year="2022" month="7" day="4" hour="22" minute="18" tz="-120" owner_wp="33"/>
+                <event_info celestial="0" event_type="1" moonphase="4" place_lat="3456.85420136148" place_lon="692.521365614859" year="2022" month="7" day="5" hour="0" minute="41" tz="-120" owner_wp="35"/>
+            </schedule_info>
+        </extension>
+        <extension name="bwe_areas" manufacturer="Transas" version="1.0.0">
+            <area name="Ballast Waters (12 NM) (12 nautical mile zone)" info="Sweden" legs="0-42"/>
+            <area name="Ballast Waters (50 NM) (50 nautical mile zone)" info="Ballast water exchange prohibited exempt of vessels which conduct treated ballast water exchange in compliance with the regulation D-2 standard of BWMS" legs="0-42"/>
+            <area name="Ballast Waters (200 NM) (200 nautical mile zone)" info="Ballast water exchange shall be allowed in compliance with the regulations B-4, D-1 standard of BWMS.Treated ballast water exchange is allowed pursuant to the regulation D-2" legs="0-42"/>
+            <area name="Regional Special Areas (Baltic Sea)" info="Regional Special Area" legs="0-42"/>
+        </extension>
+        <extension name="check_results" manufacturer="Transas" version="1.0.0">
+            <route_check check_time="2024-10-07T12:39:45Z" success="false">
+                <wpt idx="1">
+                    <danger name="Caution Area">
+                        <prop name="plugin" value="NavCharts Check"/>
+                        <prop name="chart_name" value="FI5A074A"/>
+                        <area>
+                            <point lat="3900.27687115256" lon="1523.51432819029"/>
+                            <point lat="3900.27680184345" lon="1523.5126637921"/>
+                            <point lat="3900.33981889276" lon="1523.2977827498"/>
+                            <point lat="3900.3433820523" lon="1523.29996817698"/>
+                            <point lat="3900.34366335403" lon="1523.30051332769"/>
+                            <point lat="3900.34639890888" lon="1523.30884979165"/>
+                            <point lat="3900.34828036453" lon="1523.31841646296"/>
+                            <point lat="3900.3492159955" lon="1523.32873573171"/>
+                            <point lat="3900.35154997452" lon="1523.3844038206"/>
+                            <point lat="3900.35969339433" lon="1523.57872833922"/>
+                            <point lat="3900.34666594118" lon="1523.67200217843"/>
+                            <point lat="3900.28471733187" lon="1523.7015223306"/>
+                            <point lat="3900.27687115256" lon="1523.51432819029"/>
+                        </area>
+                    </danger>
+                    <danger name="Safety Contour">
+                        <prop name="plugin" value="NavCharts Check"/>
+                        <prop name="chart_name" value="FI5A074A"/>
+                        <area>
+                            <point lat="3900.36633280964" lon="1523.78883255178"/>
+                            <point lat="3900.36183347331" lon="1523.70000116594"/>
+                            <point lat="3900.36333325349" lon="1523.70000116594"/>
+                            <point lat="3900.36333325349" lon="1523.66554362881"/>
+                            <point lat="3900.36918136253" lon="1523.80506405595"/>
+                            <point lat="3900.36732041738" lon="1523.80549869903"/>
+                            <point lat="3900.36633280964" lon="1523.78883255178"/>
+                        </area>
+                    </danger>
+                    <danger name="Safety Contour Object">
+                        <prop name="plugin" value="NavCharts Check"/>
+                        <prop name="chart_name" value="FI5A074A"/>
+                        <area>
+                            <point lat="3900.36333373206" lon="1523.69999887658"/>
+                            <point lat="3900.36477680572" lon="1523.69999887658"/>
+                        </area>
+                    </danger>
+                    <danger name="Safety Contour Object">
+                        <prop name="plugin" value="NavCharts Check"/>
+                        <prop name="chart_name" value="FI5A074A"/>
+                        <area>
+                            <point lat="3900.36860961192" lon="1523.79143748439"/>
+                            <point lat="3900.36783304037" lon="1523.79133135621"/>
+                        </area>
+                    </danger>
+                </wpt>
+                <wpt idx="2">
+                    <danger name="Caution Area">
+                        <prop name="plugin" value="NavCharts Check"/>
+                        <prop name="chart_name" value="FI4EJ4YT"/>
+                        <area>
+                            <point lat="3900.30954372437" lon="1523.33802139647"/>
+                            <point lat="3900.30921751514" lon="1523.31866767471"/>
+                            <point lat="3900.30985158428" lon="1523.29935255423"/>
+                            <point lat="3900.31144185302" lon="1523.28035106924"/>
+                            <point lat="3900.31396181411" lon="1523.26192377844"/>
+                            <point lat="3900.31737884239" lon="1523.24431676505"/>
+                            <point lat="3900.32164196234" lon="1523.22779541294"/>
+                            <point lat="3900.75366900666" lon="1521.75432627261"/>
+                            <point lat="3900.75378314823" lon="1521.75394025971"/>
+                            <point lat="3900.7865475588" lon="1521.80763947923"/>
+                            <point lat="3900.7865434824" lon="1521.80765395471"/>
+                            <point lat="3900.78643341956" lon="1521.80803031729"/>
+                            <point lat="3900.35440705519" lon="1523.28148015698"/>
+                            <point lat="3900.35179541378" lon="1523.29230299365"/>
+                            <point lat="3900.35002985207" lon="1523.30402813548"/>
+                            <point lat="3900.34916134178" lon="1523.31629852053"/>
+                            <point lat="3900.34921638822" lon="1523.32874261139"/>
+                            <point lat="3900.34915522551" lon="1523.33929041388"/>
+                            <point lat="3900.3481032265" lon="1523.34954388153"/>
+                            <point lat="3900.34611135828" lon="1523.35899154725"/>
+                            <point lat="3900.34328155556" lon="1523.36714606976"/>
+                            <point lat="3900.33975448897" lon="1523.37361661099"/>
+                            <point lat="3900.33570752729" lon="1523.3780605845"/>
+                            <point lat="3900.33134250578" lon="1523.38027050835"/>
+                            <point lat="3900.32687961067" lon="1523.38012575351"/>
+                            <point lat="3900.3225410694" lon="1523.37764079547"/>
+                            <point lat="3900.31854707295" lon="1523.37293143809"/>
+                            <point lat="3900.31509538755" lon="1523.3662437646"/>
+                            <point lat="3900.31235931504" lon="1523.35790588597"/>
+                            <point lat="3900.31047749793" lon="1523.34833759121"/>
+                            <point lat="3900.30954372437" lon="1523.33802139647"/>
+                        </area>
+                    </danger>
+                    <danger name="Caution Area">
+                        <prop name="plugin" value="NavCharts Check"/>
+                        <prop name="chart_name" value="FI5A074A"/>
+                        <area>
+                            <point lat="3900.30954302301" lon="1523.33801885917"/>
+                            <point lat="3900.30921683315" lon="1523.31866628667"/>
+                            <point lat="3900.30985290332" lon="1523.29935713805"/>
+                            <point lat="3900.31144103894" lon="1523.28035195654"/>
+                            <point lat="3900.31396288907" lon="1523.26192093511"/>
+                            <point lat="3900.31737971444" lon="1523.24431979214"/>
+                            <point lat="3900.32164258123" lon="1523.22779459623"/>
+                            <point lat="3900.45480711743" lon="1522.77366773803"/>
+                            <point lat="3900.50331660655" lon="1522.77366773803"/>
+                            <point lat="3900.35440776705" lon="1523.28148097722"/>
+                            <point lat="3900.35179424209" lon="1523.29230317121"/>
+                            <point lat="3900.35002878523" lon="1523.30402761678"/>
+                            <point lat="3900.34916032651" lon="1523.31629727318"/>
+                            <point lat="3900.34921536969" lon="1523.32874062508"/>
+                            <point lat="3900.34915624924" lon="1523.33929262609"/>
+                            <point lat="3900.34810227407" lon="1523.34954548487"/>
+                            <point lat="3900.34611256276" lon="1523.35898776469"/>
+                            <point lat="3900.34328088944" lon="1523.36714662784"/>
+                            <point lat="3900.3397540323" lon="1523.37361678483"/>
+                            <point lat="3900.33570731093" lon="1523.37806531932"/>
+                            <point lat="3900.33134254863" lon="1523.38027028707"/>
+                            <point lat="3900.32687991854" lon="1523.38012554083"/>
+                            <point lat="3900.3225416349" lon="1523.37764073035"/>
+                            <point lat="3900.31854583695" lon="1523.37293165262"/>
+                            <point lat="3900.31509435651" lon="1523.36624437627"/>
+                            <point lat="3900.31235844648" lon="1523.35790699275"/>
+                            <point lat="3900.31047674112" lon="1523.34833926619"/>
+                            <point lat="3900.30954302301" lon="1523.33801885917"/>
+                        </area>
+                    </danger>
+                </wpt>
+                <wpt idx="3">
+                    <danger name="Caution Area">
+                        <prop name="plugin" value="NavCharts Check"/>
+                        <prop name="chart_name" value="FI4EJ4YT"/>
+                        <area>
+                            <point lat="3900.75107410364" lon="1521.79434317053"/>
+                            <point lat="3900.75027697272" lon="1521.78395712222"/>
+                            <point lat="3900.75047880386" lon="1521.77341663454"/>
+                            <point lat="3900.75166532581" lon="1521.76324294038"/>
+                            <point lat="3900.75378353035" lon="1521.75394279396"/>
+                            <point lat="3900.75458065953" lon="1521.75121597366"/>
+                            <point lat="3900.86332493356" lon="1521.37794081835"/>
+                            <point lat="3900.89620444447" lon="1521.43125618808"/>
+                            <point lat="3900.78741143603" lon="1521.80469060899"/>
+                            <point lat="3900.78654704766" lon="1521.8076394359"/>
+                            <point lat="3900.7836134242" lon="1521.81558341151"/>
+                            <point lat="3900.78000092151" lon="1521.82178511787"/>
+                            <point lat="3900.77589709226" lon="1521.82593084998"/>
+                            <point lat="3900.77150579983" lon="1521.82781790615"/>
+                            <point lat="3900.76704518035" lon="1521.82734010932"/>
+                            <point lat="3900.76274356571" lon="1521.82453124309"/>
+                            <point lat="3900.75881298071" lon="1521.81953126817"/>
+                            <point lat="3900.75545118122" lon="1521.8125863223"/>
+                            <point lat="3900.75282738254" lon="1521.80404872032"/>
+                            <point lat="3900.75107410364" lon="1521.79434317053"/>
+                        </area>
+                    </danger>
+                </wpt>
+                <wpt idx="25">
+                    <danger name="Navigational Hazard">
+                        <prop name="plugin" value="NavCharts Check"/>
+                        <prop name="chart_name" value="FI4EJ4YN"/>
+                        <area>
+                            <point lat="3910.5365" lon="1467.0185"/>
+                        </area>
+                    </danger>
+                </wpt>
+                <wpt idx="27">
+                    <danger name="Navigational Hazard">
+                        <prop name="plugin" value="NavCharts Check"/>
+                        <prop name="chart_name" value="FI4EJ4YN"/>
+                        <area>
+                            <point lat="3907.87133333333" lon="1458.12966666667"/>
+                        </area>
+                    </danger>
+                </wpt>
+                <wpt idx="29">
+                    <danger name="Navigational Hazard">
+                        <prop name="plugin" value="NavCharts Check"/>
+                        <prop name="chart_name" value="FI4EJ4YN"/>
+                        <area>
+                            <point lat="3903.83216666667" lon="1455.46133333333"/>
+                        </area>
+                    </danger>
+                </wpt>
+                <wpt idx="30">
+                    <danger name="Safety Contour">
+                        <prop name="plugin" value="NavCharts Check"/>
+                        <prop name="chart_name" value="FI4EJ3UN"/>
+                        <area>
+                            <point lat="3897.94500014009" lon="1448.95316701099"/>
+                            <point lat="3897.94400030236" lon="1448.89799831375"/>
+                            <point lat="3897.94799964953" lon="1448.82233122196"/>
+                            <point lat="3897.95333345725" lon="1448.75616832581"/>
+                            <point lat="3897.95966707584" lon="1448.72316644101"/>
+                            <point lat="3897.97099978335" lon="1448.7136670674"/>
+                            <point lat="3897.98183250371" lon="1448.71683513261"/>
+                            <point lat="3897.9926671914" lon="1448.74366483556"/>
+                            <point lat="3897.99900065483" lon="1448.78933415918"/>
+                            <point lat="3898.00050035981" lon="1448.8333350649"/>
+                            <point lat="3898.0000004583" lon="1448.87283220668"/>
+                            <point lat="3897.99800085073" lon="1448.92000117762"/>
+                            <point lat="3897.99216728746" lon="1448.9563350762"/>
+                            <point lat="3897.98183250371" lon="1448.98300083057"/>
+                            <point lat="3897.96700049347" lon="1448.9939998515"/>
+                            <point lat="3897.95383337329" lon="1448.98466442646"/>
+                            <point lat="3897.94500014009" lon="1448.95316701099"/>
+                        </area>
+                    </danger>
+                    <danger name="Safety Contour">
+                        <prop name="plugin" value="NavCharts Check"/>
+                        <prop name="chart_name" value="FI4EJ3UN"/>
+                        <area>
+                            <point lat="3897.90133317751" lon="1447.77349911213"/>
+                            <point lat="3897.895499263" lon="1447.74350134397"/>
+                            <point lat="3897.89599919704" lon="1447.69783202034"/>
+                            <point lat="3897.90483269983" lon="1447.65683523125"/>
+                            <point lat="3897.9224995596" lon="1447.62533299377"/>
+                            <point lat="3897.93125129651" lon="1447.61828802684"/>
+                            <point lat="3897.95019520528" lon="1447.6928460547"/>
+                            <point lat="3897.94933412336" lon="1447.70100008555"/>
+                            <point lat="3897.94050086541" lon="1447.74666458716"/>
+                            <point lat="3897.92883329983" lon="1447.77183551624"/>
+                            <point lat="3897.91366615401" lon="1447.77966647196"/>
+                            <point lat="3897.90133317751" lon="1447.77349911213"/>
+                        </area>
+                    </danger>
+                    <danger name="Safety Contour">
+                        <prop name="plugin" value="NavCharts Check"/>
+                        <prop name="chart_name" value="FI4EJ3UN"/>
+                        <area>
+                            <point lat="3897.52250100967" lon="1448.45383267784"/>
+                            <point lat="3897.52200095933" lon="1448.34200045806"/>
+                            <point lat="3897.52733414121" lon="1448.28533211351"/>
+                            <point lat="3897.54449898829" lon="1448.24433532443"/>
+                            <point lat="3897.57399923744" lon="1448.20816537442"/>
+                            <point lat="3897.60100085851" lon="1448.18616733257"/>
+                            <point lat="3897.62399984044" lon="1448.17666795895"/>
+                            <point lat="3897.65700073262" lon="1448.16566893802"/>
+                            <point lat="3897.67800094728" lon="1448.14199765625"/>
+                            <point lat="3897.69283358647" lon="1448.09633315464"/>
+                            <point lat="3897.69716620963" lon="1448.06166767396"/>
+                            <point lat="3897.70350083875" lon="1448.00966704193"/>
+                            <point lat="3897.71383333255" lon="1447.98600058217"/>
+                            <point lat="3897.73050028248" lon="1447.97666515714"/>
+                            <point lat="3897.74916697941" lon="1447.97816480444"/>
+                            <point lat="3897.77333316251" lon="1447.98916864739"/>
+                            <point lat="3897.79099942852" lon="1448.01599835034"/>
+                            <point lat="3897.80016613798" lon="1448.0411644574"/>
+                            <point lat="3897.80566573041" lon="1448.09783280195"/>
+                            <point lat="3897.80716765665" lon="1448.14983343398"/>
+                            <point lat="3897.80166602869" lon="1448.22550052577"/>
+                            <point lat="3897.79583379272" lon="1448.30733497738"/>
+                            <point lat="3897.79533382749" lon="1448.36083525672"/>
+                            <point lat="3897.80066610171" lon="1448.40350046371"/>
+                            <point lat="3897.80950012898" lon="1448.42383490968"/>
+                            <point lat="3897.82183381087" lon="1448.42866657078"/>
+                            <point lat="3897.83849963985" lon="1448.40966782354"/>
+                            <point lat="3897.85416744279" lon="1448.37666593874"/>
+                            <point lat="3897.87033299429" lon="1448.36249885261"/>
+                            <point lat="3897.88566583481" lon="1448.36399849991"/>
+                            <point lat="3897.89933344705" lon="1448.37516629144"/>
+                            <point lat="3897.90966672132" lon="1448.40350046371"/>
+                            <point lat="3897.91650043983" lon="1448.44283365691"/>
+                            <point lat="3897.91900007579" lon="1448.47583554171"/>
+                            <point lat="3897.91500065638" lon="1448.51533268349"/>
+                            <point lat="3897.90666714026" lon="1448.556165524"/>
+                            <point lat="3897.88800023368" lon="1448.62550130738"/>
+                            <point lat="3897.85083309899" lon="1448.74516448287"/>
+                            <point lat="3897.81933402363" lon="1448.82399963986"/>
+                            <point lat="3897.80566573041" lon="1448.84283443852"/>
+                            <point lat="3897.78799962576" lon="1448.84916574693"/>
+                            <point lat="3897.76299901083" lon="1448.85550187735"/>
+                            <point lat="3897.74533243676" lon="1448.86650089828"/>
+                            <point lat="3897.73750006416" lon="1448.88383122761"/>
+                            <point lat="3897.7380000474" lon="1448.92950055123"/>
+                            <point lat="3897.74183256681" lon="1448.96883374443"/>
+                            <point lat="3897.75316681189" lon="1448.9988315126"/>
+                            <point lat="3897.76199905977" lon="1449.05233179194"/>
+                            <point lat="3897.76099910808" lon="1449.09966471145"/>
+                            <point lat="3897.75616667972" lon="1449.14366561717"/>
+                            <point lat="3897.76533358804" lon="1449.19883431441"/>
+                            <point lat="3897.7781675799" lon="1449.22866813399"/>
+                            <point lat="3897.79783365209" lon="1449.26016554946"/>
+                            <point lat="3897.80516576824" lon="1449.29799909536"/>
+                            <point lat="3897.8036658808" lon="1449.34216877167"/>
+                            <point lat="3897.78549978585" lon="1449.38783327328"/>
+                            <point lat="3897.76099910808" lon="1449.42083515807"/>
+                            <point lat="3897.7388326722" lon="1449.431834179"/>
+                            <point lat="3897.72116583226" lon="1449.41616744555"/>
+                            <point lat="3897.70650079936" lon="1449.36883452604"/>
+                            <point lat="3897.69516622489" lon="1449.30283557847"/>
+                            <point lat="3897.68200095703" lon="1449.24916652854"/>
+                            <point lat="3897.65900076489" lon="1449.20033396172"/>
+                            <point lat="3897.63250013509" lon="1449.1515013949"/>
+                            <point lat="3897.60833387343" lon="1449.077497899"/>
+                            <point lat="3897.59950078036" lon="1449.0003311599"/>
+                            <point lat="3897.59716596206" lon="1448.89799831375"/>
+                            <point lat="3897.59416579719" lon="1448.80033318011"/>
+                            <point lat="3897.58783277772" lon="1448.73416546194"/>
+                            <point lat="3897.56766613845" lon="1448.67750193941"/>
+                            <point lat="3897.54166608681" lon="1448.60499809082"/>
+                            <point lat="3897.52933433497" lon="1448.53733554736"/>
+                            <point lat="3897.52250100967" lon="1448.45383267784"/>
+                        </area>
+                    </danger>
+                    <danger name="Safety Contour">
+                        <prop name="plugin" value="NavCharts Check"/>
+                        <prop name="chart_name" value="FI4EJ3UN"/>
+                        <area>
+                            <point lat="3897.43016662684" lon="1446.45050157802"/>
+                            <point lat="3897.420832472" lon="1446.39216481557"/>
+                            <point lat="3897.420832472" lon="1446.34966837917"/>
+                            <point lat="3897.4278336035" lon="1446.29133161672"/>
+                            <point lat="3897.43900065127" lon="1446.25516648873"/>
+                            <point lat="3897.45033295157" lon="1446.23616774149"/>
+                            <point lat="3897.47049902309" lon="1446.23000038167"/>
+                            <point lat="3897.48766651867" lon="1446.23616774149"/>
+                            <point lat="3897.5018334934" lon="1446.25983420125"/>
+                            <point lat="3897.51016706963" lon="1446.31816614169"/>
+                            <point lat="3897.51416749743" lon="1446.37633413354"/>
+                            <point lat="3897.51316739142" lon="1446.43466607398"/>
+                            <point lat="3897.50233355001" lon="1446.49449766173"/>
+                            <point lat="3897.48666639615" lon="1446.51966859081"/>
+                            <point lat="3897.46800073" lon="1446.52450025191"/>
+                            <point lat="3897.44783258599" lon="1446.50233343946"/>
+                            <point lat="3897.43016662684" lon="1446.45050157802"/>
+                        </area>
+                    </danger>
+                    <danger name="Safety Contour">
+                        <prop name="plugin" value="NavCharts Check"/>
+                        <prop name="chart_name" value="FI4EJ3UN"/>
+                        <area>
+                            <point lat="3897.22400041905" lon="1449.57366898895"/>
+                            <point lat="3897.21383421094" lon="1449.54216675147"/>
+                            <point lat="3897.21666564926" lon="1449.51066451398"/>
+                            <point lat="3897.22649909167" lon="1449.51066451398"/>
+                            <point lat="3897.24083372178" lon="1449.52483160012"/>
+                            <point lat="3897.26233338575" lon="1449.52333195281"/>
+                            <point lat="3897.27466718766" lon="1449.49650224986"/>
+                            <point lat="3897.27750056009" lon="1449.46333159447"/>
+                            <point lat="3897.28049927518" lon="1449.42883488439"/>
+                            <point lat="3897.29233281578" lon="1449.40516842463"/>
+                            <point lat="3897.3041662692" lon="1449.39100133849"/>
+                            <point lat="3897.30900005776" lon="1449.38466520807"/>
+                            <point lat="3897.3208333884" lon="1449.38616485538"/>
+                            <point lat="3897.33066619317" lon="1449.3973326469"/>
+                            <point lat="3897.33249924831" lon="1449.44766486102"/>
+                            <point lat="3897.32716746073" lon="1449.48866647213"/>
+                            <point lat="3897.30749970687" lon="1449.56583321122"/>
+                            <point lat="3897.29816688047" lon="1449.59883509602"/>
+                            <point lat="3897.28683350657" lon="1449.62566479897"/>
+                            <point lat="3897.27616756922" lon="1449.66349834486"/>
+                            <point lat="3897.26433390954" lon="1449.69650022966"/>
+                            <point lat="3897.24816633985" lon="1449.68700085604"/>
+                            <point lat="3897.24416729088" lon="1449.64616801553"/>
+                            <point lat="3897.23483409652" lon="1449.60049869191"/>
+                            <point lat="3897.22400041905" lon="1449.57366898895"/>
+                        </area>
+                    </danger>
+                    <danger name="Safety Contour">
+                        <prop name="plugin" value="NavCharts Check"/>
+                        <prop name="chart_name" value="FI4EJ3UN"/>
+                        <area>
+                            <point lat="3897.2093328874" lon="1446.22200065536"/>
+                            <point lat="3897.20450084034" lon="1446.18733517467"/>
+                            <point lat="3897.20733433653" lon="1446.14966557736"/>
+                            <point lat="3897.22400041905" lon="1446.13066683012"/>
+                            <point lat="3897.23933330722" lon="1446.13383489534"/>
+                            <point lat="3897.24816633985" lon="1446.14650233417"/>
+                            <point lat="3897.25250016269" lon="1446.17799974964"/>
+                            <point lat="3897.25350043102" lon="1446.21266523032"/>
+                            <point lat="3897.24366715389" lon="1446.23616774149"/>
+                            <point lat="3897.22649909167" lon="1446.23933098469"/>
+                            <point lat="3897.2093328874" lon="1446.22200065536"/>
+                        </area>
+                    </danger>
+                    <danger name="Safety Contour">
+                        <prop name="plugin" value="NavCharts Check"/>
+                        <prop name="chart_name" value="FI4EJ3UN"/>
+                        <area>
+                            <point lat="3896.60799989362" lon="1445.58416834806"/>
+                            <point lat="3896.60350095695" lon="1445.53533095922"/>
+                            <point lat="3896.60850022851" lon="1445.48816681031"/>
+                            <point lat="3896.62166612786" lon="1445.43616617828"/>
+                            <point lat="3896.63833420185" lon="1445.39366491986"/>
+                            <point lat="3896.65749961848" lon="1445.34000069195"/>
+                            <point lat="3896.66833303205" lon="1445.26916526126"/>
+                            <point lat="3896.67716716218" lon="1445.20466596099"/>
+                            <point lat="3896.69433292666" lon="1445.17783143603"/>
+                            <point lat="3896.70899903415" lon="1445.17633178872"/>
+                            <point lat="3896.72233359939" lon="1445.18733563166"/>
+                            <point lat="3896.73016683912" lon="1445.22666882486"/>
+                            <point lat="3896.73900062935" lon="1445.30383556396"/>
+                            <point lat="3896.74833262037" lon="1445.37316652532"/>
+                            <point lat="3896.7654996667" lon="1445.44866484651"/>
+                            <point lat="3896.77100076062" lon="1445.49599776602"/>
+                            <point lat="3896.77050047632" lon="1445.53533095922"/>
+                            <point lat="3896.7654996667" lon="1445.57000126192"/>
+                            <point lat="3896.7576665992" lon="1445.61566576353"/>
+                            <point lat="3896.75133232327" lon="1445.66449833035"/>
+                            <point lat="3896.74533291188" lon="1445.71333571918"/>
+                            <point lat="3896.73116743268" lon="1445.73533376103"/>
+                            <point lat="3896.71150054984" lon="1445.73533376103"/>
+                            <point lat="3896.68750013302" lon="1445.71483536649"/>
+                            <point lat="3896.65016634648" lon="1445.67083446077"/>
+                            <point lat="3896.61966684591" lon="1445.62200189395"/>
+                            <point lat="3896.60799989362" lon="1445.58416834806"/>
+                        </area>
+                    </danger>
+                    <danger name="Safety Contour">
+                        <prop name="plugin" value="NavCharts Check"/>
+                        <prop name="chart_name" value="FI4EJ3UN"/>
+                        <area>
+                            <point lat="3896.0656657932" lon="1442.97433358582"/>
+                            <point lat="3896.06416632397" lon="1442.91933365917"/>
+                            <point lat="3896.07266670253" lon="1442.88299976059"/>
+                            <point lat="3896.07600065273" lon="1442.84533498529"/>
+                            <point lat="3896.07499965125" lon="1442.8090010867"/>
+                            <point lat="3896.0804990231" lon="1442.7728311367"/>
+                            <point lat="3896.09466615183" lon="1442.75700045467"/>
+                            <point lat="3896.10700074711" lon="1442.74766502963"/>
+                            <point lat="3896.11533338884" lon="1442.75083309485"/>
+                            <point lat="3896.12466695856" lon="1442.76649982829"/>
+                            <point lat="3896.12899972662" lon="1442.8075014394"/>
+                            <point lat="3896.12766578277" lon="1442.87050109235"/>
+                            <point lat="3896.11833427326" lon="1442.93500039262"/>
+                            <point lat="3896.10700074711" lon="1442.97750165103"/>
+                            <point lat="3896.09216571886" lon="1442.99650039827"/>
+                            <point lat="3896.07649911038" lon="1442.99483198036"/>
+                            <point lat="3896.0656657932" lon="1442.97433358582"/>
+                        </area>
+                    </danger>
+                    <danger name="Safety Contour">
+                        <prop name="plugin" value="NavCharts Check"/>
+                        <prop name="chart_name" value="FI4EJ3UN"/>
+                        <area>
+                            <point lat="3895.89333412165" lon="1442.04833271669"/>
+                            <point lat="3895.88683299101" lon="1442.00733110558"/>
+                            <point lat="3895.89083337558" lon="1441.96483466919"/>
+                            <point lat="3895.90700030335" lon="1441.92550147599"/>
+                            <point lat="3895.92916750613" lon="1441.87500049126"/>
+                            <point lat="3895.94883374744" lon="1441.83099958554"/>
+                            <point lat="3895.96950081602" lon="1441.78849832713"/>
+                            <point lat="3895.99000009553" lon="1441.75216442854"/>
+                            <point lat="3896.00866659302" lon="1441.73016638669"/>
+                            <point lat="3896.02833390496" lon="1441.71433570467"/>
+                            <point lat="3896.04416645766" lon="1441.71283123534"/>
+                            <point lat="3896.05633392384" lon="1441.72233543098"/>
+                            <point lat="3896.0656657932" lon="1441.74433347283"/>
+                            <point lat="3896.06866677032" lon="1441.78049860082"/>
+                            <point lat="3896.06816626738" lon="1441.83416765075"/>
+                            <point lat="3896.06466682816" lon="1441.88133179967"/>
+                            <point lat="3896.05883236965" lon="1441.92233341077"/>
+                            <point lat="3896.04550047079" lon="1441.97433404281"/>
+                            <point lat="3896.03433395005" lon="1442.02149819172"/>
+                            <point lat="3896.02833390496" lon="1442.06883111123"/>
+                            <point lat="3896.02833390496" lon="1442.12233139057"/>
+                            <point lat="3896.02933289257" lon="1442.18066815302"/>
+                            <point lat="3896.0298334076" lon="1442.25466682691"/>
+                            <point lat="3896.02633388495" lon="1442.30183097582"/>
+                            <point lat="3896.0151672311" lon="1442.31766647986"/>
+                            <point lat="3896.00333245458" lon="1442.31599806196"/>
+                            <point lat="3895.99200016073" lon="1442.2925003728"/>
+                            <point lat="3895.97883318935" lon="1442.24683104918"/>
+                            <point lat="3895.9664996538" lon="1442.18533104353"/>
+                            <point lat="3895.95083386385" lon="1442.14283460713"/>
+                            <point lat="3895.92916750613" lon="1442.10350141393"/>
+                            <point lat="3895.90949898121" lon="1442.08299819737"/>
+                            <point lat="3895.89333412165" lon="1442.04833271669"/>
+                        </area>
+                    </danger>
+                </wpt>
+                <wpt idx="32">
+                    <danger name="Dumping Ground">
+                        <prop name="plugin" value="NavCharts Check"/>
+                        <prop name="chart_name" value="FI39BOBS"/>
+                        <area>
+                            <point lat="3849.67536431827" lon="1342.7438835778"/>
+                            <point lat="3848.6787570136" lon="1340.71920819418"/>
+                            <point lat="3848.75466706725" lon="1340.63849816454"/>
+                            <point lat="3848.95616634044" lon="1340.46916693822"/>
+                            <point lat="3849.14783368328" lon="1340.32400081745"/>
+                            <point lat="3849.35883332634" lon="1340.20316580392"/>
+                            <point lat="3849.58450038458" lon="1340.11450192109"/>
+                            <point lat="3849.74216697314" lon="1340.09016607094"/>
+                            <point lat="3849.93849962361" lon="1340.05799968315"/>
+                            <point lat="3850.04516687452" lon="1340.05799968315"/>
+                            <point lat="3850.202833231" lon="1340.09016607094"/>
+                            <point lat="3850.34349960745" lon="1340.11450192109"/>
+                            <point lat="3850.52283390325" lon="1340.17083341442"/>
+                            <point lat="3850.70216746302" lon="1340.2836671457"/>
+                            <point lat="3850.85733407495" lon="1340.38849959473"/>
+                            <point lat="3850.94466664031" lon="1340.45299837202"/>
+                            <point lat="3851.06816667069" lon="1340.57399938725"/>
+                            <point lat="3851.23783413045" lon="1340.75949917977"/>
+                            <point lat="3851.46316596707" lon="1341.05783270356"/>
+                            <point lat="3851.6885003018" lon="1341.38016533119"/>
+                            <point lat="3851.83616762343" lon="1341.65433374945"/>
+                            <point lat="3851.97666701597" lon="1341.96883109654"/>
+                            <point lat="3852.16316713768" lon="1342.37999835161"/>
+                            <point lat="3852.27700013602" lon="1342.7104982632"/>
+                            <point lat="3852.3981661664" lon="1343.10566769668"/>
+                            <point lat="3852.54583234818" lon="1343.67000235478"/>
+                            <point lat="3852.60633341081" lon="1343.97633241791"/>
+                            <point lat="3852.63783254606" lon="1344.18600205888"/>
+                            <point lat="3852.67166688366" lon="1344.34733200295"/>
+                            <point lat="3852.69833232138" lon="1344.51650197046"/>
+                            <point lat="3852.74666659178" lon="1344.81483549426"/>
+                            <point lat="3852.77333288878" lon="1345.02450039232"/>
+                            <point lat="3852.80733365348" lon="1345.25833513883"/>
+                            <point lat="3852.846000708" lon="1345.73400117119"/>
+                            <point lat="3852.87266747337" lon="1346.14516842626"/>
+                            <point lat="3852.87983286856" lon="1346.57249950463"/>
+                            <point lat="3852.87983286856" lon="1346.95950165416"/>
+                            <point lat="3852.87016690204" lon="1347.32233395524"/>
+                            <point lat="3852.87016690204" lon="1347.5319988533"/>
+                            <point lat="3852.846000708" lon="1347.77383488206"/>
+                            <point lat="3852.81449933054" lon="1348.13666718314"/>
+                            <point lat="3852.80000082092" lon="1348.33816479725"/>
+                            <point lat="3852.76850063429" lon="1348.5961646493"/>
+                            <point lat="3852.73466620578" lon="1348.83800067806"/>
+                            <point lat="3852.71959544691" lon="1348.93603180003"/>
+                            <point lat="3852.48199833582" lon="1348.45233128508"/>
+                            <point lat="3851.07868374349" lon="1345.59690273334"/>
+                            <point lat="3849.67536431827" lon="1342.7438835778"/>
+                        </area>
+                    </danger>
+                </wpt>
+                <wpt idx="42">
+                    <danger name="Navigational Hazard">
+                        <prop name="plugin" value="NavCharts Check"/>
+                        <prop name="chart_name" value="SE4DIW2A"/>
+                        <area>
+                            <point lat="3805.534" lon="1233.929"/>
+                        </area>
+                    </danger>
+                </wpt>
+                <wpt idx="43">
+                    <danger name="Safety Contour">
+                        <prop name="plugin" value="NavCharts Check"/>
+                        <prop name="chart_name" value="SE4DIW28"/>
+                        <area>
+                            <point lat="3800.00133384618" lon="1210.2693327728"/>
+                            <point lat="3799.99849974898" lon="1210.21316801948"/>
+                            <point lat="3800.00216606375" lon="1210.15683259469"/>
+                            <point lat="3800.02000067984" lon="1210.10999941955"/>
+                            <point lat="3800.04616744417" lon="1210.0790017896"/>
+                            <point lat="3800.09383382328" lon="1210.04533338171"/>
+                            <point lat="3800.13216718657" lon="1210.03500083839"/>
+                            <point lat="3800.16483412502" lon="1210.03783306232"/>
+                            <point lat="3800.20966761708" lon="1210.06316624442"/>
+                            <point lat="3800.2518339245" lon="1210.09316752198"/>
+                            <point lat="3800.31349907839" lon="1210.10149813503"/>
+                            <point lat="3800.33866582609" lon="1210.10899845442"/>
+                            <point lat="3800.43116635662" lon="1210.17849864646"/>
+                            <point lat="3800.43500560515" lon="1210.18155689477"/>
+                            <point lat="3800.4474649944" lon="1210.21936754547"/>
+                            <point lat="3800.49489884612" lon="1210.36731203735"/>
+                            <point lat="3800.54146425475" lon="1210.51662190103"/>
+                            <point lat="3800.58715301252" lon="1210.6672740728"/>
+                            <point lat="3800.60197050453" lon="1210.71753451565"/>
+                            <point lat="3800.59666643647" lon="1210.72783476977"/>
+                            <point lat="3800.58166678314" lon="1210.74383176094"/>
+                            <point lat="3800.55933262066" lon="1210.7484998564"/>
+                            <point lat="3800.51633357716" lon="1210.73900221949"/>
+                            <point lat="3800.48916604007" lon="1210.7231666743"/>
+                            <point lat="3800.46016644198" lon="1210.69783349221"/>
+                            <point lat="3800.42000040736" lon="1210.68466872496"/>
+                            <point lat="3800.37516616885" lon="1210.68466872496"/>
+                            <point lat="3800.34249907102" lon="1210.67149934498"/>
+                            <point lat="3800.30316651021" lon="1210.64533125647"/>
+                            <point lat="3800.27050011959" lon="1210.62283491105"/>
+                            <point lat="3800.22000074493" lon="1210.61533459166"/>
+                            <point lat="3800.18266706074" lon="1210.60966553106"/>
+                            <point lat="3800.15450066695" lon="1210.60783427227"/>
+                            <point lat="3800.13499899431" lon="1210.60133491801"/>
+                            <point lat="3800.09099987792" lon="1210.56383332106"/>
+                            <point lat="3800.06583365948" lon="1210.53850013896"/>
+                            <point lat="3800.04433329941" lon="1210.52249853505"/>
+                            <point lat="3800.02183278029" lon="1210.49716535295"/>
+                            <point lat="3800.01433254208" lon="1210.46433185146"/>
+                            <point lat="3800.0086664559" lon="1210.39783455482"/>
+                            <point lat="3800.00133384618" lon="1210.2693327728"/>
+                        </area>
+                    </danger>
+                    <danger name="Safety Contour Object">
+                        <prop name="plugin" value="NavCharts Check"/>
+                        <prop name="chart_name" value="SE4DIW28"/>
+                        <area>
+                            <point lat="3800.21633333333" lon="1210.42316666667"/>
+                        </area>
+                    </danger>
+                </wpt>
+                <wpt idx="44">
+                    <danger name="Danger Area">
+                        <prop name="plugin" value="NavCharts Check"/>
+                        <prop name="chart_name" value="SE4DIKY2"/>
+                        <area>
+                            <point lat="3630.00283333333" lon="1137"/>
+                        </area>
+                    </danger>
+                </wpt>
+                <wpt idx="51">
+                    <danger name="Restricted Area">
+                        <prop name="plugin" value="NavCharts Check"/>
+                        <prop name="chart_name" value="SE4DIIQ4"/>
+                        <area>
+                            <point lat="3602.99983244887" lon="1152.00000176327"/>
+                            <point lat="3601.00016763349" lon="1152.00000176327"/>
+                            <point lat="3601.00016763349" lon="1151.83208112673"/>
+                            <point lat="3602.09319673523" lon="1150.00033390637"/>
+                            <point lat="3602.99983244887" lon="1150.00033390637"/>
+                            <point lat="3602.99983244887" lon="1152.00000176327"/>
+                        </area>
+                    </danger>
+                    <danger name="Restricted Area">
+                        <prop name="plugin" value="NavCharts Check"/>
+                        <prop name="chart_name" value="SE4EIHM6"/>
+                        <area>
+                            <point lat="3591.99983304662" lon="1173.00000158601"/>
+                            <point lat="3590.00000066004" lon="1173.00000158601"/>
+                            <point lat="3590.00000066004" lon="1171.00033372911"/>
+                            <point lat="3591.99983304662" lon="1171.00033372911"/>
+                            <point lat="3591.99983304662" lon="1173.00000158601"/>
+                        </area>
+                    </danger>
+                </wpt>
+                <wpt idx="54">
+                    <danger name="Caution Area">
+                        <prop name="plugin" value="NavCharts Check"/>
+                        <prop name="chart_name" value="FI4EIHM6"/>
+                        <area>
+                            <point lat="3584.24384934653" lon="1196.98356385688"/>
+                            <point lat="3584.23966748706" lon="1195.74066554819"/>
+                            <point lat="3585.40542408395" lon="1193.85704920527"/>
+                            <point lat="3585.26437011457" lon="1197.12759721395"/>
+                            <point lat="3585.26314090687" lon="1197.15613888847"/>
+                            <point lat="3584.24384934653" lon="1196.98356385688"/>
+                        </area>
+                    </danger>
+                </wpt>
+                <wpt idx="55">
+                    <danger name="Caution Area">
+                        <prop name="plugin" value="NavCharts Check"/>
+                        <prop name="chart_name" value="FI4EIHM6"/>
+                        <area>
+                            <point lat="3585.29778864611" lon="1199.99999997444"/>
+                            <point lat="3584.46981527697" lon="1199.99999997444"/>
+                            <point lat="3584.49391672248" lon="1197.18161129522"/>
+                            <point lat="3584.49465833333" lon="1197.12986981386"/>
+                            <point lat="3584.4959915419" lon="1197.07817864837"/>
+                            <point lat="3584.49792057268" lon="1197.02655457069"/>
+                            <point lat="3584.50003975771" lon="1196.98931244448"/>
+                            <point lat="3584.50317310494" lon="1196.95237221346"/>
+                            <point lat="3584.50731215828" lon="1196.91582612338"/>
+                            <point lat="3584.51244212167" lon="1196.87977480598"/>
+                            <point lat="3584.51855031055" lon="1196.84432727896"/>
+                            <point lat="3584.52561981344" lon="1196.80958417406"/>
+                            <point lat="3584.53362526645" lon="1196.77565450897"/>
+                            <point lat="3584.54254764316" lon="1196.74262633647"/>
+                            <point lat="3584.55235946508" lon="1196.71060867426"/>
+                            <point lat="3584.56303114022" lon="1196.6796895751"/>
+                            <point lat="3584.57453096337" lon="1196.64995709177"/>
+                            <point lat="3584.58682722897" lon="1196.62150347001"/>
+                            <point lat="3584.59988400578" lon="1196.5944125696"/>
+                            <point lat="3584.61366113716" lon="1196.56875986434"/>
+                            <point lat="3584.62811846676" lon="1196.54462082802"/>
+                            <point lat="3584.64321372599" lon="1196.52206674145"/>
+                            <point lat="3584.65890464687" lon="1196.50116469246"/>
+                            <point lat="3584.67514262421" lon="1196.48197757587"/>
+                            <point lat="3584.69188116658" lon="1196.46455990054"/>
+                            <point lat="3584.70906955844" lon="1196.44896198233"/>
+                            <point lat="3584.72666131087" lon="1196.43523413711"/>
+                            <point lat="3584.74460148596" lon="1196.4234099088"/>
+                            <point lat="3584.76283726016" lon="1196.41352703428"/>
+                            <point lat="3584.78131792422" lon="1196.40561486448"/>
+                            <point lat="3584.79998643308" lon="1196.39969855733"/>
+                            <point lat="3584.81878996873" lon="1196.3957906918"/>
+                            <point lat="3584.83767360266" lon="1196.39390803985"/>
+                            <point lat="3584.85658029591" lon="1196.39405479445"/>
+                            <point lat="3584.87545512413" lon="1196.39622676263"/>
+                            <point lat="3584.88647363225" lon="1196.14022383358"/>
+                            <point lat="3584.90846188129" lon="1196.1449577179"/>
+                            <point lat="3584.93031469611" lon="1196.15169165786"/>
+                            <point lat="3584.95198772137" lon="1196.16042565345"/>
+                            <point lat="3584.97343449127" lon="1196.17113035377"/>
+                            <point lat="3584.99460854193" lon="1196.18378479386"/>
+                            <point lat="3585.01546552364" lon="1196.19836800879"/>
+                            <point lat="3585.03596108839" lon="1196.21484226165"/>
+                            <point lat="3585.05604877756" lon="1196.23317400853"/>
+                            <point lat="3585.07568847086" lon="1196.25332551253"/>
+                            <point lat="3585.09483793707" lon="1196.27525484377"/>
+                            <point lat="3585.11345705847" lon="1196.29891587937"/>
+                            <point lat="3585.13150360622" lon="1196.32424991749"/>
+                            <point lat="3585.14893957688" lon="1196.35121502824"/>
+                            <point lat="3585.16572907992" lon="1196.3797441238"/>
+                            <point lat="3585.18183622542" lon="1196.40978269531"/>
+                            <point lat="3585.19722512395" lon="1196.44126365496"/>
+                            <point lat="3585.21186411061" lon="1196.47411572193"/>
+                            <point lat="3585.22572363271" lon="1196.5082760014"/>
+                            <point lat="3585.23876991333" lon="1196.54366901957"/>
+                            <point lat="3585.25097762371" lon="1196.58021930263"/>
+                            <point lat="3585.26232143465" lon="1196.61784718381"/>
+                            <point lat="3585.27277390441" lon="1196.6564771893"/>
+                            <point lat="3585.28231815078" lon="1196.69601707336"/>
+                            <point lat="3585.29092884258" lon="1196.73639555516"/>
+                            <point lat="3585.2985890958" lon="1196.77751200299"/>
+                            <point lat="3585.30528202536" lon="1196.81929094305"/>
+                            <point lat="3585.31099496902" lon="1196.86163593659"/>
+                            <point lat="3585.31571526324" lon="1196.90446312383"/>
+                            <point lat="3585.31943235511" lon="1196.94767187306"/>
+                            <point lat="3585.3221378023" lon="1196.99117832448"/>
+                            <point lat="3585.32382527297" lon="1197.03488184638"/>
+                            <point lat="3585.32449476971" lon="1197.07869857897"/>
+                            <point lat="3585.32413995759" lon="1197.12252369755"/>
+                            <point lat="3585.322767172" lon="1197.1662439914"/>
+                            <point lat="3585.32202375542" lon="1197.18780433963"/>
+                            <point lat="3585.321654159" lon="1197.20940661775"/>
+                            <point lat="3585.29778864611" lon="1199.99999997444"/>
+                        </area>
+                    </danger>
+                    <danger name="Caution Area">
+                        <prop name="plugin" value="NavCharts Check"/>
+                        <prop name="chart_name" value="FI4EIHM8"/>
+                        <area>
+                            <point lat="3585.11775694645" lon="1221.05089032361"/>
+                            <point lat="3584.29002092864" lon="1221.02309651974"/>
+                            <point lat="3584.29002092864" lon="1221.02309232761"/>
+                            <point lat="3584.29129695825" lon="1220.87384840429"/>
+                            <point lat="3584.30132559317" lon="1219.70120140856"/>
+                            <point lat="3584.31966728109" lon="1219.60033463405"/>
+                            <point lat="3584.31474702674" lon="1218.13194982718"/>
+                            <point lat="3584.31662513298" lon="1217.91245004276"/>
+                            <point lat="3584.34195298787" lon="1214.95101395208"/>
+                            <point lat="3584.36728052294" lon="1211.98954013226"/>
+                            <point lat="3584.39260773817" lon="1209.02802858329"/>
+                            <point lat="3584.41793463358" lon="1206.06647930517"/>
+                            <point lat="3584.44326332163" lon="1203.10489649004"/>
+                            <point lat="3584.46858957737" lon="1200.14327175364"/>
+                            <point lat="3584.46981479474" lon="1200.00000161169"/>
+                            <point lat="3585.29778912246" lon="1200.00000161169"/>
+                            <point lat="3585.2963849273" lon="1200.16413597111"/>
+                            <point lat="3585.27111769254" lon="1203.11882692899"/>
+                            <point lat="3585.24584802765" lon="1206.07348434986"/>
+                            <point lat="3585.22058015584" lon="1209.02810404158"/>
+                            <point lat="3585.19531196552" lon="1211.98268600415"/>
+                            <point lat="3585.17004345669" lon="1214.93722604545"/>
+                            <point lat="3585.14477674106" lon="1217.89173674186"/>
+                            <point lat="3585.11950759521" lon="1220.846205517"/>
+                            <point lat="3585.11775694645" lon="1221.05089032361"/>
+                        </area>
+                    </danger>
+                </wpt>
+                <wpt idx="56">
+                    <danger name="Caution Area">
+                        <prop name="plugin" value="NavCharts Check"/>
+                        <prop name="chart_name" value="FI4EIHM8"/>
+                        <area>
+                            <point lat="3583.44730077128" lon="1227.79768320072"/>
+                            <point lat="3582.93243621516" lon="1227.32030889875"/>
+                            <point lat="3582.95847706462" lon="1227.21021105998"/>
+                            <point lat="3583.63924148061" lon="1224.33159882799"/>
+                            <point lat="3584.32000529726" lon="1221.45200983034"/>
+                            <point lat="3584.32900918206" lon="1221.41170671866"/>
+                            <point lat="3584.33715109284" lon="1221.37069513747"/>
+                            <point lat="3584.34441625205" lon="1221.32904216081"/>
+                            <point lat="3584.35079199382" lon="1221.28681905484"/>
+                            <point lat="3584.35626142613" lon="1221.24410127785"/>
+                            <point lat="3584.36082033127" lon="1221.20096428813"/>
+                            <point lat="3584.36446026523" lon="1221.1574877361"/>
+                            <point lat="3584.36717067028" lon="1221.11374708006"/>
+                            <point lat="3584.36895155016" lon="1221.06981358615"/>
+                            <point lat="3584.36979656972" lon="1221.02577528907"/>
+                            <point lat="3584.37062046345" lon="1220.99230534486"/>
+                            <point lat="3584.37249851737" lon="1220.95899470149"/>
+                            <point lat="3584.37542650344" lon="1220.92598589128"/>
+                            <point lat="3584.37939596691" lon="1220.89340887018"/>
+                            <point lat="3584.38439000133" lon="1220.86138520988"/>
+                            <point lat="3584.39038747377" lon="1220.83004905846"/>
+                            <point lat="3584.39736725005" lon="1220.7995219876"/>
+                            <point lat="3584.40530185726" lon="1220.76991718474"/>
+                            <point lat="3584.41415748405" lon="1220.74136460583"/>
+                            <point lat="3584.42390243084" lon="1220.71396486193"/>
+                            <point lat="3584.43449443506" lon="1220.68783114046"/>
+                            <point lat="3584.44589545886" lon="1220.66306824461"/>
+                            <point lat="3584.45805901442" lon="1220.63977259331"/>
+                            <point lat="3584.47093438927" lon="1220.61803222124"/>
+                            <point lat="3584.48447509629" lon="1220.59793935518"/>
+                            <point lat="3584.49862619926" lon="1220.57956945343"/>
+                            <point lat="3584.51333065054" lon="1220.56299378217"/>
+                            <point lat="3584.52853140367" lon="1220.54828360754"/>
+                            <point lat="3584.54416930113" lon="1220.53548923508"/>
+                            <point lat="3584.56018096228" lon="1220.52466935457"/>
+                            <point lat="3584.57650512055" lon="1220.51586169515"/>
+                            <point lat="3584.59307417431" lon="1220.50909979385"/>
+                            <point lat="3584.60982686089" lon="1220.50441299555"/>
+                            <point lat="3584.62669347053" lon="1220.50181806876"/>
+                            <point lat="3584.64361063255" lon="1220.50132758987"/>
+                            <point lat="3584.64411123812" lon="1220.44205510224"/>
+                            <point lat="3584.66149928304" lon="1220.44363553423"/>
+                            <point lat="3584.67881113717" lon="1220.44721561093"/>
+                            <point lat="3584.69598766073" lon="1220.45278694808"/>
+                            <point lat="3584.71297394035" lon="1220.46032858506"/>
+                            <point lat="3584.72970661577" lon="1220.46981117697"/>
+                            <point lat="3584.74613500169" lon="1220.48120537892"/>
+                            <point lat="3584.76220207794" lon="1220.49447765389"/>
+                            <point lat="3584.777850826" lon="1220.50957350423"/>
+                            <point lat="3584.7930305652" lon="1220.52645100866"/>
+                            <point lat="3584.80768850401" lon="1220.54504728528"/>
+                            <point lat="3584.82177607621" lon="1220.56529945217"/>
+                            <point lat="3584.83524682853" lon="1220.58714462743"/>
+                            <point lat="3584.84805219639" lon="1220.61050316064"/>
+                            <point lat="3584.86015206392" lon="1220.63529540138"/>
+                            <point lat="3584.87150209147" lon="1220.66144589135"/>
+                            <point lat="3584.88206638763" lon="1220.68885401952"/>
+                            <point lat="3584.89180694884" lon="1220.71743594332"/>
+                            <point lat="3584.90069421926" lon="1220.7470910517"/>
+                            <point lat="3584.90869441854" lon="1220.77772292574"/>
+                            <point lat="3584.91578432559" lon="1220.80922257013"/>
+                            <point lat="3584.9219364945" lon="1220.84148518168"/>
+                            <point lat="3584.92713192626" lon="1220.87440595722"/>
+                            <point lat="3584.93135162068" lon="1220.90786751717"/>
+                            <point lat="3584.9345829122" lon="1220.94175667411"/>
+                            <point lat="3584.9368131339" lon="1220.97596443272"/>
+                            <point lat="3584.93803595327" lon="1221.01036922131"/>
+                            <point lat="3584.9382408124" lon="1221.04486204458"/>
+                            <point lat="3584.93718694923" lon="1221.11018377187"/>
+                            <point lat="3584.93514046786" lon="1221.17541327236"/>
+                            <point lat="3584.93210558916" lon="1221.24049185626"/>
+                            <point lat="3584.92808442062" lon="1221.30535664168"/>
+                            <point lat="3584.92308118022" lon="1221.36995732307"/>
+                            <point lat="3584.91710008455" lon="1221.43422682641"/>
+                            <point lat="3584.91014534883" lon="1221.49811484617"/>
+                            <point lat="3584.90222329889" lon="1221.56155430831"/>
+                            <point lat="3584.89334448323" lon="1221.6244949073"/>
+                            <point lat="3584.88351100117" lon="1221.68687795337"/>
+                            <point lat="3584.87273762278" lon="1221.74864894885"/>
+                            <point lat="3584.86103066901" lon="1221.80974501184"/>
+                            <point lat="3584.84840279578" lon="1221.87011583681"/>
+                            <point lat="3584.83487088214" lon="1221.92971531036"/>
+                            <point lat="3584.15555370233" lon="1224.80302030921"/>
+                            <point lat="3583.47623676533" lon="1227.67535692667"/>
+                            <point lat="3583.44732190649" lon="1227.79759516605"/>
+                            <point lat="3583.44730077128" lon="1227.79768320072"/>
+                        </area>
+                    </danger>
+                </wpt>
+                <wpt idx="57">
+                    <danger name="Chart is absent">
+                        <prop name="plugin" value="Charts Coverage Check"/>
+                        <area>
+                            <point lat="3578.10009765625" lon="1230"/>
+                            <point lat="3578.10009765625" lon="1245"/>
+                            <point lat="3600" lon="1245"/>
+                            <point lat="3600" lon="1230"/>
+                            <point lat="3578.10009765625" lon="1230"/>
+                        </area>
+                    </danger>
+                    <danger name="Caution Area">
+                        <prop name="plugin" value="NavCharts Check"/>
+                        <prop name="chart_name" value="FI3ALNDS"/>
+                        <area>
+                            <point lat="3581.16071065246" lon="1231.82043657166"/>
+                            <point lat="3580.78010609771" lon="1230.88155510636"/>
+                            <point lat="3580.7880820455" lon="1230.86856522716"/>
+                            <point lat="3582.65340848281" lon="1227.82978467247"/>
+                            <point lat="3582.87049902774" lon="1227.56933298235"/>
+                            <point lat="3582.94136097518" lon="1227.17967434342"/>
+                            <point lat="3582.94187056655" lon="1227.17832420104"/>
+                            <point lat="3582.95307731487" lon="1227.15195868769"/>
+                            <point lat="3582.96504097829" lon="1227.12693073775"/>
+                            <point lat="3582.97771713984" lon="1227.10332001801"/>
+                            <point lat="3582.99106561176" lon="1227.08120619527"/>
+                            <point lat="3583.00504197782" lon="1227.06066893629"/>
+                            <point lat="3583.01959759359" lon="1227.04177113593"/>
+                            <point lat="3583.03468170113" lon="1227.02458407498"/>
+                            <point lat="3583.05024777234" lon="1227.00915806932"/>
+                            <point lat="3583.06623870839" lon="1226.99555182077"/>
+                            <point lat="3583.082603755" lon="1226.98381145223"/>
+                            <point lat="3583.09928370205" lon="1226.9739705076"/>
+                            <point lat="3583.11622568409" lon="1226.96607091677"/>
+                            <point lat="3583.13337049452" lon="1226.96012945169"/>
+                            <point lat="3583.15066104294" lon="1226.95617546328"/>
+                            <point lat="3583.16804024085" lon="1226.95421733753"/>
+                            <point lat="3583.18544465906" lon="1226.9542634604"/>
+                            <point lat="3583.20282144161" lon="1226.95631383191"/>
+                            <point lat="3583.22010504921" lon="1226.96036006607"/>
+                            <point lat="3583.23724262987" lon="1226.96638958391"/>
+                            <point lat="3583.25417499092" lon="1226.9743814205"/>
+                            <point lat="3583.27084294162" lon="1226.98431041789"/>
+                            <point lat="3583.28719152136" lon="1226.9961388392"/>
+                            <point lat="3583.30316365707" lon="1227.00983314051"/>
+                            <point lat="3583.30739186497" lon="1226.99194585044"/>
+                            <point lat="3583.3234526315" lon="1227.00796726051"/>
+                            <point lat="3583.33901646349" lon="1227.02581681368"/>
+                            <point lat="3583.3540305212" lon="1227.04542742213"/>
+                            <point lat="3583.36844408005" lon="1227.06673199805"/>
+                            <point lat="3583.38220641644" lon="1227.08965926062"/>
+                            <point lat="3583.39527103556" lon="1227.11413373604"/>
+                            <point lat="3583.40759567111" lon="1227.14007156454"/>
+                            <point lat="3583.41913805704" lon="1227.16738469335"/>
+                            <point lat="3583.42985804137" lon="1227.19598087673"/>
+                            <point lat="3583.43972181387" lon="1227.22575948294"/>
+                            <point lat="3583.44869344997" lon="1227.25662826623"/>
+                            <point lat="3583.45674125248" lon="1227.28847820889"/>
+                            <point lat="3583.46384197919" lon="1227.32119610022"/>
+                            <point lat="3583.46997027299" lon="1227.3546813085"/>
+                            <point lat="3583.47510288962" lon="1227.38881643003"/>
+                            <point lat="3583.47922715319" lon="1227.42347986815"/>
+                            <point lat="3583.48232404466" lon="1227.45856260515"/>
+                            <point lat="3583.48438511313" lon="1227.49394304435"/>
+                            <point lat="3583.48540613395" lon="1227.52949958908"/>
+                            <point lat="3583.48537865307" lon="1227.56511483565"/>
+                            <point lat="3583.48430689826" lon="1227.60066718739"/>
+                            <point lat="3583.48219086786" lon="1227.63603504762"/>
+                            <point lat="3583.47904112816" lon="1227.67109681967"/>
+                            <point lat="3583.47486824392" lon="1227.70573929285"/>
+                            <point lat="3583.46968277842" lon="1227.73984087048"/>
+                            <point lat="3583.46350586318" lon="1227.77328834185"/>
+                            <point lat="3583.45632691933" lon="1227.80605654905"/>
+                            <point lat="3583.44199432209" lon="1227.86438521576"/>
+                            <point lat="3583.42679489255" lon="1227.92185012679"/>
+                            <point lat="3583.41074340895" lon="1227.97839677327"/>
+                            <point lat="3583.39385464893" lon="1228.03397903234"/>
+                            <point lat="3583.37614127552" lon="1228.08854239514"/>
+                            <point lat="3583.3576201793" lon="1228.14204912477"/>
+                            <point lat="3583.33830613638" lon="1228.19444051939"/>
+                            <point lat="3583.3182181507" lon="1228.2456788421"/>
+                            <point lat="3583.2973731119" lon="1228.29571797002"/>
+                            <point lat="3583.27579002364" lon="1228.34451178028"/>
+                            <point lat="3583.25348577537" lon="1228.39202253598"/>
+                            <point lat="3583.23048148488" lon="1228.43819992125"/>
+                            <point lat="3583.20679615598" lon="1228.48301039218"/>
+                            <point lat="3583.18245302114" lon="1228.52641621187"/>
+                            <point lat="3583.15746051347" lon="1228.56840060838"/>
+                            <point lat="3581.17678436085" lon="1231.79427232176"/>
+                            <point lat="3581.16071065246" lon="1231.82043657166"/>
+                        </area>
+                    </danger>
+                    <danger name="Caution Area">
+                        <prop name="plugin" value="NavCharts Check"/>
+                        <prop name="chart_name" value="FI4EIHM8"/>
+                        <area>
+                            <point lat="3582.2787019356" lon="1230.00000049915"/>
+                            <point lat="3581.32142025613" lon="1230.00000049915"/>
+                            <point lat="3582.65320203132" lon="1227.83012607375"/>
+                            <point lat="3582.87000064497" lon="1227.57000038385"/>
+                            <point lat="3582.94070852356" lon="1227.18140695343"/>
+                            <point lat="3582.94187125265" lon="1227.17832573988"/>
+                            <point lat="3582.9530778125" lon="1227.15196145141"/>
+                            <point lat="3582.96504113192" lon="1227.12693025942"/>
+                            <point lat="3582.97771680307" lon="1227.10332019857"/>
+                            <point lat="3582.99106676045" lon="1227.08120672717"/>
+                            <point lat="3583.00504236893" lon="1227.06066530349"/>
+                            <point lat="3583.01959710811" lon="1227.04177138584"/>
+                            <point lat="3583.03468234442" lon="1227.02458366399"/>
+                            <point lat="3583.05024733139" lon="1227.00916082772"/>
+                            <point lat="3583.06623920983" lon="1226.99555318257"/>
+                            <point lat="3583.08260300802" lon="1226.98381103405"/>
+                            <point lat="3583.09928375583" lon="1226.97397211133"/>
+                            <point lat="3583.11622648476" lon="1226.9660699514"/>
+                            <point lat="3583.13337200035" lon="1226.96012970705"/>
+                            <point lat="3583.15066111011" lon="1226.95617653102"/>
+                            <point lat="3583.16803885116" lon="1226.95421880758"/>
+                            <point lat="3583.1854460349" lon="1226.95426492098"/>
+                            <point lat="3583.20282136103" lon="1226.95631487122"/>
+                            <point lat="3583.2201056451" lon="1226.96036027405"/>
+                            <point lat="3583.2372439322" lon="1226.96638855308"/>
+                            <point lat="3583.25417492808" lon="1226.9743829398"/>
+                            <point lat="3583.27084156793" lon="1226.9843098972"/>
+                            <point lat="3583.28719101612" lon="1226.99614008039"/>
+                            <point lat="3583.30316409759" lon="1227.00983156809"/>
+                            <point lat="3583.30739143677" lon="1226.99194376098"/>
+                            <point lat="3583.32345313079" lon="1227.00797026357"/>
+                            <point lat="3583.33901799235" lon="1227.02581614941"/>
+                            <point lat="3583.35403107891" lon="1227.04542692083"/>
+                            <point lat="3583.36844378999" lon="1227.06673131167"/>
+                            <point lat="3583.38220541239" lon="1227.08965805577"/>
+                            <point lat="3583.39527157444" lon="1227.11413169483"/>
+                            <point lat="3583.40759579136" lon="1227.14007257844"/>
+                            <point lat="3583.41913791936" lon="1227.16738428768"/>
+                            <point lat="3583.42985781472" lon="1227.19597878786"/>
+                            <point lat="3583.43972167417" lon="1227.22575966006"/>
+                            <point lat="3583.4486935805" lon="1227.25663048536"/>
+                            <point lat="3583.45674184303" lon="1227.28847807631"/>
+                            <point lat="3583.46384322433" lon="1227.32119762974"/>
+                            <point lat="3583.46997025903" lon="1227.35468015033"/>
+                            <point lat="3583.47510393461" lon="1227.38881664277"/>
+                            <point lat="3583.47922735082" lon="1227.42348134326"/>
+                            <point lat="3583.48232360601" lon="1227.45856106434"/>
+                            <point lat="3583.48438636449" lon="1227.49394261859"/>
+                            <point lat="3583.48540506206" lon="1227.52950024219"/>
+                            <point lat="3583.4853797003" lon="1227.56511236344"/>
+                            <point lat="3583.48430605221" lon="1227.60066579491"/>
+                            <point lat="3583.48219257005" lon="1227.63603477277"/>
+                            <point lat="3583.479041364" lon="1227.67109772535"/>
+                            <point lat="3583.47486722363" lon="1227.70573727307"/>
+                            <point lat="3583.46968282353" lon="1227.7398402285"/>
+                            <point lat="3583.46350506389" lon="1227.77328921207"/>
+                            <point lat="3583.45632759501" lon="1227.8060548789"/>
+                            <point lat="3583.44199371549" lon="1227.86438413788"/>
+                            <point lat="3583.42679529526" lon="1227.92184981865"/>
+                            <point lat="3583.41074288246" lon="1227.97839742354"/>
+                            <point lat="3583.39385336524" lon="1228.03397664703"/>
+                            <point lat="3583.3761415176" lon="1228.08854137571"/>
+                            <point lat="3583.35761999948" lon="1228.1420454962"/>
+                            <point lat="3583.33830569754" lon="1228.19444289508"/>
+                            <point lat="3583.3182176118" lon="1228.2456790747"/>
+                            <point lat="3583.29737262846" lon="1228.29572049805"/>
+                            <point lat="3583.27578974724" lon="1228.34451266747"/>
+                            <point lat="3583.25348585413" lon="1228.39202204595"/>
+                            <point lat="3583.2304820626" lon="1228.43820252007"/>
+                            <point lat="3583.20679737254" lon="1228.48301216857"/>
+                            <point lat="3583.18245289784" lon="1228.52641326231"/>
+                            <point lat="3583.15745918364" lon="1228.56840160916"/>
+                            <point lat="3582.2787019356" lon="1230.00000049915"/>
+                        </area>
+                    </danger>
+                </wpt>
+                <wpt idx="58">
+                    <danger name="Chart is absent">
+                        <prop name="plugin" value="Charts Coverage Check"/>
+                        <area>
+                            <point lat="3577.19995117188" lon="1245"/>
+                            <point lat="3577.19995117188" lon="1260"/>
+                            <point lat="3600" lon="1260"/>
+                            <point lat="3600" lon="1245"/>
+                            <point lat="3577.19995117188" lon="1245"/>
+                        </area>
+                    </danger>
+                    <danger name="Caution Area">
+                        <prop name="plugin" value="NavCharts Check"/>
+                        <prop name="chart_name" value="FI3ALNDS"/>
+                        <area>
+                            <point lat="3582.04389046398" lon="1233.44068290426"/>
+                            <point lat="3580.56101552382" lon="1230.33868046497"/>
+                            <point lat="3582.87049902774" lon="1227.56933298235"/>
+                            <point lat="3583.76076050489" lon="1222.67295777302"/>
+                            <point lat="3583.80525814106" lon="1222.7298398586"/>
+                            <point lat="3583.86773239961" lon="1222.81223628083"/>
+                            <point lat="3583.92960660768" lon="1222.89639375833"/>
+                            <point lat="3583.99086814033" lon="1222.98229971215"/>
+                            <point lat="3584.05150014703" lon="1223.06993317734"/>
+                            <point lat="3584.11149634495" lon="1223.15928157493"/>
+                            <point lat="3584.17083777227" lon="1223.250319747"/>
+                            <point lat="3584.22951814761" lon="1223.34303511457"/>
+                            <point lat="3584.28752273735" lon="1223.43740251971"/>
+                            <point lat="3584.34483892197" lon="1223.53340938347"/>
+                            <point lat="3584.40145619562" lon="1223.63103474088"/>
+                            <point lat="3584.45736405292" lon="1223.73025343403"/>
+                            <point lat="3584.51254987611" lon="1223.83104869095"/>
+                            <point lat="3584.56700104804" lon="1223.9334037397"/>
+                            <point lat="3584.62070706487" lon="1224.03729342233"/>
+                            <point lat="3584.67365953572" lon="1224.1426967739"/>
+                            <point lat="3584.72584373194" lon="1224.24959282948"/>
+                            <point lat="3584.77725126322" lon="1224.35796062411"/>
+                            <point lat="3584.82786951421" lon="1224.46777919286"/>
+                            <point lat="3584.87769220727" lon="1224.57901918479"/>
+                            <point lat="3584.92670461485" lon="1224.69166802095"/>
+                            <point lat="3584.97490045928" lon="1224.80569635042"/>
+                            <point lat="3582.24290895001" lon="1229.26619779865"/>
+                            <point lat="3582.2696874928" lon="1229.33220382779"/>
+                            <point lat="3582.2956259573" lon="1229.39951387644"/>
+                            <point lat="3582.3207053398" lon="1229.46808182171"/>
+                            <point lat="3582.34491509688" lon="1229.53786992672"/>
+                            <point lat="3582.36823622416" lon="1229.60882787559"/>
+                            <point lat="3582.39065394713" lon="1229.68091793143"/>
+                            <point lat="3582.4121577208" lon="1229.75409397135"/>
+                            <point lat="3582.43273276937" lon="1229.82830987249"/>
+                            <point lat="3582.45236643136" lon="1229.90351951197"/>
+                            <point lat="3582.4710439295" lon="1229.97967676691"/>
+                            <point lat="3582.4887568306" lon="1230.05673132145"/>
+                            <point lat="3582.50549035557" lon="1230.1346370527"/>
+                            <point lat="3582.52123818409" lon="1230.2133478378"/>
+                            <point lat="3582.53598976478" lon="1230.29280916788"/>
+                            <point lat="3582.54973454509" lon="1230.37297911307"/>
+                            <point lat="3582.56246408616" lon="1230.45379897152"/>
+                            <point lat="3582.57416994778" lon="1230.53522681333"/>
+                            <point lat="3582.58484791813" lon="1230.61720393668"/>
+                            <point lat="3582.59448743936" lon="1230.69968421868"/>
+                            <point lat="3582.60308429672" lon="1230.78261734346"/>
+                            <point lat="3582.6106321591" lon="1230.86594880218"/>
+                            <point lat="3582.6171289235" lon="1230.94962827896"/>
+                            <point lat="3582.62256825566" lon="1231.03360126496"/>
+                            <point lat="3582.62694593452" lon="1231.1178174443"/>
+                            <point lat="3582.63026196704" lon="1231.20222230814"/>
+                            <point lat="3582.63251212884" lon="1231.28676554061"/>
+                            <point lat="3582.63369642351" lon="1231.37139263286"/>
+                            <point lat="3582.63381485294" lon="1231.45605326901"/>
+                            <point lat="3582.63286318769" lon="1231.54069294022"/>
+                            <point lat="3582.63084565587" lon="1231.62526133062"/>
+                            <point lat="3582.62776436908" lon="1231.70969973837"/>
+                            <point lat="3582.6236172076" lon="1231.7939620406"/>
+                            <point lat="3582.61841050931" lon="1231.87799372843"/>
+                            <point lat="3582.61214426597" lon="1231.96174029304"/>
+                            <point lat="3582.60482692704" lon="1232.04515141854"/>
+                            <point lat="3582.60241389121" lon="1232.06909757738"/>
+                            <point lat="3582.04389046398" lon="1233.44068290426"/>
+                        </area>
+                    </danger>
+                    <danger name="Caution Area">
+                        <prop name="plugin" value="NavCharts Check"/>
+                        <prop name="chart_name" value="FI4EIHM8"/>
+                        <area>
+                            <point lat="3582.47571512434" lon="1230.00000049915"/>
+                            <point lat="3580.84383261358" lon="1230.00000049915"/>
+                            <point lat="3582.87000064497" lon="1227.57000038385"/>
+                            <point lat="3583.76086346562" lon="1222.67308847254"/>
+                            <point lat="3583.8052589789" lon="1222.72984149167"/>
+                            <point lat="3583.86773308024" lon="1222.81223356125"/>
+                            <point lat="3583.92960725398" lon="1222.89639470853"/>
+                            <point lat="3583.99086676486" lon="1222.98229978077"/>
+                            <point lat="3584.05150110462" lon="1223.06993620158"/>
+                            <point lat="3584.11149554008" lon="1223.15928301031"/>
+                            <point lat="3584.17083956474" lon="1223.25031924634"/>
+                            <point lat="3584.2295184473" lon="1223.34303233328"/>
+                            <point lat="3584.28752168286" lon="1223.43740550262"/>
+                            <point lat="3584.34483876704" lon="1223.53340940948"/>
+                            <point lat="3584.40145708346" lon="1223.63103147747"/>
+                            <point lat="3584.45736401645" lon="1223.73025493807"/>
+                            <point lat="3584.5125490634" lon="1223.83105044641"/>
+                            <point lat="3584.56700172211" lon="1223.9334054261"/>
+                            <point lat="3584.62070726614" lon="1224.03729472437"/>
+                            <point lat="3584.67365941874" lon="1224.14269738059"/>
+                            <point lat="3584.7258434543" lon="1224.24959243412"/>
+                            <point lat="3584.77725098422" lon="1224.35795892433"/>
+                            <point lat="3584.8278715078" lon="1224.46777589057"/>
+                            <point lat="3584.87769241251" lon="1224.5790181801"/>
+                            <point lat="3584.92670531001" lon="1224.69166902438"/>
+                            <point lat="3584.97489969995" lon="1224.80569488642"/>
+                            <point lat="3582.2429094632" lon="1229.26619796354"/>
+                            <point lat="3582.26968673367" lon="1229.33220719971"/>
+                            <point lat="3582.29562409841" lon="1229.3995118032"/>
+                            <point lat="3582.32070467231" lon="1229.46808242913"/>
+                            <point lat="3582.3449136847" lon="1229.53786877197"/>
+                            <point lat="3582.36823636447" lon="1229.60882891045"/>
+                            <point lat="3582.39065582546" lon="1229.6809209233"/>
+                            <point lat="3582.41215941022" lon="1229.75409450499"/>
+                            <point lat="3582.43273234607" lon="1229.82831192636"/>
+                            <point lat="3582.45236620332" lon="1229.90351868978"/>
+                            <point lat="3582.47104409313" lon="1229.97967706609"/>
+                            <point lat="3582.47571512434" lon="1230.00000049915"/>
+                        </area>
+                    </danger>
+                    <danger name="Safety Contour">
+                        <prop name="plugin" value="NavCharts Check"/>
+                        <prop name="chart_name" value="FI4EIHM8"/>
+                        <area>
+                            <point lat="3582.78883251755" lon="1222.53649911932"/>
+                            <point lat="3582.77666709031" lon="1222.51600031313"/>
+                            <point lat="3582.77666709031" lon="1222.50183460767"/>
+                            <point lat="3582.77866755719" lon="1222.47466761607"/>
+                            <point lat="3582.78399930924" lon="1222.45033209013"/>
+                            <point lat="3582.78883251755" lon="1222.44283457009"/>
+                            <point lat="3582.802332908" lon="1222.4315003303"/>
+                            <point lat="3582.81450029211" lon="1222.42866467607"/>
+                            <point lat="3582.83283361236" lon="1222.43250139582"/>
+                            <point lat="3582.84766660136" lon="1222.45133315566"/>
+                            <point lat="3582.85383254673" lon="1222.47183196184"/>
+                            <point lat="3582.85583293673" lon="1222.4934993759"/>
+                            <point lat="3582.85316715786" lon="1222.51600031313"/>
+                            <point lat="3582.84699909808" lon="1222.53466871918"/>
+                            <point lat="3582.83349900798" lon="1222.54683229359"/>
+                            <point lat="3582.81583320766" lon="1222.54866688229"/>
+                            <point lat="3582.80500086676" lon="1222.54599877041"/>
+                            <point lat="3582.78883251755" lon="1222.53649911932"/>
+                        </area>
+                    </danger>
+                    <danger name="Safety Contour">
+                        <prop name="plugin" value="NavCharts Check"/>
+                        <prop name="chart_name" value="FI4EIHM8"/>
+                        <area>
+                            <point lat="3582.27599973989" lon="1223.07366501595"/>
+                            <point lat="3582.27533415952" lon="1223.05500079846"/>
+                            <point lat="3582.27599973989" lon="1223.02966839556"/>
+                            <point lat="3582.27866628507" lon="1223.01099998952"/>
+                            <point lat="3582.29283356757" lon="1222.98650110979"/>
+                            <point lat="3582.30166561854" lon="1222.98366545556"/>
+                            <point lat="3582.31733290528" lon="1222.98566758661"/>
+                            <point lat="3582.33083435305" lon="1222.99966574973"/>
+                            <point lat="3582.33766744555" lon="1223.02683274133"/>
+                            <point lat="3582.33833300526" lon="1223.04366655867"/>
+                            <point lat="3582.33833300526" lon="1223.06716856143"/>
+                            <point lat="3582.33699977273" lon="1223.08116672455"/>
+                            <point lat="3582.33216758968" lon="1223.10466872731"/>
+                            <point lat="3582.32200031744" lon="1223.12249942161"/>
+                            <point lat="3582.3085009232" lon="1223.12816654151"/>
+                            <point lat="3582.29283356757" lon="1223.12249942161"/>
+                            <point lat="3582.28416628744" lon="1223.1085012585"/>
+                            <point lat="3582.27733301292" lon="1223.08600032126"/>
+                            <point lat="3582.27599973989" lon="1223.07366501595"/>
+                        </area>
+                    </danger>
+                    <danger name="Safety Contour">
+                        <prop name="plugin" value="NavCharts Check"/>
+                        <prop name="chart_name" value="FI4EIHM8"/>
+                        <area>
+                            <point lat="3581.9893339392" lon="1222.31149812408"/>
+                            <point lat="3581.98800047499" lon="1222.2909993179"/>
+                            <point lat="3581.98800047499" lon="1222.26933190384"/>
+                            <point lat="3581.99200086496" lon="1222.24399950094"/>
+                            <point lat="3582.00283336537" lon="1222.2214985637"/>
+                            <point lat="3582.0164996457" lon="1222.20850146611"/>
+                            <point lat="3582.0231668633" lon="1222.20566581189"/>
+                            <point lat="3582.0381664371" lon="1222.20850146611"/>
+                            <point lat="3582.04966645713" lon="1222.22066504052"/>
+                            <point lat="3582.05783392494" lon="1222.24216491223"/>
+                            <point lat="3582.0598329948" lon="1222.2543326752"/>
+                            <point lat="3582.06050075976" lon="1222.27316862359"/>
+                            <point lat="3582.06050075976" lon="1222.29749996097"/>
+                            <point lat="3582.05716615909" lon="1222.3256680181"/>
+                            <point lat="3582.04833303297" lon="1222.34349871241"/>
+                            <point lat="3582.03549957262" lon="1222.35566647538"/>
+                            <point lat="3582.02866756532" lon="1222.35750106408"/>
+                            <point lat="3582.0110010236" lon="1222.35466540985"/>
+                            <point lat="3581.99883299697" lon="1222.34150076992"/>
+                            <point lat="3581.99133307722" lon="1222.32283236388"/>
+                            <point lat="3581.9893339392" lon="1222.31149812408"/>
+                        </area>
+                    </danger>
+                    <danger name="Safety Contour">
+                        <prop name="plugin" value="NavCharts Check"/>
+                        <prop name="chart_name" value="FI4EIHM8"/>
+                        <area>
+                            <point lat="3581.40033422302" lon="1222.57866533956"/>
+                            <point lat="3581.39566678303" lon="1222.55616859089"/>
+                            <point lat="3581.39566678303" lon="1222.54400082792"/>
+                            <point lat="3581.39833238301" lon="1222.51216778194"/>
+                            <point lat="3581.40516653398" lon="1222.48316620163"/>
+                            <point lat="3581.41733392867" lon="1222.45966838743"/>
+                            <point lat="3581.42483387743" lon="1222.45599921003"/>
+                            <point lat="3581.44183337583" lon="1222.45033209013"/>
+                            <point lat="3581.45866573922" lon="1222.43250139582"/>
+                            <point lat="3581.4770008695" lon="1222.42116715603"/>
+                            <point lat="3581.48583228022" lon="1222.42116715603"/>
+                            <point lat="3581.49333408712" lon="1222.42783534145"/>
+                            <point lat="3581.49866713823" lon="1222.44850168999"/>
+                            <point lat="3581.5136664007" lon="1222.45599921003"/>
+                            <point lat="3581.52649896719" lon="1222.47649801621"/>
+                            <point lat="3581.529832335" lon="1222.50000001897"/>
+                            <point lat="3581.52916650738" lon="1222.52900159928"/>
+                            <point lat="3581.52516730952" lon="1222.55149834796"/>
+                            <point lat="3581.51500017975" lon="1222.56933323082"/>
+                            <point lat="3581.50000092724" lon="1222.57866533956"/>
+                            <point lat="3581.49183330522" lon="1222.57866533956"/>
+                            <point lat="3581.47366741405" lon="1222.57500035072"/>
+                            <point lat="3581.45733403659" lon="1222.57783181639"/>
+                            <point lat="3581.43833286914" lon="1222.58999957935"/>
+                            <point lat="3581.43016711033" lon="1222.59283523358"/>
+                            <point lat="3581.41266652816" lon="1222.59183416806"/>
+                            <point lat="3581.40033422302" lon="1222.57866533956"/>
+                        </area>
+                    </danger>
+                </wpt>
+                <wpt idx="66">
+                    <danger name="Dumping Ground">
+                        <prop name="plugin" value="NavCharts Check"/>
+                        <prop name="chart_name" value="EE4D1207"/>
+                        <area>
+                            <point lat="3582.61586918913" lon="1466.71580611107"/>
+                            <point lat="3582.30108212174" lon="1463.92918377486"/>
+                            <point lat="3582.48799949819" lon="1463.66649820055"/>
+                            <point lat="3582.99366770635" lon="1466.67766608965"/>
+                            <point lat="3582.66175548898" lon="1467.12203944698"/>
+                            <point lat="3582.61586918913" lon="1466.71580611107"/>
+                        </area>
+                    </danger>
+                </wpt>
+                <wpt idx="74">
+                    <danger name="Restricted Area">
+                        <prop name="plugin" value="NavCharts Check"/>
+                        <prop name="chart_name" value="FI4EIIQU"/>
+                        <area>
+                            <point lat="3610.75669652562" lon="1536.12018563964"/>
+                            <point lat="3610.74823164866" lon="1535.82984410447"/>
+                            <point lat="3612.13157168703" lon="1536.42589577819"/>
+                            <point lat="3612.21396415658" lon="1536.46141103073"/>
+                            <point lat="3612.22208355102" lon="1536.46596437695"/>
+                            <point lat="3612.22463691879" lon="1536.46809266354"/>
+                            <point lat="3612.23126681122" lon="1536.56459901351"/>
+                            <point lat="3612.10309336104" lon="1536.70050834273"/>
+                            <point lat="3612.10227589616" lon="1536.7001564547"/>
+                            <point lat="3610.75669652562" lon="1536.12018563964"/>
+                        </area>
+                    </danger>
+                </wpt>
+                <wpt idx="75">
+                    <danger name="Restricted Area">
+                        <prop name="plugin" value="NavCharts Check"/>
+                        <prop name="chart_name" value="FI4EIIQU"/>
+                        <area>
+                            <point lat="3612.12125009912" lon="1536.56499989333"/>
+                            <point lat="3612.11149765578" lon="1536.56080942157"/>
+                            <point lat="3612.11394051353" lon="1536.54258426253"/>
+                            <point lat="3612.1173191979" lon="1536.5249698605"/>
+                            <point lat="3612.12159365741" lon="1536.50816555979"/>
+                            <point lat="3612.12672173193" lon="1536.4923452565"/>
+                            <point lat="3612.13264229129" lon="1536.47769132946"/>
+                            <point lat="3612.13929420502" lon="1536.46436495065"/>
+                            <point lat="3612.14660369647" lon="1536.45250184387"/>
+                            <point lat="3612.15449066632" lon="1536.44224197425"/>
+                            <point lat="3612.16286658527" lon="1536.43369561738"/>
+                            <point lat="3612.17164292512" lon="1536.42695184199"/>
+                            <point lat="3612.18072062068" lon="1536.42208699269"/>
+                            <point lat="3612.19000271607" lon="1536.41916044865"/>
+                            <point lat="3612.19938593423" lon="1536.41819341671"/>
+                            <point lat="3612.20876700003" lon="1536.4192071037"/>
+                            <point lat="3612.21804896318" lon="1536.42218454416"/>
+                            <point lat="3612.22035258622" lon="1536.42262140508"/>
+                            <point lat="3612.22264145328" lon="1536.42198519985"/>
+                            <point lat="3612.22484601333" lon="1536.42025472164"/>
+                            <point lat="3612.37770494531" lon="1536.25814114727"/>
+                            <point lat="3612.38239400519" lon="1536.63836708001"/>
+                            <point lat="3612.30398934848" lon="1536.72150637897"/>
+                            <point lat="3612.29150012117" lon="1536.73354338185"/>
+                            <point lat="3612.27854083074" lon="1536.74364632084"/>
+                            <point lat="3612.26523159913" lon="1536.751700679"/>
+                            <point lat="3612.25165250731" lon="1536.75765980128"/>
+                            <point lat="3612.23788363828" lon="1536.76149399811"/>
+                            <point lat="3612.22400929246" lon="1536.76317782128"/>
+                            <point lat="3612.21011166498" lon="1536.76269854668"/>
+                            <point lat="3612.19627295329" lon="1536.7600561743"/>
+                            <point lat="3612.18257746479" lon="1536.75527615237"/>
+                            <point lat="3612.17395081779" lon="1536.75053854412"/>
+                            <point lat="3612.16563817617" lon="1536.74388383745"/>
+                            <point lat="3612.1577491433" lon="1536.73540534247"/>
+                            <point lat="3612.15038278564" lon="1536.72520485201"/>
+                            <point lat="3612.14362973999" lon="1536.71340960712"/>
+                            <point lat="3612.13757642843" lon="1536.70017229705"/>
+                            <point lat="3612.13230084264" lon="1536.68565409379"/>
+                            <point lat="3612.12786622023" lon="1536.67004585891"/>
+                            <point lat="3612.12432947524" lon="1536.6535342126"/>
+                            <point lat="3612.1217348746" lon="1536.63633122329"/>
+                            <point lat="3612.12011614558" lon="1536.61865320074"/>
+                            <point lat="3612.11949226008" lon="1536.60072069609"/>
+                            <point lat="3612.11987164994" lon="1536.58276274324"/>
+                            <point lat="3612.12125009912" lon="1536.56499989333"/>
+                        </area>
+                    </danger>
+                </wpt>
+                <wpt idx="79">
+                    <danger name="Restricted Area">
+                        <prop name="plugin" value="NavCharts Check"/>
+                        <prop name="chart_name" value="FI5A010A"/>
+                        <area>
+                            <point lat="3618.72383384436" lon="1533.7388337004"/>
+                            <point lat="3618.642570588" lon="1533.5944032018"/>
+                            <point lat="3618.66003436498" lon="1533.55646521714"/>
+                            <point lat="3618.66070402076" lon="1533.55501113322"/>
+                            <point lat="3618.66124732622" lon="1533.55598902591"/>
+                            <point lat="3618.74186755512" lon="1533.70679708553"/>
+                            <point lat="3618.72383384436" lon="1533.7388337004"/>
+                        </area>
+                    </danger>
+                    <danger name="Prohibited Area">
+                        <prop name="plugin" value="NavCharts Check"/>
+                        <prop name="chart_name" value="FI5A010A"/>
+                        <area>
+                            <point lat="3618.72383384436" lon="1533.7388337004"/>
+                            <point lat="3618.642570588" lon="1533.5944032018"/>
+                            <point lat="3618.66003436498" lon="1533.55646521714"/>
+                            <point lat="3618.66070402076" lon="1533.55501113322"/>
+                            <point lat="3618.66124732622" lon="1533.55598902591"/>
+                            <point lat="3618.74186755512" lon="1533.70679708553"/>
+                            <point lat="3618.72383384436" lon="1533.7388337004"/>
+                        </area>
+                    </danger>
+                </wpt>
+                <wpt idx="80">
+                    <danger name="Restricted Area">
+                        <prop name="plugin" value="NavCharts Check"/>
+                        <prop name="chart_name" value="FI5A010A"/>
+                        <area>
+                            <point lat="3618.67754348827" lon="1533.62936628912"/>
+                            <point lat="3618.67737501859" lon="1533.62036944752"/>
+                            <point lat="3618.67820473162" lon="1533.61152141946"/>
+                            <point lat="3618.67999050873" lon="1533.60326864558"/>
+                            <point lat="3618.68264179509" lon="1533.59602355196"/>
+                            <point lat="3618.6834357062" lon="1533.59422928582"/>
+                            <point lat="3618.80305569269" lon="1533.31280161785"/>
+                            <point lat="3618.82648607761" lon="1533.35327039778"/>
+                            <point lat="3618.82266631437" lon="1533.40283381107"/>
+                            <point lat="3618.80900017654" lon="1533.58883373195"/>
+                            <point lat="3618.75216570897" lon="1533.6885005391"/>
+                            <point lat="3618.72383419579" lon="1533.73883353099"/>
+                            <point lat="3618.6799926146" lon="1533.66091050832"/>
+                            <point lat="3618.68370315098" lon="1533.65284481431"/>
+                            <point lat="3618.68078863264" lon="1533.64602065043"/>
+                            <point lat="3618.67869961105" lon="1533.63806125182"/>
+                            <point lat="3618.67754348827" lon="1533.62936628912"/>
+                        </area>
+                    </danger>
+                    <danger name="Prohibited Area">
+                        <prop name="plugin" value="NavCharts Check"/>
+                        <prop name="chart_name" value="FI5A010A"/>
+                        <area>
+                            <point lat="3618.67754348827" lon="1533.62936628912"/>
+                            <point lat="3618.67737501859" lon="1533.62036944752"/>
+                            <point lat="3618.67820473162" lon="1533.61152141946"/>
+                            <point lat="3618.67999050873" lon="1533.60326864558"/>
+                            <point lat="3618.68264179509" lon="1533.59602355196"/>
+                            <point lat="3618.6834357062" lon="1533.59422928582"/>
+                            <point lat="3618.80305569269" lon="1533.31280161785"/>
+                            <point lat="3618.82648607761" lon="1533.35327039778"/>
+                            <point lat="3618.82266631437" lon="1533.40283381107"/>
+                            <point lat="3618.80900017654" lon="1533.58883373195"/>
+                            <point lat="3618.75216570897" lon="1533.6885005391"/>
+                            <point lat="3618.72383419579" lon="1533.73883353099"/>
+                            <point lat="3618.6799926146" lon="1533.66091050832"/>
+                            <point lat="3618.68370315098" lon="1533.65284481431"/>
+                            <point lat="3618.68078863264" lon="1533.64602065043"/>
+                            <point lat="3618.67869961105" lon="1533.63806125182"/>
+                            <point lat="3618.67754348827" lon="1533.62936628912"/>
+                        </area>
+                    </danger>
+                </wpt>
+            </route_check>
+            <geometry_check check_time="2024-10-07T12:39:45Z" success="true"/>
+        </extension>
+        <extension name="checklist" manufacturer="Transas" version="1.0.0">
+            <activity ref_id="10" name="Change Safety Parameters - Coastal waters" time="3" state="1"/>
+            <activity ref_id="10" name="Secure anchors / Prepare for sea passage" time="5" state="1"/>
+        </extension>
+        <extension name="dangers" manufacturer="Transas" version="1.0.0">
+            <danger ref_id="9" type="reppoint" name="8" text="Communication channel: [16]
+Information: General call. See Nautical Publication Information"/>
+            <danger ref_id="9" type="reppoint" name="8" text="Communication channel: [16]
+Information: General call. See Nautical Publication Information"/>
+            <danger ref_id="17" type="reppoint" name="" text="Communication channel: [67]
+Information: For further information see Administration Area"/>
+            <danger ref_id="17" type="reppoint" name="" text="Communication channel: [67]
+Information: For further information see Administration Area"/>
+            <danger ref_id="17" type="reppoint" name="" text="Communication channel: [67]
+Information: For further information see Administration Area"/>
+            <danger ref_id="17" type="reppoint" name="" text="Communication channel: [09]
+Information: West Coast VTS, VHF 09. See www.fintraffic.fi/en &gt; Maritime Traffic"/>
+            <danger ref_id="17" type="reppoint" name="" text="Communication channel: [09]
+Information: West Coast VTS, VHF 09. See www.fintraffic.fi/en &gt; Maritime Traffic"/>
+            <danger ref_id="17" type="reppoint" name="" text="Communication channel: [09]
+Information: West Coast VTS, VHF 09. See www.fintraffic.fi/en &gt; Maritime Traffic"/>
+            <danger ref_id="17" type="reppoint" name="" text="Communication channel: [09]
+Information: West Coast VTS, VHF 09. See www.fintraffic.fi/en &gt; Maritime Traffic"/>
+            <danger ref_id="18" type="reppoint" name="Reporting Wintertime" text="Communication channel: [67]
+Information: Vessels bound for ports with traffic restrictions in the Quark or Bay of Bothnia shall, 20nm before Nordvalen Lighthouse, report in accordance with the Instructions for winter navigation to Bothnia VTS on VHF ch 67."/>
+            <danger ref_id="25" type="reppoint" name="Reporting wintertime 60N" text="Communication channel: [82]
+Information: Vessels bound for Gulf of Bothnia ports in which traffic restrictions apply shall, when passing latitude 60-00N, report their nationality, name, port of destination, ETA and speed to ICE INFO on VHF channel 82 or by phone +46 (0)10 492 76 00."/>
+            <danger ref_id="25" type="reppoint" name="Reporting wintertime 60N" text="Communication channel: [82]
+Information: Vessels bound for Gulf of Bothnia ports in which traffic restrictions apply shall, when passing latitude 60-00N, report their nationality, name, port of destination, ETA and speed to ICE INFO on VHF channel 82 or by phone +46 (0)10 492 76 00."/>
+            <danger ref_id="25" type="reppoint" name="Reporting wintertime 60N" text="Communication channel: [82]
+Information: Vessels bound for Gulf of Bothnia ports in which traffic restrictions apply shall, when passing latitude 60-00N, report their nationality, name, port of destination, ETA and speed to ICE INFO on VHF channel 82 or by phone +46 (0)10 492 76 00."/>
+            <danger ref_id="25" type="reppoint" name="Reporting wintertime 60N" text="Communication channel: [82]
+Information: Vessels bound for Gulf of Bothnia ports in which traffic restrictions apply shall, when passing latitude 60-00N, report their nationality, name, port of destination, ETA and speed to ICE INFO on VHF channel 82 or by phone +46 (0)10 492 76 00."/>
+            <danger ref_id="25" type="reppoint" name="Reporting wintertime 60N" text="Communication channel: [82]
+Information: Vessels bound for Gulf of Bothnia ports in which traffic restrictions apply shall, when passing latitude 60-00N, report their nationality, name, port of destination, ETA and speed to ICE INFO on VHF channel 82 or by phone +46 (0)10 492 76 00."/>
+            <danger ref_id="25" type="reppoint" name="Reporting wintertime 60N" text="Communication channel: [82]
+Information: Vessels bound for Gulf of Bothnia ports in which traffic restrictions apply shall, when passing latitude 60-00N, report their nationality, name, port of destination, ETA and speed to ICE INFO on VHF channel 82 or by phone +46 (0)10 492 76 00."/>
+            <danger ref_id="40" type="reppoint" name="8" text="Communication channel: [16]
+Information: General call. See Nautical Publication Information"/>
+            <danger ref_id="40" type="reppoint" name="8" text="Communication channel: [16]
+Information: General call. See Nautical Publication Information"/>
+            <danger ref_id="41" type="reppoint" name="8" text="Communication channel: [16]
+Information: General call. See Nautical Publication Information"/>
+            <danger ref_id="41" type="reppoint" name="Karlshamn East" text=""/>
+            <danger ref_id="41" type="reppoint" name="Karlshamn East" text=""/>
+            <danger ref_id="41" type="reppoint" name="Karlshamn East" text=""/>
+            <danger ref_id="41" type="reppoint" name="Karlshamn East" text=""/>
+            <danger ref_id="8" type="area" text="Military practice area"/>
+            <danger ref_id="8" type="area" text="Military practice area"/>
+            <danger ref_id="8" type="area" text="Military practice area"/>
+            <danger ref_id="9" type="area" text="Military practice area"/>
+            <danger ref_id="9" type="area" text="Military practice area"/>
+            <danger ref_id="9" type="area" text="Military practice area"/>
+            <danger ref_id="9" type="area" text="Military practice area"/>
+            <danger ref_id="9" type="area" text="Military practice area"/>
+            <danger ref_id="14" type="area" text="Traffic separation zone"/>
+            <danger ref_id="14" type="area" text="Traffic separation zone"/>
+            <danger ref_id="14" type="area" text="Traffic separation zone"/>
+            <danger ref_id="14" type="area" text="Traffic separation zone"/>
+            <danger ref_id="15" type="area" text="Traffic separation zone"/>
+            <danger ref_id="15" type="area" text="Traffic separation zone"/>
+            <danger ref_id="15" type="area" text="Traffic separation zone"/>
+            <danger ref_id="15" type="area" text="Traffic separation zone"/>
+            <danger ref_id="15" type="area" text="Traffic separation zone"/>
+            <danger ref_id="15" type="area" text="Traffic separation zone"/>
+            <danger ref_id="15" type="area" text="Traffic separation zone"/>
+            <danger ref_id="15" type="area" text="Traffic separation zone"/>
+            <danger ref_id="16" type="area" text="Traffic separation zone"/>
+            <danger ref_id="16" type="area" text="Traffic separation zone"/>
+            <danger ref_id="16" type="area" text="Traffic separation zone"/>
+            <danger ref_id="16" type="area" text="Traffic separation zone"/>
+            <danger ref_id="23" type="area" text="Traffic separation zone"/>
+            <danger ref_id="23" type="area" text="Traffic separation zone"/>
+            <danger ref_id="23" type="area" text="Traffic separation zone"/>
+            <danger ref_id="23" type="area" text="Traffic separation zone"/>
+            <danger ref_id="24" type="area" text="Military practice area"/>
+            <danger ref_id="24" type="area" text="Military practice area"/>
+            <danger ref_id="24" type="area" text="Military practice area"/>
+            <danger ref_id="24" type="area" text="Military practice area"/>
+            <danger ref_id="24" type="area" text="Military practice area"/>
+            <danger ref_id="25" type="area" text="Restricted area"/>
+            <danger ref_id="25" type="area" text="Restricted area"/>
+            <danger ref_id="25" type="area" text="Restricted area"/>
+            <danger ref_id="25" type="area" text="Restricted area"/>
+            <danger ref_id="25" type="area" text="Military practice area"/>
+            <danger ref_id="25" type="area" text="Military practice area"/>
+            <danger ref_id="25" type="area" text="Military practice area"/>
+            <danger ref_id="25" type="area" text="Military practice area"/>
+            <danger ref_id="25" type="area" text="Military practice area"/>
+            <danger ref_id="25" type="area" text="Military practice area"/>
+            <danger ref_id="27" type="area" text="Traffic separation zone"/>
+            <danger ref_id="27" type="area" text="Traffic separation zone"/>
+            <danger ref_id="27" type="area" text="Traffic separation zone"/>
+            <danger ref_id="27" type="area" text="Traffic separation zone"/>
+            <danger ref_id="33" type="area" text="Military practice area"/>
+            <danger ref_id="33" type="area" text="Military practice area"/>
+            <danger ref_id="34" type="area" text="Traffic separation zone"/>
+            <danger ref_id="34" type="area" text="Traffic separation zone"/>
+            <danger ref_id="34" type="area" text="Traffic separation zone"/>
+            <danger ref_id="34" type="area" text="Traffic separation zone"/>
+            <danger ref_id="35" type="area" text="Traffic separation zone"/>
+            <danger ref_id="35" type="area" text="Restricted area"/>
+            <danger ref_id="35" type="area" text="Restricted area"/>
+            <danger ref_id="35" type="area" text="Restricted area"/>
+            <danger ref_id="35" type="area" text="Restricted area"/>
+            <danger ref_id="37" type="area" text="Traffic separation zone"/>
+            <danger ref_id="37" type="area" text="Traffic separation zone"/>
+            <danger ref_id="37" type="area" text="Traffic separation zone"/>
+            <danger ref_id="37" type="area" text="Inshore traffic zone"/>
+            <danger ref_id="37" type="area" text="Inshore traffic zone"/>
+            <danger ref_id="38" type="area" text="Inshore traffic zone"/>
+            <danger ref_id="38" type="area" text="Inshore traffic zone"/>
+            <danger ref_id="38" type="area" text="Inshore traffic zone"/>
+            <danger ref_id="38" type="area" text="Restricted area"/>
+            <danger ref_id="38" type="area" text="Restricted area"/>
+            <danger ref_id="39" type="area" text="Restricted area"/>
+            <danger ref_id="39" type="area" text="Restricted area"/>
+            <danger ref_id="39" type="area" text="Military practice area"/>
+            <danger ref_id="39" type="area" text="Military practice area"/>
+            <danger ref_id="39" type="area" text="Military practice area"/>
+            <danger ref_id="39" type="area" text="Military practice area"/>
+            <danger ref_id="40" type="area" text="Anchorage area"/>
+            <danger ref_id="40" type="area" text="Anchorage area"/>
+            <danger ref_id="43" type="area" text="Restricted area"/>
+            <danger ref_id="43" type="area" text="Restricted area"/>
+            <danger ref_id="43" type="area" text="Caution area"/>
+            <danger ref_id="43" type="area" text="Caution area"/>
+            <danger ref_id="44" type="area" text="Restricted area"/>
+            <danger ref_id="44" type="area" text="Restricted area"/>
+            <danger ref_id="44" type="area" text="Caution area"/>
+            <danger ref_id="44" type="area" text="Caution area"/>
+        </extension>
+        <extension name="e-publications" manufacturer="Transas" version="1.0.0">
+            <item name="e-NP20 Baltic Pilot Vol 3" edition="14/2019" update_info="28-02-2021" chart_status="ok"/>
+        </extension>
+        <extension name="enc_charts" manufacturer="Transas" version="1.0.0">
+            <item name="FI29ARCW" issue_date="45440.0423726852" correction_date="45469.0423726852" format="SENC" edition="7" update_info="1" update_to="WK41-24" chart_status="ok"/>
+            <item name="FI29NBAL" issue_date="43241.0423726852" correction_date="45517.0423726852" format="SENC" edition="8" update_info="24" update_to="WK41-24" chart_status="ok"/>
+            <item name="FI29SOBS" issue_date="42803.0423726852" correction_date="45544.0423726852" format="SENC" edition="5" update_info="54" update_to="WK41-24" chart_status="ok"/>
+            <item name="FI39BOBS" issue_date="45399.0423726852" correction_date="45461.0423726852" format="SENC" edition="7" update_info="4" update_to="WK41-24" chart_status="ok"/>
+            <item name="FI39SOBN" issue_date="45271.0423726852" correction_date="45341.0423726852" format="SENC" edition="1" update_info="1" update_to="WK41-24" chart_status="ok"/>
+            <item name="FI3ALNDS" issue_date="43251.0423726852" correction_date="45485.0423726852" format="SENC" edition="4" update_info="25" update_to="WK41-24" chart_status="ok"/>
+            <item name="FI4EIHM6" issue_date="42382.0423726852" correction_date="45469.0423726852" format="SENC" edition="4" update_info="14" update_to="WK41-24" chart_status="ok"/>
+            <item name="FI4EIIQ5" issue_date="43606.0423726852" correction_date="45440.0423726852" format="SENC" edition="7" update_info="9" update_to="WK41-24" chart_status="ok"/>
+            <item name="FI4EITU9" issue_date="44897.0423726852" format="SENC" edition="4" update_to="WK41-24" chart_status="ok"/>
+            <item name="FI4EIX6A" issue_date="44862.0423726852" correction_date="45432.0423726852" format="SENC" edition="8" update_info="8" update_to="WK41-24" chart_status="ok"/>
+            <item name="DE110000" issue_date="45126.0423726852" correction_date="45350.0423726852" format="SENC" edition="9" update_info="1" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE2BHS1C" issue_date="45559.0423726852" format="SENC" edition="78" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE2BHS1S" issue_date="45504.0423726852" correction_date="45565.0423726852" format="SENC" edition="76" update_info="3" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE2BI9TS" issue_date="45520.0423726852" correction_date="45558.0423726852" format="SENC" edition="103" update_info="2" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE2BI9U8" issue_date="45330.0423726852" format="SENC" edition="28" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE2BIRM8" issue_date="45404.0423726852" correction_date="45544.0423726852" format="SENC" edition="41" update_info="1" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE300004" issue_date="45154.0423726852" correction_date="45544.0423726852" format="SENC" edition="29" update_info="7" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE300005" issue_date="45468.0423726852" correction_date="45558.0423726852" format="SENC" edition="43" update_info="1" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE300006" issue_date="45222.0423726852" correction_date="45252.0423726852" format="SENC" edition="21" update_info="2" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE300007" issue_date="45359.0423726852" format="SENC" edition="41" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE300008" issue_date="45520.0423726852" correction_date="45527.0423726852" format="SENC" edition="41" update_info="1" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE300009" issue_date="45013.0423726852" correction_date="45544.0423726852" format="SENC" edition="36" update_info="6" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE300010" issue_date="44935.0423726852" correction_date="45538.0423726852" format="SENC" edition="30" update_info="3" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE300011" issue_date="44929.0423726852" correction_date="45538.0423726852" format="SENC" edition="41" update_info="7" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE3CHWHO" issue_date="45463.0423726852" correction_date="45534.0423726852" format="SENC" edition="39" update_info="1" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE3CHWHS" issue_date="45463.0423726852" correction_date="45534.0423726852" format="SENC" edition="42" update_info="1" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE3CI0XS" issue_date="45558.0423726852" format="SENC" edition="48" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE3CI0XW" issue_date="45260.0423726852" correction_date="45534.0423726852" format="SENC" edition="36" update_info="2" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE3CIEA8" issue_date="44111.0423726852" format="SENC" edition="14" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE3CIN64" issue_date="44735.0423726852" format="SENC" edition="8" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE3CIW2C" issue_date="45226.0423726852" correction_date="45415.0423726852" format="SENC" edition="15" update_info="2" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE3CJ0IC" issue_date="45384.0423726852" format="SENC" edition="25" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE3CJ4YC" issue_date="45335.0423726852" correction_date="45489.0423726852" format="SENC" edition="19" update_info="1" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE3DI0XM" issue_date="45187.0423726852" correction_date="45455.0423726852" format="SENC" edition="17" update_info="1" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE3DI0XO" issue_date="45187.0423726852" correction_date="45455.0423726852" format="SENC" edition="20" update_info="1" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE4CHWHO" issue_date="45460.0423726852" correction_date="45533.0423726852" format="SENC" edition="31" update_info="1" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE4CHWHS" issue_date="45460.0423726852" correction_date="45533.0423726852" format="SENC" edition="33" update_info="1" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE4CI0XK" issue_date="45348.0423726852" correction_date="45558.0423726852" format="SENC" edition="61" update_info="3" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE4CI5DW" issue_date="44917.0423726852" correction_date="45538.0423726852" format="SENC" edition="34" update_info="5" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE4CI5E0" issue_date="45443.0423726852" correction_date="45538.0423726852" format="SENC" edition="47" update_info="3" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE4CI9U4" issue_date="44854.0423726852" correction_date="45527.0423726852" format="SENC" edition="14" update_info="1" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE4CJ4YC" issue_date="45385.0423726852" correction_date="45489.0423726852" format="SENC" edition="44" update_info="2" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE4DI0XO" issue_date="45187.0423726852" correction_date="45551.0423726852" format="SENC" edition="60" update_info="7" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE4DI9U0" issue_date="44911.0423726852" format="SENC" edition="10" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE4DI9U2" issue_date="44910.0423726852" correction_date="45527.0423726852" format="SENC" edition="9" update_info="1" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE4DIIQ4" issue_date="45226.0423726852" format="SENC" edition="26" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE4DIKY2" issue_date="44966.0423726852" correction_date="45219.0423726852" format="SENC" edition="20" update_info="1" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE4DIW28" issue_date="45208.0423726852" format="SENC" edition="20" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE4DIW2A" issue_date="45208.0423726852" correction_date="45415.0423726852" format="SENC" edition="27" update_info="2" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE4DIYAA" issue_date="45154.0423726852" correction_date="45551.0423726852" format="SENC" edition="38" update_info="6" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE4DIYAC" issue_date="44853.0423726852" correction_date="45415.0423726852" format="SENC" edition="21" update_info="5" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE4DJ0IC" issue_date="44902.0423726852" format="SENC" edition="8" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE4DJ0IE" issue_date="44613.0423726852" format="SENC" edition="6" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE4DJ2QE" issue_date="44844.0423726852" format="SENC" edition="11" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE4EI0XS" issue_date="45468.0423726852" correction_date="45533.0423726852" format="SENC" edition="22" update_info="1" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE4EI0XT" issue_date="45504.0423726852" format="SENC" edition="25" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE4EI0XU" issue_date="45240.0423726852" correction_date="45336.0423726852" format="SENC" edition="13" update_info="1" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE4EIEA5" issue_date="44799.0423726852" correction_date="45544.0423726852" format="SENC" edition="12" update_info="1" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE4EIEA6" issue_date="44799.0423726852" format="SENC" edition="11" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE4EIFE6" issue_date="44799.0423726852" correction_date="45091.0423726852" format="SENC" edition="20" update_info="2" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE4EIFE7" issue_date="44564.0423726852" format="SENC" edition="9" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE4EIFE8" issue_date="44564.0423726852" format="SENC" edition="10" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE4EIGI6" issue_date="44677.0423726852" correction_date="45244.0423726852" format="SENC" edition="26" update_info="1" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE4EIGI7" issue_date="44564.0423726852" correction_date="45544.0423726852" format="SENC" edition="16" update_info="2" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE4EIGI8" issue_date="44564.0423726852" format="SENC" edition="10" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE4EIHM4" issue_date="45359.0423726852" format="SENC" edition="68" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE4EIHM5" issue_date="44600.0423726852" correction_date="45103.0423726852" format="SENC" edition="39" update_info="2" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE4EIHM6" issue_date="44497.0423726852" format="SENC" edition="18" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE4EIIQ3" issue_date="45103.0423726852" correction_date="45524.0423726852" format="SENC" edition="44" update_info="5" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE4EIJU3" issue_date="44966.0423726852" correction_date="45252.0423726852" format="SENC" edition="34" update_info="2" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE5CJ4YC" issue_date="45335.0423726852" correction_date="45352.0423726852" format="SENC" edition="28" update_info="1" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE6HI0XN" issue_date="45349.0423726852" correction_date="45484.0423726852" format="SENC" edition="34" update_info="1" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE6II0XN" issue_date="44208.0423726852" correction_date="45103.0423726852" format="SENC" edition="16" update_info="3" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE6OI0XN" issue_date="44210.0423726852" correction_date="45558.0423726852" format="SENC" edition="14" update_info="1" update_to="WK41-24" chart_status="ok"/>
+            <item name="SE6PI0XN" issue_date="44210.0423726852" format="SENC" edition="13" update_to="WK41-24" chart_status="ok"/>
+        </extension>
+        <extension name="marpol_areas" manufacturer="Transas" version="1.0.0">
+            <area name="Oil and oily waters from cargo spaces (Baltic Sea)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution from cargo spaces by oil or oil waters is required" legs="0-42"/>
+            <area name="Oil and oily waters from machinery spaces (Baltic Sea)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution from mashinery spaces by oil or oil waters is required" legs="0-42"/>
+            <area name="Not comminuted or disinfected sewage (Baltic Sea)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution by Not comminuted or disinfected sewage is required" legs="0-42"/>
+            <area name="Comminuted and disinfected sewage (Baltic Sea)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution by comminuted and disinfected sewage is required" legs="0-42"/>
+            <area name="Food waste comminuted or ground (12 nautical mile zone)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution by food waste comminuted or ground is required" legs="0-42"/>
+            <area name="Food waste not comminuted or ground (Baltic Sea)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution by food waste not comminuted or ground is required" legs="0-42"/>
+            <area name="Cargo residues not contained in wash water (Baltic Sea)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution by cargo residues not contained in wash water is required" legs="0-42"/>
+            <area name="Cargo residues contained in wash water (12 nautical mile zone)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution by cargo residues contained in wash water is required" legs="0-42"/>
+            <area name="Cleaning agents and additives contained in cargo hold wash water (12 nautical mile zone)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution by cleaning agents and additives contained in cargo hold wash water is required" legs="0-42"/>
+            <area name="Carcasses of animals carried on board as cargo and which died during the voyage (Baltic Sea)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution by carcasses of animals carried on board as cargo and which died during the voyage is required" legs="0-42"/>
+            <area name="Sulphur Oxides (Baltic Sea - Emission Control Area)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution by sulphur oxides is required" legs="0-42"/>
+            <area name="Nitrogen Oxides (Baltic Sea - Emission Control Area)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution by nitrous oxides is required" legs="0-42"/>
+            <area name="Particularly sensitive sea areas (Baltic Sea Area)" info="Particularly Sensitive Sea Areas. Areas of the marine environment that needs special protection through action by the International Maritime Organization (IMO)" legs="0-42"/>
+            <area name="Noxious liquid substances (12 nautical mile zone)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution by noxious liquid substances in bulk is required" legs="0-42"/>
+            <area name="Sulphur Oxides (KARLSHAMN)" info="The EU Directive establishes 0.1% maximum sulphur requirement for fuels used by ships at berth, meaning securely moored or anchored in EU ports" legs="39-42"/>
+        </extension>
+        <extension name="nav_areas" manufacturer="Transas" version="1.0.0">
+            <navarea id="US-NIV-766-2022" area="NORTH ATLANTIC" title="NAVAREA IV 766. ICEBERG BULLETIN 050001Z AUG" category="iceberg outside advertised limits"/>
+            <navarea danger="yes" id="US-NIV-772-2022" area="NORTH ATLANTIC" title="NAVAREA IV 772. NAVAREA IV WARNINGS IN FORCE AS OF 051344Z AUG" category="in-force bulletin"/>
+            <navarea danger="yes" id="FR-NII-243-2022" area="IROISE. IROISE - NAVTEX STATION" title="NAVAREA II 243. NAVTEX STATION CORSEN UNAVAILABLE" category="NAVTEX"/>
+            <navarea danger="yes" id="GB-NI-108-2022" area="NORTH SEA. Aberdeen to Rotterdam" title="NAVAREA I 108. Towing floating turbine 
+Affected charts: GB 4140 (INT 140)" category="unwieldy tow"/>
+            <navarea id="NO-NXIX-99-2022" area="" title="NAVAREA XIX 99. NAVAREA XIX WARNINGS INFORCE AT 291830 UTC JUL 22" category="in-force bulletin"/>
+            <navarea id="FR-NII-242-2022" area="" title="NAVAREA II 242. NAVAREA II WARNINGS IN FORCE" category="in-force bulletin"/>
+            <navarea id="GB-NI-105-2022" area="" title="NAVAREA I 105. NAVAREA I WARNINGS IN FORCE" category="in-force bulletin"/>
+            <navarea id="GB-NI-106-2022" area="" title="NAVAREA I 106. RIGLIST. Correct at 010500 UTC Aug 22" category="offshore structures"/>
+            <navarea danger="yes" id="GB-NI-104-2022" area="NORWEGIAN SEA. Floro Westwards" title="NAVAREA I 104. Seismic survey in progress 
+Affected charts: GB 2182D (INT 1040)" category="seismic surveys"/>
+            <navarea danger="yes" id="GB-NI-101-2022" area="NORTH SEA, UK SECTOR. Cawdor Oil Field North-westwards" title="NAVAREA I 101. Safety Zone 
+Affected charts: GB 272" category="offshore structures"/>
+            <navarea danger="yes" id="GB-NI-100-2022" area="NORTH SEA, UK SECTOR. Thames Gas Field" title="NAVAREA I 100. Safety Zone 
+Affected charts: GB 1503 (INT 1509)" category="offshore structures"/>
+            <navarea danger="yes" id="US-NIV-652-2022" area="NORTH ATLANTIC" title="NAVAREA IV 652. CABLE OPERATIONS" category="cable laying operations"/>
+            <navarea id="NO-NXIX-88-2022" area="NORWEGIAN SEA" title="NAVAREA XIX 88. SEISMIC SURVEY" category="seismic surveys"/>
+            <navarea danger="yes" id="GB-NI-87-2022" area="NORTH SEA. Long Forties Eastwards.  Culzean Gas Field." title="NAVAREA I 87. Seismic survey in progress 
+Affected charts: GB 2182B (INT 1042)" category="seismic surveys"/>
+            <navarea danger="yes" id="GB-NI-75-2022" area="NORTH SEA, NORWEGIAN SECTOR. Bergen Bank" title="NAVAREA I 75. Seismic survey in progress 
+Affected charts: GB 294" category="seismic surveys"/>
+            <navarea danger="yes" id="GB-NI-68-2022" area="â€‹SCOTLAND EAST COAST. Moray Firth" title="NAVAREA I 68. Buoys permanently discontinued 
+Affected charts: GB 115 (INT 1503)" category="buoys"/>
+            <navarea danger="yes" id="GB-NI-59-2022" area="NORTH SEA, NORWEGIAN SECTOR. Floro Westwards to Bergen Bank" title="NAVAREA I 59. Seismic survey in progress 
+Affected charts: GB 4140 (INT 140)" category="seismic surveys"/>
+            <navarea danger="yes" id="US-NIV-362-2022" area="EASTERN CARIBBEAN SEA. MARTINIQUE" title="NAVAREA IV 362. MEASURES TO COMBAT COVID-19" category="regulations"/>
+            <navarea danger="yes" id="GB-NI-31-2021" area="" title="NAVAREA I 31. NOTIFICATION OF INITIAL OPERATIONAL CAPABILITY OF IRIDIUM SAFETYCAST SERVICES" category="acoustic recorder"/>
+        </extension>
+        <extension name="overhead" manufacturer="Transas" version="1.0.0">
+            <overhead ref_id="2" air_draught="34" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="3" air_draught="34" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="4" air_draught="34" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="5" air_draught="34" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="6" air_draught="34" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="7" air_draught="34" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="8" air_draught="34" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="9" air_draught="34" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="12" air_draught="34" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="13" air_draught="34" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="14" air_draught="34" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="15" air_draught="34" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="16" air_draught="34" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="17" air_draught="34" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="18" air_draught="34" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="19" air_draught="34" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="20" air_draught="34" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="21" air_draught="34" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="22" air_draught="34" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="23" air_draught="34" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="24" air_draught="34" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="25" air_draught="34" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="26" air_draught="34" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="27" air_draught="34" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="28" air_draught="34" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="29" air_draught="34" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="30" air_draught="34" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="31" air_draught="34" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="32" air_draught="34" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="33" air_draught="34" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="34" air_draught="34" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="35" air_draught="34" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="36" air_draught="34" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="37" air_draught="34" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="38" air_draught="34" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="39" air_draught="34" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="40" air_draught="34" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="41" air_draught="34" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="43" air_draught="34" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="44" air_draught="34" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="45" air_draught="34" overhead="0" overhead_status="no_object"/>
+        </extension>
+        <extension name="port_data" manufacturer="Transas" version="1.0.0">
+            <item name="Tromso" country="Norway" type="Port" cargotype="Oil, General/Dry" from="0" to="1"/>
+            <item name="Harstad" country="Norway" type="Port" cargotype="Oil, General/Dry" from="54" to="55"/>
+            <item name="Bodo" country="Norway" type="Port" cargotype="Oil, General/Dry" from="90" to="91"/>
+        </extension>
+        <extension name="portcdm_services" manufacturer="Transas" version="1.0.0">
+            <waypoint name="departure" amss="" broker="" vis_connector=""/>
+            <waypoint name="arrival" amss="" broker="" vis_connector=""/>
+        </extension>
+        <extension name="publications" manufacturer="Transas" version="1.0.0">
+            <item name="ADLL Area 1-2 Northern Europe and The Baltic" update_to="32/2020" last_expires="28-02-21" chart_status="ok"/>
+            <item name="ADRS1345 Area 1 - UK, Europe, Africa and parts of Asia" update_to="32/2020" last_expires="28-02-21" chart_status="ok"/>
+            <item name="ADRS2 Area 1 - UK, Europe, Africa and parts of Asia" update_to="32/2020" last_expires="28-02-21" chart_status="ok"/>
+            <item name="ADRS6 Area 3 - Baltic and Northern Waters" update_to="32/2020" last_expires="28-02-21" chart_status="ok"/>
+            <item name="ATT Area 1-4 - Europe, Northern Waters and Mediterranean" update_to="32/2020" last_expires="28-02-21" chart_status="ok"/>
+        </extension>
+        <extension name="refpoints" manufacturer="Transas" version="1.0.0">
+            <refpoint ref_id="288" name="Kyrönkari  alempi" lat="3900.72433333333" lon="1520.21566666667"/>
+            <refpoint ref_id="287" name="Kyrönkari  alempi" lat="3900.72433333333" lon="1520.21566666667"/>
+            <refpoint ref_id="284" name="Pikku Kraaseli N Pt" lat="3901.53523412473" lon="1516.81797651804"/>
+            <refpoint ref_id="283" name="Antinletto" lat="3905.00430069029" lon="1512.96690341844"/>
+            <refpoint ref_id="281" name="Santosenkari  purjehdusmerkki" lat="3905.32783333333" lon="1505.03283333333"/>
+            <refpoint ref_id="280" name="Löyhänmutka" lat="3906.78066666667" lon="1506.48616666667"/>
+            <refpoint ref_id="279" name="Löyhänmutka" lat="3906.78066666667" lon="1506.48533333333"/>
+            <refpoint ref_id="277" name="Kattilankallan" lat="3908.13966666667" lon="1499.73616666667"/>
+            <refpoint ref_id="276" name="Kattilankalla alempi" lat="3908.2645" lon="1499.636"/>
+            <refpoint ref_id="275" name="Hammasmatala" lat="3908.4765" lon="1493.072"/>
+            <refpoint ref_id="273" name="Oulu 4" lat="3907.5985" lon="1487.19816666667"/>
+            <refpoint ref_id="272" name="Oulu 4" lat="3907.5985" lon="1487.19816666667"/>
+            <refpoint ref_id="270" name="Oulu  3" lat="3908.84966666667" lon="1479.45983333333"/>
+            <refpoint ref_id="268" name="Oulu 2" lat="3910.521" lon="1475.23666666667"/>
+            <refpoint ref_id="266" name="Oulu  1" lat="3911.43833333333" lon="1470.18466666667"/>
+            <refpoint ref_id="262" name="Holma" lat="3907.87083333333" lon="1458.12966666667"/>
+            <refpoint ref_id="260" name="Marjaniemi" lat="3902.40233333333" lon="1473.68283333333"/>
+            <refpoint ref_id="383" name="Svartbadahl" lat="3815.18931225178" lon="1246.88053459978"/>
+            <refpoint ref_id="384" name="NORDVALEN" lat="3812.17216666667" lon="1246.32366666667"/>
+            <refpoint ref_id="385" name="NORDVALEN" lat="3812.17216666667" lon="1246.32366666667"/>
+            <refpoint ref_id="386" name="GUNVORSGRUND" lat="3809.301" lon="1226.64933333333"/>
+            <refpoint ref_id="388" name="GUNVORSGRUND" lat="3809.3005" lon="1226.6475"/>
+            <refpoint ref_id="389" name="Utgrynnan" lat="3801.05566666667" lon="1245.75433333333"/>
+            <refpoint ref_id="390" name="Norrkallan" lat="3794.26416666667" lon="1234.88366666667"/>
+        </extension>
+        <extension name="remarks" manufacturer="Transas" version="1.0.0">
+            <point ref_id="2" text="UKC 7.1m @ 6knots BWL3 , Sec Level 1, Confine Waters"/>
+            <point ref_id="3" text="UKC 6m @ 6knots BWL3 , Sec Level 1, Confine Waters"/>
+            <point ref_id="4" text="UKC 1.5m @ 6knots BWL3 , Sec Level 1, Confine Waters"/>
+            <point ref_id="5" text="UKC 6.9m @ 14.5knots BWL3 , Sec Level 1, Confine Waters"/>
+            <point ref_id="6" text="UKC 10m @ 14.5knots BWL3 , Sec Level 1, Confine Waters"/>
+            <point ref_id="7" text="UKC 2.9m @ 14.5knots BWL3 , Sec Level 1, Confine Waters"/>
+            <point ref_id="8" text="UKC 9m @ 14.5knots BWL3 , Sec Level 1, Confine Waters"/>
+            <point ref_id="9" text="UKC 20m @ 14.5knots BWL2 , Sec Level 1, Coastal Waters"/>
+            <point ref_id="12" text="UKC 8m @ 14.5knots BWL2 , Sec Level 1, Coastal Waters"/>
+            <point ref_id="13" text="UKC 8m @ 14.5knots BWL2 , Sec Level 1, Coastal Waters"/>
+            <point ref_id="14" text="UKC 8m @ 14.5knots BWL2 , Sec Level 1, Coastal Waters"/>
+            <point ref_id="15" text="UKC 4.8m @ 14.5knots BWL2 , Sec Level 1, Coastal Waters"/>
+            <point ref_id="16" text="UKC 6.9m @ 14.5knots BWL2 , Sec Level 1, Coastal Waters"/>
+            <point ref_id="17" text="UKC 5.6m @ 14.5knots BWL2 , Sec Level 1, Coastal Waters"/>
+            <point ref_id="18" text="UKC 6.9m @ 14.5knots BWL2 , Sec Level 1, Coastal Waters"/>
+            <point ref_id="19" text="UKC 30m @ 14.5knots BWL1 , Sec Level 1, Open Waters"/>
+            <point ref_id="20" text="UKC 18m @ 14.5knots BWL2 , Sec Level 1, Coastal Waters"/>
+            <point ref_id="21" text="UKC 10.5m @ 14.5knots BWL2 , Sec Level 1, Coastal Waters"/>
+            <point ref_id="22" text="UKC 18m @ 14.5knots BWL2 , Sec Level 1, Coastal Waters"/>
+            <point ref_id="23" text="UKC 100m @ 14.5knots BWL2 , Sec Level 1, Coastal Waters"/>
+            <point ref_id="24" text="UKC 100m @ 14.5knots BWL2 , Sec Level 1, Coastal Waters"/>
+            <point ref_id="25" text="UKC 100m @ 14.5knots BWL2 , Sec Level 1, Coastal Waters"/>
+            <point ref_id="26" text="UKC 24m @ 14.5knots BWL2 , Sec Level 1, Coastal Waters"/>
+            <point ref_id="27" text="UKC 35m @ 14.5knots BWL2 , Sec Level 1, Coastal Waters"/>
+            <point ref_id="28" text="UKC 24m @ 14.5knots BWL2 , Sec Level 1, Coastal Waters"/>
+            <point ref_id="29" text="UKC 14.2m @ 14.5knots BWL2 , Sec Level 1, Coastal Waters"/>
+            <point ref_id="30" text="UKC 8m @ 14.5knots BWL2 , Sec Level 1, Coastal Waters"/>
+            <point ref_id="31" text="UKC 8m @ 14.5knots BWL2 , Sec Level 1, Coastal Waters"/>
+            <point ref_id="32" text="UKC 10m @ 14.5knots BWL2 , Sec Level 1, Coastal Waters"/>
+            <point ref_id="33" text="UKC 12m @ 14.5knots BWL2 , Sec Level 1, Coastal Waters"/>
+            <point ref_id="34" text="UKC 36m @ 14.5knots BWL1 , Sec Level 1, Open Waters"/>
+            <point ref_id="35" text="UKC 71m @ 14.5knots BWL2 , Sec Level 1, Coastal Waters"/>
+            <point ref_id="36" text="UKC 8.7m @ 14.5knots BWL2 , Sec Level 1, Coastal Waters"/>
+            <point ref_id="37" text="UKC 14m @ 14.5knots BWL2 , Sec Level 1, Coastal Waters"/>
+            <point ref_id="38" text="UKC 18m @ 14.5knots BWL2 , Sec Level 1, Coastal Waters"/>
+            <point ref_id="39" text="UKC 6.1m @ 14.5knots BWL2 , Sec Level 1, Coastal Waters"/>
+            <point ref_id="40" text="UKC 13.5m @ 14.5knots BWL2 , Sec Level 1, Coastal Waters"/>
+            <point ref_id="41" text="UKC 6.1m @ 14.5knots BWL2 , Sec Level 1, Coastal Waters"/>
+            <point ref_id="43" text="UKC 5.7m @ 6knots BWL3 , Sec Level 1, Confine Waters"/>
+            <point ref_id="44" text="UKC 1.6m @ 4knots BWL3 , Sec Level 1, Confine Waters"/>
+            <point ref_id="45" text="3.4m Static draft"/>
+        </extension>
+        <extension name="routeInfo" manufacturer="Transas" version="1.0.0" routeName="Anchorage B -  Staholmen crew change" vesselName="TERNVIK" vesselMMSI="219083000" vesselIMO="9221267" vesselVoyage="urn:mrn:stm:voyage:id:transas:b595fe2a-6b76-4de4-9853-e5a97baa19ff"/>
+        <extension check_time="2024-10-15T11:43:14Z" name="route_check_info" manufacturer="Transas" version="1.0.0"/>
+        <extension name="tides" manufacturer="Transas" version="1.0.0">
+            <location lat="3549" lon="638" time="1656951089" place="Viker" height="0.507179141044617"/>
+            <location lat="3570" lon="634" time="1656944427" place="Horten" height="0.456428408622742"/>
+            <location lat="3580" lon="636" time="1656941243" place="Oscarsborg" height="0.565918982028961"/>
+            <location lat="3581" lon="636" time="1656941121" place="Oscarsborg" height="0.566280126571655"/>
+            <location lat="3583" lon="633" time="1656940080" place="Oscarsborg" height="0.570448100566864"/>
+            <location lat="3583" lon="634" time="1656940412" place="Oscarsborg" height="0.569020926952362"/>
+            <location lat="3585" lon="633" time="1656939669" place="Oscarsborg" height="0.572720289230347"/>
+            <location lat="3589" lon="634" time="1656938281" place="Oslo" height="0.593900382518768"/>
+            <location lat="3593" lon="639" time="1656936943" place="Oslo" height="0.607148468494415"/>
+        </extension>
+        <extension name="ukccalc" manufacturer="Transas" version="1.0.0">
+            <ukc ref_id="2" draught="7.10" static_draught="7.10" squat="0.00" wave_respond="0.01" depth="16.10" depth_status="manual" ukc="7.10" ukc_status="ok" passage_type="coastal_waters" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="3" draught="7.10" static_draught="7.10" squat="0.00" wave_respond="0.01" depth="15.00" depth_status="manual" ukc="6.00" ukc_status="ok" passage_type="coastal_waters" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="4" draught="7.10" static_draught="7.10" squat="0.00" wave_respond="0.01" depth="11.50" depth_status="manual" ukc="1.50" ukc_status="ok" passage_type="coastal_waters" catzoc="c" catzoc_status="ok"/>
+            <ukc ref_id="5" draught="7.10" static_draught="7.10" squat="0.00" wave_respond="0.01" depth="16.90" depth_status="manual" ukc="9.79" ukc_status="ok" passage_type="coastal_waters" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="6" draught="7.10" static_draught="7.10" squat="0.00" wave_respond="0.01" depth="20.00" depth_status="manual" ukc="10.00" ukc_status="ok" passage_type="coastal_waters" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="7" draught="7.10" static_draught="7.10" squat="0.00" wave_respond="0.01" depth="12.90" depth_status="manual" ukc="2.90" ukc_status="ok" passage_type="coastal_waters" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="8" draught="7.10" static_draught="7.10" squat="0.00" wave_respond="0.01" depth="19.00" depth_status="manual" ukc="9.00" ukc_status="ok" passage_type="coastal_waters" catzoc="c" catzoc_status="ok"/>
+            <ukc ref_id="9" draught="7.10" static_draught="7.10" squat="0.00" wave_respond="0.01" depth="32.00" depth_status="manual" ukc="20.00" ukc_status="ok" passage_type="coastal_waters" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="12" draught="7.10" static_draught="7.10" squat="0.00" wave_respond="0.01" depth="20.00" depth_status="manual" ukc="20.00" ukc_status="ok" passage_type="coastal_waters" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="13" draught="7.10" static_draught="7.10" squat="0.00" wave_respond="0.01" depth="20.00" depth_status="manual" ukc="20.00" ukc_status="ok" passage_type="coastal_waters" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="14" draught="7.10" static_draught="7.10" squat="0.00" wave_respond="0.01" depth="20.00" depth_status="manual" ukc="8.00" ukc_status="ok" passage_type="coastal_waters" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="15" draught="7.10" static_draught="7.10" squat="0.00" wave_respond="0.01" depth="16.80" depth_status="ok" ukc="4.80" ukc_status="ok" passage_type="coastal_waters" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="16" draught="7.10" static_draught="7.10" squat="0.00" wave_respond="0.01" depth="18.90" depth_status="ok" ukc="6.90" ukc_status="ok" passage_type="coastal_waters" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="17" draught="7.10" static_draught="7.10" squat="0.00" wave_respond="0.01" depth="17.60" depth_status="manual" ukc="5.60" ukc_status="ok" passage_type="coastal_waters" catzoc="a2" catzoc_status="ok"/>
+            <ukc ref_id="18" draught="7.10" static_draught="7.10" squat="0.00" wave_respond="0.01" depth="18.90" depth_status="manual" ukc="6.90" ukc_status="ok" passage_type="coastal_waters" catzoc="c" catzoc_status="ok"/>
+            <ukc ref_id="19" draught="7.10" static_draught="7.10" squat="0.00" wave_respond="0.01" depth="44.00" depth_status="manual" ukc="30.00" ukc_status="ok" passage_type="coastal_waters" catzoc="c" catzoc_status="ok"/>
+            <ukc ref_id="20" draught="7.10" static_draught="7.10" squat="0.00" wave_respond="0.01" depth="30.00" depth_status="manual" ukc="18.00" ukc_status="ok" passage_type="coastal_waters" catzoc="c" catzoc_status="ok"/>
+            <ukc ref_id="21" draught="7.10" static_draught="7.10" squat="0.00" wave_respond="0.01" depth="22.50" depth_status="manual" ukc="10.50" ukc_status="ok" passage_type="coastal_waters" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="22" draught="7.10" static_draught="7.10" squat="0.00" wave_respond="0.01" depth="30.00" depth_status="manual" ukc="18.00" ukc_status="ok" passage_type="coastal_waters" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="23" draught="7.10" static_draught="7.10" squat="0.00" wave_respond="0.01" depth="200.00" depth_status="ok" ukc="192.89" ukc_status="ok" passage_type="coastal_waters" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="24" draught="7.10" static_draught="7.10" squat="0.00" wave_respond="0.01" depth="200.00" depth_status="ok" ukc="192.89" ukc_status="ok" passage_type="coastal_waters" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="25" draught="7.10" static_draught="7.10" squat="0.00" wave_respond="0.01" depth="133.00" depth_status="manual" ukc="125.89" ukc_status="ok" passage_type="coastal_waters" catzoc="c" catzoc_status="ok"/>
+            <ukc ref_id="26" draught="7.10" static_draught="7.10" squat="0.00" wave_respond="0.01" depth="36.00" depth_status="manual" ukc="24.00" ukc_status="ok" passage_type="coastal_waters" catzoc="c" catzoc_status="ok"/>
+            <ukc ref_id="27" draught="7.10" static_draught="7.10" squat="0.00" wave_respond="0.01" depth="47.00" depth_status="manual" ukc="35.00" ukc_status="ok" passage_type="coastal_waters" catzoc="c" catzoc_status="ok"/>
+            <ukc ref_id="28" draught="7.10" static_draught="7.10" squat="0.00" wave_respond="0.01" depth="36.00" depth_status="manual" ukc="24.00" ukc_status="ok" passage_type="coastal_waters" catzoc="c" catzoc_status="ok"/>
+            <ukc ref_id="29" draught="7.10" static_draught="7.10" squat="0.00" wave_respond="0.01" depth="26.20" depth_status="manual" ukc="14.20" ukc_status="ok" passage_type="coastal_waters" catzoc="a2" catzoc_status="ok"/>
+            <ukc ref_id="30" draught="7.10" static_draught="7.10" squat="0.00" wave_respond="0.01" depth="20.00" depth_status="manual" ukc="8.00" ukc_status="ok" passage_type="coastal_waters" catzoc="c" catzoc_status="ok"/>
+            <ukc ref_id="31" draught="7.10" static_draught="7.10" squat="0.00" wave_respond="0.01" depth="20.00" depth_status="manual" ukc="8.00" ukc_status="ok" passage_type="coastal_waters" catzoc="c" catzoc_status="ok"/>
+            <ukc ref_id="32" draught="7.10" static_draught="7.10" squat="0.00" wave_respond="0.01" depth="22.00" depth_status="manual" ukc="10.00" ukc_status="ok" passage_type="coastal_waters" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="33" draught="7.10" static_draught="7.10" squat="0.00" wave_respond="0.01" depth="24.00" depth_status="manual" ukc="12.00" ukc_status="ok" passage_type="coastal_waters" catzoc="c" catzoc_status="ok"/>
+            <ukc ref_id="34" draught="7.10" static_draught="7.10" squat="0.00" wave_respond="0.01" depth="50.00" depth_status="manual" ukc="36.00" ukc_status="ok" passage_type="coastal_waters" catzoc="c" catzoc_status="ok"/>
+            <ukc ref_id="35" draught="7.10" static_draught="7.10" squat="0.00" wave_respond="0.01" depth="83.00" depth_status="manual" ukc="75.89" ukc_status="ok" passage_type="coastal_waters" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="36" draught="7.10" static_draught="7.10" squat="0.00" wave_respond="0.01" depth="20.70" depth_status="manual" ukc="8.70" ukc_status="ok" passage_type="coastal_waters" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="37" draught="7.10" static_draught="7.10" squat="0.00" wave_respond="0.01" depth="26.00" depth_status="manual" ukc="14.00" ukc_status="ok" passage_type="coastal_waters" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="38" draught="7.10" static_draught="7.10" squat="0.00" wave_respond="0.01" depth="30.00" depth_status="ok" ukc="18.00" ukc_status="ok" passage_type="coastal_waters" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="39" draught="7.10" static_draught="7.10" squat="0.00" wave_respond="0.01" depth="18.10" depth_status="manual" ukc="6.10" ukc_status="ok" passage_type="coastal_waters" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="40" draught="7.10" static_draught="7.10" squat="0.00" wave_respond="0.01" depth="25.50" depth_status="manual" ukc="13.50" ukc_status="ok" passage_type="coastal_waters" catzoc="c" catzoc_status="ok"/>
+            <ukc ref_id="41" draught="7.10" static_draught="7.10" squat="0.00" wave_respond="0.01" depth="21.00" depth_status="manual" ukc="13.89" ukc_status="ok" passage_type="coastal_waters" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="43" draught="7.10" static_draught="7.10" squat="0.00" wave_respond="0.01" depth="16.90" depth_status="manual" ukc="9.79" ukc_status="ok" passage_type="coastal_waters" catzoc="c" catzoc_status="ok"/>
+            <ukc ref_id="44" draught="7.10" static_draught="7.10" squat="0.00" wave_respond="0.01" depth="14.00" depth_status="manual" ukc="6.89" ukc_status="ok" passage_type="coastal_waters" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="45" draught="7.10" static_draught="7.10" squat="0.00" wave_respond="0.01" depth="13.00" depth_status="manual" ukc="5.89" ukc_status="ok" passage_type="coastal_waters" catzoc="a1" catzoc_status="ok"/>
+        </extension>
+        <extension voyage_no="24030" start_point="Pitea" end_point="Karlshamn" arrival_draft="7.1" depart_draft="7.1" name="voyage_info" manufacturer="Transas" version="1.0.0" dbirth_refid="1" dbirth_name="" dpilot_refid="8" dpilot_name="" abirth_refid="45" abirth_name="" apilot_refid="8" apilot_name=""/>
+        <extension value="2" name="voyage_status" manufacturer="Transas" version="1.0.0"/>
+    </extensions>
+</route>

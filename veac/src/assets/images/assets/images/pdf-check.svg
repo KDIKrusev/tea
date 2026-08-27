@@ -1,0 +1,4 @@
+<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="50%" cy="50%" r="10" fill="#2BDEEE"/>
+  <polyline points="4, 10 8, 15 17, 6" fill="none" stroke-width="2" stroke="#000"/>
+</svg>

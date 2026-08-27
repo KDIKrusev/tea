@@ -1,0 +1,7 @@
+{
+    "baseUrl": "http://localhost:5057/api/v1",
+    "voyageEnergyAdvisorAppUrl": "http://localhost:5057/api/v1/voyageEnergyAdvisor/",
+    "routesEndpoint":"http://localhost:5057/api/v1/route",
+    "routeDetails" : "http://localhost:5057/api/v1/route/routedetails/",
+    "resourcesUrl": "http://localhost:5057/api/v1/route/resources/"
+}

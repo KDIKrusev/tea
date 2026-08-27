@@ -1,0 +1,79 @@
+<app-ea-panel>
+  <div slot="body" class="voyage-scheduler-content">
+    <!-- Vessel Selection -->
+    <div class="input-group">
+      <app-vessel-selector></app-vessel-selector>
+    </div>
+    
+    <!-- Route Selection -->
+    <div class="input-group">
+      <app-route-selector [viewContext]="'planning'"></app-route-selector>
+    </div>
+    
+    <!-- Route Map Section (no label) -->
+    <div class="route-map-section" *ngIf="hasResults">
+      <div class="route-map-container">
+        <app-voyage-map [miniMapMode]="true"></app-voyage-map>
+      </div>
+    </div>
+    
+    <!-- Time Window Section -->
+    <div class="input-group">
+      <app-time-window-selector
+        [selectedMode]="selectedTimeWindowMode"
+        (modeChanged)="onTimeWindowModeChanged($event)">
+      </app-time-window-selector>
+    </div>
+    
+    <div *ngIf="selectedTimeWindowMode === 'etd'" class="datetime-section">
+      <app-date-time
+        type="etd"
+        [dateFormatted]="etdDateFormatted"
+        [timeFormatted]="etdTimeFormatted"
+        [daysTolerance]="etdDaysTolerance"
+        [hoursTolerance]="etdHoursTolerance"
+        [defaultDateText]="'Select departure date'"
+        (dateChanged)="onDateChanged($event)"
+        (timeChanged)="onTimeChanged($event)">
+      </app-date-time>
+    </div>
+
+    <div *ngIf="selectedTimeWindowMode === 'eta'" class="datetime-section">
+      <app-date-time
+        type="eta"
+        [dateFormatted]="etaDateFormatted"
+        [timeFormatted]="etaTimeFormatted"
+        [daysTolerance]="etaDaysTolerance"
+        [hoursTolerance]="etaHoursTolerance"
+        [defaultDateText]="'Select arrival date'"
+        (dateChanged)="onDateChanged($event)"
+        (timeChanged)="onTimeChanged($event)">
+      </app-date-time>
+    </div>
+    
+    <!-- Speed Range -->
+    <div class="speed-section">
+      <app-speed-range (speedChanged)="onSpeedChanged($event)"></app-speed-range>
+    </div>
+    
+    <!-- Validation Errors -->
+    <div class="validation-errors" *ngIf="shouldShowValidationErrors">
+      <div class="validation-error" *ngFor="let error of validationErrors">
+        {{ error }}
+      </div>
+    </div>
+    
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+      <button class="btn btn-clear" (click)="clear()">
+        <span class="clear-icon"></span>
+        Clear all fields
+      </button>
+      <button class="btn btn-search"
+              [disabled]="isUpdating() || !isInputValid"
+              (click)="search()">
+        {{ isUpdating() ? 'Searching...' : 'Search' }}
+      </button>
+    </div>
+  </div>
+</app-ea-panel>

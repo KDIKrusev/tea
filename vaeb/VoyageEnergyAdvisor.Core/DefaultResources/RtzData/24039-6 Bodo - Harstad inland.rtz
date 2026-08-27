@@ -1,0 +1,527 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<route xmlns="http://www.cirm.org/RTZ/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.1" xmlns:stm="http://stmvalidation.eu/STM/1/0/0" xsi:schemaLocation="http://stmvalidation.eu/STM/1/0/0 stm_extensions.xsd">
+    <routeInfo routeName="Bodo - Harstad inland" routeStatus="SafetyChecked" vesselName="TERN ISLAND" vesselMMSI="219029722" vesselIMO="9909649" vesselVoyage="urn:mrn:stm:voyage:id:transas:24039_869f550d-f19a-4024-a49f-1250ee99c74e">
+        <extensions>
+            <extension xsi:type="stm:RouteInfoExtension" name="routeInfoEx" manufacturer="STM" version="1.0.0" routeStatusEnum="5" routeVersion="C0B46DDA-BC8B-40B4-BA72-E843FF431D4D" endSeaPassage="">
+                <stm:routeChanges>
+                    <stm:historyItem author="NS" reason="creation" dateTime="2019-04-30T10:27:15Z"/>
+                    <stm:historyItem author="NS" reason="correction" dateTime="2019-04-30T10:27:15Z"/>
+                    <stm:historyItem author="NS" reason="correction" dateTime="2024-12-22T01:04:38Z"/>
+                    <stm:historyItem author="NS" reason="correction" dateTime="2024-12-22T01:10:09Z"/>
+                    <stm:historyItem author="NS" reason="correction" dateTime="2024-12-22T01:10:24Z"/>
+                    <stm:historyItem author="NS" reason="correction" dateTime="2024-12-22T01:11:23Z"/>
+                    <stm:historyItem author="NS" reason="correction" dateTime="2024-12-22T01:12:21Z"/>
+                    <stm:historyItem author="NS" reason="correction" dateTime="2024-12-23T01:13:29Z"/>
+                    <stm:historyItem author="NS" reason="correction" dateTime="2024-12-23T01:54:50Z"/>
+                    <stm:historyItem author="NS" reason="correction" dateTime="2024-12-23T01:55:23Z"/>
+                </stm:routeChanges>
+            </extension>
+            <extension name="routeInfoTrs" manufacturer="Transas" version="1.0.0" routeId="urn:mrn:transas:route:id:52ffbdb9-b333-4f58-93bf-d3407072b63a" routeStatusEx="1" totalLength="128.549"/>
+        </extensions>
+    </routeInfo>
+    <waypoints>
+        <defaultWaypoint radius="0.30">
+            <leg portsideXTD="0.03" starboardXTD="0.10" safetyContour="9.00" safetyDepth="11.00" draughtForward="11.00" draughtAft="11.00" staticUKC="0.00" dynamicUKC="0.80" geometryType="Loxodrome"/>
+            <extensions>
+                <extension value="Manual" name="auto_routing" manufacturer="Transas" version="1.0.0"/>
+            </extensions>
+        </defaultWaypoint>
+        <waypoint id="359" name="JETTY">
+            <position lat="67.28961255" lon="14.38380219"/>
+            <leg/>
+        </waypoint>
+        <waypoint id="358" name="Leaving jetty" radius="0.10">
+            <position lat="67.28908033" lon="14.38103097"/>
+            <leg portsideXTD="0.10" starboardXTD="0.03" safetyDepth="12.00" draughtForward="8.80" draughtAft="8.80" dynamicUKC="1.00"/>
+        </waypoint>
+        <waypoint id="357" name="Nyholmen" radius="0.20">
+            <position lat="67.28648063" lon="14.37601834"/>
+            <leg portsideXTD="0.10" starboardXTD="0.03" safetyDepth="12.00" draughtForward="8.80" draughtAft="8.80" dynamicUKC="1.00"/>
+        </waypoint>
+        <waypoint id="356" name="Bodo Molo" radius="0.20">
+            <position lat="67.28534000" lon="14.36493706"/>
+            <leg starboardXTD="0.03" safetyDepth="12.00" draughtForward="8.80" draughtAft="8.80" dynamicUKC="11.09"/>
+        </waypoint>
+        <waypoint id="355" name="Rundholmen" radius="0.20">
+            <position lat="67.28419894" lon="14.35966618"/>
+            <leg portsideXTD="0.02" starboardXTD="0.03" safetyDepth="12.00" draughtForward="8.80" draughtAft="8.80" dynamicUKC="10.19"/>
+        </waypoint>
+        <waypoint id="354" name="Eholmen" radius="0.70">
+            <position lat="67.27596873" lon="14.32036822"/>
+            <leg portsideXTD="0.10" safetyContour="10.00" safetyDepth="12.00" draughtForward="8.80" draughtAft="8.80" dynamicUKC="4.10"/>
+        </waypoint>
+        <waypoint id="353" name="Langdragan" radius="0.70">
+            <position lat="67.27598265" lon="14.28759364"/>
+            <leg portsideXTD="0.12" starboardXTD="0.11" safetyContour="10.00" safetyDepth="12.00" draughtForward="8.80" draughtAft="8.80" dynamicUKC="6.10"/>
+        </waypoint>
+        <waypoint id="352" name="Lille Svartoksen" radius="0.50">
+            <position lat="67.28372024" lon="14.25188319"/>
+            <leg portsideXTD="0.20" starboardXTD="0.11" safetyContour="10.00" safetyDepth="12.00" draughtForward="8.80" draughtAft="8.80" dynamicUKC="11.09"/>
+        </waypoint>
+        <waypoint id="350" name="Leikargrunen" radius="0.70">
+            <position lat="67.37445354" lon="14.42795113"/>
+            <leg portsideXTD="0.50" starboardXTD="0.40" safetyContour="10.00" safetyDepth="12.00" draughtForward="8.80" draughtAft="8.80" dynamicUKC="14.10"/>
+        </waypoint>
+        <waypoint id="349" name="bn Rotoerota" radius="0.70">
+            <position lat="67.40302078" lon="14.43864990"/>
+            <leg portsideXTD="0.25" starboardXTD="0.25" safetyContour="10.00" safetyDepth="12.00" draughtForward="8.80" draughtAft="8.80" dynamicUKC="6.10"/>
+        </waypoint>
+        <waypoint id="348" name="NE of Bjornoy" radius="0.70">
+            <position lat="67.42669265" lon="14.46784999"/>
+            <leg portsideXTD="0.35" starboardXTD="0.50" safetyContour="10.00" safetyDepth="12.00" draughtForward="8.80" draughtAft="8.80" dynamicUKC="11.10"/>
+        </waypoint>
+        <waypoint id="347" name="bn Kjeipboen" radius="0.70">
+            <position lat="67.46848955" lon="14.37352379"/>
+            <leg portsideXTD="0.39" starboardXTD="0.55" safetyContour="10.00" safetyDepth="12.00" draughtForward="8.80" draughtAft="8.80" dynamicUKC="11.09"/>
+        </waypoint>
+        <waypoint id="346" name="LANDEGODE PILOT" radius="1.00">
+            <position lat="67.49991152" lon="14.37476870"/>
+            <leg portsideXTD="0.50" starboardXTD="0.50" safetyContour="10.00" safetyDepth="12.00" draughtForward="8.80" draughtAft="8.80" dynamicUKC="11.09"/>
+        </waypoint>
+        <waypoint id="345" name="W of  bn Nokleboen" radius="1.00">
+            <position lat="67.57744619" lon="14.18774289"/>
+            <leg portsideXTD="1.30" starboardXTD="1.23" safetyContour="10.00" safetyDepth="13.00" draughtForward="8.80" draughtAft="8.80" dynamicUKC="6.30"/>
+        </waypoint>
+        <waypoint id="344" name="W of Store Jensoy" radius="1.00">
+            <position lat="67.83531202" lon="14.18818573"/>
+            <leg portsideXTD="2.95" starboardXTD="2.00" safetyContour="10.00" safetyDepth="13.00" draughtForward="8.80" draughtAft="8.80" dynamicUKC="8.50"/>
+        </waypoint>
+        <waypoint id="360" name="Bremneset" radius="1.00">
+            <position lat="68.16148187" lon="15.29852220"/>
+            <leg portsideXTD="2.95" starboardXTD="2.00" safetyContour="10.00" safetyDepth="13.00" draughtForward="8.80" draughtAft="8.80" dynamicUKC="91.10"/>
+        </waypoint>
+        <waypoint id="361" name="Tranoy outer PS" radius="1.00">
+            <position lat="68.21152228" lon="15.59425432"/>
+            <leg portsideXTD="1.23" starboardXTD="1.00" safetyContour="10.00" safetyDepth="13.00" draughtForward="8.80" draughtAft="8.80" dynamicUKC="91.10"/>
+        </waypoint>
+        <waypoint id="362" name="Tranoy inner PS" radius="1.00">
+            <position lat="68.30535000" lon="15.92396667"/>
+            <leg portsideXTD="0.81" starboardXTD="1.00" safetyContour="10.00" safetyDepth="13.00" draughtForward="8.80" draughtAft="8.80" dynamicUKC="27.10"/>
+        </waypoint>
+        <waypoint id="363" name="LODINGEN PBS" radius="0.70">
+            <position lat="68.38200324" lon="16.03193241"/>
+            <leg portsideXTD="1.00" starboardXTD="1.00" safetyContour="10.00" safetyDepth="12.00" draughtForward="8.80" draughtAft="8.80" dynamicUKC="11.09"/>
+        </waypoint>
+        <waypoint id="365" name="Nordstrandskjaer" radius="0.70">
+            <position lat="68.49153144" lon="16.12439349"/>
+            <leg portsideXTD="0.27" starboardXTD="0.17" safetyContour="10.00" safetyDepth="12.00" draughtForward="8.80" draughtAft="8.80" dynamicUKC="85.10"/>
+        </waypoint>
+        <waypoint id="366" name="Reppelvarden" radius="0.70">
+            <position lat="68.54336505" lon="16.21486208"/>
+            <leg portsideXTD="0.15" starboardXTD="0.13" safetyContour="10.00" safetyDepth="12.00" draughtForward="8.80" draughtAft="8.80" dynamicUKC="3.10"/>
+        </waypoint>
+        <waypoint id="367" name="Stakksvollholmen" radius="0.70">
+            <position lat="68.55026453" lon="16.23521503"/>
+            <leg portsideXTD="0.15" starboardXTD="0.09" safetyContour="10.00" safetyDepth="12.00" draughtForward="8.80" draughtAft="8.80" dynamicUKC="3.10"/>
+        </waypoint>
+        <waypoint id="368" name="Ballastadgrunnen" radius="0.70">
+            <position lat="68.55257372" lon="16.29252204"/>
+            <leg portsideXTD="0.09" starboardXTD="0.07" safetyContour="10.00" safetyDepth="12.00" draughtForward="8.80" draughtAft="8.80" dynamicUKC="3.30"/>
+        </waypoint>
+        <waypoint id="369" name="Ballastadstraumen" radius="0.40">
+            <position lat="68.55924986" lon="16.33073202"/>
+            <leg portsideXTD="0.04" starboardXTD="0.06" safetyContour="10.00" safetyDepth="12.00" draughtForward="8.80" draughtAft="8.80" dynamicUKC="1.10"/>
+        </waypoint>
+        <waypoint id="370" name="Saterklaren" radius="0.70">
+            <position lat="68.55910447" lon="16.38007620"/>
+            <leg portsideXTD="0.10" safetyContour="10.00" safetyDepth="12.00" draughtForward="8.80" draughtAft="8.80" dynamicUKC="1.10"/>
+        </waypoint>
+        <waypoint id="371" name="by Holsflu">
+            <position lat="68.55576779" lon="16.43447078"/>
+            <leg portsideXTD="0.04" starboardXTD="0.08" safetyContour="10.00" safetyDepth="12.00" draughtForward="8.80" draughtAft="8.80" dynamicUKC="4.50"/>
+        </waypoint>
+        <waypoint id="372" name="Steinsgrunnen" radius="0.70">
+            <position lat="68.55183734" lon="16.46614944"/>
+            <leg starboardXTD="0.04" safetyContour="10.00" safetyDepth="12.00" draughtForward="8.80" draughtAft="8.80" dynamicUKC="0.60"/>
+        </waypoint>
+        <waypoint id="373" name="Nordoygrunnen" radius="0.70">
+            <position lat="68.55478883" lon="16.49130600"/>
+            <leg starboardXTD="0.05" safetyContour="10.00" safetyDepth="12.00" draughtForward="8.80" draughtAft="8.80" dynamicUKC="1.40"/>
+        </waypoint>
+        <waypoint id="374" name="Remma Sore" radius="0.70">
+            <position lat="68.56331905" lon="16.51581982"/>
+            <leg portsideXTD="0.04" starboardXTD="0.04" safetyContour="10.00" safetyDepth="12.00" draughtForward="8.80" draughtAft="8.80" dynamicUKC="2.90"/>
+        </waypoint>
+        <waypoint id="375" name="Sandtorhella" radius="0.70">
+            <position lat="68.56746002" lon="16.52376390"/>
+            <leg portsideXTD="0.06" starboardXTD="0.03" safetyContour="10.00" safetyDepth="12.00" draughtForward="8.80" draughtAft="8.80" dynamicUKC="4.60"/>
+        </waypoint>
+        <waypoint id="376" name="Storbaen" radius="0.70">
+            <position lat="68.57611388" lon="16.53759613"/>
+            <leg portsideXTD="0.02" starboardXTD="0.05" safetyContour="10.00" safetyDepth="12.00" draughtForward="8.80" draughtAft="8.80" dynamicUKC="6.00"/>
+        </waypoint>
+        <waypoint id="377" name="Djuphamnkubben" radius="0.70">
+            <position lat="68.60364004" lon="16.55293138"/>
+            <leg portsideXTD="0.10" safetyContour="10.00" safetyDepth="12.00" draughtForward="8.80" draughtAft="8.80" dynamicUKC="21.10"/>
+        </waypoint>
+        <waypoint id="378" name="Steinslandsstraumen">
+            <position lat="68.61958032" lon="16.56763337"/>
+            <leg portsideXTD="0.13" starboardXTD="0.07" safetyContour="10.00" safetyDepth="12.00" draughtForward="8.80" draughtAft="8.80" dynamicUKC="31.10"/>
+        </waypoint>
+        <waypoint id="379" name="Steinslandsstraumen" radius="0.70">
+            <position lat="68.62442255" lon="16.57725507"/>
+            <leg portsideXTD="0.04" starboardXTD="0.07" safetyContour="10.00" safetyDepth="12.00" draughtForward="8.80" draughtAft="8.80" dynamicUKC="14.10"/>
+        </waypoint>
+        <waypoint id="380" name="Bridge" radius="0.70">
+            <position lat="68.62789870" lon="16.58245702"/>
+            <leg portsideXTD="0.02" starboardXTD="0.04" safetyContour="10.00" safetyDepth="12.00" draughtForward="8.80" draughtAft="8.80" dynamicUKC="14.10"/>
+        </waypoint>
+        <waypoint id="381" name="Langkvitneset" radius="0.70">
+            <position lat="68.63255441" lon="16.58627429"/>
+            <leg portsideXTD="0.05" starboardXTD="0.05" safetyContour="10.00" safetyDepth="12.00" draughtForward="8.80" draughtAft="8.80" dynamicUKC="6.10"/>
+        </waypoint>
+        <waypoint id="382" name="Transkjaer" radius="0.70">
+            <position lat="68.64927693" lon="16.61191679"/>
+            <leg portsideXTD="0.09" starboardXTD="0.07" safetyContour="10.00" safetyDepth="12.00" draughtForward="8.80" draughtAft="8.80" dynamicUKC="21.10"/>
+        </waypoint>
+        <waypoint id="383" name="by Nordskallen" radius="0.70">
+            <position lat="68.66093821" lon="16.63560153"/>
+            <leg portsideXTD="0.09" starboardXTD="0.08" safetyContour="10.00" safetyDepth="12.00" draughtForward="8.80" draughtAft="8.80" dynamicUKC="64.10"/>
+        </waypoint>
+        <waypoint id="384" name="Fluskallan" radius="0.70">
+            <position lat="68.67600000" lon="16.66093333"/>
+            <leg portsideXTD="0.15" starboardXTD="0.12" safetyContour="10.00" safetyDepth="12.00" draughtForward="8.80" draughtAft="8.80" dynamicUKC="9.70"/>
+        </waypoint>
+        <waypoint id="385" name="Rolnesholmene" radius="0.70">
+            <position lat="68.73043024" lon="16.69473850"/>
+            <leg portsideXTD="0.34" starboardXTD="0.50" safetyContour="10.00" safetyDepth="12.00" draughtForward="8.80" draughtAft="8.80" dynamicUKC="8.10"/>
+        </waypoint>
+        <waypoint id="427" name="Vagsfjorden">
+            <position lat="68.75847126" lon="16.70235240"/>
+            <leg portsideXTD="0.22" starboardXTD="0.55" safetyContour="10.00" safetyDepth="12.00" draughtForward="8.80" draughtAft="8.80" dynamicUKC="115.10"/>
+        </waypoint>
+        <waypoint id="432" name="Laukholmen">
+            <position lat="68.78806813" lon="16.63646996"/>
+            <leg portsideXTD="0.10" starboardXTD="0.88" safetyContour="10.00" safetyDepth="12.00" draughtForward="8.80" draughtAft="8.80" dynamicUKC="3.10"/>
+        </waypoint>
+        <waypoint id="428" name="Lukholm">
+            <position lat="68.79202463" lon="16.61691075"/>
+            <leg portsideXTD="0.06" safetyContour="10.00" safetyDepth="12.00" draughtForward="8.80" draughtAft="8.80" dynamicUKC="5.20"/>
+        </waypoint>
+        <waypoint id="429" name="Stangnesodden lt">
+            <position lat="68.80166768" lon="16.60968650"/>
+            <leg portsideXTD="0.10" starboardXTD="0.09" safetyContour="10.00" safetyDepth="12.00" draughtForward="8.80" draughtAft="8.80" dynamicUKC="25.10"/>
+        </waypoint>
+        <waypoint id="430" name="Harstad" radius="0.20">
+            <position lat="68.80190565" lon="16.56883843"/>
+            <leg portsideXTD="0.10" safetyContour="10.00" safetyDepth="12.00" draughtForward="8.80" draughtAft="8.80" dynamicUKC="41.10"/>
+        </waypoint>
+        <waypoint id="431" name="ST1 Terminal" radius="0.10">
+            <position lat="68.79683333" lon="16.56441667"/>
+            <leg safetyContour="10.00" safetyDepth="12.00" draughtForward="8.80" draughtAft="8.80" dynamicUKC="2.50"/>
+        </waypoint>
+        <extensions>
+            <extension name="branches" manufacturer="Transas" version="1.0.0">
+                <branch id="1" name="NONAME01">
+                    <defaultWaypoint radius="0.10">
+                        <leg portsideXTD="0.10" starboardXTD="0.10" safetyContour="30.00" safetyDepth="30.00" draughtForward="30.00" draughtAft="30.00" staticUKC="0.00" dynamicUKC="0.00" geometryType="Loxodrome"/>
+                        <extensions>
+                            <extension name="auto_routing" manufacturer="Transas" version="1.0.0" value="Manual"/>
+                        </extensions>
+                    </defaultWaypoint>
+                    <waypoint id="65537">
+                        <position lat="59.89763333" lon="24.19703333"/>
+                    </waypoint>
+                    <waypoint id="65538" name="by Sommaro" radius="0.65">
+                        <position lat="59.93559409" lon="24.24391418"/>
+                        <leg portsideXTD="0.15" starboardXTD="0.41"/>
+                    </waypoint>
+                    <waypoint id="65539" radius="0.70">
+                        <position lat="59.94697352" lon="24.12918582"/>
+                        <leg portsideXTD="0.08"/>
+                    </waypoint>
+                </branch>
+            </extension>
+            <extension name="geometry_change" manufacturer="Transas" version="1.0.0" last_change_time="2024-12-23T01:55:18.894119Z"/>
+        </extensions>
+    </waypoints>
+    <schedules>
+        <schedule id="0" name="Base Calculation"/>
+        <extensions>
+            <extension name="branches" manufacturer="Transas" version="1.0.0">
+                <branch id="1" name="NONAME01">
+                    <schedule id="0" name="Schedule 1"/>
+                    <schedule id="0" name="Schedule 1"/>
+                    <schedule id="0" name="Base Calculation"/>
+                </branch>
+            </extension>
+        </extensions>
+    </schedules>
+    <extensions>
+        <extension name="ActivePath" manufacturer="Transas" version="1.0.0">
+            <path>
+                <wp_ids>
+                    <wp_id value="303"/>
+                    <wp_id value="310"/>
+                    <wp_id value="302"/>
+                    <wp_id value="301"/>
+                    <wp_id value="300"/>
+                    <wp_id value="299"/>
+                    <wp_id value="298"/>
+                    <wp_id value="296"/>
+                    <wp_id value="295"/>
+                    <wp_id value="294"/>
+                    <wp_id value="291"/>
+                    <wp_id value="289"/>
+                    <wp_id value="288"/>
+                    <wp_id value="287"/>
+                    <wp_id value="285"/>
+                    <wp_id value="284"/>
+                    <wp_id value="133"/>
+                    <wp_id value="159"/>
+                    <wp_id value="161"/>
+                    <wp_id value="164"/>
+                    <wp_id value="165"/>
+                    <wp_id value="166"/>
+                    <wp_id value="167"/>
+                    <wp_id value="168"/>
+                    <wp_id value="170"/>
+                    <wp_id value="172"/>
+                    <wp_id value="173"/>
+                    <wp_id value="174"/>
+                    <wp_id value="176"/>
+                    <wp_id value="311"/>
+                    <wp_id value="178"/>
+                    <wp_id value="181"/>
+                    <wp_id value="182"/>
+                    <wp_id value="184"/>
+                    <wp_id value="186"/>
+                    <wp_id value="314"/>
+                    <wp_id value="313"/>
+                    <wp_id value="308"/>
+                    <wp_id value="307"/>
+                    <wp_id value="306"/>
+                    <wp_id value="309"/>
+                    <wp_id value="305"/>
+                    <wp_id value="304"/>
+                </wp_ids>
+            </path>
+        </extension>
+        <extension name="bwe_areas" manufacturer="Transas" version="1.0.0">
+            <area name="Ballast Waters (12 NM) (12 nautical mile zone)" info="Norway" legs="0-80"/>
+            <area name="Ballast Waters (50 NM) (50 nautical mile zone)" info="Ballast water exchange prohibited exempt of vessels which conduct treated ballast water exchange in compliance with the regulation D-2 standard of BWMS" legs="0-80"/>
+            <area name="Ballast Waters (200 NM) (200 nautical mile zone)" info="Ballast water exchange shall be allowed in compliance with the regulations B-4, D-1 standard of BWMS.Treated ballast water exchange is allowed pursuant to the regulation D-2" legs="0-80"/>
+            <area name="Regional Special Areas (North East Atlantic and Arctic waters)" info="Waters of OSPAR Convention" legs="0-80"/>
+        </extension>
+        <extension name="checklist" manufacturer="Transas" version="1.0.0">
+            <activity ref_id="346" name="SAFETY PARAMETERS FOR COASTAL WATERS: SAFETY CONTOUR 10m; SAFETY DEPTH 12m; SAFETY FRAME 15min, 0,3nm P&amp;S; PFI 60min; ES 2m" time="1" state="1"/>
+            <activity ref_id="363" name="SAFETY PARAMETERS FOR SHALLOW WATERS: SAFETY CONTOR 9m; SAFETY DEPTH 11m; SAFETY FRAME 2-1min, 0,05nm P&amp;S; PFI 60min; ES 1m" time="-3" state="1"/>
+        </extension>
+        <extension name="enc_charts" manufacturer="Transas" version="1.0.0">
+            <item name="NO1A3000" issue_date="45520.0423726852" correction_date="45602.0423726852" format="SENC" edition="17" update_info="3" update_to="WK51-24" chart_status="ok"/>
+            <item name="NO2B2428" issue_date="45307.0423726852" correction_date="45597.0423726852" format="SENC" edition="4" update_info="9" update_to="WK51-24" chart_status="ok"/>
+            <item name="NO2B2432" issue_date="45469.0423726852" correction_date="45573.0423726852" format="SENC" edition="6" update_info="4" update_to="WK51-24" chart_status="ok"/>
+            <item name="NO3B2428" issue_date="45301.0423726852" correction_date="45596.0423726852" format="SENC" edition="2" update_info="10" update_to="WK51-24" chart_status="ok"/>
+            <item name="NO3B2432" issue_date="45469.0423726852" correction_date="45573.0423726852" format="SENC" edition="4" update_info="4" update_to="WK51-24" chart_status="ok"/>
+            <item name="NO4D2528" issue_date="45209.0423726852" correction_date="45595.0423726852" format="SENC" edition="3" update_info="2" update_to="WK51-24" chart_status="ok"/>
+            <item name="NO4D2732" issue_date="45464.0423726852" correction_date="45615.0423726852" format="SENC" edition="11" update_info="6" update_to="WK51-24" chart_status="ok"/>
+            <item name="NO4E2629" issue_date="45001.0423726852" correction_date="45576.0423726852" format="SENC" edition="10" update_info="5" update_to="WK51-24" chart_status="ok"/>
+            <item name="NO4E2630" issue_date="45107.0423726852" correction_date="45524.0423726852" format="SENC" edition="5" update_info="2" update_to="WK51-24" chart_status="ok"/>
+            <item name="NO4E2631" issue_date="45237.0423726852" correction_date="45574.0423726852" format="SENC" edition="7" update_info="6" update_to="WK51-24" chart_status="ok"/>
+            <item name="NO4E2733" issue_date="45464.0423726852" correction_date="45588.0423726852" format="SENC" edition="13" update_info="3" update_to="WK51-24" chart_status="ok"/>
+            <item name="NO4F2629" issue_date="44981.0423726852" correction_date="45216.0423726852" format="SENC" edition="5" update_info="6" update_to="WK51-24" chart_status="ok"/>
+            <item name="NO4F2630" issue_date="45233.0423726852" correction_date="45574.0423726852" format="SENC" edition="4" update_info="3" update_to="WK51-24" chart_status="ok"/>
+            <item name="NO4F2631" issue_date="45568.0423726852" format="SENC" edition="4" update_to="WK51-24" chart_status="ok"/>
+            <item name="NO4G2428" issue_date="44008.0423726852" correction_date="45593.0423726852" format="SENC" edition="6" update_info="15" update_to="WK51-24" chart_status="ok"/>
+            <item name="NO4G2529" issue_date="45231.0423726852" correction_date="45548.0423726852" format="SENC" edition="5" update_info="6" update_to="WK51-24" chart_status="ok"/>
+            <item name="NO4G2631" issue_date="45257.0423726852" correction_date="45566.0423726852" format="SENC" edition="4" update_info="1" update_to="WK51-24" chart_status="ok"/>
+            <item name="NO4G2632" issue_date="45212.0423726852" correction_date="45533.0423726852" format="SENC" edition="4" update_info="5" update_to="WK51-24" chart_status="ok"/>
+            <item name="NO4G2733" issue_date="45083.0423726852" correction_date="45610.0423726852" format="SENC" edition="15" update_info="14" update_to="WK51-24" chart_status="ok"/>
+            <item name="NO4H2428" issue_date="45398.0423726852" correction_date="45581.0423726852" format="SENC" edition="10" update_info="3" update_to="WK51-24" chart_status="ok"/>
+            <item name="NO4H2529" issue_date="45233.0423726852" correction_date="45527.0423726852" format="SENC" edition="6" update_info="3" update_to="WK51-24" chart_status="ok"/>
+            <item name="NO4H2631" issue_date="45314.0423726852" correction_date="45609.0423726852" format="SENC" edition="6" update_info="2" update_to="WK51-24" chart_status="ok"/>
+            <item name="NO5D2428" issue_date="45394.0423726852" correction_date="45580.0423726852" format="SENC" edition="11" update_info="3" update_to="WK51-24" chart_status="ok"/>
+            <item name="NO5E2733" issue_date="45411.0423726852" correction_date="45541.0423726852" format="SENC" edition="8" update_info="1" update_to="WK51-24" chart_status="ok"/>
+            <item name="NO5F2732" issue_date="45411.0423726852" correction_date="45540.0423726852" format="SENC" edition="5" update_info="2" update_to="WK51-24" chart_status="ok"/>
+            <item name="NO5G2733" issue_date="45083.0423726852" correction_date="45610.0423726852" format="SENC" edition="13" update_info="7" update_to="WK51-24" chart_status="ok"/>
+        </extension>
+        <extension name="overhead" manufacturer="Transas" version="1.0.0">
+            <overhead ref_id="359" air_draught="40" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="358" air_draught="40" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="357" air_draught="40" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="356" air_draught="40" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="355" air_draught="40" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="354" air_draught="40" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="353" air_draught="40" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="352" air_draught="40" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="350" air_draught="40" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="349" air_draught="40" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="348" air_draught="40" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="347" air_draught="40" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="346" air_draught="40" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="345" air_draught="30.4" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="344" air_draught="40" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="360" air_draught="40" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="361" air_draught="40" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="362" air_draught="40" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="363" air_draught="40" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="365" air_draught="40" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="366" air_draught="40" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="367" air_draught="40" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="368" air_draught="40" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="369" air_draught="40" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="370" air_draught="40" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="371" air_draught="40" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="372" air_draught="40" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="373" air_draught="40" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="374" air_draught="40" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="375" air_draught="40" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="376" air_draught="40" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="377" air_draught="40" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="378" air_draught="40" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="379" air_draught="40" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="380" air_draught="40" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="381" air_draught="40" overhead="9.8" overhead_status="ok"/>
+            <overhead ref_id="382" air_draught="40" overhead="10.8" overhead_status="ok"/>
+            <overhead ref_id="383" air_draught="40" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="384" air_draught="40" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="385" air_draught="40" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="427" air_draught="32" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="432" air_draught="41" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="428" air_draught="32" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="429" air_draught="32" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="430" air_draught="32" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="431" air_draught="32" overhead="0" overhead_status="no_data"/>
+        </extension>
+        <extension name="port_data" manufacturer="Transas" version="1.0.0">
+            <item name="Tromso" country="Norway" type="Port" cargotype="Oil, General/Dry" from="0" to="1"/>
+            <item name="Harstad" country="Norway" type="Port" cargotype="Oil, General/Dry" from="54" to="55"/>
+            <item name="Bodo" country="Norway" type="Port" cargotype="Oil, General/Dry" from="90" to="91"/>
+        </extension>
+        <extension name="portcdm_services" manufacturer="Transas" version="1.0.0">
+            <waypoint name="departure" amss="" broker="" vis_connector=""/>
+            <waypoint name="arrival" amss="" broker="" vis_connector=""/>
+        </extension>
+        <extension name="refpoints" manufacturer="Transas" version="1.0.0">
+            <refpoint ref_id="357" name="Nyholmen" lat="4037.18398462468" lon="861.899969761951"/>
+            <refpoint ref_id="356" name="Nyholmen" lat="4037.18349020768" lon="861.898737285159"/>
+            <refpoint ref_id="355" name="Nyholmen" lat="4037.18230474397" lon="861.898544898916"/>
+            <refpoint ref_id="354" name="Sorodden" lat="4036.93271811243" lon="859.432678946395"/>
+            <refpoint ref_id="353" name="Ltle svartoksen" lat="4036.43171222021" lon="856.228956278507"/>
+            <refpoint ref_id="352" name="Litle Svartoxen" lat="4036.42802648254" lon="856.241428439315"/>
+            <refpoint ref_id="350" name="Rensogrunnen" lat="4042.48552700026" lon="863.358706734549"/>
+            <refpoint ref_id="349" name="Ytre Bringholmen" lat="4043.75895693938" lon="867.31048226973"/>
+            <refpoint ref_id="348" name="Bjornoy" lat="4045.16576926012" lon="865.76583399138"/>
+            <refpoint ref_id="344" name="Måløy-Skarholmen" lat="4066.08366666667" lon="864.084333333333"/>
+            <refpoint ref_id="360" name="Buvag" lat="4088.99233333333" lon="926.551"/>
+            <refpoint ref_id="361" name="Tranøy" lat="4091.0595" lon="935.933"/>
+            <refpoint ref_id="362" name="Rinøy" lat="4102.64666666667" lon="945.534833333333"/>
+            <refpoint ref_id="365" name="Nordstradnskjaer" lat="4109.6434649384" lon="968.519655185325"/>
+            <refpoint ref_id="366" name="Reppelvarden" lat="4112.62266666667" lon="973.604"/>
+            <refpoint ref_id="367" name="Stakksvollholmen" lat="4113.37986024638" lon="973.953639016808"/>
+            <refpoint ref_id="368" name="Ballastgrunen" lat="4113.29090645106" lon="977.501551386932"/>
+            <refpoint ref_id="369" name="Ballastadstraumen" lat="4113.40209132365" lon="979.754268695175"/>
+            <refpoint ref_id="370" name="Holsflua Nordre" lat="4113.21377641052" lon="986.616699417525"/>
+            <refpoint ref_id="372" name="Steinsgrunnen" lat="4113.19934661606" lon="987.870268780405"/>
+            <refpoint ref_id="373" name="Nordoygrunnen" lat="4113.09026352063" lon="988.871411684216"/>
+            <refpoint ref_id="374" name="Remma Sore" lat="4113.81108015" lon="991.159248635196"/>
+            <refpoint ref_id="375" name="Sandtorhella" lat="4114.0487247806" lon="991.615163150539"/>
+            <refpoint ref_id="376" name="Kobbsteinsnaget" lat="4114.32733333333" lon="991.693666666667"/>
+            <refpoint ref_id="377" name="Snipholmen" lat="4116.56720114426" lon="992.032042203629"/>
+            <refpoint ref_id="378" name="Steinslandsstraumen" lat="4117.692" lon="994.764833333333"/>
+            <refpoint ref_id="379" name="Steinslandsstraumen" lat="4117.692" lon="994.764833333333"/>
+            <refpoint ref_id="380" name="Steinslandsstraumen" lat="4117.692" lon="994.764833333333"/>
+            <refpoint ref_id="381" name="Langkvitneset" lat="4117.89296847387" lon="995.3928954505"/>
+            <refpoint ref_id="385" name="Rollnesholmene" lat="4123.36605790026" lon="1006.36706305867"/>
+        </extension>
+        <extension name="remarks" manufacturer="Transas" version="1.0.0">
+            <point ref_id="359" text="Min UKC 0.9 m at 10kts"/>
+            <point ref_id="358" text="3.1m UKC@5kn/BWL3/Position Fix by visual bearings-RADAR Bearings"/>
+            <point ref_id="357" text="3.1m UKC@5kn/BWL3/Position Fix by visual bearings-RADAR Bearings"/>
+            <point ref_id="356" text="3.1m UKC@5kn/BWL3/Position Fix by visual bearings-RADAR Bearings"/>
+            <point ref_id="355" text="3.1m UKC@5kn/BWL3/Position Fix by visual bearings-RADAR Bearings"/>
+            <point ref_id="354" text="3.1m UKC@5kn/BWL3/Position Fix by visual bearings-RADAR Bearings"/>
+            <point ref_id="353" text="3.1m UKC@5kn/BWL3/Position Fix by visual bearings-RADAR Bearings"/>
+            <point ref_id="352" text="3.1m UKC@5kn/BWL3/Position Fix by visual bearings-RADAR Bearings"/>
+            <point ref_id="350" text="3.1m UKC@5kn/BWL3/Position Fix by visual bearings-RADAR Bearings"/>
+            <point ref_id="349" text="3.1m UKC@5kn/BWL3/Position Fix by visual bearings-RADAR Bearings"/>
+            <point ref_id="348" text="3.1m UKC@5kn/BWL3/Position Fix by visual bearings-RADAR Bearings"/>
+            <point ref_id="347" text="3.1m UKC@5kn/BWL3/Position Fix by visual bearings-RADAR Bearings"/>
+            <point ref_id="346" text="&gt;10m UKC@14.5kn/BWL2/PFIX-Max60min/GPS verified by RADAR/sub course change/SC10m/SD14/ES2M"/>
+            <point ref_id="345" text="&gt;10m UKC@14.5kn/BWL2/PFIX-Max60min/GPS verified by RADAR/sub course change/SC10m/SD14/ES2M"/>
+            <point ref_id="344" text="&gt;10m UKC@14.5kn/BWL2/PFIX-Max60min/GPS verified by RADAR/sub course change/SC10m/SD14/ES2M"/>
+            <point ref_id="360" text="&gt;10m UKC@14.5kn/BWL2/PFIX-Max60min/GPS verified by RADAR/sub course change/SC10m/SD14/ES2M"/>
+            <point ref_id="361" text="&gt;10m UKC@14.5kn/BWL2/PFIX-Max60min/GPS verified by RADAR/sub course change/SC10m/SD14/ES2M"/>
+            <point ref_id="362" text="&gt;10m UKC@14.5kn/BWL2/PFIX-Max60min/GPS verified by RADAR/sub course change/SC10m/SD14/ES2M"/>
+            <point ref_id="363" text="3.1m UKC@5kn/BWL3/Position Fix by visual bearings-RADAR Bearings"/>
+            <point ref_id="365" text="3.1m UKC@5kn/BWL3/Position Fix by visual bearings-RADAR Bearings"/>
+            <point ref_id="366" text="3.1m UKC@5kn/BWL3/Position Fix by visual bearings-RADAR Bearings"/>
+            <point ref_id="367" text="3.1m UKC@5kn/BWL3/Position Fix by visual bearings-RADAR Bearings"/>
+            <point ref_id="368" text="3.1m UKC@5kn/BWL3/Position Fix by visual bearings-RADAR Bearings"/>
+            <point ref_id="369" text="3.1m UKC@5kn/BWL3/Position Fix by visual bearings-RADAR Bearings"/>
+            <point ref_id="370" text="3.1m UKC@5kn/BWL3/Position Fix by visual bearings-RADAR Bearings"/>
+            <point ref_id="371" text="3.1m UKC@5kn/BWL3/Position Fix by visual bearings-RADAR Bearings"/>
+            <point ref_id="372" text="Min UKC 1.0 m at 10kts"/>
+            <point ref_id="373" text="3.1m UKC@5kn/BWL3/Position Fix by visual bearings-RADAR Bearings"/>
+            <point ref_id="374" text="3.1m UKC@5kn/BWL3/Position Fix by visual bearings-RADAR Bearings"/>
+            <point ref_id="375" text="3.1m UKC@5kn/BWL3/Position Fix by visual bearings-RADAR Bearings"/>
+            <point ref_id="376" text="3.1m UKC@5kn/BWL3/Position Fix by visual bearings-RADAR Bearings"/>
+            <point ref_id="377" text="3.1m UKC@5kn/BWL3/Position Fix by visual bearings-RADAR Bearings"/>
+            <point ref_id="378" text="3.1m UKC@5kn/BWL3/Position Fix by visual bearings-RADAR Bearings"/>
+            <point ref_id="379" text="3.1m UKC@5kn/BWL3/Position Fix by visual bearings-RADAR Bearings"/>
+            <point ref_id="380" text="3.1m UKC@5kn/BWL3/Position Fix by visual bearings-RADAR Bearings"/>
+            <point ref_id="381" text="3.1m UKC@5kn/BWL3/Position Fix by visual bearings-RADAR Bearings"/>
+            <point ref_id="382" text="3.1m UKC@5kn/BWL3/Position Fix by visual bearings-RADAR Bearings"/>
+            <point ref_id="383" text="3.1m UKC@5kn/BWL3/Position Fix by visual bearings-RADAR Bearings"/>
+            <point ref_id="384" text="3.1m UKC@5kn/BWL3/Position Fix by visual bearings-RADAR Bearings"/>
+            <point ref_id="385" text="3.1m UKC@5kn/BWL3/Position Fix by visual bearings-RADAR Bearings"/>
+            <point ref_id="427" text="3.1m UKC@5kn/BWL3/Position Fix by visual bearings-RADAR Bearings"/>
+            <point ref_id="432" text="&gt;5m UKC@14.5kn/BWL3/Position Fix by visual bearings-RADAR Bearings"/>
+            <point ref_id="428" text="3.1m UKC@5kn/BWL3/Position Fix by visual bearings-RADAR Bearings"/>
+            <point ref_id="429" text="3.1m UKC@5kn/BWL3/Position Fix by visual bearings-RADAR Bearings"/>
+            <point ref_id="430" text="3.1m UKC@5kn/BWL3/Position Fix by visual bearings-RADAR Bearings"/>
+            <point ref_id="431" text="3.1m UKC@5kn/BWL3/Position Fix by visual bearings-RADAR Bearings"/>
+        </extension>
+        <extension check_time="2024-12-23T01:55:20Z" name="route_check_info" manufacturer="Transas" version="1.0.0"/>
+        <extension name="ukccalc" manufacturer="Transas" version="1.0.0">
+            <ukc ref_id="359" draught="11.00" static_draught="8.50" squat="0.00" ukc="0.80" ukc_status="ok" passage_type="coastal_waters" catzoc="unassesed" catzoc_status=""/>
+            <ukc ref_id="358" draught="8.80" static_draught="8.80" squat="0.00" wave_respond="0.10" depth="9.90" depth_status="manual" ukc="1.00" ukc_status="ok" passage_type="coastal_waters" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="357" draught="8.80" static_draught="8.80" squat="0.00" wave_respond="0.10" depth="9.90" depth_status="manual" ukc="1.00" ukc_status="ok" passage_type="coastal_waters" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="356" draught="8.80" static_draught="8.80" squat="0.00" wave_respond="0.10" depth="19.99" depth_status="manual" ukc="11.09" ukc_status="ok" passage_type="coastal_waters" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="355" draught="8.80" static_draught="8.80" squat="0.00" wave_respond="0.10" depth="19.09" depth_status="manual" ukc="10.19" ukc_status="ok" passage_type="coastal_waters" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="354" draught="8.80" static_draught="8.80" squat="0.00" wave_respond="0.10" depth="13.00" depth_status="manual" ukc="4.10" ukc_status="ok" passage_type="coastal_waters" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="353" draught="8.80" static_draught="8.80" squat="0.00" wave_respond="0.10" depth="15.00" depth_status="manual" ukc="6.10" ukc_status="ok" passage_type="coastal_waters" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="352" draught="8.80" static_draught="8.80" squat="0.00" wave_respond="0.10" depth="19.99" depth_status="manual" ukc="11.09" ukc_status="ok" passage_type="coastal_waters" catzoc="b" catzoc_status="ok"/>
+            <ukc ref_id="350" draught="8.80" static_draught="8.80" squat="0.00" wave_respond="0.10" depth="23.00" depth_status="manual" ukc="14.10" ukc_status="ok" passage_type="coastal_waters" catzoc="b" catzoc_status="ok"/>
+            <ukc ref_id="349" draught="8.80" static_draught="8.80" squat="0.00" wave_respond="0.10" depth="15.00" depth_status="manual" ukc="6.10" ukc_status="ok" passage_type="coastal_waters" catzoc="b" catzoc_status="ok"/>
+            <ukc ref_id="348" draught="8.80" static_draught="8.80" squat="0.00" wave_respond="0.10" depth="20.00" depth_status="manual" ukc="11.10" ukc_status="ok" passage_type="coastal_waters" catzoc="b" catzoc_status="ok"/>
+            <ukc ref_id="347" draught="8.80" static_draught="8.80" squat="0.00" wave_respond="0.10" depth="19.99" depth_status="manual" ukc="11.09" ukc_status="ok" passage_type="coastal_waters" catzoc="b" catzoc_status="ok"/>
+            <ukc ref_id="346" draught="8.80" static_draught="8.80" squat="0.00" wave_respond="0.10" depth="19.99" depth_status="manual" ukc="11.09" ukc_status="ok" passage_type="coastal_waters" catzoc="b" catzoc_status="ok"/>
+            <ukc ref_id="345" draught="8.80" static_draught="8.80" squat="0.00" wave_respond="0.10" depth="15.20" depth_status="manual" ukc="6.30" ukc_status="ok" passage_type="coastal_waters" catzoc="b" catzoc_status="ok"/>
+            <ukc ref_id="344" draught="8.80" static_draught="8.80" squat="0.00" wave_respond="0.10" depth="17.40" depth_status="manual" ukc="8.50" ukc_status="ok" passage_type="coastal_waters" catzoc="c" catzoc_status="ok"/>
+            <ukc ref_id="360" draught="8.80" static_draught="8.80" squat="0.00" wave_respond="0.10" depth="100.00" depth_status="manual" ukc="91.10" ukc_status="ok" passage_type="coastal_waters" catzoc="a2" catzoc_status="ok"/>
+            <ukc ref_id="361" draught="8.80" static_draught="8.80" squat="0.00" wave_respond="0.10" depth="100.00" depth_status="manual" ukc="91.10" ukc_status="ok" passage_type="coastal_waters" catzoc="a2" catzoc_status="ok"/>
+            <ukc ref_id="362" draught="8.80" static_draught="8.80" squat="0.00" wave_respond="0.10" depth="36.00" depth_status="manual" ukc="27.10" ukc_status="ok" passage_type="coastal_waters" catzoc="a2" catzoc_status="ok"/>
+            <ukc ref_id="363" draught="8.80" static_draught="8.80" squat="0.00" wave_respond="0.10" depth="19.99" depth_status="manual" ukc="11.09" ukc_status="ok" passage_type="coastal_waters" catzoc="a2" catzoc_status="ok"/>
+            <ukc ref_id="365" draught="8.80" static_draught="8.80" squat="0.00" wave_respond="0.10" depth="94.00" depth_status="manual" ukc="85.10" ukc_status="ok" passage_type="coastal_waters" catzoc="a2" catzoc_status="ok"/>
+            <ukc ref_id="366" draught="8.80" static_draught="8.80" squat="0.00" wave_respond="0.10" depth="12.00" depth_status="manual" ukc="3.10" ukc_status="ok" passage_type="coastal_waters" catzoc="b" catzoc_status="ok"/>
+            <ukc ref_id="367" draught="8.80" static_draught="8.80" squat="0.00" wave_respond="0.10" depth="12.00" depth_status="manual" ukc="3.10" ukc_status="ok" passage_type="coastal_waters" catzoc="b" catzoc_status="ok"/>
+            <ukc ref_id="368" draught="8.80" static_draught="8.80" squat="0.00" wave_respond="0.10" depth="12.20" depth_status="manual" ukc="3.30" ukc_status="ok" passage_type="coastal_waters" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="369" draught="8.80" static_draught="8.80" squat="0.00" wave_respond="0.10" depth="10.00" depth_status="manual" ukc="1.10" ukc_status="ok" passage_type="coastal_waters" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="370" draught="8.80" static_draught="8.80" squat="0.00" wave_respond="0.10" depth="10.00" depth_status="manual" ukc="1.10" ukc_status="ok" passage_type="coastal_waters" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="371" draught="8.80" static_draught="8.80" squat="0.00" wave_respond="0.10" depth="13.40" depth_status="manual" ukc="4.50" ukc_status="ok" passage_type="coastal_waters" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="372" draught="8.80" static_draught="8.80" squat="0.00" wave_respond="0.10" depth="9.50" depth_status="manual" ukc="0.60" ukc_status="ok" passage_type="coastal_waters" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="373" draught="8.80" static_draught="8.80" squat="0.00" wave_respond="0.10" depth="10.30" depth_status="manual" ukc="1.40" ukc_status="ok" passage_type="coastal_waters" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="374" draught="8.80" static_draught="8.80" squat="0.00" wave_respond="0.10" depth="11.80" depth_status="manual" ukc="2.90" ukc_status="ok" passage_type="coastal_waters" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="375" draught="8.80" static_draught="8.80" squat="0.00" wave_respond="0.10" depth="13.50" depth_status="manual" ukc="4.60" ukc_status="ok" passage_type="coastal_waters" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="376" draught="8.80" static_draught="8.80" squat="0.00" wave_respond="0.10" depth="14.90" depth_status="manual" ukc="6.00" ukc_status="ok" passage_type="coastal_waters" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="377" draught="8.80" static_draught="8.80" squat="0.00" wave_respond="0.10" depth="30.00" depth_status="manual" ukc="21.10" ukc_status="ok" passage_type="coastal_waters" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="378" draught="8.80" static_draught="8.80" squat="0.00" wave_respond="0.10" depth="40.00" depth_status="manual" ukc="31.10" ukc_status="ok" passage_type="coastal_waters" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="379" draught="8.80" static_draught="8.80" squat="0.00" wave_respond="0.10" depth="23.00" depth_status="manual" ukc="14.10" ukc_status="ok" passage_type="coastal_waters" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="380" draught="8.80" static_draught="8.80" squat="0.00" wave_respond="0.10" depth="23.00" depth_status="manual" ukc="14.10" ukc_status="ok" passage_type="coastal_waters" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="381" draught="8.80" static_draught="8.80" squat="0.00" wave_respond="0.10" depth="15.00" depth_status="manual" ukc="6.10" ukc_status="ok" passage_type="coastal_waters" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="382" draught="8.80" static_draught="8.80" squat="0.00" wave_respond="0.10" depth="30.00" depth_status="manual" ukc="21.10" ukc_status="ok" passage_type="coastal_waters" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="383" draught="8.80" static_draught="8.80" squat="0.00" wave_respond="0.10" depth="73.00" depth_status="manual" ukc="64.10" ukc_status="ok" passage_type="coastal_waters" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="384" draught="8.80" static_draught="8.80" squat="0.00" wave_respond="0.10" depth="18.60" depth_status="manual" ukc="9.70" ukc_status="ok" passage_type="coastal_waters" catzoc="b" catzoc_status="ok"/>
+            <ukc ref_id="385" draught="8.80" static_draught="8.80" squat="0.00" wave_respond="0.10" depth="17.00" depth_status="manual" ukc="8.10" ukc_status="ok" passage_type="coastal_waters" catzoc="b" catzoc_status="ok"/>
+            <ukc ref_id="427" draught="8.80" static_draught="8.80" squat="0.00" wave_respond="0.10" depth="124.00" depth_status="manual" ukc="115.10" ukc_status="ok" passage_type="coastal_waters" catzoc="b" catzoc_status="ok"/>
+            <ukc ref_id="432" draught="8.80" static_draught="8.80" squat="0.00" wave_respond="0.10" depth="12.00" depth_status="manual" ukc="3.10" ukc_status="ok" passage_type="coastal_waters" catzoc="b" catzoc_status="ok"/>
+            <ukc ref_id="428" draught="8.80" static_draught="8.80" squat="0.00" wave_respond="0.10" depth="14.10" depth_status="manual" ukc="5.20" ukc_status="ok" passage_type="coastal_waters" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="429" draught="8.80" static_draught="8.80" squat="0.00" wave_respond="0.10" depth="34.00" depth_status="manual" ukc="25.10" ukc_status="ok" passage_type="coastal_waters" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="430" draught="8.80" static_draught="8.80" squat="0.00" wave_respond="0.10" depth="50.00" depth_status="manual" ukc="41.10" ukc_status="ok" passage_type="coastal_waters" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="431" draught="8.80" static_draught="8.80" squat="0.00" wave_respond="0.10" depth="11.40" depth_status="manual" ukc="2.50" ukc_status="ok" passage_type="coastal_waters" catzoc="a1" catzoc_status="ok"/>
+        </extension>
+        <extension name="voyage_info" manufacturer="Transas" version="1.0.0" voyage_no="24039" start_point="Bodo" end_point="Tromso" transit_point="Lodingen" arrival_draft="8.8" depart_draft="8.8" dbirth_refid="359" dbirth_name="" dpilot_refid="346" dpilot_name="" abirth_refid="431" abirth_name="" apilot_refid="363" apilot_name=""/>
+        <extension name="voyage_status" manufacturer="Transas" version="1.0.0" value="2"/>
+    </extensions>
+</route>

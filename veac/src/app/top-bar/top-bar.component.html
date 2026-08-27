@@ -1,0 +1,64 @@
+<div class="vea-top-bar">
+  <div class="vea-top-bar-left">
+    <img *ngIf="themeService.selectedTheme === 'Day'"
+         class="vea-top-bar-logo"
+         src="assets/images/logo-kog-day.svg"
+         alt="Kongsberg logo">
+    <img *ngIf="themeService.selectedTheme === 'Dusk'"
+         class="vea-top-bar-logo"
+         src="assets/images/logo-kog-dusk.svg"
+         alt="Kongsberg logo">
+         
+    <div class="vea-top-bar-system-name">K-Sail Voyage</div>
+         
+    <div class="vea-top-bar-navigation">
+      <div class="vea-nav-tabs-container">
+        <a routerLink="/vec"
+           routerLinkActive="active"
+           class="vea-nav-tab">
+          <span class="vea-nav-tab-text">Planning view</span>
+        </a>
+        <a routerLink="/live"
+           routerLinkActive="active"
+           class="vea-nav-tab">
+          <span class="vea-nav-tab-text">Live view</span>
+        </a>
+      </div>
+    </div>
+  </div>
+   
+  <div class="vea-top-bar-right">
+ 
+    <div class="vea-top-bar-separator"></div>
+    
+    <div class="vea-top-bar-datetime">
+      <span class="vea-top-bar-date">UTC: {{ utcDate }}</span>
+      <span class="vea-top-bar-time">{{ utcTime }}</span>
+    </div>
+         
+    <div *ngIf="showVersionButton" class="vea-build-versions"></div>
+    <div *ngIf="showVersionButton" class="vea-top-bar-separator"></div>
+    
+     <div class="vea-hamburger-menu">
+      <button class="vea-hamburger-btn" (click)="toggleMenu()">
+        <span class="vea-hamburger-icon">☰</span>
+      </button>
+      <div class="vea-dropdown-menu" *ngIf="isMenuOpen">
+        <button class="vea-menu-item" (click)="openSettings()">
+          <i class="fa fa-cog"></i>
+          <span>Display format</span>
+        </button>
+        <button class="vea-menu-item" (click)="logout()">
+          <i class="fa fa-sign-out"></i>
+          <span>Log out</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="vea-palette-container">
+      <app-palette-selector class="vea-top-bar-palette"></app-palette-selector>
+    </div>
+  </div>
+</div>
+
+<app-settings-dialog #settingsDialog></app-settings-dialog>

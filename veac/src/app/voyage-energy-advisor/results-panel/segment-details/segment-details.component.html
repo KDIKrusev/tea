@@ -1,0 +1,54 @@
+<div class="segment-details" *ngIf="selectedSegment; else emptyState">
+  <!-- Time Range -->
+  <div class="details-overlay time-info">
+    {{ selectedSegment.startTime | date:'HH:mm':'UTC' }} -
+    {{ selectedSegment.endTime | date:'HH:mm':'UTC' }}
+  </div>
+
+  <!-- Coordinates -->
+  <div class="details-overlay coordinates-info">
+    {{ selectedSegmentPosition }}
+  </div>
+
+  <!-- <div class="details-overlay vessel-speed-info">
+    <div class="info-label">
+      Segment {{ (selectedSegmentIndex ?? 0) + 1 }} vessel speed
+    </div>
+    <div class="info-value">
+      <span>{{ getVesselSpeed() | number: '1.2-2' }} kn</span>
+    </div>
+  </div> -->
+
+  <div class="details-overlay wind-info">
+    <div class="info-label">Wind speed</div>
+    <div class="info-value">
+      <span>{{ getWindSpeed() | number: '1.0-1' }} m/s</span>
+    </div>
+  </div>
+
+  <div class="details-overlay current-info">
+    <div class="info-label">Current speed</div>
+    <div class="info-value">
+      <span>{{ getCurrentSpeed() | number: '1.0-1' }} m/s</span>
+    </div>
+  </div>
+
+  <div class="compass-container">
+    <obc-compass
+      [attr.heading]="getCourse()"
+      [vesselImage]="'psv-top'"
+      [windFromDirection]="getWindDirection()"
+      [windSpeed]="convertWindSpeedToBeaufort(getWindSpeed())"
+      [currentFromDirection]="getCurrentDirection()"
+      [currentSpeed]="convertCurrentSpeedToScale(getCurrentSpeed())">
+    </obc-compass>
+  </div>
+</div>
+
+<ng-template #emptyState>
+  <div class="segment-details segment-details-empty">
+    <div class="empty-message">
+      <p>Hover over a chart segment to view details</p>
+    </div>
+  </div>
+</ng-template>

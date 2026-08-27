@@ -1,0 +1,26 @@
+.ea-vec-input-group {
+    margin-bottom: 20px;
+  }
+  
+  .ea-vec-input-group-heading {
+    font-size: 14px;
+    margin-bottom: 10px;
+     font-weight: 500;
+  }
+  
+  .ea-vec-speed-simple-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+  }
+  
+  .ea-vec-speed-label {
+    font-size: 14px;
+    min-width: 50px;
+  }
+  
+  .ea-vec-speed-slider {
+    flex-grow: 1;
+    margin: 0 15px;
+  }

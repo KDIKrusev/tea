@@ -1,0 +1,13 @@
+{
+  "RouteServiceConfiguration": {
+    "SelectedRouteProvider": "LocalFilesRouteProvider"
+  },
+  "LocalFilesRouteProviderConfiguration": {
+    "RtzDataFolder": "RtzData"
+  },
+  "NavBoxRouteProviderConfiguration": {
+    "ApiUrl": "https://10.64.62.68:8010/",
+    "OemToken": "ZJW7ZkSxOVFldjxAjLsuJmSvY4oAIYSDWO+0Lgg7kI+XV/vfiDejRJ3uhTWt1+vN6aF50ikITtw6ca8dvSm7k4kNt1BGpNuWy6hHAg4S+x6AbrFXEfTKAI8Ct03shX9Y",
+    "NavboxToken": "Weluqytyweci15"
+  }
+}

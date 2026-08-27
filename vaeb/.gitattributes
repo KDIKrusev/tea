@@ -1,0 +1,8 @@
+# Set default behavior for text files
+* text=auto
+
+# Handle line endings for specific file types
+*.cs    text eol=crlf
+*.sh    text eol=lf
+*.md    text eol=lf
+*.json  text eol=lf

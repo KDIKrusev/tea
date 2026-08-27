@@ -1,0 +1,30 @@
+pool:
+  vmImage: 'ubuntu-latest'
+
+trigger: none
+
+steps:
+- task: UseDotNet@2
+  inputs:
+    packageType: 'sdk'
+    version: '10.x'
+
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet restore'
+  inputs:
+    command: 'restore'
+    feedsToUse: 'config'
+    nugetConfigPath: '.nuget/NuGet.Config'
+    externalFeedCredentials: 'kdi-jfrog-nuget-connection'
+
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet build'
+  inputs:
+    command: 'build'
+    arguments: '--no-restore --configuration Release'
+    
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet test'
+  inputs:
+    command: 'test'
+    arguments: '--no-build --configuration Release'

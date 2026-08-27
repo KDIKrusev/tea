@@ -1,0 +1,12 @@
+<div class="map-wrapper" [class.map-wrapper-mini]="miniMapMode">
+    <div #mapContainer id="map" class="map-container"></div>
+      
+    <!-- Mini map controls -->
+    <div *ngIf="miniMapMode" class="map-overlay">
+      <button class="map-expand-btn"
+              (click)="expandMap()"
+              aria-label="Expand map to full screen">
+        <i class="fa fa-expand" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>

@@ -1,0 +1,2014 @@
+{
+  "CalmWaterResistanceServiceConfiguration": {
+    "CalmWaterResistanceItems": [
+      {
+        "SpeedOverGround": 0.514444444,
+        "ResistanceForce": 1.9107361740050777
+      },
+      {
+        "SpeedOverGround": 0.5442226653093812,
+        "ResistanceForce": 2.1238985275010602
+      },
+      {
+        "SpeedOverGround": 0.5740008866187625,
+        "ResistanceForce": 2.3476672797776925
+      },
+      {
+        "SpeedOverGround": 0.6037791079281437,
+        "ResistanceForce": 2.5819872867808598
+      },
+      {
+        "SpeedOverGround": 0.633557329237525,
+        "ResistanceForce": 2.8268067564769335
+      },
+      {
+        "SpeedOverGround": 0.6633355505469061,
+        "ResistanceForce": 3.0820768821184594
+      },
+      {
+        "SpeedOverGround": 0.6931137718562873,
+        "ResistanceForce": 3.347751529016497
+      },
+      {
+        "SpeedOverGround": 0.7228919931656685,
+        "ResistanceForce": 3.623786964965264
+      },
+      {
+        "SpeedOverGround": 0.7526702144750498,
+        "ResistanceForce": 3.9101416266237674
+      },
+      {
+        "SpeedOverGround": 0.782448435784431,
+        "ResistanceForce": 4.206775915776859
+      },
+      {
+        "SpeedOverGround": 0.8122266570938123,
+        "ResistanceForce": 4.51365202062593
+      },
+      {
+        "SpeedOverGround": 0.8420048784031935,
+        "ResistanceForce": 4.830733758202778
+      },
+      {
+        "SpeedOverGround": 0.8717830997125747,
+        "ResistanceForce": 5.157986434732201
+      },
+      {
+        "SpeedOverGround": 0.901561321021956,
+        "ResistanceForce": 5.495376721343349
+      },
+      {
+        "SpeedOverGround": 0.9313395423313372,
+        "ResistanceForce": 5.842872542984247
+      },
+      {
+        "SpeedOverGround": 0.9611177636407183,
+        "ResistanceForce": 6.200442978756684
+      },
+      {
+        "SpeedOverGround": 0.9908959849500996,
+        "ResistanceForce": 6.568058172180672
+      },
+      {
+        "SpeedOverGround": 1.020674206259481,
+        "ResistanceForce": 6.945689250134153
+      },
+      {
+        "SpeedOverGround": 1.050452427568862,
+        "ResistanceForce": 7.333308249406853
+      },
+      {
+        "SpeedOverGround": 1.0802306488782434,
+        "ResistanceForce": 7.730888049965609
+      },
+      {
+        "SpeedOverGround": 1.1100088701876245,
+        "ResistanceForce": 8.13840231415978
+      },
+      {
+        "SpeedOverGround": 1.1397870914970056,
+        "ResistanceForce": 8.555825431204076
+      },
+      {
+        "SpeedOverGround": 1.169565312806387,
+        "ResistanceForce": 8.98313246636727
+      },
+      {
+        "SpeedOverGround": 1.199343534115768,
+        "ResistanceForce": 9.420299114371488
+      },
+      {
+        "SpeedOverGround": 1.2291217554251495,
+        "ResistanceForce": 9.867301656571646
+      },
+      {
+        "SpeedOverGround": 1.2588999767345306,
+        "ResistanceForce": 10.324116921538595
+      },
+      {
+        "SpeedOverGround": 1.288678198043912,
+        "ResistanceForce": 10.790722248716722
+      },
+      {
+        "SpeedOverGround": 1.318456419353293,
+        "ResistanceForce": 11.26709545486595
+      },
+      {
+        "SpeedOverGround": 1.3482346406626744,
+        "ResistanceForce": 11.753214803032465
+      },
+      {
+        "SpeedOverGround": 1.3780128619720555,
+        "ResistanceForce": 12.249058973821821
+      },
+      {
+        "SpeedOverGround": 1.4077910832814367,
+        "ResistanceForce": 12.754607038773182
+      },
+      {
+        "SpeedOverGround": 1.437569304590818,
+        "ResistanceForce": 13.269838435655883
+      },
+      {
+        "SpeedOverGround": 1.4673475259001991,
+        "ResistanceForce": 13.79473294552816
+      },
+      {
+        "SpeedOverGround": 1.4971257472095805,
+        "ResistanceForce": 14.329270671414843
+      },
+      {
+        "SpeedOverGround": 1.5269039685189616,
+        "ResistanceForce": 14.873432018475524
+      },
+      {
+        "SpeedOverGround": 1.556682189828343,
+        "ResistanceForce": 15.427197675547234
+      },
+      {
+        "SpeedOverGround": 1.586460411137724,
+        "ResistanceForce": 15.990548597957167
+      },
+      {
+        "SpeedOverGround": 1.6162386324471054,
+        "ResistanceForce": 16.563465991511144
+      },
+      {
+        "SpeedOverGround": 1.6460168537564865,
+        "ResistanceForce": 17.145931297572133
+      },
+      {
+        "SpeedOverGround": 1.6757950750658677,
+        "ResistanceForce": 17.737926179151412
+      },
+      {
+        "SpeedOverGround": 1.705573296375249,
+        "ResistanceForce": 18.33943250794158
+      },
+      {
+        "SpeedOverGround": 1.7353515176846301,
+        "ResistanceForce": 18.950432352227942
+      },
+      {
+        "SpeedOverGround": 1.7651297389940115,
+        "ResistanceForce": 19.570907965619558
+      },
+      {
+        "SpeedOverGround": 1.7949079603033926,
+        "ResistanceForce": 20.200841776547637
+      },
+      {
+        "SpeedOverGround": 1.824686181612774,
+        "ResistanceForce": 20.84021637848327
+      },
+      {
+        "SpeedOverGround": 1.854464402922155,
+        "ResistanceForce": 21.489014520831077
+      },
+      {
+        "SpeedOverGround": 1.8842426242315364,
+        "ResistanceForce": 22.147219100460525
+      },
+      {
+        "SpeedOverGround": 1.9140208455409176,
+        "ResistanceForce": 22.814813153839474
+      },
+      {
+        "SpeedOverGround": 1.9437990668502987,
+        "ResistanceForce": 23.49177984973989
+      },
+      {
+        "SpeedOverGround": 1.97357728815968,
+        "ResistanceForce": 24.178102482488423
+      },
+      {
+        "SpeedOverGround": 2.003355509469061,
+        "ResistanceForce": 24.873764465739033
+      },
+      {
+        "SpeedOverGround": 2.0331337307784425,
+        "ResistanceForce": 25.57874932674827
+      },
+      {
+        "SpeedOverGround": 2.062911952087824,
+        "ResistanceForce": 26.293040701137503
+      },
+      {
+        "SpeedOverGround": 2.0926901733972048,
+        "ResistanceForce": 27.016622328130634
+      },
+      {
+        "SpeedOverGround": 2.122468394706586,
+        "ResistanceForce": 27.749478046258563
+      },
+      {
+        "SpeedOverGround": 2.1522466160159675,
+        "ResistanceForce": 28.49159178952661
+      },
+      {
+        "SpeedOverGround": 2.182024837325349,
+        "ResistanceForce": 29.242947584044177
+      },
+      {
+        "SpeedOverGround": 2.2118030586347297,
+        "ResistanceForce": 30.003529545119882
+      },
+      {
+        "SpeedOverGround": 2.241581279944111,
+        "ResistanceForce": 30.773321874829243
+      },
+      {
+        "SpeedOverGround": 2.2713595012534924,
+        "ResistanceForce": 31.552308860066447
+      },
+      {
+        "SpeedOverGround": 2.3011377225628733,
+        "ResistanceForce": 32.34047487109449
+      },
+      {
+        "SpeedOverGround": 2.3309159438722546,
+        "ResistanceForce": 33.137804360612954
+      },
+      {
+        "SpeedOverGround": 2.360694165181636,
+        "ResistanceForce": 33.94428186336574
+      },
+      {
+        "SpeedOverGround": 2.3904723864910173,
+        "ResistanceForce": 34.759891996315496
+      },
+      {
+        "SpeedOverGround": 2.4202506078003982,
+        "ResistanceForce": 35.58461945941453
+      },
+      {
+        "SpeedOverGround": 2.4500288291097796,
+        "ResistanceForce": 36.418449037005985
+      },
+      {
+        "SpeedOverGround": 2.479807050419161,
+        "ResistanceForce": 37.261365599892436
+      },
+      {
+        "SpeedOverGround": 2.509585271728542,
+        "ResistanceForce": 38.113354108112176
+      },
+      {
+        "SpeedOverGround": 2.539363493037923,
+        "ResistanceForce": 38.9743996144667
+      },
+      {
+        "SpeedOverGround": 2.5691417143473045,
+        "ResistanceForce": 39.84448726884574
+      },
+      {
+        "SpeedOverGround": 2.598919935656686,
+        "ResistanceForce": 40.72360232339826
+      },
+      {
+        "SpeedOverGround": 2.628698156966067,
+        "ResistanceForce": 41.61173013860157
+      },
+      {
+        "SpeedOverGround": 2.658476378275448,
+        "ResistanceForce": 42.50885619028054
+      },
+      {
+        "SpeedOverGround": 2.6882545995848295,
+        "ResistanceForce": 43.414966077631995
+      },
+      {
+        "SpeedOverGround": 2.718032820894211,
+        "ResistanceForce": 44.33004553231276
+      },
+      {
+        "SpeedOverGround": 2.7478110422035917,
+        "ResistanceForce": 45.254080428643405
+      },
+      {
+        "SpeedOverGround": 2.777589263512973,
+        "ResistanceForce": 46.187056794989296
+      },
+      {
+        "SpeedOverGround": 2.8073674848223544,
+        "ResistanceForce": 47.12896082638552
+      },
+      {
+        "SpeedOverGround": 2.8371457061317353,
+        "ResistanceForce": 48.07977889842102
+      },
+      {
+        "SpeedOverGround": 2.8669239274411167,
+        "ResistanceForce": 49.03949758254892
+      },
+      {
+        "SpeedOverGround": 2.896702148750498,
+        "ResistanceForce": 50.008103662650335
+      },
+      {
+        "SpeedOverGround": 2.9264803700598794,
+        "ResistanceForce": 50.98558415333573
+      },
+      {
+        "SpeedOverGround": 2.9562585913692603,
+        "ResistanceForce": 51.97192631927366
+      },
+      {
+        "SpeedOverGround": 2.9860368126786416,
+        "ResistanceForce": 52.9671176969075
+      },
+      {
+        "SpeedOverGround": 3.015815033988023,
+        "ResistanceForce": 53.97114611645161
+      },
+      {
+        "SpeedOverGround": 3.0455932552974043,
+        "ResistanceForce": 54.98399972751684
+      },
+      {
+        "SpeedOverGround": 3.0753714766067852,
+        "ResistanceForce": 56.00566702398782
+      },
+      {
+        "SpeedOverGround": 3.1051496979161666,
+        "ResistanceForce": 57.03613687259524
+      },
+      {
+        "SpeedOverGround": 3.134927919225548,
+        "ResistanceForce": 58.07539854420577
+      },
+      {
+        "SpeedOverGround": 3.164706140534929,
+        "ResistanceForce": 59.12344173920094
+      },
+      {
+        "SpeedOverGround": 3.19448436184431,
+        "ResistanceForce": 60.18025663231998
+      },
+      {
+        "SpeedOverGround": 3.2242625831536915,
+        "ResistanceForce": 61.24583389505549
+      },
+      {
+        "SpeedOverGround": 3.254040804463073,
+        "ResistanceForce": 62.320164734530735
+      },
+      {
+        "SpeedOverGround": 3.2838190257724538,
+        "ResistanceForce": 63.40324095621169
+      },
+      {
+        "SpeedOverGround": 3.313597247081835,
+        "ResistanceForce": 64.49505495768175
+      },
+      {
+        "SpeedOverGround": 3.3433754683912165,
+        "ResistanceForce": 65.59559980120794
+      },
+      {
+        "SpeedOverGround": 3.3731536897005974,
+        "ResistanceForce": 66.70486930531341
+      },
+      {
+        "SpeedOverGround": 3.4029319110099787,
+        "ResistanceForce": 67.82285797178946
+      },
+      {
+        "SpeedOverGround": 3.43271013231936,
+        "ResistanceForce": 68.9543694126439
+      },
+      {
+        "SpeedOverGround": 3.4624883536287414,
+        "ResistanceForce": 70.09915695816792
+      },
+      {
+        "SpeedOverGround": 3.4922665749381223,
+        "ResistanceForce": 71.2529740056424
+      },
+      {
+        "SpeedOverGround": 3.5220447962475037,
+        "ResistanceForce": 72.41582254416763
+      },
+      {
+        "SpeedOverGround": 3.551823017556885,
+        "ResistanceForce": 73.58770585294573
+      },
+      {
+        "SpeedOverGround": 3.5816012388662664,
+        "ResistanceForce": 74.76862844955531
+      },
+      {
+        "SpeedOverGround": 3.6113794601756473,
+        "ResistanceForce": 75.95859545623455
+      },
+      {
+        "SpeedOverGround": 3.6411576814850286,
+        "ResistanceForce": 77.15761304511831
+      },
+      {
+        "SpeedOverGround": 3.67093590279441,
+        "ResistanceForce": 78.36568950416455
+      },
+      {
+        "SpeedOverGround": 3.700714124103791,
+        "ResistanceForce": 79.58283461061771
+      },
+      {
+        "SpeedOverGround": 3.730492345413172,
+        "ResistanceForce": 80.80905818056175
+      },
+      {
+        "SpeedOverGround": 3.7602705667225536,
+        "ResistanceForce": 82.04437102728785
+      },
+      {
+        "SpeedOverGround": 3.790048788031935,
+        "ResistanceForce": 83.28878741173317
+      },
+      {
+        "SpeedOverGround": 3.819827009341316,
+        "ResistanceForce": 84.54232444029539
+      },
+      {
+        "SpeedOverGround": 3.849605230650697,
+        "ResistanceForce": 85.80499850116394
+      },
+      {
+        "SpeedOverGround": 3.8793834519600785,
+        "ResistanceForce": 87.07682476996844
+      },
+      {
+        "SpeedOverGround": 3.90916167326946,
+        "ResistanceForce": 88.3578220747259
+      },
+      {
+        "SpeedOverGround": 3.9389398945788408,
+        "ResistanceForce": 89.64801641741033
+      },
+      {
+        "SpeedOverGround": 3.968718115888222,
+        "ResistanceForce": 90.94743665766978
+      },
+      {
+        "SpeedOverGround": 3.9984963371976034,
+        "ResistanceForce": 92.25610693088754
+      },
+      {
+        "SpeedOverGround": 4.028274558506984,
+        "ResistanceForce": 93.5740468862304
+      },
+      {
+        "SpeedOverGround": 4.058052779816366,
+        "ResistanceForce": 94.90128202421376
+      },
+      {
+        "SpeedOverGround": 4.087831001125747,
+        "ResistanceForce": 96.23785231836338
+      },
+      {
+        "SpeedOverGround": 4.117609222435128,
+        "ResistanceForce": 97.5838066945232
+      },
+      {
+        "SpeedOverGround": 4.14738744374451,
+        "ResistanceForce": 98.93918679026893
+      },
+      {
+        "SpeedOverGround": 4.177165665053891,
+        "ResistanceForce": 100.30401784974879
+      },
+      {
+        "SpeedOverGround": 4.2069438863632715,
+        "ResistanceForce": 101.67831987142826
+      },
+      {
+        "SpeedOverGround": 4.236722107672653,
+        "ResistanceForce": 103.06213126128152
+      },
+      {
+        "SpeedOverGround": 4.266500328982034,
+        "ResistanceForce": 104.45552158939284
+      },
+      {
+        "SpeedOverGround": 4.296278550291415,
+        "ResistanceForce": 105.85857723097358
+      },
+      {
+        "SpeedOverGround": 4.326056771600797,
+        "ResistanceForce": 107.27136863320659
+      },
+      {
+        "SpeedOverGround": 4.355834992910178,
+        "ResistanceForce": 108.6939274959637
+      },
+      {
+        "SpeedOverGround": 4.38561321421956,
+        "ResistanceForce": 110.12625759720429
+      },
+      {
+        "SpeedOverGround": 4.4153914355289405,
+        "ResistanceForce": 111.5683765208475
+      },
+      {
+        "SpeedOverGround": 4.445169656838321,
+        "ResistanceForce": 113.02035805926037
+      },
+      {
+        "SpeedOverGround": 4.474947878147703,
+        "ResistanceForce": 114.48233982833362
+      },
+      {
+        "SpeedOverGround": 4.504726099457084,
+        "ResistanceForce": 115.95448381525239
+      },
+      {
+        "SpeedOverGround": 4.534504320766465,
+        "ResistanceForce": 117.43691222789275
+      },
+      {
+        "SpeedOverGround": 4.564282542075847,
+        "ResistanceForce": 118.92966167529791
+      },
+      {
+        "SpeedOverGround": 4.594060763385228,
+        "ResistanceForce": 120.43269106531928
+      },
+      {
+        "SpeedOverGround": 4.623838984694609,
+        "ResistanceForce": 121.94594681486372
+      },
+      {
+        "SpeedOverGround": 4.65361720600399,
+        "ResistanceForce": 123.4694516274057
+      },
+      {
+        "SpeedOverGround": 4.683395427313371,
+        "ResistanceForce": 125.00336371672009
+      },
+      {
+        "SpeedOverGround": 4.713173648622753,
+        "ResistanceForce": 126.54796604729243
+      },
+      {
+        "SpeedOverGround": 4.742951869932134,
+        "ResistanceForce": 128.10358316217147
+      },
+      {
+        "SpeedOverGround": 4.772730091241515,
+        "ResistanceForce": 129.6704633737921
+      },
+      {
+        "SpeedOverGround": 4.802508312550897,
+        "ResistanceForce": 131.24868461461207
+      },
+      {
+        "SpeedOverGround": 4.832286533860278,
+        "ResistanceForce": 132.83813471759672
+      },
+      {
+        "SpeedOverGround": 4.8620647551696585,
+        "ResistanceForce": 134.4385856058483
+      },
+      {
+        "SpeedOverGround": 4.89184297647904,
+        "ResistanceForce": 136.04983802232698
+      },
+      {
+        "SpeedOverGround": 4.921621197788421,
+        "ResistanceForce": 137.67187713079502
+      },
+      {
+        "SpeedOverGround": 4.951399419097802,
+        "ResistanceForce": 139.30496842502205
+      },
+      {
+        "SpeedOverGround": 4.981177640407184,
+        "ResistanceForce": 140.94964581776614
+      },
+      {
+        "SpeedOverGround": 5.010955861716565,
+        "ResistanceForce": 142.6065886391382
+      },
+      {
+        "SpeedOverGround": 5.040734083025947,
+        "ResistanceForce": 144.27642880332334
+      },
+      {
+        "SpeedOverGround": 5.0705123043353275,
+        "ResistanceForce": 145.9595551301542
+      },
+      {
+        "SpeedOverGround": 5.100290525644708,
+        "ResistanceForce": 147.6559835089883
+      },
+      {
+        "SpeedOverGround": 5.13006874695409,
+        "ResistanceForce": 149.36534316498546
+      },
+      {
+        "SpeedOverGround": 5.159846968263471,
+        "ResistanceForce": 151.0869961115583
+      },
+      {
+        "SpeedOverGround": 5.189625189572852,
+        "ResistanceForce": 152.82026492650348
+      },
+      {
+        "SpeedOverGround": 5.219403410882234,
+        "ResistanceForce": 154.56470422606205
+      },
+      {
+        "SpeedOverGround": 5.249181632191615,
+        "ResistanceForce": 156.32032967290857
+      },
+      {
+        "SpeedOverGround": 5.278959853500996,
+        "ResistanceForce": 158.087727420426
+      },
+      {
+        "SpeedOverGround": 5.308738074810377,
+        "ResistanceForce": 159.86800474581273
+      },
+      {
+        "SpeedOverGround": 5.338516296119758,
+        "ResistanceForce": 161.66259235601726
+      },
+      {
+        "SpeedOverGround": 5.368294517429139,
+        "ResistanceForce": 163.4729495944137
+      },
+      {
+        "SpeedOverGround": 5.398072738738521,
+        "ResistanceForce": 165.30024381246614
+      },
+      {
+        "SpeedOverGround": 5.427850960047902,
+        "ResistanceForce": 167.14507577628976
+      },
+      {
+        "SpeedOverGround": 5.457629181357284,
+        "ResistanceForce": 169.00731186122485
+      },
+      {
+        "SpeedOverGround": 5.487407402666665,
+        "ResistanceForce": 170.88606620515262
+      },
+      {
+        "SpeedOverGround": 5.5171856239760455,
+        "ResistanceForce": 172.77985160999748
+      },
+      {
+        "SpeedOverGround": 5.546963845285427,
+        "ResistanceForce": 174.68688496527855
+      },
+      {
+        "SpeedOverGround": 5.576742066594808,
+        "ResistanceForce": 176.60549461033258
+      },
+      {
+        "SpeedOverGround": 5.606520287904189,
+        "ResistanceForce": 178.53454449133818
+      },
+      {
+        "SpeedOverGround": 5.636298509213571,
+        "ResistanceForce": 180.4737776254765
+      },
+      {
+        "SpeedOverGround": 5.666076730522952,
+        "ResistanceForce": 182.4239977014955
+      },
+      {
+        "SpeedOverGround": 5.695854951832333,
+        "ResistanceForce": 184.38704824500164
+      },
+      {
+        "SpeedOverGround": 5.7256331731417145,
+        "ResistanceForce": 186.36559790012112
+      },
+      {
+        "SpeedOverGround": 5.755411394451095,
+        "ResistanceForce": 188.36277992002968
+      },
+      {
+        "SpeedOverGround": 5.785189615760477,
+        "ResistanceForce": 190.38175331807057
+      },
+      {
+        "SpeedOverGround": 5.814967837069858,
+        "ResistanceForce": 192.42525312162456
+      },
+      {
+        "SpeedOverGround": 5.844746058379239,
+        "ResistanceForce": 194.49518653404587
+      },
+      {
+        "SpeedOverGround": 5.874524279688621,
+        "ResistanceForce": 196.59232015457667
+      },
+      {
+        "SpeedOverGround": 5.904302500998002,
+        "ResistanceForce": 198.71609553830996
+      },
+      {
+        "SpeedOverGround": 5.934080722307383,
+        "ResistanceForce": 200.86460468003906
+      },
+      {
+        "SpeedOverGround": 5.963858943616764,
+        "ResistanceForce": 203.03474767405675
+      },
+      {
+        "SpeedOverGround": 5.993637164926145,
+        "ResistanceForce": 205.22257618572425
+      },
+      {
+        "SpeedOverGround": 6.023415386235526,
+        "ResistanceForce": 207.4237972464872
+      },
+      {
+        "SpeedOverGround": 6.053193607544908,
+        "ResistanceForce": 209.63437764813105
+      },
+      {
+        "SpeedOverGround": 6.082971828854289,
+        "ResistanceForce": 211.8511606292042
+      },
+      {
+        "SpeedOverGround": 6.112750050163671,
+        "ResistanceForce": 214.07239517841313
+      },
+      {
+        "SpeedOverGround": 6.142528271473052,
+        "ResistanceForce": 216.29809067295108
+      },
+      {
+        "SpeedOverGround": 6.1723064927824325,
+        "ResistanceForce": 218.53014343583854
+      },
+      {
+        "SpeedOverGround": 6.202084714091814,
+        "ResistanceForce": 220.77222657622508
+      },
+      {
+        "SpeedOverGround": 6.231862935401195,
+        "ResistanceForce": 223.02947608737188
+      },
+      {
+        "SpeedOverGround": 6.261641156710576,
+        "ResistanceForce": 225.3080331991167
+      },
+      {
+        "SpeedOverGround": 6.291419378019958,
+        "ResistanceForce": 227.614510905265
+      },
+      {
+        "SpeedOverGround": 6.321197599329339,
+        "ResistanceForce": 229.95544430169372
+      },
+      {
+        "SpeedOverGround": 6.35097582063872,
+        "ResistanceForce": 232.33676745619815
+      },
+      {
+        "SpeedOverGround": 6.3807540419481015,
+        "ResistanceForce": 234.76334236822802
+      },
+      {
+        "SpeedOverGround": 6.410532263257482,
+        "ResistanceForce": 237.2385542517201
+      },
+      {
+        "SpeedOverGround": 6.440310484566864,
+        "ResistanceForce": 239.7639842660292
+      },
+      {
+        "SpeedOverGround": 6.470088705876245,
+        "ResistanceForce": 242.33917472402234
+      },
+      {
+        "SpeedOverGround": 6.499866927185626,
+        "ResistanceForce": 244.96150896223554
+      },
+      {
+        "SpeedOverGround": 6.529645148495008,
+        "ResistanceForce": 247.62623351903017
+      },
+      {
+        "SpeedOverGround": 6.559423369804389,
+        "ResistanceForce": 250.3266493292861
+      },
+      {
+        "SpeedOverGround": 6.58920159111377,
+        "ResistanceForce": 253.05448821277213
+      },
+      {
+        "SpeedOverGround": 6.618979812423151,
+        "ResistanceForce": 255.80047064821238
+      },
+      {
+        "SpeedOverGround": 6.648758033732532,
+        "ResistanceForce": 258.5550136271072
+      },
+      {
+        "SpeedOverGround": 6.678536255041913,
+        "ResistanceForce": 261.30902914422285
+      },
+      {
+        "SpeedOverGround": 6.708314476351295,
+        "ResistanceForce": 264.05473195721805
+      },
+      {
+        "SpeedOverGround": 6.738092697660676,
+        "ResistanceForce": 266.7863662211282
+      },
+      {
+        "SpeedOverGround": 6.767870918970057,
+        "ResistanceForce": 269.5007680134197
+      },
+      {
+        "SpeedOverGround": 6.797649140279439,
+        "ResistanceForce": 272.19770371986243
+      },
+      {
+        "SpeedOverGround": 6.8274273615888195,
+        "ResistanceForce": 274.8799575722762
+      },
+      {
+        "SpeedOverGround": 6.857205582898201,
+        "ResistanceForce": 277.5531775133436
+      },
+      {
+        "SpeedOverGround": 6.886983804207582,
+        "ResistanceForce": 280.2255190789035
+      },
+      {
+        "SpeedOverGround": 6.916762025516963,
+        "ResistanceForce": 282.90714639477403
+      },
+      {
+        "SpeedOverGround": 6.946540246826345,
+        "ResistanceForce": 285.60965545211707
+      },
+      {
+        "SpeedOverGround": 6.976318468135726,
+        "ResistanceForce": 288.3454788331501
+      },
+      {
+        "SpeedOverGround": 7.006096689445107,
+        "ResistanceForce": 291.1273167541814
+      },
+      {
+        "SpeedOverGround": 7.0358749107544885,
+        "ResistanceForce": 293.96762138786164
+      },
+      {
+        "SpeedOverGround": 7.065653132063869,
+        "ResistanceForce": 296.8781442445651
+      },
+      {
+        "SpeedOverGround": 7.09543135337325,
+        "ResistanceForce": 299.86954302391564
+      },
+      {
+        "SpeedOverGround": 7.125209574682632,
+        "ResistanceForce": 302.95103638496715
+      },
+      {
+        "SpeedOverGround": 7.154987795992013,
+        "ResistanceForce": 306.1300927953182
+      },
+      {
+        "SpeedOverGround": 7.184766017301395,
+        "ResistanceForce": 309.4121423265666
+      },
+      {
+        "SpeedOverGround": 7.214544238610776,
+        "ResistanceForce": 312.8003067293738
+      },
+      {
+        "SpeedOverGround": 7.2443224599201566,
+        "ResistanceForce": 316.2951518420551
+      },
+      {
+        "SpeedOverGround": 7.274100681229538,
+        "ResistanceForce": 319.8944757614012
+      },
+      {
+        "SpeedOverGround": 7.303878902538919,
+        "ResistanceForce": 323.5931546273881
+      },
+      {
+        "SpeedOverGround": 7.3336571238483,
+        "ResistanceForce": 327.3830738087609
+      },
+      {
+        "SpeedOverGround": 7.363435345157682,
+        "ResistanceForce": 331.2531743724147
+      },
+      {
+        "SpeedOverGround": 7.393213566467063,
+        "ResistanceForce": 335.1896419833161
+      },
+      {
+        "SpeedOverGround": 7.422991787776444,
+        "ResistanceForce": 339.1762573968677
+      },
+      {
+        "SpeedOverGround": 7.4527700090858255,
+        "ResistanceForce": 343.19491483448496
+      },
+      {
+        "SpeedOverGround": 7.4825482303952064,
+        "ResistanceForce": 347.22629802631195
+      },
+      {
+        "SpeedOverGround": 7.512326451704588,
+        "ResistanceForce": 351.25068564383383
+      },
+      {
+        "SpeedOverGround": 7.542104673013969,
+        "ResistanceForce": 355.2488408801451
+      },
+      {
+        "SpeedOverGround": 7.57188289432335,
+        "ResistanceForce": 359.20292684120216
+      },
+      {
+        "SpeedOverGround": 7.601661115632732,
+        "ResistanceForce": 363.097382543017
+      },
+      {
+        "SpeedOverGround": 7.631439336942113,
+        "ResistanceForce": 366.9196950944451
+      },
+      {
+        "SpeedOverGround": 7.661217558251494,
+        "ResistanceForce": 370.6610122434725
+      },
+      {
+        "SpeedOverGround": 7.690995779560875,
+        "ResistanceForce": 374.316554703917
+      },
+      {
+        "SpeedOverGround": 7.720774000870256,
+        "ResistanceForce": 377.88580728279146
+      },
+      {
+        "SpeedOverGround": 7.750552222179637,
+        "ResistanceForce": 381.37248888399364
+      },
+      {
+        "SpeedOverGround": 7.780330443489019,
+        "ResistanceForce": 384.7843210057584
+      },
+      {
+        "SpeedOverGround": 7.8101086647984,
+        "ResistanceForce": 388.1326299066021
+      },
+      {
+        "SpeedOverGround": 7.839886886107782,
+        "ResistanceForce": 391.4318276011046
+      },
+      {
+        "SpeedOverGround": 7.869665107417163,
+        "ResistanceForce": 394.69882072133385
+      },
+      {
+        "SpeedOverGround": 7.8994433287265435,
+        "ResistanceForce": 397.95239447542707
+      },
+      {
+        "SpeedOverGround": 7.929221550035925,
+        "ResistanceForce": 401.21261261596345
+      },
+      {
+        "SpeedOverGround": 7.958999771345306,
+        "ResistanceForce": 404.5002650602065
+      },
+      {
+        "SpeedOverGround": 7.988777992654687,
+        "ResistanceForce": 407.83638421318796
+      },
+      {
+        "SpeedOverGround": 8.018556213964068,
+        "ResistanceForce": 411.2418405685957
+      },
+      {
+        "SpeedOverGround": 8.04833443527345,
+        "ResistanceForce": 414.73701888045616
+      },
+      {
+        "SpeedOverGround": 8.078112656582832,
+        "ResistanceForce": 418.34156877543955
+      },
+      {
+        "SpeedOverGround": 8.107890877892212,
+        "ResistanceForce": 422.07421838918856
+      },
+      {
+        "SpeedOverGround": 8.137669099201593,
+        "ResistanceForce": 425.9526364316914
+      },
+      {
+        "SpeedOverGround": 8.167447320510975,
+        "ResistanceForce": 429.99332678341653
+      },
+      {
+        "SpeedOverGround": 8.197225541820355,
+        "ResistanceForce": 434.2115399573659
+      },
+      {
+        "SpeedOverGround": 8.227003763129737,
+        "ResistanceForce": 438.62118716861426
+      },
+      {
+        "SpeedOverGround": 8.256781984439119,
+        "ResistanceForce": 443.23474499738774
+      },
+      {
+        "SpeedOverGround": 8.2865602057485,
+        "ResistanceForce": 448.0631414365514
+      },
+      {
+        "SpeedOverGround": 8.316338427057882,
+        "ResistanceForce": 453.1156172662079
+      },
+      {
+        "SpeedOverGround": 8.346116648367264,
+        "ResistanceForce": 458.3995600397823
+      },
+      {
+        "SpeedOverGround": 8.375894869676648,
+        "ResistanceForce": 463.92031137958355
+      },
+      {
+        "SpeedOverGround": 8.40567309098603,
+        "ResistanceForce": 469.68095166639375
+      },
+      {
+        "SpeedOverGround": 8.435451312295411,
+        "ResistanceForce": 475.68206946807004
+      },
+      {
+        "SpeedOverGround": 8.465229533604793,
+        "ResistanceForce": 481.92152607245924
+      },
+      {
+        "SpeedOverGround": 8.495007754914175,
+        "ResistanceForce": 488.394228133202
+      },
+      {
+        "SpeedOverGround": 8.524785976223558,
+        "ResistanceForce": 495.0919235431944
+      },
+      {
+        "SpeedOverGround": 8.55456419753294,
+        "ResistanceForce": 502.0030370439951
+      },
+      {
+        "SpeedOverGround": 8.584342418842322,
+        "ResistanceForce": 509.1125625850284
+      },
+      {
+        "SpeedOverGround": 8.614120640151704,
+        "ResistanceForce": 516.402028909784
+      },
+      {
+        "SpeedOverGround": 8.643898861461086,
+        "ResistanceForce": 523.8495531592307
+      },
+      {
+        "SpeedOverGround": 8.67367708277047,
+        "ResistanceForce": 531.4299944074339
+      },
+      {
+        "SpeedOverGround": 8.703455304079851,
+        "ResistanceForce": 539.1152150341247
+      },
+      {
+        "SpeedOverGround": 8.733233525389233,
+        "ResistanceForce": 546.8744528504213
+      },
+      {
+        "SpeedOverGround": 8.763011746698615,
+        "ResistanceForce": 554.6748011891575
+      },
+      {
+        "SpeedOverGround": 8.792789968007996,
+        "ResistanceForce": 562.4817881060052
+      },
+      {
+        "SpeedOverGround": 8.82256818931738,
+        "ResistanceForce": 570.2600398363785
+      },
+      {
+        "SpeedOverGround": 8.852346410626762,
+        "ResistanceForce": 577.9740081728181
+      },
+      {
+        "SpeedOverGround": 8.882124631936144,
+        "ResistanceForce": 585.5887369134698
+      },
+      {
+        "SpeedOverGround": 8.911902853245525,
+        "ResistanceForce": 593.0706393714183
+      },
+      {
+        "SpeedOverGround": 8.941681074554907,
+        "ResistanceForce": 600.3882574135625
+      },
+      {
+        "SpeedOverGround": 8.971459295864289,
+        "ResistanceForce": 607.5129727692748
+      },
+      {
+        "SpeedOverGround": 9.001237517173672,
+        "ResistanceForce": 614.4196434144651
+      },
+      {
+        "SpeedOverGround": 9.031015738483054,
+        "ResistanceForce": 621.0871415439356
+      },
+      {
+        "SpeedOverGround": 9.060793959792436,
+        "ResistanceForce": 627.4987747050577
+      },
+      {
+        "SpeedOverGround": 9.090572181101818,
+        "ResistanceForce": 633.6425776842365
+      },
+      {
+        "SpeedOverGround": 9.1203504024112,
+        "ResistanceForce": 639.5114692553512
+      },
+      {
+        "SpeedOverGround": 9.150128623720583,
+        "ResistanceForce": 645.1032744404027
+      },
+      {
+        "SpeedOverGround": 9.179906845029965,
+        "ResistanceForce": 650.4206190489313
+      },
+      {
+        "SpeedOverGround": 9.209685066339347,
+        "ResistanceForce": 655.4707085741568
+      },
+      {
+        "SpeedOverGround": 9.239463287648729,
+        "ResistanceForce": 660.2650077458776
+      },
+      {
+        "SpeedOverGround": 9.26924150895811,
+        "ResistanceForce": 664.8188400003728
+      },
+      {
+        "SpeedOverGround": 9.299019730267494,
+        "ResistanceForce": 669.1509277679587
+      },
+      {
+        "SpeedOverGround": 9.328797951576876,
+        "ResistanceForce": 673.2828948464258
+      },
+      {
+        "SpeedOverGround": 9.358576172886258,
+        "ResistanceForce": 677.2387513578076
+      },
+      {
+        "SpeedOverGround": 9.38835439419564,
+        "ResistanceForce": 681.0443800741241
+      },
+      {
+        "SpeedOverGround": 9.418132615505021,
+        "ResistanceForce": 684.7270404795854
+      },
+      {
+        "SpeedOverGround": 9.447910836814405,
+        "ResistanceForce": 688.3149040588685
+      },
+      {
+        "SpeedOverGround": 9.477689058123786,
+        "ResistanceForce": 691.8366312005901
+      },
+      {
+        "SpeedOverGround": 9.507467279433168,
+        "ResistanceForce": 695.3209969925692
+      },
+      {
+        "SpeedOverGround": 9.53724550074255,
+        "ResistanceForce": 698.7965702341472
+      },
+      {
+        "SpeedOverGround": 9.567023722051932,
+        "ResistanceForce": 702.2914473308089
+      },
+      {
+        "SpeedOverGround": 9.596801943361315,
+        "ResistanceForce": 705.8330404537317
+      },
+      {
+        "SpeedOverGround": 9.626580164670697,
+        "ResistanceForce": 709.4479174873563
+      },
+      {
+        "SpeedOverGround": 9.656358385980079,
+        "ResistanceForce": 713.1616898617361
+      },
+      {
+        "SpeedOverGround": 9.68613660728946,
+        "ResistanceForce": 716.9989433558401
+      },
+      {
+        "SpeedOverGround": 9.715914828598843,
+        "ResistanceForce": 720.983206325261
+      },
+      {
+        "SpeedOverGround": 9.745693049908226,
+        "ResistanceForce": 725.1369495019395
+      },
+      {
+        "SpeedOverGround": 9.775471271217608,
+        "ResistanceForce": 729.4816114773463
+      },
+      {
+        "SpeedOverGround": 9.80524949252699,
+        "ResistanceForce": 734.037644155341
+      },
+      {
+        "SpeedOverGround": 9.835027713836372,
+        "ResistanceForce": 738.8245727909781
+      },
+      {
+        "SpeedOverGround": 9.864805935145753,
+        "ResistanceForce": 743.8610656666275
+      },
+      {
+        "SpeedOverGround": 9.894584156455137,
+        "ResistanceForce": 749.165008953946
+      },
+      {
+        "SpeedOverGround": 9.924362377764519,
+        "ResistanceForce": 754.7535828344669
+      },
+      {
+        "SpeedOverGround": 9.9541405990739,
+        "ResistanceForce": 760.643335475827
+      },
+      {
+        "SpeedOverGround": 9.983918820383282,
+        "ResistanceForce": 766.8502519651635
+      },
+      {
+        "SpeedOverGround": 10.013697041692664,
+        "ResistanceForce": 773.3898157731959
+      },
+      {
+        "SpeedOverGround": 10.043475263002048,
+        "ResistanceForce": 780.2770607542507
+      },
+      {
+        "SpeedOverGround": 10.07325348431143,
+        "ResistanceForce": 787.5266120764352
+      },
+      {
+        "SpeedOverGround": 10.103031705620811,
+        "ResistanceForce": 795.1527148226812
+      },
+      {
+        "SpeedOverGround": 10.132809926930193,
+        "ResistanceForce": 803.1692493108477
+      },
+      {
+        "SpeedOverGround": 10.162588148239575,
+        "ResistanceForce": 811.5897324543159
+      },
+      {
+        "SpeedOverGround": 10.192366369548957,
+        "ResistanceForce": 820.4273047294027
+      },
+      {
+        "SpeedOverGround": 10.22214459085834,
+        "ResistanceForce": 829.6947025388798
+      },
+      {
+        "SpeedOverGround": 10.251922812167722,
+        "ResistanceForce": 839.4042159679445
+      },
+      {
+        "SpeedOverGround": 10.281701033477104,
+        "ResistanceForce": 849.5676321261275
+      },
+      {
+        "SpeedOverGround": 10.311479254786486,
+        "ResistanceForce": 860.1961644606873
+      },
+      {
+        "SpeedOverGround": 10.341257476095867,
+        "ResistanceForce": 871.3003686182102
+      },
+      {
+        "SpeedOverGround": 10.37103569740525,
+        "ResistanceForce": 882.8900456244023
+      },
+      {
+        "SpeedOverGround": 10.400813918714633,
+        "ResistanceForce": 894.9741333490973
+      },
+      {
+        "SpeedOverGround": 10.430592140024014,
+        "ResistanceForce": 907.5605874250156
+      },
+      {
+        "SpeedOverGround": 10.460370361333396,
+        "ResistanceForce": 920.6562529939963
+      },
+      {
+        "SpeedOverGround": 10.490148582642778,
+        "ResistanceForce": 934.2667288613841
+      },
+      {
+        "SpeedOverGround": 10.519926803952162,
+        "ResistanceForce": 948.3962258449731
+      },
+      {
+        "SpeedOverGround": 10.549705025261543,
+        "ResistanceForce": 963.0474213052486
+      },
+      {
+        "SpeedOverGround": 10.579483246570925,
+        "ResistanceForce": 978.221312033614
+      },
+      {
+        "SpeedOverGround": 10.609261467880307,
+        "ResistanceForce": 993.9170678492063
+      },
+      {
+        "SpeedOverGround": 10.639039689189689,
+        "ResistanceForce": 1010.131888406368
+      },
+      {
+        "SpeedOverGround": 10.668817910499072,
+        "ResistanceForce": 1026.8608658375674
+      },
+      {
+        "SpeedOverGround": 10.698596131808454,
+        "ResistanceForce": 1044.096855943795
+      },
+      {
+        "SpeedOverGround": 10.728374353117836,
+        "ResistanceForce": 1061.8303606900336
+      },
+      {
+        "SpeedOverGround": 10.758152574427218,
+        "ResistanceForce": 1080.0494247616653
+      },
+      {
+        "SpeedOverGround": 10.7879307957366,
+        "ResistanceForce": 1098.7395488835068
+      },
+      {
+        "SpeedOverGround": 10.817709017045983,
+        "ResistanceForce": 1117.8836224932077
+      },
+      {
+        "SpeedOverGround": 10.847487238355365,
+        "ResistanceForce": 1137.461878192129
+      },
+      {
+        "SpeedOverGround": 10.877265459664747,
+        "ResistanceForce": 1157.451870169214
+      },
+      {
+        "SpeedOverGround": 10.907043680974128,
+        "ResistanceForce": 1177.828478507399
+      },
+      {
+        "SpeedOverGround": 10.93682190228351,
+        "ResistanceForce": 1198.5639409405928
+      },
+      {
+        "SpeedOverGround": 10.966600123592894,
+        "ResistanceForce": 1219.627913237143
+      },
+      {
+        "SpeedOverGround": 10.996378344902276,
+        "ResistanceForce": 1240.9875589490973
+      },
+      {
+        "SpeedOverGround": 11.026156566211657,
+        "ResistanceForce": 1262.607668793998
+      },
+      {
+        "SpeedOverGround": 11.05593478752104,
+        "ResistanceForce": 1284.4508094370858
+      },
+      {
+        "SpeedOverGround": 11.085713008830421,
+        "ResistanceForce": 1306.4775009276032
+      },
+      {
+        "SpeedOverGround": 11.115491230139805,
+        "ResistanceForce": 1328.6464215254553
+      },
+      {
+        "SpeedOverGround": 11.145269451449186,
+        "ResistanceForce": 1350.914638146273
+      },
+      {
+        "SpeedOverGround": 11.175047672758568,
+        "ResistanceForce": 1373.2378601665312
+      },
+      {
+        "SpeedOverGround": 11.20482589406795,
+        "ResistanceForce": 1395.5707138784542
+      },
+      {
+        "SpeedOverGround": 11.234604115377332,
+        "ResistanceForce": 1417.86703447842
+      },
+      {
+        "SpeedOverGround": 11.264382336686715,
+        "ResistanceForce": 1440.080172123272
+      },
+      {
+        "SpeedOverGround": 11.294160557996097,
+        "ResistanceForce": 1462.1633083053753
+      },
+      {
+        "SpeedOverGround": 11.323938779305479,
+        "ResistanceForce": 1484.06977858675
+      },
+      {
+        "SpeedOverGround": 11.35371700061486,
+        "ResistanceForce": 1505.753397600651
+      },
+      {
+        "SpeedOverGround": 11.383495221924242,
+        "ResistanceForce": 1527.1687821783264
+      },
+      {
+        "SpeedOverGround": 11.413273443233626,
+        "ResistanceForce": 1548.2716684905051
+      },
+      {
+        "SpeedOverGround": 11.443051664543008,
+        "ResistanceForce": 1569.0192192057236
+      },
+      {
+        "SpeedOverGround": 11.47282988585239,
+        "ResistanceForce": 1589.37031685726
+      },
+      {
+        "SpeedOverGround": 11.502608107161771,
+        "ResistanceForce": 1609.285839871579
+      },
+      {
+        "SpeedOverGround": 11.532386328471153,
+        "ResistanceForce": 1628.7289180360456
+      },
+      {
+        "SpeedOverGround": 11.562164549780535,
+        "ResistanceForce": 1647.6651645632994
+      },
+      {
+        "SpeedOverGround": 11.591942771089919,
+        "ResistanceForce": 1666.0628823339448
+      },
+      {
+        "SpeedOverGround": 11.6217209923993,
+        "ResistanceForce": 1683.893242356719
+      },
+      {
+        "SpeedOverGround": 11.651499213708682,
+        "ResistanceForce": 1701.13043296492
+      },
+      {
+        "SpeedOverGround": 11.681277435018064,
+        "ResistanceForce": 1717.7517787578126
+      },
+      {
+        "SpeedOverGround": 11.711055656327446,
+        "ResistanceForce": 1733.7378287845559
+      },
+      {
+        "SpeedOverGround": 11.74083387763683,
+        "ResistanceForce": 1749.0724139457357
+      },
+      {
+        "SpeedOverGround": 11.770612098946211,
+        "ResistanceForce": 1763.7426740432418
+      },
+      {
+        "SpeedOverGround": 11.800390320255593,
+        "ResistanceForce": 1777.7390553352047
+      },
+      {
+        "SpeedOverGround": 11.830168541564975,
+        "ResistanceForce": 1791.0552798408019
+      },
+      {
+        "SpeedOverGround": 11.859946762874356,
+        "ResistanceForce": 1803.688287984657
+      },
+      {
+        "SpeedOverGround": 11.88972498418374,
+        "ResistanceForce": 1815.6381564673752
+      },
+      {
+        "SpeedOverGround": 11.919503205493122,
+        "ResistanceForce": 1826.9079934946897
+      },
+      {
+        "SpeedOverGround": 11.949281426802504,
+        "ResistanceForce": 1837.5038136913568
+      },
+      {
+        "SpeedOverGround": 11.979059648111885,
+        "ResistanceForce": 1847.4343951667963
+      },
+      {
+        "SpeedOverGround": 12.008837869421267,
+        "ResistanceForce": 1856.7111212892105
+      },
+      {
+        "SpeedOverGround": 12.03861609073065,
+        "ResistanceForce": 1865.3478097653351
+      },
+      {
+        "SpeedOverGround": 12.068394312040033,
+        "ResistanceForce": 1873.3605316174276
+      },
+      {
+        "SpeedOverGround": 12.098172533349414,
+        "ResistanceForce": 1880.767422601775
+      },
+      {
+        "SpeedOverGround": 12.127950754658796,
+        "ResistanceForce": 1887.588489528023
+      },
+      {
+        "SpeedOverGround": 12.157728975968178,
+        "ResistanceForce": 1893.8454138214017
+      },
+      {
+        "SpeedOverGround": 12.187507197277561,
+        "ResistanceForce": 1899.5613545254676
+      },
+      {
+        "SpeedOverGround": 12.217285418586943,
+        "ResistanceForce": 1904.760752776482
+      },
+      {
+        "SpeedOverGround": 12.247063639896325,
+        "ResistanceForce": 1909.4691395974837
+      },
+      {
+        "SpeedOverGround": 12.276841861205707,
+        "ResistanceForce": 1913.7129486653016
+      },
+      {
+        "SpeedOverGround": 12.306620082515089,
+        "ResistanceForce": 1917.5193355019992
+      },
+      {
+        "SpeedOverGround": 12.336398303824472,
+        "ResistanceForce": 1920.9160043379015
+      },
+      {
+        "SpeedOverGround": 12.366176525133854,
+        "ResistanceForce": 1923.9310436904084
+      },
+      {
+        "SpeedOverGround": 12.395954746443236,
+        "ResistanceForce": 1926.592771504476
+      },
+      {
+        "SpeedOverGround": 12.425732967752618,
+        "ResistanceForce": 1928.92959051022
+      },
+      {
+        "SpeedOverGround": 12.455511189062,
+        "ResistanceForce": 1930.9698542726421
+      },
+      {
+        "SpeedOverGround": 12.485289410371383,
+        "ResistanceForce": 1932.741744240177
+      },
+      {
+        "SpeedOverGround": 12.515067631680765,
+        "ResistanceForce": 1934.2731579439428
+      },
+      {
+        "SpeedOverGround": 12.544845852990147,
+        "ResistanceForce": 1935.5916083593252
+      },
+      {
+        "SpeedOverGround": 12.574624074299528,
+        "ResistanceForce": 1936.724134316356
+      },
+      {
+        "SpeedOverGround": 12.60440229560891,
+        "ResistanceForce": 1937.6972217355153
+      },
+      {
+        "SpeedOverGround": 12.634180516918294,
+        "ResistanceForce": 1938.5367353710799
+      },
+      {
+        "SpeedOverGround": 12.663958738227675,
+        "ResistanceForce": 1939.2678606644781
+      },
+      {
+        "SpeedOverGround": 12.693736959537057,
+        "ResistanceForce": 1939.915055244685
+      },
+      {
+        "SpeedOverGround": 12.723515180846439,
+        "ResistanceForce": 1940.5020095609502
+      },
+      {
+        "SpeedOverGround": 12.75329340215582,
+        "ResistanceForce": 1941.0516160938466
+      },
+      {
+        "SpeedOverGround": 12.783071623465203,
+        "ResistanceForce": 1941.5859465629387
+      },
+      {
+        "SpeedOverGround": 12.812849844774586,
+        "ResistanceForce": 1942.1262365323284
+      },
+      {
+        "SpeedOverGround": 12.842628066083968,
+        "ResistanceForce": 1942.6928768074606
+      },
+      {
+        "SpeedOverGround": 12.87240628739335,
+        "ResistanceForce": 1943.3054110171531
+      },
+      {
+        "SpeedOverGround": 12.902184508702732,
+        "ResistanceForce": 1943.9825387824533
+      },
+      {
+        "SpeedOverGround": 12.931962730012113,
+        "ResistanceForce": 1944.7421238877582
+      },
+      {
+        "SpeedOverGround": 12.961740951321497,
+        "ResistanceForce": 1945.6012068884154
+      },
+      {
+        "SpeedOverGround": 12.991519172630879,
+        "ResistanceForce": 1946.5760216121635
+      },
+      {
+        "SpeedOverGround": 13.02129739394026,
+        "ResistanceForce": 1947.6820150379197
+      },
+      {
+        "SpeedOverGround": 13.051075615249642,
+        "ResistanceForce": 1948.9338700642136
+      },
+      {
+        "SpeedOverGround": 13.080853836559024,
+        "ResistanceForce": 1950.345530710038
+      },
+      {
+        "SpeedOverGround": 13.110632057868408,
+        "ResistanceForce": 1951.9302293223682
+      },
+      {
+        "SpeedOverGround": 13.14041027917779,
+        "ResistanceForce": 1953.700515396772
+      },
+      {
+        "SpeedOverGround": 13.170188500487171,
+        "ResistanceForce": 1955.6682856495709
+      },
+      {
+        "SpeedOverGround": 13.199966721796553,
+        "ResistanceForce": 1957.8448150117442
+      },
+      {
+        "SpeedOverGround": 13.229744943105935,
+        "ResistanceForce": 1960.2407882458638
+      },
+      {
+        "SpeedOverGround": 13.259523164415318,
+        "ResistanceForce": 1962.8663319171976
+      },
+      {
+        "SpeedOverGround": 13.2893013857247,
+        "ResistanceForce": 1965.7310464790444
+      },
+      {
+        "SpeedOverGround": 13.319079607034082,
+        "ResistanceForce": 1968.8440382595534
+      },
+      {
+        "SpeedOverGround": 13.348857828343464,
+        "ResistanceForce": 1972.2139511632458
+      },
+      {
+        "SpeedOverGround": 13.378636049652846,
+        "ResistanceForce": 1975.8489979245303
+      },
+      {
+        "SpeedOverGround": 13.40841427096223,
+        "ResistanceForce": 1979.7569907730788
+      },
+      {
+        "SpeedOverGround": 13.438192492271611,
+        "ResistanceForce": 1983.9453713917653
+      },
+      {
+        "SpeedOverGround": 13.467970713580993,
+        "ResistanceForce": 1988.42124006695
+      },
+      {
+        "SpeedOverGround": 13.497748934890375,
+        "ResistanceForce": 1993.1913839484266
+      },
+      {
+        "SpeedOverGround": 13.527527156199756,
+        "ResistanceForce": 1998.262304352203
+      },
+      {
+        "SpeedOverGround": 13.55730537750914,
+        "ResistanceForce": 2003.6402430535322
+      },
+      {
+        "SpeedOverGround": 13.587083598818522,
+        "ResistanceForce": 2009.3312075305573
+      },
+      {
+        "SpeedOverGround": 13.616861820127903,
+        "ResistanceForce": 2015.3409951302044
+      },
+      {
+        "SpeedOverGround": 13.646640041437285,
+        "ResistanceForce": 2021.6752161381678
+      },
+      {
+        "SpeedOverGround": 13.676418262746667,
+        "ResistanceForce": 2028.3393157436212
+      },
+      {
+        "SpeedOverGround": 13.70619648405605,
+        "ResistanceForce": 2035.3385948970435
+      },
+      {
+        "SpeedOverGround": 13.735974705365432,
+        "ResistanceForce": 2042.6782300661334
+      },
+      {
+        "SpeedOverGround": 13.765752926674814,
+        "ResistanceForce": 2050.363291900536
+      },
+      {
+        "SpeedOverGround": 13.795531147984196,
+        "ResistanceForce": 2058.3987628208565
+      },
+      {
+        "SpeedOverGround": 13.825309369293578,
+        "ResistanceForce": 2066.7895535514485
+      },
+      {
+        "SpeedOverGround": 13.855087590602961,
+        "ResistanceForce": 2075.5405186196713
+      },
+      {
+        "SpeedOverGround": 13.884865811912343,
+        "ResistanceForce": 2084.656470847018
+      },
+      {
+        "SpeedOverGround": 13.914644033221725,
+        "ResistanceForce": 2094.1421948594907
+      },
+      {
+        "SpeedOverGround": 13.944422254531107,
+        "ResistanceForce": 2104.002459646107
+      },
+      {
+        "SpeedOverGround": 13.974200475840489,
+        "ResistanceForce": 2114.242030195575
+      },
+      {
+        "SpeedOverGround": 14.003978697149872,
+        "ResistanceForce": 2124.865678241758
+      },
+      {
+        "SpeedOverGround": 14.033756918459254,
+        "ResistanceForce": 2135.8781921489613
+      },
+      {
+        "SpeedOverGround": 14.063535139768636,
+        "ResistanceForce": 2147.284385968083
+      },
+      {
+        "SpeedOverGround": 14.093313361078017,
+        "ResistanceForce": 2159.0891076944795
+      },
+      {
+        "SpeedOverGround": 14.1230915823874,
+        "ResistanceForce": 2171.2972467579743
+      },
+      {
+        "SpeedOverGround": 14.152869803696781,
+        "ResistanceForce": 2183.913740774874
+      },
+      {
+        "SpeedOverGround": 14.182648025006165,
+        "ResistanceForce": 2196.9435815910924
+      },
+      {
+        "SpeedOverGround": 14.212426246315546,
+        "ResistanceForce": 2210.3918206446947
+      },
+      {
+        "SpeedOverGround": 14.242204467624928,
+        "ResistanceForce": 2224.2635736751818
+      },
+      {
+        "SpeedOverGround": 14.27198268893431,
+        "ResistanceForce": 2238.5640248059244
+      },
+      {
+        "SpeedOverGround": 14.301760910243692,
+        "ResistanceForce": 2253.29843002506
+      },
+      {
+        "SpeedOverGround": 14.331539131553075,
+        "ResistanceForce": 2268.4721200891154
+      },
+      {
+        "SpeedOverGround": 14.361317352862457,
+        "ResistanceForce": 2284.0905028726147
+      },
+      {
+        "SpeedOverGround": 14.391095574171839,
+        "ResistanceForce": 2300.159065185735
+      },
+      {
+        "SpeedOverGround": 14.42087379548122,
+        "ResistanceForce": 2316.683374081156
+      },
+      {
+        "SpeedOverGround": 14.450652016790603,
+        "ResistanceForce": 2333.6690776701466
+      },
+      {
+        "SpeedOverGround": 14.480430238099986,
+        "ResistanceForce": 2351.121905466894
+      },
+      {
+        "SpeedOverGround": 14.510208459409368,
+        "ResistanceForce": 2369.047668279231
+      },
+      {
+        "SpeedOverGround": 14.53998668071875,
+        "ResistanceForce": 2387.4522576628706
+      },
+      {
+        "SpeedOverGround": 14.569764902028131,
+        "ResistanceForce": 2406.3416449554825
+      },
+      {
+        "SpeedOverGround": 14.599543123337513,
+        "ResistanceForce": 2425.72187990608
+      },
+      {
+        "SpeedOverGround": 14.629321344646897,
+        "ResistanceForce": 2445.5990889143923
+      },
+      {
+        "SpeedOverGround": 14.659099565956279,
+        "ResistanceForce": 2465.979472894244
+      },
+      {
+        "SpeedOverGround": 14.68887778726566,
+        "ResistanceForce": 2486.869304774275
+      },
+      {
+        "SpeedOverGround": 14.718656008575042,
+        "ResistanceForce": 2508.2749266486762
+      },
+      {
+        "SpeedOverGround": 14.748434229884424,
+        "ResistanceForce": 2530.202746590234
+      },
+      {
+        "SpeedOverGround": 14.778212451193808,
+        "ResistanceForce": 2552.6592351372396
+      },
+      {
+        "SpeedOverGround": 14.80799067250319,
+        "ResistanceForce": 2575.6509214656267
+      },
+      {
+        "SpeedOverGround": 14.837768893812571,
+        "ResistanceForce": 2599.1843892571746
+      },
+      {
+        "SpeedOverGround": 14.867547115121953,
+        "ResistanceForce": 2623.266272274319
+      },
+      {
+        "SpeedOverGround": 14.897325336431335,
+        "ResistanceForce": 2647.903249651847
+      },
+      {
+        "SpeedOverGround": 14.927103557740718,
+        "ResistanceForce": 2673.1020409155003
+      },
+      {
+        "SpeedOverGround": 14.9568817790501,
+        "ResistanceForce": 2698.8694007373483
+      },
+      {
+        "SpeedOverGround": 14.986660000359482,
+        "ResistanceForce": 2725.212113437646
+      },
+      {
+        "SpeedOverGround": 15.016438221668864,
+        "ResistanceForce": 2752.1369872427663
+      },
+      {
+        "SpeedOverGround": 15.046216442978245,
+        "ResistanceForce": 2779.650848308774
+      },
+      {
+        "SpeedOverGround": 15.075994664287629,
+        "ResistanceForce": 2807.7605345201514
+      },
+      {
+        "SpeedOverGround": 15.10577288559701,
+        "ResistanceForce": 2836.472889073226
+      },
+      {
+        "SpeedOverGround": 15.135551106906393,
+        "ResistanceForce": 2865.794753853872
+      },
+      {
+        "SpeedOverGround": 15.165329328215774,
+        "ResistanceForce": 2895.7329626191067
+      },
+      {
+        "SpeedOverGround": 15.195107549525156,
+        "ResistanceForce": 2926.2943339923763
+      },
+      {
+        "SpeedOverGround": 15.22488577083454,
+        "ResistanceForce": 2957.485664282307
+      },
+      {
+        "SpeedOverGround": 15.254663992143922,
+        "ResistanceForce": 2989.3137201349964
+      },
+      {
+        "SpeedOverGround": 15.284442213453303,
+        "ResistanceForce": 3021.7852310299563
+      },
+      {
+        "SpeedOverGround": 15.314220434762685,
+        "ResistanceForce": 3054.906881630006
+      },
+      {
+        "SpeedOverGround": 15.343998656072067,
+        "ResistanceForce": 3088.6853039956977
+      },
+      {
+        "SpeedOverGround": 15.373776877381449,
+        "ResistanceForce": 3123.1270696748497
+      },
+      {
+        "SpeedOverGround": 15.403555098690832,
+        "ResistanceForce": 3158.238681678211
+      },
+      {
+        "SpeedOverGround": 15.433333320000214,
+        "ResistanceForce": 3194.02656635226
+      }
+    ]
+  }
+}

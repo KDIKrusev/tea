@@ -1,0 +1,62 @@
+[
+    {
+        "WindSpeed": 0,
+        "WaveHeight": 0
+    },
+    {
+        "WindSpeed": 2.5,
+        "WaveHeight": 1.28
+    },
+    {
+        "WindSpeed": 5,
+        "WaveHeight": 1.78
+    },
+    {
+        "WindSpeed": 7.5,
+        "WaveHeight": 2.44
+    },
+    {
+        "WindSpeed": 10,
+        "WaveHeight": 3.21
+    },
+    {
+        "WindSpeed": 12.5,
+        "WaveHeight": 4.09
+    },
+    {
+        "WindSpeed": 15,
+        "WaveHeight": 5.07
+    },
+    {
+        "WindSpeed": 17.5,
+        "WaveHeight": 6.12
+    },
+    {
+        "WindSpeed": 20,
+        "WaveHeight": 7.26
+    },
+    {
+        "WindSpeed": 22.5,
+        "WaveHeight": 8.47
+    },
+    {
+        "WindSpeed": 25,
+        "WaveHeight": 9.75
+    },
+    {
+        "WindSpeed": 27.5,
+        "WaveHeight": 11.09
+    },
+    {
+        "WindSpeed": 30,
+        "WaveHeight": 12.5
+    },
+    {
+        "WindSpeed": 32.5,
+        "WaveHeight": 13.97
+    },
+    {
+        "WindSpeed": 35,
+        "WaveHeight": 15.49
+    }
+]

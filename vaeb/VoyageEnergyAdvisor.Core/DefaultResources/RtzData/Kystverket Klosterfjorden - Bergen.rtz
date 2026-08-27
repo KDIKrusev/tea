@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<route xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.cirm.org/RTZ/1/0" xsi:schemaLocation="http://www.cirm.org/rtz/RTZ Schema version 1_0.xsd" version="1.0">
+  <routeInfo routeName="Kystverket Klosterfjorden - Bergen" />
+  <waypoints>
+    <waypoint id="139" revision="62" radius="0">
+      <position lat="59.734089" lon="5.604694" />
+    </waypoint>
+    <waypoint id="24" revision="26" name="Hystadflu" radius="0.3">
+      <position lat="59.786624" lon="5.573669" />
+      <leg starboardXTD="0.1" portsideXTD="0.1" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="37" revision="1" name="Grovaholmen" radius="0.3">
+      <position lat="59.841916" lon="5.551793" />
+      <leg starboardXTD="0.1" portsideXTD="0.1" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="25" revision="1" name="Skor" radius="0.3">
+      <position lat="59.890394" lon="5.534205" />
+      <leg starboardXTD="0.1" portsideXTD="0.1" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="26" revision="1" name="Langenuen" radius="0.3">
+      <position lat="59.92266" lon="5.501364" />
+      <leg starboardXTD="0.1" portsideXTD="0.1" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="149" revision="1" name="Storeklubben" radius="0.3">
+      <position lat="59.940843" lon="5.46354" />
+      <leg starboardXTD="0.1" portsideXTD="0.1" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="41" revision="1" name="Landroypynten" radius="0.3">
+      <position lat="59.976299" lon="5.379167" />
+      <leg starboardXTD="0.1" portsideXTD="0.1" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="39" revision="1" name="Reksteren" radius="0.3">
+      <position lat="59.990979" lon="5.355669" />
+      <leg starboardXTD="0.1" portsideXTD="0.1" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="40" revision="1" name="Rommelines" radius="0.3">
+      <position lat="60.021314" lon="5.333488" />
+      <leg starboardXTD="0.1" portsideXTD="0.1" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="28" revision="1" name="Bjornafjorden" radius="0.3">
+      <position lat="60.073999" lon="5.330455" />
+      <leg starboardXTD="0.1" portsideXTD="0.1" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="147" revision="1" radius="0.3">
+      <position lat="60.114667" lon="5.310777" />
+      <leg starboardXTD="0.1" portsideXTD="0.1" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="42" revision="1" name="Litle Laugaroy - report channel 71" radius="0.3">
+      <position lat="60.153911" lon="5.268834" />
+      <leg starboardXTD="0.1" portsideXTD="0.1" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="29" revision="1" name="Leroyna" radius="0.3">
+      <position lat="60.22567" lon="5.167877" />
+      <leg starboardXTD="0.1" portsideXTD="0.1" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="43" revision="1" name="Tangaflu" radius="0.3">
+      <position lat="60.241058" lon="5.158157" />
+      <leg starboardXTD="0.1" portsideXTD="0.1" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="30" revision="1" name="Raunane" radius="0.3">
+      <position lat="60.263874" lon="5.161946" />
+      <leg starboardXTD="0.1" portsideXTD="0.1" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="31" revision="1" name="Fleslandsskjeret" radius="0.3">
+      <position lat="60.281438" lon="5.19088" />
+      <leg starboardXTD="0.1" portsideXTD="0.1" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="140" revision="1" name="Fleslandsskjeret" radius="0.3">
+      <position lat="60.294587" lon="5.195111" />
+      <leg starboardXTD="0.1" portsideXTD="0.1" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="45" revision="1" name="Bjoroy" radius="0.3">
+      <position lat="60.321526" lon="5.201377" />
+      <leg starboardXTD="0.1" portsideXTD="0.1" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="32" revision="1" name="Hilleren" radius="0.3">
+      <position lat="60.332277" lon="5.195882" />
+      <leg starboardXTD="0.08" portsideXTD="0.08" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="148" revision="1" name="Hilleren" radius="0.3">
+      <position lat="60.334457" lon="5.193388" />
+      <leg starboardXTD="0.05" portsideXTD="0.05" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="46" revision="1" name="Trollholmen" radius="0.3">
+      <position lat="60.339334" lon="5.178866" />
+      <leg starboardXTD="0.05" portsideXTD="0.05" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="47" revision="1" name="Hakonshella" radius="0.3">
+      <position lat="60.3439" lon="5.172359" />
+      <leg starboardXTD="0.05" portsideXTD="0.05" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="52" revision="1" name="Stongi light" radius="0.3">
+      <position lat="60.36334" lon="5.170282" />
+      <leg starboardXTD="0.07" portsideXTD="0.07" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="142" revision="1" name="Sotra bridge" radius="0">
+      <position lat="60.373831" lon="5.165672" />
+      <leg starboardXTD="0.1" portsideXTD="0.1" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+  </waypoints>
+</route>

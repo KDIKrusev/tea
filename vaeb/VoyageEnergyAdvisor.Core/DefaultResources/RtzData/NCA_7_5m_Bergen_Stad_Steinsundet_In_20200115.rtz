@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<route xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.cirm.org/RTZ/1/0" xsi:schemaLocation="http://www.cirm.org/rtz/RTZ Schema version 1_0.xsd" version="1.0">
+  <routeInfo routeName="NCA_7_5m_Bergen_Stad_Steinsundet_In_20200115" />
+  <waypoints>
+    <waypoint id="79" revision="1" name="Vetegjograskjeret" radius="0">
+      <position lat="60.820076" lon="4.726435" />
+    </waypoint>
+    <waypoint id="149" revision="1" name="Fedje" radius="0.3">
+      <position lat="60.797104" lon="4.738441" />
+      <leg starboardXTD="0.1" portsideXTD="0.1" safetyContour="20" safetyDepth="20" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="150" revision="1" name="Stureholmen" radius="0.3">
+      <position lat="60.612771" lon="4.877546" />
+      <leg starboardXTD="0.1" portsideXTD="0.1" safetyContour="20" safetyDepth="20" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="77" revision="1" name="Report channel 71" radius="0.3">
+      <position lat="60.520147" lon="4.947757" />
+      <leg starboardXTD="0.1" portsideXTD="0.1" safetyContour="20" safetyDepth="20" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="151" revision="1" name="Kalvsoyflua" radius="0.3">
+      <position lat="60.455311" lon="5.006977" />
+      <leg starboardXTD="0.1" portsideXTD="0.1" safetyContour="20" safetyDepth="20" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="76" revision="1" name="Kalvanes" radius="0.3">
+      <position lat="60.43353" lon="5.029478" />
+      <leg starboardXTD="0.1" portsideXTD="0.1" safetyContour="20" safetyDepth="20" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="75" revision="1" name="Sora Rotoyna" radius="0.3">
+      <position lat="60.413462" lon="5.066059" />
+      <leg starboardXTD="0.1" portsideXTD="0.1" safetyContour="20" safetyDepth="20" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="50" revision="1" name="Midtholmen" radius="0.3">
+      <position lat="60.407711" lon="5.100829" />
+      <leg starboardXTD="0.08" portsideXTD="0.08" safetyContour="20" safetyDepth="20" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="161" revision="1" radius="0.3">
+      <position lat="60.401574" lon="5.119479" />
+      <leg starboardXTD="0.08" portsideXTD="0.08" safetyContour="20" safetyDepth="20" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="152" revision="1" name="Saltskoodden" radius="0.3">
+      <position lat="60.396684" lon="5.142972" />
+      <leg starboardXTD="0.08" portsideXTD="0.08" safetyContour="20" safetyDepth="20" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="259" revision="1" name="Sotra bridge" radius="0.3">
+      <position lat="60.390339" lon="5.157919" />
+      <leg starboardXTD="0.08" portsideXTD="0.08" safetyContour="20" safetyDepth="20" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="260" revision="1" radius="0.3">
+      <position lat="60.385194" lon="5.165944" />
+      <leg starboardXTD="0.07" portsideXTD="0.07" safetyContour="20" safetyDepth="20" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="261" revision="1" radius="0">
+      <position lat="60.384081" lon="5.175559" />
+      <leg starboardXTD="0.07" portsideXTD="0.07" safetyContour="20" safetyDepth="20" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+  </waypoints>
+</route>

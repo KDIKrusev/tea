@@ -1,0 +1,625 @@
+/* voyage-option-details.component.css - Enhanced with section separation */
+
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: #F7F7F7;
+}
+
+.ea-vec-voyage-option-details-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  padding: 11px;
+  box-sizing: border-box;
+}
+
+.ea-vec-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 11px; /* Add gap between sections */
+}
+
+/* Route option header */
+.ea-vec-route-option-header {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 12px 0;
+  text-align: left;
+}
+
+/* ===================================================================
+   SECTION CONTAINERS - NEW: Simple separation without color changes
+   =================================================================== */
+
+.ea-vec-section-container {
+  background-color: #FFFFFF;
+  border-radius: 6px;
+  border: 1px solid #E0E0E0;
+  padding: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.ea-vec-section-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 12px 0;
+  text-align: left;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #E0E0E0;
+}
+
+/* Energy calculation sections */
+.ea-vec-section-heading {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  margin: 0 0 16px 0;
+  text-align: left;
+}
+
+.ea-vec-bold-heading {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.ea-vec-details-section {
+  margin-bottom: 0; /* Remove bottom margin since we have section containers now */
+}
+
+.ea-vec-details-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+/* Energy groups styling - KEEP EXISTING COLORS */
+.ea-vec-energy-group {
+  margin: 12px 0;
+  border-radius: 4px;
+  overflow: hidden;
+  background-color: #f7f7f7;
+  border-left: 3px solid transparent;
+}
+
+.ea-vec-resistance-group {
+  border-left-color: #ff5252;
+}
+
+.ea-vec-contribution-group {
+  border-left-color: #4caf50;
+}
+
+.ea-vec-energy-group-header {
+  display: flex;
+  align-items: center;
+  padding: 6px 10px;
+  background-color: #f0f0f0;
+  margin-bottom: 4px;
+}
+
+.ea-vec-energy-group-icon {
+  font-weight: bold;
+  font-size: 16px;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.ea-vec-resistance-group .ea-vec-energy-group-icon {
+  color: #ff5252;
+}
+
+.ea-vec-contribution-group .ea-vec-energy-group-icon {
+  color: #4caf50;
+}
+
+.ea-vec-energy-group-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: #616161;
+}
+
+/* Row styling */
+.ea-vec-details-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0;
+}
+
+.ea-vec-energy-group .ea-vec-details-row {
+  padding: 4px 10px;
+}
+
+.ea-vec-details-label {
+  font-size: 14px;
+  color: #333;
+  font-weight: 500;
+}
+
+.ea-vec-details-value {
+  font-size: 14px;
+  font-weight: normal;
+  color: #333;
+  text-align: right;
+}
+
+/* Percentage values styling - KEEP EXISTING COLORS */
+.ea-vec-percentage-value {
+  font-size: 13px;
+  margin-left: 4px;
+}
+
+.ea-vec-resistance-value {
+  color: #ff5252;
+  font-weight: 500;
+}
+
+.ea-vec-contribution-value {
+  color: #4caf50;
+  font-weight: 500;
+}
+
+/* Total row */
+.ea-vec-total-row {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #ddd;
+  font-weight: 500;
+}
+
+.ea-vec-total-row .ea-vec-details-label {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.ea-vec-total-value {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+/* Comparison section - KEEP EXISTING STYLING */
+.ea-vec-comparison-section {
+  margin-bottom: 40px;
+}
+
+/* Energy percentage container - KEEP EXISTING COLORS */
+.ea-vec-details-energy-percentage-container {
+  display: flex;
+  background-color: #4F4F4F;
+  padding: 0;
+  align-items: center;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.ea-vec-details-energy-percentage-label {
+  font-size: 14px;
+  padding: 12px 16px;
+  color: #FFFFFF;
+  font-weight: normal;
+  flex: 1;
+}
+
+.ea-vec-details-energy-percentage-value {
+  font-weight: 500;
+  font-size: 18px;
+  padding: 12px 16px;
+  text-align: center;
+  color: #FFFFFF;
+  background-color: #00AA00;
+  min-width: 80px;
+}
+
+.ea-vec-details-energy-percentage-non-optimal {
+  background-color: #FF9800;
+}
+
+/* Responsive Design - Enhanced for tablets */
+
+/* Tablet Landscape - iPad Mini and similar (1024x768) */
+@media (max-width: 1024px) and (orientation: landscape) {
+  .ea-vec-voyage-option-details-container {
+    padding: 12px;
+  }
+  
+  .ea-vec-content-wrapper {
+    gap: 12px;
+  }
+  
+  .ea-vec-section-container {
+    padding: 12px;
+  }
+  
+  .ea-vec-section-title {
+    font-size: 13px;
+    margin: 0 0 8px 0;
+    padding-bottom: 6px;
+  }
+  
+  .ea-vec-route-option-header {
+    font-size: 14px;
+    margin: 0 0 8px 0;
+  }
+  
+  .ea-vec-section-heading {
+    font-size: 12px;
+    margin: 0 0 10px 0;
+  }
+  
+  .ea-vec-bold-heading {
+    font-size: 13px;
+  }
+  
+  .ea-vec-energy-group {
+    margin: 8px 0;
+  }
+  
+  .ea-vec-energy-group-header {
+    padding: 4px 8px;
+    margin-bottom: 2px;
+  }
+  
+  .ea-vec-energy-group-icon {
+    font-size: 14px;
+    width: 16px;
+    height: 16px;
+    margin-right: 6px;
+  }
+  
+  .ea-vec-energy-group-title {
+    font-size: 11px;
+  }
+  
+  .ea-vec-details-row {
+    padding: 2px 0;
+  }
+  
+  .ea-vec-energy-group .ea-vec-details-row {
+    padding: 2px 8px;
+  }
+  
+  .ea-vec-details-label {
+    font-size: 12px;
+  }
+  
+  .ea-vec-details-value {
+    font-size: 12px;
+  }
+  
+  .ea-vec-percentage-value {
+    font-size: 11px;
+    margin-left: 3px;
+  }
+  
+  .ea-vec-total-row {
+    margin-top: 10px;
+    padding-top: 10px;
+  }
+  
+  .ea-vec-total-row .ea-vec-details-label {
+    font-size: 13px;
+  }
+  
+  .ea-vec-total-value {
+    font-size: 14px;
+  }
+  
+  .ea-vec-comparison-section {
+    margin-bottom: 20px;
+  }
+  
+  .ea-vec-details-energy-percentage-label {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+  
+  .ea-vec-details-energy-percentage-value {
+    font-size: 16px;
+    padding: 8px 12px;
+    min-width: 60px;
+  }
+}
+
+/* Additional breakpoint for iPad Mini specifically */
+@media (max-width: 1024px) and (max-height: 768px) {
+  .ea-vec-voyage-option-details-container {
+    padding: 6px;
+    overflow-y: auto;
+    max-height: 100%;
+  }
+  
+  .ea-vec-content-wrapper {
+    gap: 8px;
+  }
+  
+  .ea-vec-section-container {
+    padding: 8px;
+  }
+  
+  .ea-vec-section-title {
+    font-size: 11px;
+    margin: 0 0 6px 0;
+    padding-bottom: 4px;
+  }
+  
+  .ea-vec-route-option-header {
+    font-size: 12px;
+    margin: 0 0 4px 0;
+  }
+  
+  .ea-vec-section-heading {
+    font-size: 10px;
+    margin: 0 0 6px 0;
+  }
+  
+  .ea-vec-bold-heading {
+    font-size: 11px;
+  }
+  
+  .ea-vec-energy-group {
+    margin: 4px 0;
+  }
+  
+  .ea-vec-energy-group-header {
+    padding: 2px 4px;
+    margin-bottom: 1px;
+  }
+  
+  .ea-vec-energy-group-icon {
+    font-size: 11px;
+    width: 12px;
+    height: 12px;
+    margin-right: 3px;
+  }
+  
+  .ea-vec-energy-group-title {
+    font-size: 9px;
+  }
+  
+  .ea-vec-details-row {
+    padding: 0;
+    min-height: 16px;
+  }
+  
+  .ea-vec-energy-group .ea-vec-details-row {
+    padding: 0 4px;
+  }
+  
+  .ea-vec-details-label {
+    font-size: 10px;
+  }
+  
+  .ea-vec-details-value {
+    font-size: 10px;
+  }
+  
+  .ea-vec-percentage-value {
+    font-size: 9px;
+    margin-left: 1px;
+  }
+  
+  .ea-vec-total-row {
+    margin-top: 6px;
+    padding-top: 6px;
+  }
+  
+  .ea-vec-total-row .ea-vec-details-label {
+    font-size: 11px;
+  }
+  
+  .ea-vec-total-value {
+    font-size: 12px;
+  }
+  
+  .ea-vec-comparison-section {
+    margin-bottom: 10px;
+  }
+  
+  .ea-vec-details-energy-percentage-label {
+    font-size: 9px;
+    padding: 4px 6px;
+    line-height: 1.2;
+  }
+  
+  .ea-vec-details-energy-percentage-value {
+    font-size: 12px;
+    padding: 4px 6px;
+    min-width: 40px;
+  }
+}
+
+/* Existing responsive adjustments - Enhanced */
+@media (max-height: 600px) {
+  .ea-vec-comparison-section {
+    margin-bottom: 5px;
+  }
+  
+  .ea-vec-energy-group-header {
+    padding: 2px 6px;
+  }
+  
+  .ea-vec-voyage-option-details-container {
+    padding: 4px;
+    overflow-y: auto;
+  }
+  
+  .ea-vec-content-wrapper {
+    gap: 6px;
+  }
+  
+  .ea-vec-section-container {
+    padding: 6px;
+  }
+  
+  .ea-vec-section-title {
+    font-size: 10px;
+    margin: 0 0 4px 0;
+    padding-bottom: 3px;
+  }
+  
+  .ea-vec-route-option-header {
+    font-size: 11px;
+    margin: 0 0 3px 0;
+  }
+  
+  .ea-vec-section-heading {
+    font-size: 9px;
+    margin: 0 0 4px 0;
+  }
+  
+  .ea-vec-energy-group {
+    margin: 3px 0;
+  }
+}
+
+@media (min-height: 800px) {
+  .ea-vec-comparison-section {
+    margin-bottom: 60px;
+  }
+}
+
+/* Standard tablet portrait */
+@media (max-width: 768px) {
+  .ea-vec-voyage-option-details-container {
+    padding: 12px;
+  }
+  
+  .ea-vec-content-wrapper {
+    gap: 10px;
+  }
+  
+  .ea-vec-section-container {
+    padding: 10px;
+  }
+  
+  .ea-vec-details-energy-percentage-container {
+    flex-direction: column;
+  }
+  
+  .ea-vec-details-energy-percentage-label {
+    text-align: center;
+    border-radius: 4px 4px 0 0;
+  }
+  
+  .ea-vec-details-energy-percentage-value {
+    border-radius: 0 0 4px 4px;
+    min-width: auto;
+  }
+}
+
+/* Ultra-compact for very small spaces */
+@media (max-width: 1024px) and (max-height: 600px) {
+  .ea-vec-voyage-option-details-container {
+    padding: 4px;
+    overflow-y: auto;
+    font-size: 10px;
+  }
+  
+  .ea-vec-content-wrapper {
+    gap: 4px;
+  }
+  
+  .ea-vec-section-container {
+    padding: 6px;
+  }
+  
+  .ea-vec-section-title {
+    font-size: 9px;
+    margin: 0 0 3px 0;
+    padding-bottom: 2px;
+  }
+  
+  .ea-vec-route-option-header {
+    font-size: 10px;
+    margin: 0 0 2px 0;
+  }
+  
+  .ea-vec-section-heading {
+    font-size: 8px;
+    margin: 0 0 3px 0;
+  }
+  
+  .ea-vec-bold-heading {
+    font-size: 9px;
+  }
+  
+  .ea-vec-energy-group {
+    margin: 2px 0;
+  }
+  
+  .ea-vec-energy-group-header {
+    padding: 1px 3px;
+    margin-bottom: 0;
+  }
+  
+  .ea-vec-energy-group-icon {
+    font-size: 10px;
+    width: 10px;
+    height: 10px;
+    margin-right: 2px;
+  }
+  
+  .ea-vec-energy-group-title {
+    font-size: 8px;
+  }
+  
+  .ea-vec-details-row {
+    padding: 0;
+    min-height: 14px;
+  }
+  
+  .ea-vec-energy-group .ea-vec-details-row {
+    padding: 0 3px;
+  }
+  
+  .ea-vec-details-label,
+  .ea-vec-details-value {
+    font-size: 9px;
+  }
+  
+  .ea-vec-percentage-value {
+    font-size: 8px;
+    margin-left: 1px;
+  }
+  
+  .ea-vec-total-row {
+    margin-top: 4px;
+    padding-top: 4px;
+  }
+  
+  .ea-vec-total-row .ea-vec-details-label {
+    font-size: 10px;
+  }
+  
+  .ea-vec-total-value {
+    font-size: 11px;
+  }
+  
+  .ea-vec-comparison-section {
+    margin-bottom: 6px;
+  }
+  
+  .ea-vec-details-energy-percentage-label {
+    font-size: 8px;
+    padding: 3px 4px;
+    line-height: 1.1;
+  }
+  
+  .ea-vec-details-energy-percentage-value {
+    font-size: 10px;
+    padding: 3px 4px;
+    min-width: 35px;
+  }
+}

@@ -1,0 +1,123 @@
+<!-- Enhanced Expanded map view with improved button layout and inline performance -->
+<div class="expanded-map-inline-container">
+  <!-- Enhanced Header with inline performance comparison -->
+  <div class="expanded-map-inline-header">
+    <div class="expanded-map-inline-title">
+      <h3>
+        <i class="fa fa-map" aria-hidden="true"></i>
+        Route analysis
+      </h3>
+      <div class="selected-option-quick-info"  *ngIf="!isLiveMode">
+        <span class="option-time">{{ formatDateTime(selectedVoyageOption?.etd || 0) }} → {{ formatDateTime(selectedVoyageOption?.eta || 0) }}</span>
+        <span class="option-energy">  {{ formatConsumption(getTotalConsumption()) }}</span>
+        
+        <!-- Enhanced badge with inline performance comparison -->
+        <div class="option-badge-container"  *ngIf="!isLiveMode">
+          <div class="option-badge" 
+               [class.optimal-badge]="(selectedVoyageOption?.energyConsumptionRelative ?? 0) === 0">
+            {{ (selectedVoyageOption?.energyConsumptionRelative ?? 0) === 0 ? 'Optimal' : 'Alternative' }}
+          </div>
+          
+          <!-- Performance indicator with vs Best label -->
+          <div class="performance-comparison-wrapper">
+            <span class="vs-best-label">vs best:</span>
+            <div class="performance-indicator-inline"
+                 [class.performance-optimal]="(selectedVoyageOption?.energyConsumptionRelative ?? 0) === 0"
+                 [class.performance-positive]="(selectedVoyageOption?.energyConsumptionRelative ?? 0) > 0"
+                 [class.performance-negative]="(selectedVoyageOption?.energyConsumptionRelative ?? 0) < 0">
+              {{ (selectedVoyageOption?.energyConsumptionRelative ?? 0) === 0 ? '0%' : 
+                 (((selectedVoyageOption?.energyConsumptionRelative ?? 0) > 0 ? '+' : '') + 
+                 ((selectedVoyageOption?.energyConsumptionRelative ?? 0) | number: '1.0-0') + '%') }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IMPROVED: Better organized overlay controls -->
+    <div class="right-overlay-controls">
+      <!-- Primary overlay controls: Vessel, Wind, Current, Weather (4 buttons) -->
+      <div class="overlay-toggle-group">
+
+        <!-- Weather Button -->
+        <div class="inline-overlay-control">
+          <label class="overlay-toggle-btn weather" 
+                 [class.active]="overlaySettings.weatherData">
+            <input type="checkbox" 
+                   [(ngModel)]="overlaySettings.weatherData"
+                   (change)="onOverlayToggle('weatherData', $event)"
+                   style="display: none;">
+            <i class="fa fa-cloud" aria-hidden="true"></i>
+            <span>Weather contribution/resistance</span>
+          </label>
+        </div>
+      </div>
+
+        <!-- Vessel Course -->
+        <div class="inline-overlay-control">
+          <label class="overlay-toggle-btn vessel-course" 
+                 [class.active]="overlaySettings.vesselCourse">
+            <input type="checkbox" 
+                   [(ngModel)]="overlaySettings.vesselCourse"
+                   (change)="onOverlayToggle('vesselCourse', $event)"
+                   style="display: none;">
+            <i class="fa fa-compass" aria-hidden="true"></i>
+            <span>Vessel course</span>
+          </label>
+        </div>
+
+        <!-- True Wind -->
+        <div class="inline-overlay-control">
+          <label class="overlay-toggle-btn true-wind" 
+                 [class.active]="overlaySettings.trueWind">
+            <input type="checkbox" 
+                   [(ngModel)]="overlaySettings.trueWind"
+                   (change)="onOverlayToggle('trueWind', $event)"
+                   style="display: none;">
+            <i class="fa fa-wind" aria-hidden="true"></i>
+            <span>Wind speed/direction</span>
+          </label>
+        </div>
+
+        <!-- Ocean Current -->
+        <div class="inline-overlay-control">
+          <label class="overlay-toggle-btn ocean-current" 
+                 [class.active]="overlaySettings.trueCurrent">
+            <input type="checkbox" 
+                   [(ngModel)]="overlaySettings.trueCurrent"
+                   (change)="onOverlayToggle('trueCurrent', $event)"
+                   style="display: none;">
+            <i class="fa fa-water" aria-hidden="true"></i>
+            <span>Current speed/direction</span>
+          </label>
+        </div>
+    </div>
+  </div>
+
+  <!-- Map and details content -->
+  <div class="expanded-map-inline-content">
+    <!-- Enhanced Map with overlay indicators -->
+    <div class="expanded-map-inline-map-section">
+      <!-- Integrated Map Component -->
+      <div class="map-real-container-inline" #inlineMapContainer>
+        <app-voyage-map
+          [selectedVoyageOption]="selectedVoyageOption"
+          [isLiveMode]="isLiveMode"                           
+          [currentVesselPosition]="currentVesselPosition"     
+          [autoFollow]="autoFollow"                         
+          [miniMapMode]="false"
+          [syncWithGlobalState]="false">
+        </app-voyage-map>
+      </div>
+      
+      <!-- Enhanced Fallback with overlay status -->
+      <div class="map-placeholder-inline" *ngIf="!isMapMovedInline">
+        <div class="map-placeholder-message">
+          <i class="fa fa-map" aria-hidden="true"></i>
+          <span>Loading enhanced map view...</span>
+          <div class="loading-spinner"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

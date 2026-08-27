@@ -1,0 +1,41 @@
+   
+trigger:
+- develop
+- release
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+- group: KDI Artifactory Credentials
+- name: buildConfiguration
+  value: 'Release'
+- name: latestTag
+  ${{ if eq(variables['Build.SourceBranchName'], 'release') }}:
+     value: 'release-latest'
+  ${{ if eq(variables['Build.SourceBranchName'], 'develop') }}:
+     value: 'latest'
+
+
+steps:
+- script: echo "Image will be tagged with; $(latestTag) and $(Build.SourceBranchName)-$(Build.BuildNumber)"
+- task: Docker@2
+  inputs:
+    containerRegistry: 'KM-DockerKDI-JFrogDocker'
+    repository: 'vec/vec-backend'
+    command: 'build'
+    Dockerfile: '**/Dockerfile'
+    tags: |
+     $(Build.SourceBranchName)-$(Build.BuildNumber)
+     ${{ variables.latestTag }}
+    arguments: '--build-arg NUGET_JFROG_USER=$(artifactory.user) --build-arg NUGET_JFROG_PASSWORD=$(artifactory.password)'
+    continueOnError: false  # Break on warnings
+- task: Docker@2
+  inputs:
+    containerRegistry: 'KM-DockerKDI-JFrogDocker'
+    repository: 'vec/vec-backend'
+    command: 'push'
+    tags: |
+     $(Build.SourceBranchName)-$(Build.BuildNumber)
+     ${{ variables.latestTag }}
+    continueOnError: false  # Break on warnings

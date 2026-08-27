@@ -1,0 +1,63 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34322.80
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VoyageEnergyAdvisor", "VoyageEnergyAdvisor.App\VoyageEnergyAdvisor.csproj", "{AE31227E-535D-4663-8844-16BAAA39C640}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VoyageEnergyAdvisor.WebApi", "VoyageEnergyAdvisor.WebApi\VoyageEnergyAdvisor.WebApi.csproj", "{2C964808-9D37-43EC-932E-578995E456E1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{50F17A3F-B58C-4089-A4A5-3345926F7A20}"
+	ProjectSection(SolutionItems) = preProject
+		azure-pipelines-dev.yml = azure-pipelines-dev.yml
+		azure-pipelines.yml = azure-pipelines.yml
+		Dockerfile = Dockerfile
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VoyageEnergyAdvisor.Core", "VoyageEnergyAdvisor.Core\VoyageEnergyAdvisor.Core.csproj", "{7D8978A9-4FB4-4A30-94AD-1384F4F4C976}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VesselModelReader", "VoyageEnergyAdvisor.VesselModelReader\VesselModelReader\VesselModelReader.csproj", "{9994418E-62B9-4A8A-B6A0-3668FF90B1D6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VoyageEnergyAdvisor.Data", "VoyageEnergyAdvisor.Data\VoyageEnergyAdvisor.Data.csproj", "{861EE33D-27A3-43B8-9F7C-62E16F43D4CC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VoyageEnergyCalculatorService.Test", "VoyageEnergyAdvisorService.Test\VoyageEnergyCalculatorService.Test.csproj", "{FB8FF35F-C3D3-4378-B777-E404E3ED9D1B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AE31227E-535D-4663-8844-16BAAA39C640}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE31227E-535D-4663-8844-16BAAA39C640}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE31227E-535D-4663-8844-16BAAA39C640}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE31227E-535D-4663-8844-16BAAA39C640}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C964808-9D37-43EC-932E-578995E456E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C964808-9D37-43EC-932E-578995E456E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C964808-9D37-43EC-932E-578995E456E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C964808-9D37-43EC-932E-578995E456E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D8978A9-4FB4-4A30-94AD-1384F4F4C976}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D8978A9-4FB4-4A30-94AD-1384F4F4C976}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D8978A9-4FB4-4A30-94AD-1384F4F4C976}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D8978A9-4FB4-4A30-94AD-1384F4F4C976}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9994418E-62B9-4A8A-B6A0-3668FF90B1D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9994418E-62B9-4A8A-B6A0-3668FF90B1D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9994418E-62B9-4A8A-B6A0-3668FF90B1D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9994418E-62B9-4A8A-B6A0-3668FF90B1D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{861EE33D-27A3-43B8-9F7C-62E16F43D4CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{861EE33D-27A3-43B8-9F7C-62E16F43D4CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{861EE33D-27A3-43B8-9F7C-62E16F43D4CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{861EE33D-27A3-43B8-9F7C-62E16F43D4CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB8FF35F-C3D3-4378-B777-E404E3ED9D1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB8FF35F-C3D3-4378-B777-E404E3ED9D1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB8FF35F-C3D3-4378-B777-E404E3ED9D1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB8FF35F-C3D3-4378-B777-E404E3ED9D1B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8E1A55A0-A3B0-4222-A517-05EA594E7CAD}
+	EndGlobalSection
+EndGlobal

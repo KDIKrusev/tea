@@ -1,0 +1,28 @@
+<!-- main-layout.component.html - Cleaned and optimized -->
+<div class="main-container">
+  <!-- Left Panel -->
+  <div class="left-panel">
+    <app-voyage-scheduler></app-voyage-scheduler>
+  </div>
+
+  <!-- Right Panel -->
+  <div class="right-panel">
+    <!-- Map View -->
+    <div class="map-container"
+         *ngIf="!showResults && !voyageService.isLoading && !voyageService.errorMessage">
+      <app-voyage-map [miniMapMode]="false"></app-voyage-map>
+    </div>
+
+    <!-- Results Panel -->
+    <div class="results-container"
+         *ngIf="showResults && !voyageService.isLoading && !voyageService.errorMessage">
+      <app-voyage-energy-advisor-results-panel></app-voyage-energy-advisor-results-panel>
+    </div>
+
+    <!-- Loading Overlay -->
+    <app-voyage-energy-advisor-loading-overlay
+      class="loading-overlay"
+      *ngIf="voyageService.isLoading || voyageService.errorMessage">
+    </app-voyage-energy-advisor-loading-overlay>
+  </div>
+</div>

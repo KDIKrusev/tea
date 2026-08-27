@@ -1,0 +1,71 @@
+trigger:
+  branches:
+    include:
+      - develop  # Only trigger on develop branch
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  - group: acr-secrets  # Contains ACR_USERNAME, ACR_PASSWORD, and GITHUB_TOKEN
+  - name: dockerRegistry
+    value: 'kmviregistry.azurecr.io'
+  - name: frontendImage
+    value: 'vec-frontend'  # Production image name
+  - name: prodApiUrl
+    value: 'https://voyageenergyadvisor-be-bmgpawg9brd9bkck.westeurope-01.azurewebsites.net'
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '22.x'
+  displayName: 'Install Node.js'
+
+# 🔐 Configure GitHub Package Registry authentication
+- script: |
+    echo "🔐 Configuring GitHub Package Registry authentication"
+    echo "//npm.pkg.github.com/:_authToken=$(GITHUB_TOKEN)" >> ~/.npmrc
+    echo "@ocean-industries-concept-lab:registry=https://npm.pkg.github.com/" >> ~/.npmrc
+    echo "📋 Checking .npmrc configuration:"
+    cat ~/.npmrc
+  displayName: "Configure GitHub Package Registry"
+
+# 📦 Install dependencies using script (not Npm@1 task)
+- script: |
+    echo "📦 Installing npm dependencies..."
+    npm install
+  displayName: 'Install npm dependencies'
+
+# 🔧 Replace config.json for production
+- script: |
+    echo "🔧 Updating config.json with production API URL"
+    echo "{ \"apiUrl\": \"$(prodApiUrl)\" }" > src/assets/config.json
+    echo "✅ New config.json content:"
+    cat src/assets/config.json
+  displayName: 'Inject production config.json'
+
+# 🏗 Build Angular app
+- script: |
+    npm run build
+  displayName: 'Build Angular app'
+
+# 🔐 Login to Azure Container Registry
+- script: |
+    echo "🔐 Logging in to ACR"
+    echo "$(ACR_PASSWORD)" | docker login $(dockerRegistry) -u $(ACR_USERNAME) --password-stdin
+  displayName: "Login to ACR"
+
+# 🛠 Docker Build
+- script: |
+    echo "🔨 Building Angular frontend production image"
+    docker build -t $(dockerRegistry)/$(frontendImage):$(Build.SourceBranchName)-$(Build.BuildId) \
+                 -t $(dockerRegistry)/$(frontendImage):latest \
+                 -f Dockerfile .
+  displayName: "Build Frontend Production Docker Image"
+
+# 📤 Docker Push
+- script: |
+    echo "📦 Pushing Angular frontend production image to ACR"
+    docker push $(dockerRegistry)/$(frontendImage):$(Build.SourceBranchName)-$(Build.BuildId)
+    docker push $(dockerRegistry)/$(frontendImage):latest
+  displayName: "Push Frontend Production Image to ACR"

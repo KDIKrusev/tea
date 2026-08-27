@@ -1,0 +1,92 @@
+<div class="ea-vec-voyage-option-details-container" *ngIf="currentVesselPosition">
+  <div class="ea-vec-content-wrapper">
+    <!-- Data Status Section -->
+    <div class="ea-vec-section-container">
+      <h4 class="ea-vec-section-title">DATA STATUS</h4>
+      <div class="status-display">
+        <div class="status-indicator" [ngClass]="getDataStatusClass()">
+          <span class="status-dot"></span>
+          <span class="status-text">{{ getDataStatusText() }}</span>
+        </div>
+        <div class="last-update" *ngIf="currentVesselPosition.positionUpdatedAt">
+          Last updated: {{ getTimeSinceLastUpdate() }}
+        </div>
+        <div class="no-data-message" *ngIf="!hasValidPosition()">
+          Waiting for vessel position data from AIS provider. This may take some time...
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation Section -->
+    <div class="ea-vec-section-container" *ngIf="hasValidPosition()">
+      <h4 class="ea-vec-section-title">NAVIGATION</h4>
+      <div class="details-grid">
+        <div class="detail-row">
+          <span class="detail-label">Speed:</span>
+          <span class="detail-value">{{ liveTrackingInfo.currentSpeed?.toFixed(1) || '0.0' }} kts</span>
+        </div>
+        <div class="detail-row" *ngIf="currentVesselPosition.status" >
+          <span class="detail-label">Status:</span>
+           <span class="detail-value" [ngClass]="getVesselStatusClass()">
+            {{ getVesselStatusText() }}
+          </span>
+        </div>
+        <div class="detail-row" *ngIf="currentVesselPosition.course">
+          <span class="detail-label">Course:</span>
+          <span class="detail-value">{{ currentVesselPosition.course.toFixed(0) }}°</span>
+        </div>
+        <div class="detail-row" *ngIf="currentVesselPosition.heading">
+          <span class="detail-label">Heading:</span>
+          <span class="detail-value">{{ currentVesselPosition.heading.toFixed(0) }}°</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Position Section -->
+    <div class="ea-vec-section-container" *ngIf="hasValidPosition()">
+      <h4 class="ea-vec-section-title">POSITION</h4>
+      <div class="details-grid">
+        <div class="detail-row">
+          <span class="detail-label">Latitude:</span>
+          <span class="detail-value">{{ currentVesselPosition.latitude.toFixed(6) }}°</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Longitude:</span>
+          <span class="detail-value">{{ currentVesselPosition.longitude.toFixed(6) }}°</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Route Progress Section -->
+    <!-- <div class="ea-vec-section-container" *ngIf="hasValidPosition() && liveTrackingInfo.progress > 0">
+      <h4 class="ea-vec-section-title">ROUTE PROGRESS</h4>
+      <div class="progress-display">
+        <div class="progress-text">{{ liveTrackingInfo.progress.toFixed(1) }}%</div>
+        <div class="progress-bar-container">
+          <div class="progress-bar-fill" [style.width.%]="liveTrackingInfo.progress"></div>
+        </div>
+      </div>
+    </div> --> 
+
+    <!-- Voyage Details Section -->
+    <div class="ea-vec-section-container" *ngIf="hasValidPosition() && liveTrackingInfo.eta && isVesselMoving()">
+      <h4 class="ea-vec-section-title">VOYAGE DETAILS</h4>
+      <div class="details-grid">
+        <div class="detail-row">
+          <span class="detail-label">ETA:</span>
+          <span class="detail-value">{{ liveTrackingInfo.eta | date:'dd/MM/yyyy HH:mm' }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Average speed:</span>
+          <span class="detail-value">{{ liveTrackingInfo.currentSpeed?.toFixed(1) || '0.0' }}kn</span>
+        </div>
+        <div class="detail-row" *ngIf="liveTrackingInfo.remainingTimeInSeconds">
+          <span class="detail-label">Duration:</span>
+          <span class="detail-value">{{ formatRemainingTime(liveTrackingInfo.remainingTimeInSeconds) }}</span>
+        </div>
+      </div>
+    </div>
+
+  
+  </div>
+</div>

@@ -1,0 +1,16 @@
+<div class="ea-vec-input-group">
+    <div class="ea-vec-input-group-heading">{{ heading }}</div>
+    <div class="ea-vec-speed-simple-container">
+      <div class="ea-vec-speed-label">{{ speedMin }} kn</div>
+      <div class="ea-vec-speed-slider">
+        <ngx-slider 
+          [(value)]="speedMin" 
+          [(highValue)]="speedMax" 
+          [options]="options"
+          (valueChange)="onSpeedChange()"
+          (highValueChange)="onSpeedChange()">
+        </ngx-slider>
+      </div>
+      <div class="ea-vec-speed-label">{{ speedMax }}kn</div>
+    </div>
+</div>

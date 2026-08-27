@@ -1,0 +1,16 @@
+<div class="ea-vec-input-field">
+  <div *ngIf="loading" class="ea-vec-loading">
+    <span class="ea-vec-loading-text">Loading routes...</span>
+  </div>
+
+  <div *ngIf="error" class="ea-vec-error-message">
+    {{ error }}
+  </div>
+
+  <app-select-input
+    [options]="routes"
+    [(selected)]="selectedRoute"
+    [label]="'Route'"
+    (selectedChange)="onSelectedRouteChanged($event)">
+  </app-select-input>
+</div>

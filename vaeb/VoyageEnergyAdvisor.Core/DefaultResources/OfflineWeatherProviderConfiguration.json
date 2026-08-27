@@ -1,0 +1,39 @@
+{
+  "OfflineWeatherProviderConfiguration": {
+    "UpdatedAtTimeDelta": "00:30:00",
+    "WeatherForecast": [
+      {
+        "Time": "2025-01-07T10:00:00+01:00",
+        "Location": {
+          "Latitude": 62.4722,
+          "Longitude": 6.1549
+        },
+        "Weather": {
+          "WindSpeed": 50,
+          "WindDirection": 90,
+          "WaveHeight": 0,
+          "WavePeakPeriod": 0,
+          "WaveDirection": 0,
+          "CurrentSpeed": 10,
+          "CurrentDirection": 180
+        }
+      },
+      {
+        "Time": "2025-01-07T11:00:00+01:00",
+        "Location": {
+          "Latitude": 62.4722,
+          "Longitude": 6.1549
+        },
+        "Weather": {
+          "WindSpeed": 50,
+          "WindDirection": 90,
+          "WaveHeight": 0,
+          "WavePeakPeriod": 0,
+          "WaveDirection": 0,
+          "CurrentSpeed": 10,
+          "CurrentDirection": 180
+        }
+      }
+    ]
+  }
+}

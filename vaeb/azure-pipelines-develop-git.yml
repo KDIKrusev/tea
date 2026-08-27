@@ -1,0 +1,58 @@
+trigger:
+  branches:
+    include:
+      - develop 
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  - group: acr-secrets 
+  - name: dockerRegistry
+    value: 'kmviregistry.azurecr.io'
+  - name: backendImage
+    value: 'vec-backend'  
+
+steps:
+- task: UseDotNet@2
+  inputs:
+    packageType: 'sdk'
+    version: '10.x'
+
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet restore'
+  inputs:
+    command: 'restore'
+
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet build prod (zero warnings enforced)'
+  inputs:
+    command: 'build'
+    arguments: '--no-restore --configuration Release /p:TreatWarningsAsErrors=true'
+
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet test'
+  inputs:
+    command: 'test'
+    arguments: '--no-build --configuration Release'
+
+# 🔐 Login to Azure Container Registry (ACR)
+- script: |
+    echo "🔐 Logging in to ACR"
+    echo "$(ACR_PASSWORD)" | docker login $(dockerRegistry) -u $(ACR_USERNAME) --password-stdin
+  displayName: "Login to ACR"
+
+# 🛠 Build Docker image
+- script: |
+    echo "🔨 Building stable backend image for develop"
+    docker build -t $(dockerRegistry)/$(backendImage):$(Build.SourceBranchName)-$(Build.BuildId) \
+                 -t $(dockerRegistry)/$(backendImage):latest \
+                 -f Dockerfile .
+  displayName: "Build Backend Stable Image"
+
+# 📤 Push Docker image
+- script: |
+    echo "📦 Pushing stable backend image to ACR"
+    docker push $(dockerRegistry)/$(backendImage):$(Build.SourceBranchName)-$(Build.BuildId)
+    docker push $(dockerRegistry)/$(backendImage):latest
+  displayName: "Push Backend Stable Image to ACR"

@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<route xmlns="http://www.cirm.org/RTZ/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.1" xmlns:stm="http://stmvalidation.eu/STM/1/0/0" xsi:schemaLocation="http://stmvalidation.eu/STM/1/0/0 stm_extensions.xsd">
+    <routeInfo routeName="Danafjord - Skarvik" routeStatus="SafetyChecked" vesselName="TERN ISLAND" vesselMMSI="219029722" vesselIMO="9909649" vesselVoyage="urn:mrn:stm:voyage:id:transas:25002_0f7b28df-8777-42ec-a569-15ff6ac56c2c">
+        <extensions>
+            <extension manufacturer="Furuno" name="AdditionalRouteInfo" version="1.0">
+                <property income="0" channelLimitMode="0" safetyContour="30" ukcLimit="30.000000"/>
+            </extension>
+            <extension xsi:type="stm:RouteInfoExtension" name="routeInfoEx" manufacturer="STM" version="1.0.0" routeStatusEnum="5" routeVersion="57489802-5F9D-4952-8562-BCC785FBE365" depPort="FIHMN" arrPort="SEGOT" startSeaPassage="LOC:WP182" endSeaPassage="PILOT_BOARDING_AREA:WP157">
+                <stm:routeChanges>
+                    <stm:historyItem author="NS" reason="creation" dateTime="2019-02-27T12:05:21Z"/>
+                    <stm:historyItem author="NS" reason="correction" dateTime="2025-01-05T23:27:51Z"/>
+                    <stm:historyItem author="NS" reason="correction" dateTime="2025-01-05T23:31:13Z"/>
+                    <stm:historyItem author="NS" reason="correction" dateTime="2025-01-05T23:31:15Z"/>
+                    <stm:historyItem author="NS" reason="correction" dateTime="2025-01-09T12:54:54Z"/>
+                    <stm:historyItem author="NS" reason="correction" dateTime="2025-01-09T13:22:14Z"/>
+                    <stm:historyItem author="NS" reason="correction" dateTime="2025-01-09T13:22:27Z"/>
+                    <stm:historyItem author="NS" reason="correction" dateTime="2025-01-09T13:23:22Z"/>
+                    <stm:historyItem author="NS" reason="correction" dateTime="2025-01-09T13:24:34Z"/>
+                    <stm:historyItem author="NS" reason="correction" dateTime="2025-01-09T13:24:36Z"/>
+                </stm:routeChanges>
+            </extension>
+            <extension name="routeInfoTrs" manufacturer="Transas" version="1.0.0" routeId="urn:mrn:transas:route:id:1bdb0bfa-93c2-4fa9-baac-181ef70335d9" routeStatusEx="1" totalLength="6.339"/>
+        </extensions>
+    </routeInfo>
+    <waypoints>
+        <defaultWaypoint radius="0.50">
+            <leg portsideXTD="0.20" starboardXTD="0.10" safetyContour="10.00" safetyDepth="10.00" draughtForward="7.10" draughtAft="7.10" staticUKC="0.00" dynamicUKC="0.00" geometryType="Loxodrome"/>
+            <extensions>
+                <extension value="Manual" name="auto_routing" manufacturer="Transas" version="1.0.0"/>
+            </extensions>
+        </defaultWaypoint>
+        <waypoint id="328" name="Danafjord">
+            <position lat="57.68178695" lon="11.68728378"/>
+            <leg/>
+        </waypoint>
+        <waypoint id="329" name="bn No. 12" radius="0.75">
+            <position lat="57.67788916" lon="11.71725405"/>
+            <leg portsideXTD="0.06" starboardXTD="0.15" draughtForward="7.00" draughtAft="7.00" dynamicUKC="13.24"/>
+        </waypoint>
+        <waypoint id="330" name="bn No. 19" radius="0.75">
+            <position lat="57.67570299" lon="11.73933802"/>
+            <leg portsideXTD="0.09" starboardXTD="0.07" draughtForward="7.25" draughtAft="7.25" dynamicUKC="12.03"/>
+        </waypoint>
+        <waypoint id="331" name="bn Dynam" radius="0.75">
+            <position lat="57.67919526" lon="11.79218376"/>
+            <leg portsideXTD="0.07" starboardXTD="0.05" dynamicUKC="12.94"/>
+        </waypoint>
+        <waypoint id="332" name="Knippelholmen" radius="0.75">
+            <position lat="57.67921702" lon="11.81475637"/>
+            <leg portsideXTD="0.07" starboardXTD="0.05" dynamicUKC="7.14"/>
+        </waypoint>
+        <waypoint id="333" name="Alvsborg">
+            <position lat="57.68231782" lon="11.84212450"/>
+            <leg portsideXTD="0.13" starboardXTD="0.05" dynamicUKC="7.14"/>
+        </waypoint>
+        <waypoint id="334" name="Tangudden">
+            <position lat="57.68578157" lon="11.86466257"/>
+            <leg portsideXTD="0.13" starboardXTD="0.05" draughtForward="7.02" draughtAft="7.02" dynamicUKC="7.11"/>
+        </waypoint>
+        <waypoint id="335" name="Off Jetty" radius="0.05">
+            <position lat="57.68669095" lon="11.87344658"/>
+            <leg portsideXTD="0.05" starboardXTD="0.05" draughtForward="7.00" draughtAft="7.00" dynamicUKC="6.20"/>
+        </waypoint>
+        <waypoint id="336" name="Skarvik" radius="0.01">
+            <position lat="57.68997815" lon="11.87763926"/>
+            <leg portsideXTD="0.04" starboardXTD="0.02" draughtForward="7.00" draughtAft="7.00" dynamicUKC="5.00"/>
+        </waypoint>
+        <extensions>
+            <extension name="branches" manufacturer="Transas" version="1.0.0">
+                <branch id="2" name="">
+                    <defaultWaypoint radius="0.10">
+                        <leg portsideXTD="0.20" starboardXTD="0.20" safetyContour="10.00" safetyDepth="10.00" draughtForward="7.30" draughtAft="7.30" staticUKC="0.00" dynamicUKC="0.00" geometryType="Loxodrome"/>
+                        <extensions>
+                            <extension value="Manual" name="auto_routing" manufacturer="Transas" version="1.0.0"/>
+                        </extensions>
+                    </defaultWaypoint>
+                    <waypoint id="131074">
+                        <position lat="62.62340000" lon="6.23703333"/>
+                        <leg/>
+                    </waypoint>
+                    <waypoint id="131075">
+                        <position lat="62.64315000" lon="6.19703333"/>
+                        <leg/>
+                    </waypoint>
+                    <waypoint id="131076" radius="0.20">
+                        <position lat="62.64980000" lon="6.14660000"/>
+                        <leg/>
+                    </waypoint>
+                    <waypoint id="131077" radius="0.20">
+                        <position lat="62.64533333" lon="6.12106667"/>
+                        <leg/>
+                    </waypoint>
+                    <waypoint id="131078" radius="0.20">
+                        <position lat="62.63185000" lon="6.09386667"/>
+                        <leg/>
+                    </waypoint>
+                    <waypoint id="131079" radius="0.20">
+                        <position lat="62.62355000" lon="6.09985000"/>
+                        <leg/>
+                    </waypoint>
+                    <waypoint id="131080" radius="0.20">
+                        <position lat="62.60795000" lon="6.13316667"/>
+                        <leg/>
+                    </waypoint>
+                </branch>
+            </extension>
+            <extension name="geometry_change" manufacturer="Transas" version="1.0.0" last_change_time="2025-01-09T13:22:14.306321Z"/>
+        </extensions>
+    </waypoints>
+    <schedules>
+        <schedule id="0" name="Base Calculation">
+            <manual>
+                <scheduleElement waypointId="328">
+                    <extensions>
+                        <extension value="+01:00" name="timezone" manufacturer="Transas" version="1.0.0"/>
+                    </extensions>
+                </scheduleElement>
+                <scheduleElement waypointId="329" speed="6.000">
+                    <extensions>
+                        <extension value="+01:00" name="timezone" manufacturer="Transas" version="1.0.0"/>
+                    </extensions>
+                </scheduleElement>
+                <scheduleElement waypointId="330" speed="13.000">
+                    <extensions>
+                        <extension value="+01:00" name="timezone" manufacturer="Transas" version="1.0.0"/>
+                    </extensions>
+                </scheduleElement>
+                <scheduleElement waypointId="331" speed="8.000">
+                    <extensions>
+                        <extension value="+01:00" name="timezone" manufacturer="Transas" version="1.0.0"/>
+                    </extensions>
+                </scheduleElement>
+                <scheduleElement waypointId="332" speed="8.000">
+                    <extensions>
+                        <extension value="+01:00" name="timezone" manufacturer="Transas" version="1.0.0"/>
+                    </extensions>
+                </scheduleElement>
+                <scheduleElement waypointId="333" speed="8.000">
+                    <extensions>
+                        <extension value="+01:00" name="timezone" manufacturer="Transas" version="1.0.0"/>
+                    </extensions>
+                </scheduleElement>
+                <scheduleElement waypointId="334" speed="3.000">
+                    <extensions>
+                        <extension value="+01:00" name="timezone" manufacturer="Transas" version="1.0.0"/>
+                    </extensions>
+                </scheduleElement>
+                <scheduleElement waypointId="335">
+                    <extensions>
+                        <extension value="+01:00" name="timezone" manufacturer="Transas" version="1.0.0"/>
+                    </extensions>
+                </scheduleElement>
+                <scheduleElement waypointId="336">
+                    <extensions>
+                        <extension value="+01:00" name="timezone" manufacturer="Transas" version="1.0.0"/>
+                    </extensions>
+                </scheduleElement>
+                <extensions>
+                    <extension last_change_time="2024-01-05T23:28:26.816463Z" name="schedule_change" manufacturer="Transas" version="1.0.0"/>
+                </extensions>
+            </manual>
+            <calculated>
+                <scheduleElement waypointId="328">
+                    <extensions>
+                        <extension value="+01:00" name="timezone" manufacturer="Transas" version="1.0.0"/>
+                    </extensions>
+                </scheduleElement>
+                <scheduleElement waypointId="329" speed="6.000">
+                    <extensions>
+                        <extension value="+01:00" name="timezone" manufacturer="Transas" version="1.0.0"/>
+                    </extensions>
+                </scheduleElement>
+                <scheduleElement waypointId="330" speed="13.000">
+                    <extensions>
+                        <extension value="+01:00" name="timezone" manufacturer="Transas" version="1.0.0"/>
+                    </extensions>
+                </scheduleElement>
+                <scheduleElement waypointId="331" speed="8.000">
+                    <extensions>
+                        <extension value="+01:00" name="timezone" manufacturer="Transas" version="1.0.0"/>
+                    </extensions>
+                </scheduleElement>
+                <scheduleElement waypointId="332" speed="8.000">
+                    <extensions>
+                        <extension value="+01:00" name="timezone" manufacturer="Transas" version="1.0.0"/>
+                    </extensions>
+                </scheduleElement>
+                <scheduleElement waypointId="333" speed="8.000">
+                    <extensions>
+                        <extension value="+01:00" name="timezone" manufacturer="Transas" version="1.0.0"/>
+                    </extensions>
+                </scheduleElement>
+                <scheduleElement waypointId="334" speed="3.000">
+                    <extensions>
+                        <extension value="+01:00" name="timezone" manufacturer="Transas" version="1.0.0"/>
+                    </extensions>
+                </scheduleElement>
+                <scheduleElement waypointId="335">
+                    <extensions>
+                        <extension value="+01:00" name="timezone" manufacturer="Transas" version="1.0.0"/>
+                    </extensions>
+                </scheduleElement>
+                <scheduleElement waypointId="336">
+                    <extensions>
+                        <extension value="+01:00" name="timezone" manufacturer="Transas" version="1.0.0"/>
+                    </extensions>
+                </scheduleElement>
+                <extensions>
+                    <extension last_change_time="2025-01-09T12:54:03.533289Z" name="schedule_change" manufacturer="Transas" version="1.0.0"/>
+                </extensions>
+            </calculated>
+        </schedule>
+        <extensions>
+            <extension name="branches" manufacturer="Transas" version="1.0.0">
+                <branch id="2" name="">
+                    <schedule id="0" name="Schedule 1"/>
+                    <schedule id="0" name="Schedule 1"/>
+                    <schedule id="0" name="Schedule 1"/>
+                    <schedule id="0" name="Schedule 1"/>
+                    <schedule id="0" name="Schedule 1"/>
+                    <schedule id="0" name="Schedule 1"/>
+                    <schedule id="0" name="Schedule 1"/>
+                </branch>
+            </extension>
+        </extensions>
+    </schedules>
+    <extensions>
+        <extension name="ActivePath" manufacturer="Transas" version="1.0.0">
+            <path>
+                <wp_ids>
+                    <wp_id value="182"/>
+                    <wp_id value="188"/>
+                    <wp_id value="189"/>
+                    <wp_id value="184"/>
+                    <wp_id value="3"/>
+                    <wp_id value="190"/>
+                    <wp_id value="4"/>
+                    <wp_id value="191"/>
+                    <wp_id value="5"/>
+                    <wp_id value="6"/>
+                    <wp_id value="193"/>
+                    <wp_id value="192"/>
+                    <wp_id value="7"/>
+                    <wp_id value="8"/>
+                    <wp_id value="10"/>
+                    <wp_id value="196"/>
+                    <wp_id value="195"/>
+                    <wp_id value="194"/>
+                    <wp_id value="11"/>
+                    <wp_id value="12"/>
+                    <wp_id value="13"/>
+                    <wp_id value="198"/>
+                    <wp_id value="197"/>
+                    <wp_id value="200"/>
+                    <wp_id value="201"/>
+                    <wp_id value="202"/>
+                    <wp_id value="204"/>
+                    <wp_id value="203"/>
+                    <wp_id value="14"/>
+                    <wp_id value="206"/>
+                    <wp_id value="15"/>
+                    <wp_id value="205"/>
+                    <wp_id value="17"/>
+                    <wp_id value="207"/>
+                    <wp_id value="18"/>
+                    <wp_id value="19"/>
+                    <wp_id value="147"/>
+                    <wp_id value="20"/>
+                    <wp_id value="21"/>
+                    <wp_id value="148"/>
+                    <wp_id value="150"/>
+                    <wp_id value="22"/>
+                    <wp_id value="151"/>
+                    <wp_id value="24"/>
+                    <wp_id value="152"/>
+                    <wp_id value="187"/>
+                    <wp_id value="186"/>
+                    <wp_id value="25"/>
+                    <wp_id value="153"/>
+                    <wp_id value="136"/>
+                    <wp_id value="154"/>
+                    <wp_id value="28"/>
+                    <wp_id value="29"/>
+                    <wp_id value="181"/>
+                    <wp_id value="30"/>
+                    <wp_id value="31"/>
+                    <wp_id value="155"/>
+                    <wp_id value="99"/>
+                    <wp_id value="100"/>
+                    <wp_id value="101"/>
+                    <wp_id value="102"/>
+                    <wp_id value="103"/>
+                    <wp_id value="104"/>
+                    <wp_id value="208"/>
+                    <wp_id value="107"/>
+                    <wp_id value="108"/>
+                    <wp_id value="109"/>
+                    <wp_id value="110"/>
+                    <wp_id value="111"/>
+                    <wp_id value="112"/>
+                    <wp_id value="113"/>
+                    <wp_id value="144"/>
+                    <wp_id value="209"/>
+                    <wp_id value="114"/>
+                    <wp_id value="210"/>
+                    <wp_id value="211"/>
+                    <wp_id value="213"/>
+                    <wp_id value="212"/>
+                    <wp_id value="145"/>
+                    <wp_id value="132"/>
+                    <wp_id value="134"/>
+                    <wp_id value="116"/>
+                    <wp_id value="119"/>
+                    <wp_id value="138"/>
+                    <wp_id value="156"/>
+                    <wp_id value="157"/>
+                    <wp_id value="158"/>
+                    <wp_id value="159"/>
+                    <wp_id value="160"/>
+                    <wp_id value="161"/>
+                    <wp_id value="162"/>
+                    <wp_id value="163"/>
+                    <wp_id value="164"/>
+                    <wp_id value="165"/>
+                    <wp_id value="166"/>
+                    <wp_id value="180"/>
+                    <wp_id value="177"/>
+                </wp_ids>
+            </path>
+        </extension>
+        <extension name="bwe_areas" manufacturer="Transas" version="1.0.0">
+            <area name="Ballast Waters (12 NM) (12 nautical mile zone)" info="Sweden" legs="0-39,45-105"/>
+            <area name="Ballast Waters (50 NM) (50 nautical mile zone)" info="Ballast water exchange prohibited exempt of vessels which conduct treated ballast water exchange in compliance with the regulation D-2 standard of BWMS" legs="0-105"/>
+            <area name="Ballast Waters (200 NM) (200 nautical mile zone)" info="Ballast water exchange shall be allowed in compliance with the regulations B-4, D-1 standard of BWMS.Treated ballast water exchange is allowed pursuant to the regulation D-2" legs="0-105"/>
+            <area name="Regional Special Areas (Baltic Sea)" info="Regional Special Area" legs="0-105"/>
+        </extension>
+        <extension name="checklist" manufacturer="Transas" version="1.0.0">
+            <activity ref_id="333" name="CALL SKARVIK ON VHF 12 FOR MOORING ARRANGEMENT" time="-3" state="1"/>
+        </extension>
+        <extension name="dangers" manufacturer="Transas" version="1.0.0">
+            <danger ref_id="332" type="reppoint" name="3" text="Communication channel: [13]
+Information: For further information see Administration Area"/>
+            <danger ref_id="332" type="reppoint" name="3" text="Communication channel: [13]
+Information: For further information see Administration Area"/>
+            <danger ref_id="333" type="reppoint" name="3" text="Communication channel: [13]
+Information: For further information see Administration Area"/>
+            <danger ref_id="333" type="reppoint" name="3" text="Communication channel: [13]
+Information: For further information see Administration Area"/>
+            <danger ref_id="333" type="reppoint" name="3" text="Communication channel: [13]
+Information: For further information see Administration Area"/>
+            <danger ref_id="328" type="area" text="Restricted area"/>
+            <danger ref_id="328" type="area" text="Restricted area"/>
+            <danger ref_id="328" type="area" text="Restricted area"/>
+            <danger ref_id="328" type="area" text="Caution area"/>
+            <danger ref_id="329" type="area" text="Restricted area"/>
+            <danger ref_id="329" type="area" text="Restricted area"/>
+            <danger ref_id="329" type="area" text="Restricted area"/>
+            <danger ref_id="329" type="area" text="Caution area"/>
+            <danger ref_id="330" type="area" text="Restricted area"/>
+            <danger ref_id="330" type="area" text="Restricted area"/>
+            <danger ref_id="330" type="area" text="Restricted area"/>
+            <danger ref_id="330" type="area" text="Restricted area"/>
+            <danger ref_id="330" type="area" text="Restricted area"/>
+            <danger ref_id="330" type="area" text="Restricted area"/>
+            <danger ref_id="330" type="area" text="Restricted area"/>
+            <danger ref_id="330" type="area" text="Caution area"/>
+            <danger ref_id="330" type="area" text="Caution area"/>
+            <danger ref_id="331" type="area" text="Restricted area"/>
+            <danger ref_id="331" type="area" text="Restricted area"/>
+            <danger ref_id="332" type="area" text="Restricted area"/>
+            <danger ref_id="332" type="area" text="Restricted area"/>
+            <danger ref_id="332" type="area" text="Caution area"/>
+            <danger ref_id="333" type="area" text="Restricted area"/>
+            <danger ref_id="333" type="area" text="Restricted area"/>
+            <danger ref_id="333" type="area" text="Restricted area"/>
+            <danger ref_id="333" type="area" text="Restricted area"/>
+            <danger ref_id="333" type="area" text="Caution area"/>
+            <danger ref_id="334" type="area" text="Restricted area"/>
+            <danger ref_id="334" type="area" text="Caution area"/>
+            <danger ref_id="335" type="area" text="Restricted area"/>
+            <danger ref_id="335" type="area" text="Restricted area"/>
+            <danger ref_id="335" type="area" text="Restricted area"/>
+            <danger ref_id="335" type="area" text="Restricted area"/>
+            <danger ref_id="335" type="area" text="Restricted area"/>
+            <danger ref_id="335" type="area" text="Caution area"/>
+        </extension>
+        <extension name="enc_charts" manufacturer="Transas" version="1.0.0">
+            <item name="DE110000" issue_date="45126.0423726852" correction_date="45350.0423726852" format="SENC" edition="9" update_info="1" update_to="WK02-25" chart_status="ok"/>
+            <item name="SE2BHS0W" issue_date="45575.0423726852" format="SENC" edition="25" update_to="WK02-25" chart_status="ok"/>
+            <item name="SE3DI7LA" issue_date="45622.0423726852" format="SENC" edition="49" update_to="WK02-25" chart_status="ok"/>
+            <item name="SE4EI7LA" issue_date="45622.0423726852" format="SENC" edition="85" update_to="WK02-25" chart_status="ok"/>
+            <item name="SE4EI7LB" issue_date="45622.0423726852" format="SENC" edition="84" update_to="WK02-25" chart_status="ok"/>
+            <item name="SE5EI7LA" issue_date="45621.0423726852" format="SENC" edition="88" update_to="WK02-25" chart_status="ok"/>
+            <item name="SE5HI7LB" issue_date="45622.0423726852" format="SENC" edition="72" update_to="WK02-25" chart_status="ok"/>
+            <item name="SE5II7LB" issue_date="45317.0423726852" correction_date="45642.0423726852" format="SENC" edition="38" update_info="2" update_to="WK02-25" chart_status="ok"/>
+            <item name="SE6DI7LA" issue_date="45621.0423726852" correction_date="45642.0423726852" format="SENC" edition="146" update_info="1" update_to="WK02-25" chart_status="ok"/>
+        </extension>
+        <extension name="marpol_areas" manufacturer="Transas" version="1.0.0">
+            <area name="Oil and oily waters from cargo spaces (Baltic Sea)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution from cargo spaces by oil or oil waters is required" legs="0-95"/>
+            <area name="Oil and oily waters from machinery spaces (Baltic Sea)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution from mashinery spaces by oil or oil waters is required" legs="0-95"/>
+            <area name="Not comminuted or disinfected sewage (Baltic Sea)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution by Not comminuted or disinfected sewage is required" legs="0-95"/>
+            <area name="Comminuted and disinfected sewage (Baltic Sea)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution by comminuted and disinfected sewage is required" legs="0-95"/>
+            <area name="Food waste comminuted or ground (12 nautical mile zone)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution by food waste comminuted or ground is required" legs="0-68,69-72,73-77,82-95"/>
+            <area name="Food waste not comminuted or ground (Baltic Sea)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution by food waste not comminuted or ground is required" legs="0-95"/>
+            <area name="Cargo residues not contained in wash water (Baltic Sea)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution by cargo residues not contained in wash water is required" legs="0-95"/>
+            <area name="Cargo residues contained in wash water (12 nautical mile zone)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution by cargo residues contained in wash water is required" legs="0-68,69-72,73-77,82-95"/>
+            <area name="Cleaning agents and additives contained in cargo hold wash water (12 nautical mile zone)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution by cleaning agents and additives contained in cargo hold wash water is required" legs="0-68,69-72,73-77,82-95"/>
+            <area name="Carcasses of animals carried on board as cargo and which died during the voyage (Baltic Sea)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution by carcasses of animals carried on board as cargo and which died during the voyage is required" legs="0-95"/>
+            <area name="Sulphur Oxides (Baltic Sea - Emission Control Area)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution by sulphur oxides is required" legs="0-95"/>
+            <area name="Sulphur Oxides (GOTEBORG)" info="The EU Directive establishes 0.1% maximum sulphur requirement for fuels used by ships at berth, meaning securely moored or anchored in EU ports" legs="0-5"/>
+            <area name="Nitrogen Oxides (Baltic Sea - Emission Control Area)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution by nitrous oxides is required" legs="0-95"/>
+            <area name="Particularly sensitive sea areas (Baltic Sea Area)" info="Particularly Sensitive Sea Areas. Areas of the marine environment that needs special protection through action by the International Maritime Organization (IMO)" legs="0-95"/>
+            <area name="Noxious liquid substances (12 nautical mile zone)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution by noxious liquid substances in bulk is required" legs="0-68,69-72,73-77,82-95"/>
+        </extension>
+        <extension name="nav_areas" manufacturer="Transas" version="1.0.0">
+            <navarea id="US-NIV-766-2022" area="NORTH ATLANTIC" title="NAVAREA IV 766. ICEBERG BULLETIN 050001Z AUG" category="iceberg outside advertised limits"/>
+            <navarea danger="yes" id="US-NIV-772-2022" area="NORTH ATLANTIC" title="NAVAREA IV 772. NAVAREA IV WARNINGS IN FORCE AS OF 051344Z AUG" category="in-force bulletin"/>
+            <navarea danger="yes" id="FR-NII-243-2022" area="IROISE. IROISE - NAVTEX STATION" title="NAVAREA II 243. NAVTEX STATION CORSEN UNAVAILABLE" category="NAVTEX"/>
+            <navarea danger="yes" id="GB-NI-108-2022" area="NORTH SEA. Aberdeen to Rotterdam" title="NAVAREA I 108. Towing floating turbine 
+Affected charts: GB 4140 (INT 140)" category="unwieldy tow"/>
+            <navarea id="NO-NXIX-99-2022" area="" title="NAVAREA XIX 99. NAVAREA XIX WARNINGS INFORCE AT 291830 UTC JUL 22" category="in-force bulletin"/>
+            <navarea id="FR-NII-242-2022" area="" title="NAVAREA II 242. NAVAREA II WARNINGS IN FORCE" category="in-force bulletin"/>
+            <navarea id="GB-NI-105-2022" area="" title="NAVAREA I 105. NAVAREA I WARNINGS IN FORCE" category="in-force bulletin"/>
+            <navarea id="GB-NI-106-2022" area="" title="NAVAREA I 106. RIGLIST. Correct at 010500 UTC Aug 22" category="offshore structures"/>
+            <navarea danger="yes" id="GB-NI-104-2022" area="NORWEGIAN SEA. Floro Westwards" title="NAVAREA I 104. Seismic survey in progress 
+Affected charts: GB 2182D (INT 1040)" category="seismic surveys"/>
+            <navarea danger="yes" id="GB-NI-101-2022" area="NORTH SEA, UK SECTOR. Cawdor Oil Field North-westwards" title="NAVAREA I 101. Safety Zone 
+Affected charts: GB 272" category="offshore structures"/>
+            <navarea danger="yes" id="GB-NI-100-2022" area="NORTH SEA, UK SECTOR. Thames Gas Field" title="NAVAREA I 100. Safety Zone 
+Affected charts: GB 1503 (INT 1509)" category="offshore structures"/>
+            <navarea danger="yes" id="US-NIV-652-2022" area="NORTH ATLANTIC" title="NAVAREA IV 652. CABLE OPERATIONS" category="cable laying operations"/>
+            <navarea id="NO-NXIX-88-2022" area="NORWEGIAN SEA" title="NAVAREA XIX 88. SEISMIC SURVEY" category="seismic surveys"/>
+            <navarea danger="yes" id="GB-NI-87-2022" area="NORTH SEA. Long Forties Eastwards.  Culzean Gas Field." title="NAVAREA I 87. Seismic survey in progress 
+Affected charts: GB 2182B (INT 1042)" category="seismic surveys"/>
+            <navarea danger="yes" id="GB-NI-75-2022" area="NORTH SEA, NORWEGIAN SECTOR. Bergen Bank" title="NAVAREA I 75. Seismic survey in progress 
+Affected charts: GB 294" category="seismic surveys"/>
+            <navarea danger="yes" id="GB-NI-68-2022" area="â€‹SCOTLAND EAST COAST. Moray Firth" title="NAVAREA I 68. Buoys permanently discontinued 
+Affected charts: GB 115 (INT 1503)" category="buoys"/>
+            <navarea danger="yes" id="GB-NI-59-2022" area="NORTH SEA, NORWEGIAN SECTOR. Floro Westwards to Bergen Bank" title="NAVAREA I 59. Seismic survey in progress 
+Affected charts: GB 4140 (INT 140)" category="seismic surveys"/>
+            <navarea danger="yes" id="US-NIV-362-2022" area="EASTERN CARIBBEAN SEA. MARTINIQUE" title="NAVAREA IV 362. MEASURES TO COMBAT COVID-19" category="regulations"/>
+            <navarea danger="yes" id="GB-NI-31-2021" area="" title="NAVAREA I 31. NOTIFICATION OF INITIAL OPERATIONAL CAPABILITY OF IRIDIUM SAFETYCAST SERVICES" category="acoustic recorder"/>
+        </extension>
+        <extension name="overhead" manufacturer="Transas" version="1.0.0">
+            <overhead ref_id="328" air_draught="41" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="329" air_draught="41" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="330" air_draught="41" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="331" air_draught="41" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="332" air_draught="41" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="333" air_draught="41" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="334" air_draught="41" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="335" air_draught="41" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="336" air_draught="41" overhead="0" overhead_status="no_object"/>
+        </extension>
+        <extension name="port_data" manufacturer="Transas" version="1.0.0">
+            <item name="Tromso" country="Norway" type="Port" cargotype="Oil, General/Dry" from="0" to="1"/>
+            <item name="Harstad" country="Norway" type="Port" cargotype="Oil, General/Dry" from="54" to="55"/>
+            <item name="Bodo" country="Norway" type="Port" cargotype="Oil, General/Dry" from="90" to="91"/>
+        </extension>
+        <extension name="portcdm_services" manufacturer="Transas" version="1.0.0">
+            <waypoint name="departure" amss="" broker="" vis_connector=""/>
+            <waypoint name="arrival" amss="" broker="" vis_connector=""/>
+        </extension>
+        <extension name="refpoints" manufacturer="Transas" version="1.0.0">
+            <refpoint ref_id="329" name="No 13" lat="3460.52483333333" lon="702.999333333333"/>
+            <refpoint ref_id="330" name="No 17" lat="3460.473" lon="704.146"/>
+            <refpoint ref_id="331" name="No 25" lat="3460.69283333333" lon="707.416"/>
+            <refpoint ref_id="332" name="No 29" lat="3460.67966666667" lon="708.915"/>
+            <refpoint ref_id="333" name="No 33" lat="3460.86666666667" lon="710.545333333333"/>
+            <refpoint ref_id="334" name="" lat="3460.911" lon="711.776"/>
+            <refpoint ref_id="335" name="" lat="3461.1995" lon="712.915833333333"/>
+            <refpoint ref_id="336" name="" lat="3461.1995" lon="712.915833333333"/>
+        </extension>
+        <extension name="remarks" manufacturer="Transas" version="1.0.0">
+            <point ref_id="328" text=""/>
+            <point ref_id="329" text="3.9m UKC@14.5kn/BWL3/PFIX-visual bearings-RADAR Bearings-sub course change/SC10m/SD12/ES1M"/>
+            <point ref_id="330" text="3.9m UKC@14.5kn/BWL3/PFIX-visual bearings-RADAR Bearings-sub course change/SC10m/SD12/ES1M"/>
+            <point ref_id="331" text="3.9m UKC@14.5kn/BWL3/PFIX-visual bearings-RADAR Bearings-sub course change/SC10m/SD12/ES1M"/>
+            <point ref_id="332" text="3.2m UKC@14.5kn/BWL3/PFIX-visual bearings-RADAR Bearings-sub course change/SC10m/SD12/ES1M"/>
+            <point ref_id="333" text="&gt;5m UKC@8.0kn/BWL3/PFIX-visual bearings-RADAR Bearings-sub course change/SC10m/SD12/ES1M"/>
+            <point ref_id="334" text="3.1m UKC@5kn/BWL3/Position Fix by visual bearings-RADAR Bearings"/>
+            <point ref_id="335" text="3.1m UKC@5kn/BWL3/Position Fix by visual bearings-RADAR Bearings"/>
+            <point ref_id="336" text=""/>
+        </extension>
+        <extension name="routeInfo" manufacturer="Transas" version="1.0.0" routeName="Anchorage B -  Staholmen crew change" vesselName="TERNVIK" vesselMMSI="219083000" vesselIMO="9221267" vesselVoyage="urn:mrn:stm:voyage:id:transas:b595fe2a-6b76-4de4-9853-e5a97baa19ff"/>
+        <extension check_time="2025-01-09T13:24:31Z" name="route_check_info" manufacturer="Transas" version="1.0.0"/>
+        <extension name="ukccalc" manufacturer="Transas" version="1.0.0">
+            <ukc ref_id="328" draught="7.10" static_draught="7.00" squat="0.00" passage_type="open_sea" catzoc="unassesed" catzoc_status=""/>
+            <ukc ref_id="329" draught="7.00" static_draught="7.00" squat="0.26" wave_respond="0.00" depth="20.50" depth_status="manual" ukc="13.24" ukc_status="ok" passage_type="open_sea" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="330" draught="7.25" static_draught="7.00" squat="1.22" wave_respond="0.00" depth="20.50" depth_status="manual" ukc="12.03" ukc_status="ok" passage_type="open_sea" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="331" draught="7.10" static_draught="7.00" squat="0.46" wave_respond="0.00" depth="20.50" depth_status="manual" ukc="12.94" ukc_status="ok" passage_type="open_sea" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="332" draught="7.10" static_draught="7.00" squat="0.46" wave_respond="0.00" depth="14.70" depth_status="manual" ukc="7.14" ukc_status="ok" passage_type="open_sea" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="333" draught="7.10" static_draught="7.00" squat="0.46" wave_respond="0.00" depth="14.70" depth_status="manual" ukc="7.14" ukc_status="ok" passage_type="open_sea" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="334" draught="7.02" static_draught="7.00" squat="0.06" wave_respond="0.00" depth="14.20" depth_status="manual" ukc="7.11" ukc_status="ok" passage_type="open_sea" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="335" draught="7.00" static_draught="7.00" squat="0.00" wave_respond="0.00" depth="13.20" depth_status="manual" ukc="6.20" ukc_status="ok" passage_type="coastal_waters" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="336" draught="7.00" static_draught="7.00" squat="0.00" wave_respond="0.00" depth="12.00" depth_status="manual" ukc="5.00" ukc_status="ok" passage_type="coastal_waters" catzoc="a1" catzoc_status="ok"/>
+        </extension>
+        <extension name="voyage_info" manufacturer="Transas" version="1.0.0" voyage_no="25002" start_point="DANA ANCHORAGE" end_point="JETTY 511" transit_point="NC" arrival_draft="7" depart_draft="7" dbirth_refid="328" dbirth_name="" dpilot_refid="336" dpilot_name="" abirth_refid="336" abirth_name="" apilot_refid="328" apilot_name=""/>
+        <extension name="voyage_status" manufacturer="Transas" version="1.0.0" value="2"/>
+    </extensions>
+</route>

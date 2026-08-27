@@ -1,0 +1,18 @@
+{
+  "AisStreamProviderConfiguration": {
+    "ApiKey": "d0f9346222218491c461020ca1bfe40a4963187b",
+    "FilterShipMMSI": [
+      "219034365"
+    ],
+    "FilterMessageTypes": [
+      "PositionReport",
+      "ShipStaticData"
+    ],
+    "GlobalBoundingBox": [
+      [ -90.0, -180.0 ],
+      [ 90.0, 180.0 ]
+    ],
+    "ReconnectDelayMs": 5000,
+    "MaxReconnectAttempts": 10
+  }
+}

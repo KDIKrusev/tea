@@ -1,0 +1,18 @@
+<!-- panel.component.html - Cleaned and optimized -->
+<div class="panel">
+  <!-- <div class="panel-header" 
+       *ngIf="!hideHeader" 
+       [class.panel-header-bordered]="!hideHeaderSeparator"> -->
+    <!-- <div class="panel-header-left">
+      <div class="panel-title">{{ heading }}</div>
+      <div class="panel-subtitle" *ngIf="subHeading">{{ subHeading }}</div>
+    </div> -->
+    <div class="panel-header-right">
+      <ng-content select="[slot=header]"></ng-content>
+    </div>
+  <!-- </div> -->
+
+  <div class="panel-content">
+    <ng-content></ng-content>
+  </div>
+</div>

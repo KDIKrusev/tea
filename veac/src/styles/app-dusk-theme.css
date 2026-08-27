@@ -1,0 +1,2278 @@
+.ea-main-container {
+  background-color: #15191c;
+}
+
+.error-message {
+  color: #d9534f; 
+}
+
+.ea-panel {
+  background: #2c3036;
+  box-shadow: 4px 4px 24px rgb(0 0 0 / 32%);
+}
+
+.ea-vec-details-energy-percentage-value.added-consumption {
+  background-color: orange; 
+  color: white;
+}
+
+.select-label {
+  color: white;
+}
+
+
+.dateTime-heading {
+  color: white;
+}
+.ea-panel-header {
+  color: #f6f6f6;
+  border-color: rgba(0, 0, 0, 0.5);
+}
+
+.ea-energy-data-icon-color {
+  color: #a2aab9;
+}
+
+.ea-single-line-color {
+  color: #71767a;
+  fill: #71767a;
+}
+
+  .ea-single-line-color.connected {
+    color: #61e786;
+    fill: #61e786;
+  }
+
+.hasAdvice {
+  color: #2bdeee ;
+}
+
+.isOperatorAction {
+  color: #F08800 ;
+}
+
+.ea-single-line-bus.alternativeLineConnected {
+  border-top-color: #61e786 ;
+}
+
+.ea-single-line-bus:not(.alternativeLineConnected) {
+  border-top-color: #71767a ;
+}
+
+.ea-single-line-symbol-container {
+  background-color: #262a2f;
+}
+
+.ea-single-line-producer-icon {
+  background-color: #262a2f;
+}
+
+.ea-single-line-consumer-icon {
+  background-color: #262a2f;
+}
+
+.single-line-element-producer-name {
+  color: #f6f6f6;
+}
+
+.single-line-element-main-engine-name {
+  color: #f6f6f6;
+}
+
+.ea-single-line-breaker-breaker-name {
+  color: #f6f6f6;
+}
+
+.ea-top-bar {
+  background-color: #2c3036;
+}
+
+.ea-top-bar-date-and-time {
+  color: #a2aab9;
+}
+
+.ea-navigation-button {
+  color: #f6f6f6;
+  background: #3b3f47;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.48);
+}
+
+.ea-navigation-button-active {
+  color: #2bdeee;
+  background-color: #000000;
+}
+
+.ea-palette-selector-palette-color {
+  background: #262a2f;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.ea-palette-selector-palette-icon-color {
+  color: #f6f6f6;
+}
+
+.ea-palette-selector-palette-color {
+  background: #262a2f;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.ea-palette-selector-palette-label-color {
+  color: #90959e;
+}
+
+.ea-palette-selector-theme-icon-text-color {
+  color: #90959e;
+}
+
+.ea-palette-selector-selected-highlight-color {
+  background: #2e92a0;
+  border: 1px solid #006473;
+}
+
+.ea-palette-selector-color-unselected {
+  color: #90959e;
+}
+
+.ea-palette-selector-color-selected {
+  color: #f6f6f6;
+}
+
+.ea-palette-selector-icon {
+  color: #f6f6f6;
+}
+
+.ea-applied-advice-circle-color {
+  border: 2px solid #2e92a0;
+}
+
+.ea-applied-advice-circle-disabled-color {
+  border: 2px solid #434b52;
+}
+
+.ea-apllied-advice-icon-color {
+  color: #71767a;
+}
+
+.ea-applied-advice-icon-disabled-color {
+  color: #434b52;
+}
+
+.ea-apllied-advice-value-color {
+  color: #45be8f;
+}
+
+.ea-apllied-advice-value-disabled-color {
+  color: #434b52;
+}
+
+.ea-suggested-configuration-label-color {
+  color: #f6f6f6;
+}
+
+.ea-suggested-configuration-icon-color {
+  color: #71767a;
+}
+
+.ea-suggested-configuration-status-color {
+  color: #2bdeee;
+}
+
+.ea-suggested-configuration-value-color {
+  color: #f6f6f6;
+}
+
+.single-line-element-consumer-label {
+  color: #f6f6f6;
+}
+
+.ea-energy-data-remaining-value-curve-color {
+  stroke: #111314;
+}
+
+.ea-energy-data-current-value-curve-color {
+  stroke: #2bdeee;
+}
+
+.ea-energy-data-gauge-value-color {
+  color: #f6f6f6;
+}
+
+.ea-energy-data-gauge-unit-color {
+  color: #a2aab9;
+}
+
+.ea-energy-data-gauge-label-color {
+  color: #a2aab9;
+}
+
+.c3-area-consumed {
+  opacity: 1 ;
+}
+
+.c3-line-produced {
+  opacity: 0.8 ;
+  stroke-width: 2px ;
+}
+
+.ea-energy-data-gauge-min-value-color,
+.ea-energy-data-gauge-max-value-color {
+  color: #a2aab9;
+}
+
+.ea-energy-data-chart-label-color {
+  color: #90959e;
+}
+
+.ea-energy-data-item-label-color {
+  color: #bac0c4;
+}
+
+.ea-energy-data-item-data-color {
+  color: #f6f6f6;
+}
+
+.c3-area-consumed {
+  opacity: 1 ;
+}
+
+.c3-line-produced {
+  opacity: 0.8 ;
+  stroke-width: 2px ;
+}
+
+.c3-area-consumed {
+  opacity: 1 ;
+}
+
+.c3-line-produced {
+  opacity: 0.8 ;
+  stroke-width: 2px ;
+}
+
+.c3-area-consumed {
+  opacity: 1 ;
+}
+
+.c3-line-produced {
+  opacity: 0.8 ;
+  stroke-width: 2px ;
+}
+
+.ea-energy-data-item-unit-color {
+  color: #71767a;
+}
+
+.ea-energy-data-item-unit-color {
+  color: #71767a;
+}
+
+.ea-energy-data-chart-label-color {
+  color: #90959e;
+}
+
+.ea-suggested-configuration-configs-item-icon-color {
+  color: #71767a;
+}
+
+.ea-suggested-configuration-configs-item {
+  background: #434b52;
+}
+
+.ea-suggested-configuration-configs-item-selected {
+  border: 1px solid #2bdeee;
+}
+
+.ea-suggested-configuration-configs-item-unselected {
+  border: 1px solid #434b52;
+}
+
+.ea-suggested-configuration-configs-item-value-color {
+  color: #ffffff;
+}
+
+.ea-suggested-configuration-advices-line-vertical-color {
+  border-right: 1px solid #434b52;
+}
+
+.ea-advice-message-color {
+  color: #f6f6f6;
+}
+
+.ea-advice-wind,
+.ea-advice-waves,
+.ea-advice-current,
+.ea-advice-notification-pop-up {
+  border-color: #434b52;
+}
+
+.ea-advice-name-of-weather-data-color {
+  color: #90959e;
+}
+
+.ea-advice-wind-icon-color,
+.ea-advice-waves-icon-color,
+.ea-advice-current-icon-color {
+  color: #f6f6f6;
+}
+
+.ea-advice-notification-pop-up-color {
+  color: #90959e;
+}
+
+.ea-advice-weather-output-value-color {
+  color: #f6f6f6;
+}
+
+.ea-advice-weather-output-unit-color {
+  color: #90959e;
+}
+
+.ea-system-health-indicator-icon {
+  color: #d1232c;
+}
+
+.ea-system-health-indicator-popup {
+  background: #262a2f;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  border-color: #d1232c ;
+}
+
+  .ea-system-health-indicator-popup p {
+    color: #f6f6f6;
+  }
+
+.ea-system-health-item-count-style {
+  color: #A2AAB9;
+  font-weight: 400;
+}
+
+.ea-energy-consumption-header-color {
+  color: #f6f6f6;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.ea-energy-consumption-power-loss-box-color {
+  background-color: #1c1f24;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  border-radius: 2px;
+}
+
+.ea-energy-consumption-power-loss-value-color {
+  color: #f29d2e;
+}
+
+.ea-energy-consumer-progress-bar-color {
+  fill: #2bdeee;
+}
+
+.ea-energy-consumer-progress-bar-color-hotel-load {
+  fill: #f4d85c;
+}
+
+.ea-energy-consumer-progress-bar-bgcolor {
+  fill: #111314;
+}
+
+.ea-energy-consumer-progress-bar-value-color {
+  color: #f6f6f6;
+}
+
+.ea-energy-consumer-progress-bar-max-value-color {
+  color: #a2aab9;
+}
+
+.ea-energy-consumer-progress-bar-icon-color {
+  color: #a2aab9;
+}
+
+.ea-suggested-actions-header-color {
+  color: #f6f6f6;
+}
+
+.ea-suggested-actions-button-text-color {
+  color: #a2aab9;
+}
+
+.ea-suggested-actions-button-text-selected-color {
+  color: #f6f6f6;
+}
+
+.ea-suggested-actions-button-line-selected-color {
+  background: #2bdeee;
+}
+
+.ea-suggested-actions-buttons-border-color {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.ea-suggested-actions-transit-mode-label-color {
+  color: #f6f6f6;
+}
+
+.ea-suggested-actions-transit-mode-name-color {
+  color: #61e786;
+}
+
+.ea-suggested-actions-advice-deviation-color {
+  color: #F29D2E;
+}
+
+.ea-suggested-advice-icon-color {
+  color: #a2aab9;
+}
+
+.ea-suggested-advice-name-color {
+  color: #f6f6f6;
+}
+
+.ea-suggested-advice-act-color {
+  color: #f6f6f6;
+}
+
+.ea-suggested-advice-untick-color {
+  stroke: #111314;
+  fill: transparent;
+}
+
+.ea-suggested-advice-tick-color circle {
+  fill: #2bdeee;
+}
+
+.ea-suggested-advice-tick-color path {
+  fill: #000000;
+}
+
+.ea-conditions-item:not(:last-child) {
+  border-right: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.ea-conditions-container-color {
+  background: #2c3036;
+  box-shadow: 4px 4px 24px rgba(0, 0, 0, 0.32);
+}
+
+.ea-conditions-item-header-color {
+  color: #a2aab9;
+}
+
+.ea-conditions-item-value-color {
+  color: #f6f6f6;
+  fill: #f6f6f6;
+}
+
+.ea-suggested-actions-container-scrollbar::-webkit-scrollbar-thumb {
+  background: #a2aab9;
+  opacity: 0.4;
+  border-radius: 4px;
+  max-height: 80px;
+}
+
+  .ea-suggested-actions-container-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #f6f6f6;
+  }
+
+.ea-savings-potential-time-elapsed-color {
+  color: #a2aab9;
+}
+
+.ea-savings-potential-label-color {
+  color: #f6f6f6;
+}
+
+.ea-savings-potential-percent-color {
+  color: #61e786;
+}
+
+.ea-savings-potential-amount-color {
+  color: #a2aab9;
+}
+
+.ea-savings-potential-initial-color {
+  color: #A2AAB9 ;
+}
+
+.ea-panel-main-header-color {
+  color: #f6f6f6;
+}
+
+.ea-panel-sub-header-color {
+  color: #90959e;
+}
+
+.single-line-element-producer-fuel-savings {
+  background: #1b1b1b;
+  color: #2bdeee;
+}
+
+.single-line-element-consumer-fuel-savings {
+  background: #1b1b1b;
+  color: #2bdeee;
+}
+
+.single-line-element-producer-losses {
+  background: #1b1b1b;
+  color: #f08800;
+}
+
+.single-line-element-consumer-losses {
+  background: #1b1b1b;
+  color: #f08800;
+}
+
+.single-line-element-consumer-hotel-load {
+  background: #1b1b1b;
+  color: #f4d85c;
+}
+
+.single-line-element-consumer-hotel-load-line {
+  border-top: 0.5px solid #71767a;
+}
+
+.single-line-element-symbol-container {
+  background: #262A2F;
+}
+
+.ea-panel-hide-losses-label-color {
+  color: #a2aab9;
+}
+
+.kx-selector__switch .kx-selector__indicator {
+  background: #121316 ;
+  border: 1px solid #000000 ;
+}
+
+.kx-selector input:checked ~ .kx-selector__indicator {
+  background: #121316;
+  border-color: #121316 ;
+}
+
+  .kx-selector input:checked ~ .kx-selector__indicator::before {
+    background: #2bdeee;
+  }
+
+label#hideHotelDeviations.kx-selector input:checked ~ .kx-selector__indicator::before {
+  background: #f4d85c;
+}
+
+label#hideIssues.kx-selector input:checked ~ .kx-selector__indicator::before {
+  background: #f4d85c;
+}
+
+label#hideLosses.kx-selector input:checked ~ .kx-selector__indicator::before {
+  background: #f08800;
+}
+
+.kx-selector input:not(:checked) ~ .kx-selector__indicator::before {
+  background: #3b3f47;
+}
+
+.single-line-element-outher-circle-color {
+  background-color: #262A2F;
+}
+
+.single-line-outher-circle-color {
+  background-color: #262A2F;
+}
+
+.ea-current-savings-icon-color {
+  color: #a2a9b9;
+}
+
+.ea-current-savings-icon-onhold-color {
+  fill: #E9E9EA;
+}
+
+.ea-current-savings-label-color {
+  color: #f6f6f6;
+}
+
+.ea-current-savings-completed-percent-color {
+  color: #61e786;
+}
+
+.ea-current-savings-completed-percent-negative {
+  color: #f29d2e;
+}
+
+.ea-current-savings-completed-actions-color {
+  color: #2bdeee;
+}
+
+.ea-current-savings-percent-circle-color {
+  stroke: #111314;
+}
+
+.ea-current-savings-circle-border-color {
+  stroke: rgba(0, 0, 0, 0.5);
+}
+
+.ea-current-savings-inset-shadow-color {
+  flood-color: rgba(0, 0, 0, 0.32);
+}
+
+.ea-current-savings-actions-circle-color {
+  stroke: #111314;
+}
+
+.ea-current-savings-content-circle-color {
+  color: #2c3036;
+}
+
+.ea-current-savings-percent-curve-color {
+  stroke: #61e786;
+}
+
+.ea-current-savings-actions-curve-color {
+  stroke: #2bdeee;
+}
+
+.ea-current-savings-with-actions-icon-color {
+  color: #a2a9b9;
+}
+
+.ea-current-savings-with-actions-icon-onhold-color {
+  fill: #E9E9EA;
+}
+
+.ea-current-savings-with-actions-label-color {
+  color: #f6f6f6;
+}
+
+.ea-current-savings-with-actions-completed-percent-color {
+  color: #61e786;
+}
+
+.ea-current-savings-with-actions-completed-percent-negative {
+  color: #f29d2e;
+}
+
+.ea-current-savings-with-actions-completed-actions-color {
+  color: #2bdeee;
+}
+
+.ea-current-savings-with-actions-percent-circle-color {
+  stroke: #111314;
+}
+
+.ea-current-savings-with-actions-circle-border-color {
+  stroke: rgba(0, 0, 0, 0.5);
+}
+
+.ea-current-savings-with-actions-inset-shadow-color {
+  flood-color: rgba(0, 0, 0, 0.32);
+}
+
+.ea-current-savings-with-actions-actions-circle-color {
+  stroke: #111314;
+}
+
+.ea-current-savings-with-actions-content-circle-color {
+  color: #2c3036;
+}
+
+.ea-current-savings-with-actions-percent-curve-color {
+  stroke: #61e786;
+}
+
+.ea-current-savings-with-actions-actions-curve-color {
+  stroke: #2bdeee;
+}
+
+.ea-advice-log-text-color-thin {
+  color: #a2aab9;
+}
+
+.ea-advice-log-text-color-thick {
+  color: #f6f6f6;
+}
+
+.ea-advice-log-buttons-border-color {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.ea-advice-log-button-line-selected-color {
+  background: #2bdeee;
+}
+
+.ea-advice-log-entry-selected-color {
+  background: #1c1f24;
+}
+
+.ea-advice-log-dot-active {
+  background-color: #2bdeee;
+}
+
+.ea-advice-log-dot-inactive {
+  background-color: #a2aab9;
+}
+
+.ea-advice-log-dot-line-active {
+  border-right: 1px solid #2bdeee;
+}
+
+.ea-advice-log-dot-line-inactive {
+  border-right: 1px solid #a2aab9;
+}
+
+.ea-advice-log-container-scrollbar::-webkit-scrollbar-thumb {
+  background: #a2aab9;
+  opacity: 0.4;
+  border-radius: 4px;
+  max-height: 80px;
+}
+
+  .ea-advice-log-container-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #f6f6f6;
+  }
+
+.ea-advice-log-progress-bar-color {
+  background-color: #61e786;
+}
+
+.ea-advice-log-achieved-color {
+  color: #61e786;
+}
+
+.ea-advice-log-negative-color {
+  color: #f08800;
+}
+
+.ea-advice-log-label-style {
+  text-transform: uppercase;
+  font-size: 16px;
+  line-height: 24px;
+  color: #a2aab9;
+}
+
+.ea-central-circle-carousel-arrow-color {
+  stroke: #f6f6f6;
+}
+
+.ea-central-circle-carousel-nav-dot-color {
+  background-color: #f6f6f6;
+}
+
+.ea-balance-profile-content-circle-color {
+  color: #2c3036;
+}
+
+.ea-balance-profile-icon-color {
+  color: #a2aab9;
+}
+
+.ea-balance-profile-label-color {
+  color: #f6f6f6;
+}
+
+.ea-balance-profile-current-state-label-color-good {
+  color: #61e786;
+}
+
+.ea-balance-profile-current-state-label-color-bad {
+  color: #f29d2e;
+}
+
+.ea-balance-profile-current-state-label-color-unavailable {
+  color: #f6f6f6;
+}
+
+.ea-balance-profile-tick-icon-color {
+  color: #61e786;
+}
+
+.ea-balance-profile-actions-label-color {
+  color: #2bdeee;
+}
+
+.ea-balance-profile-gauge-color-warning {
+  stop-color: #111314;
+  stop-opacity: 0.5;
+}
+
+.ea-balance-profile-gauge-dark-color-1 {
+  stop-color: #207257;
+  stop-opacity: 0.5;
+}
+
+.ea-balance-profile-gauge-dark-color-2 {
+  stop-color: #003840;
+  stop-opacity: 0.5;
+}
+
+.ea-balance-profile-gauge-medium-color-1 {
+  stop-color: #41ad6f;
+  stop-opacity: 0.75;
+}
+
+.ea-balance-profile-gauge-medium-color-2 {
+  stop-color: #207257;
+  stop-opacity: 0.75;
+}
+
+.ea-balance-profile-gauge-bright-color-1 {
+  stop-color: #41ad6f;
+}
+
+.ea-balance-profile-gauge-bright-color-2 {
+  stop-color: #61e786;
+}
+
+.ea-balance-profile-gauge-label-color {
+  color: #a2aab9;
+}
+
+.ea-balance-profile-gauge-label-highlighted-color {
+  color: #61e786;
+}
+
+.ea-balance-profile-gauge-pointer-color {
+  color: #2c3036;
+}
+
+.ea-balance-profile-gauge-pointer-highlight-color-good {
+  color: #61e786;
+}
+
+.ea-balance-profile-gauge-pointer-highlight-color-bad {
+  color: #f29d2e;
+}
+
+.ea-balance-profile-gauge-pointer-border-color {
+  stroke: #000000;
+}
+
+.ea-balance-profile-general-curve-breaker-color {
+  stroke: #000000;
+}
+
+.ea-balance-profile-actions-gauge-open-bg-color {
+  color: #111314;
+  stroke: rgba(0, 0, 0, 0.5);
+}
+
+.ea-balance-profile-actions-gauge-closed-bg-color {
+  stroke: rgba(0, 0, 0, 0.5);
+}
+
+.ea-balance-profile-actions-gauge-curve-preview-color {
+  color: rgba(43, 222, 238, 0.1);
+  stroke: rgba(0, 0, 0, 0.5);
+}
+
+.ea-balance-profile-actions-gauge-curve-color {
+  color: #2bdeee;
+  stroke: rgba(0, 0, 0, 0.5);
+}
+
+.ea-balance-profile-actions-gauge-curve-breaker-color {
+  stroke: rgba(0, 0, 0, 0.5);
+}
+
+.ea-balance-profile-target-marker-color {
+  stroke: #2bdeee;
+}
+
+.ea-balance-profile-target-marker-border-color {
+  stroke: #000000;
+}
+
+.ea-balance-profile-target-marker-label-color {
+  color: #a2aab9;
+}
+
+.ea-balance-profile-target-marker-label-highlight-color {
+  color: #61e786;
+}
+
+.ea-balance-profile-label-not-running {
+  color: #f6f6f6;
+}
+
+.ea-history-navigation-border-color {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.ea-history-navigation-button {
+  color: #f6f6f6;
+  background: #2c3036;
+}
+
+.ea-history-navigation-button-active {
+  font-weight: bold;
+  color: #2bdeee;
+  background-color: #1c1f24;
+}
+
+.ea-emission-amount {
+  color: #f6f6f6;
+}
+
+.ea-emission-unit {
+  color: #a2aab9;
+}
+
+.ea-emission-type {
+  color: #a2aab9;
+}
+
+.ea-emission-index {
+  fill: #a2aab9;
+}
+
+.ea-history-report-title-color {
+  color: #f5f5f5;
+}
+
+.ea-history-report-itemtitle-color {
+  color: #a2aab9;
+}
+
+.ea-history-report-item-value-color {
+  color: #f5f5f5;
+}
+
+.ea-history-title-date-color {
+  color: #f5f5f5;
+}
+
+.ea-history-report-subtitle-color {
+  color: #2bdeee;
+}
+
+.ea-history-report-subtitle-color-2 {
+  color: #2bdeee;
+}
+
+.ea-history-report-top-item-border {
+  border-right: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.ea-history-report-top-container-border {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.history-report-suggested-actions-item {
+  background-color: transparent;
+  border: 1.5px solid #2bdeee;
+}
+
+.history-report-suggested-actions-item-name {
+  color: #f6f6f6;
+}
+
+.history-report-suggested-actions-item-advice {
+  color: #f6f6f6;
+}
+
+.history-report-suggested-actions-followed-icon {
+  background: #2bdeee;
+  fill: #151719;
+}
+
+.history-report-suggested-actions-item-icon {
+  fill: #a2aab9;
+}
+
+.history-report-suggested-actions-not-followed-icon {
+  background: #f29d2e;
+  fill: #151719;
+}
+
+.ea-history-report-save-animation-item-color {
+  background: #61e786;
+  color: #262a2f;
+}
+
+.ea-history-gauge-icon-color {
+  color: #a2a9b9;
+}
+
+.ea-history-gauge-saving-potential-label-color {
+  color: #f6f6f6;
+}
+
+.ea-history-gauge-saving-potential-unit-color {
+  color: #a2aab9;
+}
+
+.ea-history-gauge-saving-potential-value-color {
+  color: #f6f6f6;
+}
+
+.ea-history-gauge-total-savings-unit-color {
+  color: #a2aab9;
+}
+
+.ea-history-gauge-total-savings-label-color {
+  color: #5e6600;
+}
+
+.ea-history-gauge-total-savings-label-color {
+  color: #f6f6f6;
+}
+
+.ea-history-gauge-completed-percent-color {
+  color: #61e786;
+}
+
+.ea-history-gauge-completed-actions-color {
+  color: #2bdeee;
+}
+
+.ea-history-gauge-percent-circle-color {
+  stroke: #111314;
+}
+
+.ea-history-gauge-circle-border-color {
+  stroke: rgba(0, 0, 0, 0.5);
+}
+
+.ea-history-gauge-inset-shadow-color {
+  flood-color: rgba(0, 0, 0, 0.32);
+}
+
+.ea-history-gauge-actions-circle-color {
+  stroke: #111314;
+}
+
+.ea-history-gauge-content-circle-color {
+  color: #2c3036;
+}
+
+.ea-history-gauge-percent-curve-color {
+  stroke: #61e786;
+}
+
+.ea-history-gauge-actions-curve-color {
+  stroke: #2bdeee;
+}
+
+.ea-history-report-bottom-left-item-savings-in-dp-operation {
+  border-top: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.ea-history-report-savings-in-dp-operation-item-style {
+  border: 1.5px solid rgba(43, 222, 238, 0.5);
+  background-color: transparent;
+}
+
+.ea-history-report-savings-in-dp-operation-item-icon {
+  fill: #a2aab9;
+}
+
+.ea-history-report-savings-in-dp-operation-item-value-style {
+  color: #61e786;
+}
+
+.ea-history-report-savings-in-dp-operation-item-value-style-negative {
+  color: #f08800;
+}
+
+.ea-history-report-savings-in-dp-operation-item-unit {
+  color: #a2aab9;
+}
+
+.ea-history-report-savings-in-dp-operation-item-title {
+  color: #A2AAB9;
+}
+
+.ea-history-report-savings-in-dp-operation-hours-item-text {
+  color: #A2AAB9;
+}
+
+.ea-history-report-savings-in-dp-operation-item-icon-hours {
+  fill: #A2AAB9;
+}
+
+.ea-history-report-button-color {
+  color: #1c1f24;
+  background: #2bdeee;
+  border: 1px solid #2bdeee;
+}
+
+.ea-history-report-button-color-disabled {
+  color: #a2aab9;
+  background-color: transparent;
+  border: 1px solid #3b3f47;
+  cursor: default ;
+}
+
+.ea-history-gauge-completed-percent-negative {
+  color: #f29d2e;
+}
+
+.ea-saved-reports-container-scrollbar::-webkit-scrollbar-thumb {
+  background: #a2aab9;
+  opacity: 0.4;
+  border-radius: 4px;
+  max-height: 80px;
+}
+
+  .ea-saved-reports-container-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #f6f6f6;
+  }
+
+.ea-saved-reports-text-color-thin {
+  color: #a2aab9;
+}
+
+.ea-saved-reports-text-color-thick {
+  color: #f6f6f6;
+}
+
+.ea-saved-reports-textbox-style {
+  background: #1c1f24;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  box-sizing: border-box;
+  border-radius: 2px;
+  color: #a2aab9;
+}
+
+.ea-saved-reports-search-svg-color {
+  fill: #373c41;
+}
+
+.ea-saved-report-list-dots {
+  fill: #f6f6f6;
+}
+
+.ea-saved-reports-list-type-color {
+  color: #a7adb8;
+}
+
+.ea-saved-reports-list-project-name-color {
+  color: #f6f6f6;
+}
+
+.ea-saved-reports-bottom-border {
+  border-bottom: 1px solid #000000;
+}
+
+.ea-saved-report-list-popup-color {
+  background-color: #000000;
+  color: #f6f6f6;
+}
+
+.ea-saved-report-list-popup-item-border {
+  border-top: 1px solid #2c3036;
+}
+
+.ea-popup-overlay {
+  background-color: #000000;
+}
+
+.ea-popup-content {
+  background-color: #2c3036;
+}
+
+.ea-popup-label {
+  color: #f6f6f6;
+}
+
+.ea-popup {
+  border: 1px solid #434b52;
+  color: #f6f6f6;
+  background-color: #373c41;
+}
+
+#ea-notes-will-be-saved-label {
+  color: #f6f6f6;
+}
+
+
+.ea-project-name-button {
+  background: #2bdeee;
+  border: 1px solid #2bdeee;
+  color: #f6f6f6;
+}
+
+  .ea-popup-button:hover,
+  .ea-project-name-button:hover {
+    background-color: #23bbc9;
+  }
+
+.ea-history-report-button-text-added-circle {
+  fill: #2bdeee;
+}
+
+.ea-history-project-name-button {
+  background: #373c41;
+  border: 1px solid #434b52;
+  box-sizing: border-box;
+  border-radius: 2px;
+}
+
+.ea-history-report-button-style {
+  background: #373c41;
+  border: 1px solid #434b52;
+  box-sizing: border-box;
+  border-radius: 2px;
+}
+
+.hideSVG {
+  fill: #a2aab9;
+}
+
+.ea-history-navigation-container .vessel-info-container .vessel-image svg path {
+  fill: #797f8b;
+}
+
+.ea-history-navigation-container .vessel-info-container .vessel-info-items > div:nth-child(odd) {
+  color: #a2aab9;
+}
+
+.ea-operation-notes-container-color {
+  background: #2c3036;
+}
+
+.ea-operation-notes-overlay-color {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.ea-operation-notes-label-color {
+  color: #f6f6f6;
+}
+
+.ea-operation-notes-container-color {
+  background: #2c3036;
+}
+
+.ea-operation-notes-item-color {
+  color: #f6f6f6;
+}
+
+.ea-operation-notes-save-button-color {
+  color: black;
+  background: #2bdeee;
+  border: 1px solid #2bdeee;
+}
+
+.ea-history-operation-notes-not-added-circle-color {
+  stroke: #111314;
+}
+
+.ea-operation-notes-button-text {
+  border: 1px solid #111314;
+}
+
+.ea-history-operation-notes-added-circle-color {
+  fill: #2bdeee;
+}
+
+.ea-operation-notes-list-scrollbar::-webkit-scrollbar-thumb {
+  background: #a2aab9;
+  opacity: 0.4;
+  border-radius: 4px;
+  max-height: 80px;
+}
+
+  .ea-operation-notes-list-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #f6f6f6;
+  }
+
+.ea-timeline-filter-label-style {
+  text-transform: uppercase;
+  font-size: 16px;
+  line-height: 24px;
+  color: #a2aab9;
+}
+
+.ea-timeline-filter-input-style {
+  background-color: #1c1f24;
+  font-size: 14px;
+  color: #f6f6f6;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+}
+
+.ea-timeline-selector-title-text {
+  margin-left: 24px;
+  color: #2bdeee;
+}
+
+.ea-timeline-report-saving-color {
+  border: 3px solid #2bdeee;
+  background: #3b3f4780;
+}
+
+.ea-timeline-report-savings-title {
+  text-transform: uppercase;
+  margin-top: 28px;
+  margin-left: 4px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 32px;
+  line-height: 40px;
+  color: #f5f5f5;
+}
+
+.ea-timeline-report-title-color {
+  color: #f5f5f5;
+}
+
+.ea-timeline-report-title-date-color {
+  color: #f5f5f5;
+}
+
+.ea-timeline-report-subtitle-color {
+  color: #2bdeee;
+}
+
+.ea-timeline-report-item-value-color-2 {
+  font-weight: 700;
+  color: #61e786;
+}
+
+.ea-timeline-report-itemtitle-color {
+  color: #a2aab9;
+}
+
+.ea-timeline-report-item-value-color {
+  color: #f5f5f5;
+}
+
+.ea-timeline-report-top-item-border {
+  border-right: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.ea-timeline-report-top-container-border {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.ea-timeline-report-saving-large-text {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 32px;
+  line-height: 40px;
+  color: #a2aab9;
+}
+
+.ea-timeline-report-saving-large-value {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 56px;
+  line-height: 64px;
+  color: #61e786;
+}
+
+.ea-timeline-report-saving-unit-color {
+  color: #61e786;
+}
+
+.ea-timeline-report-saving-unit-color-negative {
+  color: #f29d2e;
+}
+
+.ea-timeline-report-saving-small-svg {
+  width: 49px;
+  height: 29px;
+  fill: #a2aab9;
+  margin-top: 32px;
+}
+
+.ea-timeline-report-saving-small-value {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 35px;
+  line-height: 64px;
+  color: #61e786;
+}
+
+.ea-timeline-selector-arrow-up-color {
+  border-bottom: 5px solid #a2aab9;
+}
+
+.ea-timeline-selector-arrow-down-color {
+  border-top: 5px solid #a2aab9;
+}
+
+.ea-timeline-report-saving-droplet {
+  fill: #a2aab9;
+  width: 114px;
+  height: 114px;
+  margin-top: 70px;
+}
+
+.ea-timeline-report-button-color {
+  color: #1c1f24;
+  background: #2bdeee;
+  border: 1px solid #2bdeee;
+}
+
+.ea-timeline-report-button-color-disabled {
+  color: #a2aab9;
+  background-color: transparent;
+  border: 1px solid #3b3f47;
+}
+
+.ea-datetime-picker-input-color {
+  color: #2bdeee;
+  background: #1c1f24;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+}
+
+.ea-datetime-picker-arrow-down-color {
+  border-top: 6px solid #434b52;
+}
+
+.ea-datetime-picker-text-color-light {
+  color: #b2b4b5;
+}
+
+.ea-datetime-picker-text-color {
+  color: #f6f6f6;
+}
+
+.ea-datetime-picker-selected-date {
+  background: #007a8c;
+}
+
+.ea-datetime-picker-current-date {
+  border-radius: 18px;
+  border: 1px solid #90959e;
+}
+
+.ea-datetime-picker-background {
+  background: #1c1f24;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.204791);
+}
+
+.ea-datetime-picker-day-name-background {
+  background: #2c3036;
+}
+
+.ea-datetime-picker-month-container-background {
+  background: #007a8c;
+}
+
+.ea-datetime-picker-arrow-style {
+  border: solid #f6f6f6;
+}
+
+.ea-datetime-picker-button-style {
+  background: #3b3f47;
+  box-sizing: border-box;
+}
+
+.ea-datetime-picker-button-border-selected {
+  border: 1px solid #2bdeee;
+}
+
+.ea-datetime-picker-button-border-unselected {
+  border: 1px solid #434b52;
+}
+
+.ea-datetime-picker-time-separator-dot-color {
+  border: 5px solid #c4c4c4;
+}
+
+.ea-number-scroll-input-color {
+  color: #f6f6f6;
+  background: #2c3036;
+}
+
+.ea-number-scroll-arrow-style {
+  border: solid #f6f6f6;
+}
+
+.ea-timeline-report-text-added-circle {
+  fill: #2bdeee;
+}
+
+.ea-timeline-report-button-style {
+  background: #373c41;
+  border: 1px solid #434b52;
+  box-sizing: border-box;
+  border-radius: 2px;
+}
+
+.ea-timeline-report-dropdown-arrow-color {
+  fill: #90959e;
+}
+
+.ea-timeline-report-save-animation-item-color {
+  background: #61e786;
+  color: #262a2f;
+}
+
+.ea-saved-report-clear-button-color {
+  background: #2bdeee;
+  border: 1px solid #2bdeee;
+  color: #1c1f24;
+}
+
+.ea-saved-report-filter-type-style {
+  background-color: #1c1f24;
+  font-size: 14px;
+  color: #a2aab9;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+}
+
+.ea-savings-in-dp-operation-negative {
+  color: #f29d2e;
+}
+
+.ea-vec-input-group {
+  border-color: #000000 ;
+}
+
+.ea-vec-input-group-heading {
+  color: #dcddde;
+}
+
+.ea-vec-speed-label {
+  color:white;
+}
+
+
+.ea-vec-input-group-subheading {
+  color: #a2aab9;
+}
+
+.ea-vec-etd-eta-input-row {
+  color: #bac0c4;
+}
+
+.ea-vec-vessel-min-max-speed-value {
+  color: #a2aab9;
+}
+
+.ea-vec-vessel-min-max-speed-label {
+  color: #a2aab9;
+}
+
+.ea-vec-speed-input-group-content .ngx-slider .ngx-slider-bar {
+  background: #1c1f24;
+}
+
+.ea-vec-speed-input-group-content .ngx-slider .ngx-slider-selection {
+  background: #2bdeee;
+}
+
+.ea-vec-speed-input-group-content .ngx-slider .ngx-slider-pointer {
+  background-color: #2bdeee;
+}
+
+.ea-vec-speed-input-group-content .ngx-slider .ngx-slider-bubble {
+  color: #a2aab9;
+}
+
+.ea-vec-select,
+.ea-vec-etd-eta-datetime-picker .ea-datetime-picker-input-color {
+  color: #2bdeee;
+  background: #373c41;
+  border-color: #bac0c4 ;
+}
+
+.ea-vec-etd-eta-datetime-picker .ea-datetime-picker-arrow-down-color {
+  border-color: #71767a;
+}
+
+.ea-vec-input-panel-button-primary {
+  color: #1c1f24;
+  background: #2bdeee;
+  border-color: #1c1f24 ;
+}
+
+.ea-vec-input-panel-button-secondary {
+  color: #e6e8eb;
+  background: transparent;
+  border-color: #3b3f47 ;
+}
+
+.ea-vec-input-panel-button-disabled {
+  color: #CCCCCC;
+  background-color: transparent;
+  border-color: #CCCCCC ;
+}
+
+.ea-vec-voyage-options-container {
+  border-color: #a2aab9 ;
+}
+
+.ea-top-bar-system-name {
+  color:  white;
+}
+
+.ea-vec-results-panel-heading {
+  color: #f6f6f6;
+}
+
+.ea-vec-results-panel-inputs-label-style {
+  color: #A2AAB9;
+}
+
+.ea-vec-details-row{
+  color: white;
+}
+
+.ea-vec-results-panel-inputs-value-style {
+  color: #F6F6F6;
+}
+
+.ea-vec-details-value-positive {
+  color: #f29d2e;
+}
+
+.ea-vec-details-value-negative {
+  color: #2bdeee;
+}
+
+.ea-vec-details-energy-percentage-label {
+  background: #2c3036;
+}
+
+.ea-vec-details-energy-percentage-value {
+  color: #ffffff;
+  background: #277050;
+}
+
+.ea-vec-details-etd-eta-label {
+  color: #a2aab9;
+}
+
+.ea-vec-voyage-options-axis-label {
+  border-color: black ;
+}
+
+.ea-vec-voyage-options-etd-axis-label,
+.ea-vec-voyage-options-eta-axis-label {
+  border-bottom: 1px solid #2c3036 ;
+}
+
+.ea-vec-voyage-options-table td {
+  background-color: #3d4149;
+}
+
+.ea-vec-voyage-options-table .ea-vec-voyage-option-unavailable {
+  background-color: rgba(28, 31, 36, 0.25);
+  border-color: #2c3036 ;
+}
+
+.ea-vec-voyage-options-table .ea-vec-voyage-option-selected {
+  border-color: #2bdeee ;
+}
+
+.ea-vec-voyage-options-table td.ea-vec-voyage-option-optimal {
+  background-color: #277050;
+}
+
+.ea-vec-loading-overlay-window {
+  background: #2C3036;
+  box-shadow: 4px 4px 24px rgba(0, 0, 0, 0.32);
+}
+
+.ea-vec-loading-overlay-window-top-container {
+  border-bottom: 1px solid black;
+}
+
+.ea-vec-loading-overlay-cancel {
+  color: #1C1F24;
+  background: #007A8C;
+}
+
+.ea-loading-indicator circle {
+  stroke: #2bdeee;
+}
+
+.ea-vec-no-results-window {
+  background: #2C3036;
+  box-shadow: 4px 4px 24px rgba(0, 0, 0, 0.32);
+}
+
+.ea-vec-no-results-window-mid-container {
+  background: #111214;
+}
+
+.ea-conditions-reasons-for-advice-button {
+  background-color: #2c3036;
+}
+
+  .ea-conditions-reasons-for-advice-button svg path {
+    fill: #a2aab9;
+  }
+
+.ea-conditions-reasons-for-advice-text {
+  color: #f6f6f6;
+  background-color: #15191c;
+}
+
+.ea-system-health-icon-color {
+  border-color: transparent transparent #EDCE06 transparent;
+}
+
+.ea-system-health-icon-border {
+  border-color: transparent transparent #EDCE06 transparent;
+}
+
+.ea-system-health-icon-text-color {
+  color: #000000;
+}
+
+.ea-system-health-icon-arrow-style {
+  border-color: #a2aab9 transparent transparent transparent;
+}
+
+.ea-top-bar-element-right-separator-color {
+  border-left: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.ea-system-health-window-style {
+  background: #2c3036;
+  box-shadow: 4px 4px 24px rgba(0, 0, 0, 0.32);
+  border-radius: 8px;
+}
+
+.ea-system-health-window-content-style {
+  background: #111214;
+}
+
+  .ea-system-health-window-content-style::-webkit-scrollbar-thumb {
+    background: #a2aab9;
+    opacity: 0.4;
+    border-radius: 4px;
+    max-height: 80px;
+  }
+
+    .ea-system-health-window-content-style::-webkit-scrollbar-thumb:hover {
+      background: #f6f6f6;
+    }
+
+.ea-system-health-window-title-style {
+  color: #f6f6f6;
+}
+
+.ea-system-health-data-style {
+  color: #2bdeee;
+}
+
+.ea-balance-profile-main-header {
+  color: #f6f6f6;
+}
+
+.ea-efficiency-header-color {
+  color: #a2aab9;
+}
+
+.ea-redundancy-level-header-color {
+  color: #a2aab9;
+}
+
+.ea-efficiency-text-color {
+  color: #a2aab9;
+}
+
+.ea-redundancy-level-text-color {
+  color: #a2aab9;
+}
+
+.ea-efficiency-value-color {
+  color: #f6f6f6;
+}
+
+.ea-efficiency-no-advice-color {
+  color: #71767A ;
+}
+
+.ea-redundancy-level-value-color {
+  color: #f6f6f6;
+}
+
+.ea-redundancy-level-no-advice-color {
+  color: #71767A ;
+}
+
+.ea-efficiency-slider-gauge .ea-slider-gauge-linear-colored-style {
+  background: linear-gradient(90deg, #1B3A3D 16.67%, #61E786 80.21%);
+}
+
+.ea-redundancy-level-slider-gauge .ea-slider-gauge-linear-colored-style {
+  background: linear-gradient(90deg, #61E786 16.67%, #F29D2E 80.21%);
+}
+
+.ea-slider-gauge-linear-value {
+  background: #151719;
+}
+
+.ea-slider-gauge-linear-warning .ea-slider-gauge-linear-value {
+  background: linear-gradient(270deg, #f29d2e 32.29%, rgba(0, 56, 64, 0) 100%) ;
+}
+
+.ea-slider-gauge-linear-dot {
+  background: #2bdeee;
+}
+
+.ea-slider-gauge-linear-warning {
+  background: #151719 ;
+}
+
+  .ea-slider-gauge-linear-warning .ea-slider-gauge-linear-dot {
+    background: #f4d85c ;
+  }
+
+.ea-slider-gauge-linear-greyed-out {
+  background: #71767A;
+}
+
+  .ea-slider-gauge-linear-greyed-out .ea-slider-gauge-linear-dot {
+    background: #2c3036;
+  }
+
+.ea-vec-details-energy-percentage-label {
+  background: #2c3036;
+}
+
+.ea-vec-details-energy-percentage-value {
+  color: #ffffff;
+  background: #277050;
+}
+
+.ea-vec-voyage-power-chart {
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  background: #2c3036;
+}
+
+  .ea-vec-voyage-power-chart .c3-axis .tick {
+    color: #a2aab9;
+  }
+
+  .ea-vec-voyage-power-chart .c3-line-total-power {
+    stroke: #2bdeee ;
+  }
+
+  .ea-vec-voyage-power-chart .c3-line-calm-water-power {
+    stroke: #a2aab9 ;
+  }
+
+  .ea-vec-voyage-power-chart .c3-circles-total-power .c3-circle._expanded_ {
+    fill: #2bdeee;
+  }
+
+  .ea-vec-voyage-power-chart .c3-grid line {
+    stroke: #a2aab9;
+  }
+
+.ea-vec-voyage-power-touch-bar-line {
+  background-color: #1C1F24;
+}
+
+.ea-vec-voyage-power-touch-bar-selected-segment-area {
+  background-color: rgba(43, 222, 238, 0.25);
+}
+
+.ea-vec-voyage-power-touch-bar-circle {
+  background-color: #2BDEEE;
+}
+
+.ea-vec-voyage-power-legend-label {
+  color: #a2aab9;
+}
+
+.ea-vec-power-details-label {
+  color: #a2aab9;
+}
+
+.ea-vec-power-details-value {
+  color: #f6f6f6;
+}
+
+.ea-ship-circle-icon-circle #circle {
+  fill: rgba(59, 63, 71, 0.5);
+  stroke: #2bdeee;
+}
+
+.ea-ship-circle-icon-circle #arrow-north {
+  fill: #2bdeee;
+}
+
+.ea-ship-circle-icon-ship {
+  fill: #797f8b;
+}
+
+.ea-ship-circle-icon-current {
+  fill: #2bdeee;
+}
+
+.ea-ship-circle-icon-wind {
+  fill: #2bdeee;
+}
+
+.ea-map-container-vec .leaflet-pane svg path {
+  fill: #4d6059;
+}
+
+.leaflet-container {
+  background-color: #24282b;
+}
+
+.ea-vec-map-polyline {
+  stroke: #2BDEEE ;
+}
+
+.ea-single-line-main-engine-consumer-bus-line-disconnected-color {
+  border-right-color: #71767a;
+}
+
+.ea-single-line-main-engine-consumer-bus-line-connected-color {
+  border-right-color: #61E786 ;
+}
+
+.ea-single-line-main-engine-consumer-line-disconnected-color {
+  border-right-color: #71767a;
+}
+
+.ea-single-line-main-engine-consumer-line-connected-color {
+  border-right-color: #61E786 ;
+}
+
+.ea-single-line-main-engine-consumer-clutch-line-disconnected-color {
+  border-top-color: #71767a;
+}
+
+.ea-single-line-main-engine-consumer-clutch-line-connected-color {
+  border-top-color: #61E786 ;
+}
+
+.ea-single-line-main-engine-generator-clutch-line-disconnected-color {
+  border-left-color: #71767a;
+}
+
+.ea-single-line-main-engine-generator-clutch-line-connected-color {
+  border-left-color: #61E786 ;
+}
+
+.ea-no-connection-header-style {
+  background: #2C3036;
+  color: #F6F6F6;
+}
+
+.ea-no-connection-body-style {
+  background: #111214;
+  color: #F6F6F6;
+}
+
+.ea-no-connection-footer-style {
+  background: #2C3036;
+  color: #A2AAB9;
+}
+
+.ea-number-picker-input {
+  background: #1C1F24;
+  color: #F6F6F6;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  outline: 0px;
+}
+
+.ea-number-picker-editor {
+  background: #1C1F24;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.204791);
+  border-radius: 4px;
+}
+
+.ea-number-picker-button-style {
+  border-radius: 4px;
+  border-color: transparent;
+  background: #2C3036;
+  color: #F6F6F6;
+}
+
+.ea-number-picker-input-invalid {
+  outline: 2px;
+  outline-color: darkred;
+  outline-style: solid;
+}
+
+.ea-simulation-page {
+  background: #15191c;
+}
+
+.ea-simulation-title {
+  color: #F6F6F6;
+}
+
+.ea-simulation-subtitle {
+  color: #E9EAEA;
+}
+
+.ea-simulation-input-item-title {
+  color: #A2AAB9;
+}
+
+.ea-simulation-input-item-title-error {
+  color: red ;
+}
+
+.ea-simulation-unit {
+  color: #F6F6F6;
+  margin-left: 3px;
+  text-transform: none;
+}
+
+.ea-simulation-input-item-select {
+  background: #1C1F24;
+  color: #F6F6F6;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  outline: 0px;
+}
+
+.ea-input-invalid {
+  outline: 2px;
+  outline-color: #660000;
+  outline-style: solid;
+}
+
+.ea-simulation-input-button-enabled {
+  background: #2BDEEE;
+  color: #1C1F24;
+}
+
+.ea-simulation-input-button-disabled {
+  background: #2C3036;
+  color: #A2AAB9;
+  border: 1px solid #3B3F47;
+}
+
+.ea-simulation-summary-info-container {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.ea-simulation-summary-circle-container {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.ea-simulation-summary-info-title {
+  color: #2BDEEE;
+}
+
+.ea-simulation-summary-info-label {
+  color: #A2AAB9;
+}
+
+.ea-simulation-summary-info-value {
+  color: #F6F6F6;
+}
+
+.ea-simulation-summary-speed-label {
+  color: #A2AAB9;
+}
+
+.ea-simulation-summary-map .leaflet-pane svg path {
+  fill: #4d6059;
+}
+
+.ea-simulation-results-navigation-button {
+  color: #f6f6f6;
+  background: #3b3f47;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.48);
+}
+
+.ea-simulation-results-item-grid-box-value {
+  color: #61E786;
+}
+
+.ea-simulation-results-item-grid-box-unit {
+  color: #A2AAB9;
+}
+
+.ea-simulation-results-navigation-button-active {
+  color: #2bdeee;
+  background-color: #000000;
+}
+
+.ea-simulation-results-item-conatiner-title {
+  color: #2BDEEE;
+}
+
+.ea-simulation-results-item-grid-box {
+  border: 1.5px solid #2BDEEE;
+}
+
+.ea-simulation-results-item-grid-box-icon, .ea-simulation-results-item-grid-box-text-icon {
+  fill: #a2aab9;
+}
+
+.ea-simulation-results-item-grid-box-large {
+  border: 1.5px solid #61E786;
+}
+
+.ea-simulation-results-item-grid-box-title {
+  color: #F6F6F6;
+}
+
+.ea-popup-button,
+.ea-history-report-input-submit-button-color {
+  color: #1c1f24;
+  background: #2bdeee;
+  border: 1px solid #2bdeee;
+}
+
+.ea-history-report-input-submit-button-color-disabled {
+  color: #a2aab9;
+  background-color: transparent;
+  border: 1px solid #3b3f47;
+  cursor: default ;
+}
+
+.ea-fuel-consumption-chart-period-dropdown-style {
+  background-color: #1c1f24;
+  color: #f6f6f6;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+}
+
+.ea-fuel-consumption-chart-content .c3-line-potential {
+  stroke: #2BDEEE ;
+}
+
+.ea-fuel-consumption-chart-content .c3-legend-item-potential .c3-legend-item-tile {
+  stroke: #2BDEEE ;
+}
+
+.ea-fuel-consumption-chart-content .c3-line-actual {
+  stroke: #61E786 ;
+}
+
+.ea-fuel-consumption-chart-content .c3-legend-item-actual .c3-legend-item-tile {
+  stroke: #61E786 ;
+}
+
+.ea-fuel-consumption-chart-content .c3-legend-background {
+  opacity: 0;
+  stroke-width: 1;
+}
+
+.ea-popup-close-button-color {
+  background-color: #2bdeee;
+  color: #000000;
+}
+
+.ea-show-popup-button-color {
+  border: 2px solid #f6f6f6;
+  color: #f6f6f6;
+}
+
+.ea-build-versions-value {
+  color: #f6f6f6;
+}
+
+.ea-popup::-webkit-scrollbar-thumb {
+  background: #a2aab9;
+  opacity: 0.4;
+  border-radius: 4px;
+}
+
+  .ea-popup::-webkit-scrollbar-thumb:hover {
+    background: #f6f6f6;
+  }
+
+
+.ea-single-line-v2-crossover-connected {
+  fill: none;
+  stroke: #61E786;
+}
+
+.ea-single-line-v2-crossover-disconnected {
+  fill: none;
+  stroke: #71767A;
+}
+
+.ea-single-line-v2-hv-breaker-active {
+  stroke: #61E786;
+  fill: #61E786;
+}
+
+.ea-single-line-v2-hv-breaker-inactive {
+  stroke: #71767A;
+  fill: #71767A;
+}
+
+.ea-single-line-v2-hv-breaker-circle-active {
+  fill: none;
+  stroke: #61E786;
+}
+
+.ea-single-line-v2-hv-breaker-circle-inactive {
+  fill: none;
+  stroke: #71767A;
+}
+
+.ea-single-line-v2-hv-breaker-circle-advice {
+  fill: none;
+  stroke: #2BDEEE ;
+}
+
+.ea-single-line-v2-hv-breaker-is-operator-action {
+  fill: none;
+  stroke: #F08800;
+}
+
+.ea-single-line-v2-item-inner-circle-active {
+  fill: #2C3036;
+  stroke: #61E786;
+}
+
+.ea-single-line-v2-item-inner-circle-inactive {
+  fill: #2C3036;
+  stroke: #71767A;
+}
+
+.ea-single-line-v2-item-has-advice {
+  fill: #2C3036;
+  stroke: #2BDEEE ;
+}
+
+.ea-single-line-v2-item-savings-color {
+  stroke: #2BDEEE;
+}
+
+.ea-single-line-v2-item-losses-container-color {
+  fill: #1B1B1B;
+}
+
+.ea-single-line-v2-item-losses-color {
+  stroke: #F08800;
+}
+
+.ea-single-line-v2-item-hotel-load-deviation-color {
+  stroke: #F4D85C;
+}
+
+.ea-single-line-v2-item-hotel-load-deviation-line-color {
+  stroke: #71767A;
+}
+
+.ea-single-line-v2-item-icon-stroke-active {
+  stroke: #61E786;
+}
+
+.ea-single-line-v2-item-icon-stroke-inactive {
+  stroke: #71767A;
+}
+
+.ea-single-line-v2-item-icon-fill-active {
+  fill: #61E786;
+}
+
+.ea-single-line-v2-item-icon-fill-inactive {
+  fill: #71767A;
+}
+
+.ea-single-line-v2-item-is-operator-action {
+  fill: #2C3036;
+  stroke: #F08800;
+}
+
+.ea-single-line-v2-label-color {
+  fill: #F6F6F6;
+}
+
+.ea-single-line-v2-line-connected-color {
+  stroke: #61E786;
+}
+
+.ea-single-line-v2-line-disconnected-color {
+  stroke: #71767A;
+}
+
+.ea-data-quality-warning-color {
+  fill: #FAD900;
+  stroke: #AA9600;
+}

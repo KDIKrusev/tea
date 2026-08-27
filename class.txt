@@ -1,0 +1,19 @@
+    public class VoyageEnergyAdvisorResponseNew
+    {
+        public double VoyageDistance { get; set; }
+        public List<VoyageOptionSet> VoyageOptions { get; set; } = new();
+        public string ValidationMessage { get; set; } = null!;
+    }
+ 
+    public class VoyageOptionSet
+    {
+        public DateTime Eta { get; set; }
+        public DateTime Etd { get; set; }
+        public double DurationInSeconds {get; set;}
+        public double AverageSpeed {get; set;}
+ 
+        public VoyageEnergyAdvisorVoyageOption VariablePowerOption { get; set; } = null!;
+        public VoyageEnergyAdvisorVoyageOption variableSpeedOption { get; set; } = null!;
+    }
+ 
+}

@@ -1,0 +1,7 @@
+<symbol id="ea-energy-data-remaining-value-curve"  viewBox="0 0 104 104" xmlns="http://www.w3.org/2000/svg">
+    <path d="M 24.56, 93.8 A 50, 50 0 1, 1 79.43, 93.8" stroke="#2BDEEE" stroke-width="3" fill="none" />
+</symbol>
+<symbol id="current-value-curve"  viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <path d="M 20, 90 A 48, 48 0 1, 1 80, 90" stroke="#373C41" stroke-linecap="round"
+    stroke-width="3" stroke-alignment="inside" opacity= "0.5" fill="none"/>
+</symbol>

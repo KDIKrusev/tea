@@ -1,0 +1,55 @@
+<!-- voyage-energy-advisor-loading-overlay.component.html -->
+<div class="ea-vec-loading-overlay-container">
+  <div class="ea-vec-loading-overlay-window" [ngClass]="{'info-mode': voyageService.errorMessage}">
+    <div class="ea-vec-loading-overlay-window-top-container">
+      <!-- Loading State -->
+      <ng-container *ngIf="!voyageService.errorMessage">
+        <div class="loading-content">
+          <div class="loading-icon">
+            <svg class="spinner" viewBox="0 0 50 50">
+              <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
+            </svg>
+          </div>
+          <span class="loading-text">{{ description || 'Waiting for weather data. This may take a while ...' }}</span>
+        </div>
+      </ng-container>
+      
+      <!-- Information State (formerly Error State) -->
+      <ng-container *ngIf="voyageService.errorMessage">
+        <div class="info-content">
+          <div class="info-icon">
+            <svg viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M12 8v4M12 16h.01"></path>
+            </svg>
+          </div>
+          <div class="info-message-container">
+            <h3 class="info-title">Information</h3>
+            <span class="info-message">{{ voyageService.errorMessage }}</span>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    
+    <!-- Progress Bar (only shown when loading) -->
+    <app-progress *ngIf="!voyageService.errorMessage"></app-progress>
+    
+    <!-- Action Buttons -->
+    <div class="button-container">
+      <button
+        *ngIf="!voyageService.errorMessage"
+        class="action-button cancel-button"
+        type="button"
+        (click)="cancelRequest()">
+        Cancel
+      </button>
+      <button
+        *ngIf="voyageService.errorMessage"
+        class="action-button ok-button"
+        type="button"
+        (click)="dismissError()">
+        OK
+      </button>
+    </div>
+  </div>
+</div>

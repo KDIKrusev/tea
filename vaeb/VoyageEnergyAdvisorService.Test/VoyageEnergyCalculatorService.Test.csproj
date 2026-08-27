@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ClosedXML" />
+	  <PackageReference Include="coverlet.collector">
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		  <PrivateAssets>all</PrivateAssets>
+	  </PackageReference>
+	  <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="Moq" />
+    <PackageReference Include="NodaTime" />
+    <PackageReference Include="xunit" />
+    <PackageReference Include="xunit.runner.visualstudio">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\VoyageEnergyAdvisor.App\VoyageEnergyAdvisor.csproj" />
+    <ProjectReference Include="..\VoyageEnergyAdvisor.Core\VoyageEnergyAdvisor.Core.csproj" />
+    <ProjectReference Include="..\VoyageEnergyAdvisor.Data\VoyageEnergyAdvisor.Data.csproj" />
+    <ProjectReference Include="..\VoyageEnergyAdvisor.VesselModelReader\VesselModelReader\VesselModelReader.csproj" />
+    <ProjectReference Include="..\VoyageEnergyAdvisor.WebApi\VoyageEnergyAdvisor.WebApi.csproj" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<None Update="..\VoyageEnergyAdvisor.Core\Services\Configuration\DefaultResources\DefaultVoyageEnergyAdvisorConfiguration.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
+</Project>

@@ -1,0 +1,6 @@
+{
+  "CostCalculationServiceConfiguration": {
+    "FuelPricePerKg": 4.6,
+    "EmissionFactorCO2PerKg": 2.65
+  }
+}

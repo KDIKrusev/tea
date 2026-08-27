@@ -1,0 +1,68 @@
+<div class="kx-dropdown" role="group" style="margin:0px">
+    <!-- <button id="--34709" class="kx-dropdown__toggle kx-btn kx-btn--icon kx-js-dropdown__toggle"
+          aria-haspopup="true"
+          [attr.aria-expanded]="isDropdownOpen ? 'true' : 'false'"
+          (click)="toggleDropdown($event)">
+       <span class="kx-btn__inner">
+         <i class="kx-icon kx-icon--size-medium ea-palette-selector-icon">
+           <svg focusable="false"> -->
+            <!-- <use *ngIf="themeService.selectedTheme === 'Day'" xlink:href="../../assets/images/palette-selector-day.svg#palette-selector-day"/> -->
+            <!-- <use *ngIf="themeService.selectedTheme === 'Dusk'" xlink:href="../../assets/images/palette-selector-dusk.svg#palette-selector-dusk"/>
+           <use *ngIf="themeService.selectedTheme === 'Night'" xlink:href="../../assets/images/palette-selector-night.svg#palette-selector-night"/> -->
+           <!-- </svg>
+         </i>
+         <span class="kx-btn__txt kx-is-vishidden">User</span>
+       </span>
+     </button> -->
+     <div class="kx-dropdown__menu kx-dropdown__menu--align-right kx-js-dropdown__menu" aria-labelledby="--34709">
+       <div class="ea-palette-selector ea-palette-selector-palette-color">
+             <p class="ea-palette-selector-label ea-palette-selector-palette-label-color">palette</p>
+             <div class="ea-palette-selector-frame">
+                 <div class="ea-palette-selector-theme" [ngClass]="selectedTheme === 'Day' ? 
+                 'ea-palette-selector-selected-highlight ea-palette-selector-selected-highlight-color' : 
+                 'ea-palette-selector-color-unselected'"
+                 (click)="changeTheme('Day')">
+                     <div [ngClass]="selectedTheme === 'Day' ? 'ea-palette-selector-color-selected' : 
+                     'ea-palette-selector-color-unselected'">
+                        <i class="kx-icon kx-icon--size-moderate">
+                            <svg focusable="false">
+                              <use xlink:href="../../assets/images/day.svg#day"/>
+                            </svg>
+                          </i>
+                     </div>
+                     <p class="ea-palette-selector-theme-text" 
+                     [ngClass]="selectedTheme === 'Day' ? 'ea-palette-selector-color-selected' : ''">Day</p>
+                 </div>
+                 <!-- <div class="ea-palette-selector-theme" [ngClass]="selectedTheme === 'Dusk' ? 
+                 'ea-palette-selector-selected-highlight ea-palette-selector-selected-highlight-color' : ''"
+                 (click)="changeTheme('Dusk')">
+                     <div [ngClass]="selectedTheme === 'Dusk' ? 'ea-palette-selector-color-selected' :
+                     'ea-palette-selector-color-unselected'">
+                        <i class="kx-icon kx-icon--size-moderate">
+                            <svg focusable="false">
+                              <use xlink:href="../../assets/images/dusk2.svg#dusk2"/>
+                            </svg>
+                          </i>
+                     </div>
+                     <p class="ea-palette-selector-theme-text" 
+                     [ngClass]="selectedTheme === 'Dusk' ? 'ea-palette-selector-color-selected' :
+                      'ea-palette-selector-color-unselected'">Dusk</p>
+                 </div> -->
+                 <!-- <div class="ea-palette-selector-theme" [ngClass]="selectedTheme === 'Night' ? 
+                 'ea-palette-selector-selected-highlight ea-palette-selector-selected-highlight-color' : 
+                 'ea-palette-selector-color-unselected'"
+                 (click)="changeTheme('Night')">
+                     <div [ngClass]="selectedTheme === 'Night' ? 'ea-palette-selector-color-selected' : 
+                     'ea-palette-selector-color-unselected'">
+                        <i class="kx-icon kx-icon--size-moderate">
+                            <svg focusable="false">
+                              <use xlink:href="../../assets/images/moon.svg#moon"/>
+                            </svg>
+                          </i>
+                     </div>
+                     <p class="ea-palette-selector-theme-text" 
+                     [ngClass]="selectedTheme === 'Night' ? 'ea-palette-selector-color-selected' : ''">Night</p>
+                 </div> -->
+            </div>
+       </div>
+ </div>

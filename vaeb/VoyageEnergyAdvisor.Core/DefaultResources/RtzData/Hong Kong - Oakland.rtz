@@ -1,0 +1,180 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<route xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.cirm.org/RTZ/1/0"
+       xsi:schemaLocation="http://www.cirm.org/rtz/RTZ Schema version 1_0.xsd" version="1.0">
+	<routeInfo routeName="HongKong_to_Oakland_NorthernRoute_20251013" />
+
+	<waypoints>
+		<!-- Hong Kong departure -->
+		<waypoint id="1" revision="1" name="WP01_HongKong" radius="0.5">
+			<position lat="22.297754" lon="114.159830" />
+			<leg starboardXTD="2.0" portsideXTD="2.0" safetyContour="100" safetyDepth="50"
+				 geometryType="Orthodrome" staticUKC="0" dynamicUKC="0" />
+		</waypoint>
+
+
+		<waypoint id="2" revision="1" name="WP01_HongKong" radius="0.5">
+			<position lat="22.292278" lon="114.113205" />
+			<leg starboardXTD="2.0" portsideXTD="2.0" safetyContour="100" safetyDepth="50"
+				 geometryType="Orthodrome" staticUKC="0" dynamicUKC="0" />
+		</waypoint>
+
+		<waypoint id="3" revision="1" name="WP01_HongKong" radius="0.5">
+			<position lat="22.269086" lon="114.085816" />
+			<leg starboardXTD="2.0" portsideXTD="2.0" safetyContour="100" safetyDepth="50"
+				 geometryType="Orthodrome" staticUKC="0" dynamicUKC="0" />
+		</waypoint>
+
+
+		<waypoint id="4" revision="1" name="WP01_HongKong" radius="0.5">
+			<position lat="22.209403" lon="114.073090" />
+			<leg starboardXTD="2.0" portsideXTD="2.0" safetyContour="100" safetyDepth="50"
+				 geometryType="Orthodrome" staticUKC="0" dynamicUKC="0" />
+		</waypoint>
+
+
+		<waypoint id="5" revision="1" name="WP01_HongKong" radius="0.5">
+			<position lat="22.128689" lon="114.137453" />
+			<leg starboardXTD="2.0" portsideXTD="2.0" safetyContour="100" safetyDepth="50"
+				 geometryType="Orthodrome" staticUKC="0" dynamicUKC="0" />
+		</waypoint>
+		
+		<!-- South China Sea exit -->
+		<waypoint id="6" revision="1" name="WP02" radius="0.5">
+			<position lat="20.798461" lon="119.655961" />
+			<leg starboardXTD="2.0" portsideXTD="2.0" safetyContour="100" safetyDepth="50"
+				 geometryType="Orthodrome" staticUKC="0" dynamicUKC="0" />
+		</waypoint>
+
+		<waypoint id="7" revision="1" name="WP02" radius="0.5">
+			<position lat="21.824735" lon="121.686496" />
+			<leg starboardXTD="2.0" portsideXTD="2.0" safetyContour="100" safetyDepth="50"
+				 geometryType="Orthodrome" staticUKC="0" dynamicUKC="0" />
+		</waypoint>
+		
+		<!-- Passing east of Taiwan -->
+		<waypoint id="8" revision="1" name="WP03" radius="0.5">
+			<position lat="23.000000" lon="123.000000" />
+			<leg starboardXTD="2.0" portsideXTD="2.0" safetyContour="100" safetyDepth="50"
+				 geometryType="Orthodrome" staticUKC="0" dynamicUKC="0" />
+		</waypoint>
+
+		<!-- Southern Japan area -->
+		<waypoint id="9" revision="1" name="WP04" radius="0.5">
+			<position lat="26.000000" lon="130.000000" />
+			<leg starboardXTD="2.0" portsideXTD="2.0" safetyContour="100" safetyDepth="50"
+				 geometryType="Orthodrome" staticUKC="0" dynamicUKC="0" />
+		</waypoint>
+
+		<!-- Mid-Pacific crossing -->
+		<waypoint id="10" revision="1" name="WP05" radius="0.5">
+			<position lat="30.000000" lon="150.000000" />
+			<leg starboardXTD="2.0" portsideXTD="2.0" safetyContour="100" safetyDepth="50"
+				 geometryType="Orthodrome" staticUKC="0" dynamicUKC="0" />
+		</waypoint>
+
+		<waypoint id="11" revision="1" name="WP06" radius="0.5">
+			<position lat="32.000000" lon="160.000000" />
+			<leg starboardXTD="2.0" portsideXTD="2.0" safetyContour="100" safetyDepth="50"
+				 geometryType="Orthodrome" staticUKC="0" dynamicUKC="0" />
+		</waypoint>
+
+		<waypoint id="12" revision="1" name="WP07" radius="0.5">
+			<position lat="34.000000" lon="170.000000" />
+			<leg starboardXTD="2.0" portsideXTD="2.0" safetyContour="100" safetyDepth="50"
+				 geometryType="Orthodrome" staticUKC="0" dynamicUKC="0" />
+		</waypoint>
+
+		<!-- Cross the International Date Line -->
+		<waypoint id="13" revision="1" name="WP08" radius="0.5">
+			<position lat="35.000000" lon="179.000000" />
+			<leg starboardXTD="2.0" portsideXTD="2.0" safetyContour="100" safetyDepth="50"
+				 geometryType="Orthodrome" staticUKC="0" dynamicUKC="0" />
+		</waypoint>
+
+		<waypoint id="14" revision="1" name="WP09" radius="0.5">
+			<position lat="35.200000" lon="-179.000000" />
+			<leg starboardXTD="2.0" portsideXTD="2.0" safetyContour="100" safetyDepth="50"
+				 geometryType="Orthodrome" staticUKC="0" dynamicUKC="0" />
+		</waypoint>
+
+		<!-- Continue east across Pacific -->
+		<waypoint id="15" revision="1" name="WP10" radius="0.5">
+			<position lat="36.000000" lon="-165.000000" />
+			<leg starboardXTD="2.0" portsideXTD="2.0" safetyContour="100" safetyDepth="50"
+				 geometryType="Orthodrome" staticUKC="0" dynamicUKC="0" />
+		</waypoint>
+
+		<waypoint id="16" revision="1" name="WP11" radius="0.5">
+			<position lat="36.500000" lon="-150.000000" />
+			<leg starboardXTD="2.0" portsideXTD="2.0" safetyContour="100" safetyDepth="50"
+				 geometryType="Orthodrome" staticUKC="0" dynamicUKC="0" />
+		</waypoint>
+
+		<waypoint id="17" revision="1" name="WP12" radius="0.5">
+			<position lat="37.000000" lon="-140.000000" />
+			<leg starboardXTD="2.0" portsideXTD="2.0" safetyContour="100" safetyDepth="50"
+				 geometryType="Orthodrome" staticUKC="0" dynamicUKC="0" />
+		</waypoint>
+
+		<!-- Approach California coast -->
+		<waypoint id="18" revision="1" name="WP13" radius="0.5">
+			<position lat="37.500000" lon="-130.000000" />
+			<leg starboardXTD="2.0" portsideXTD="2.0" safetyContour="100" safetyDepth="50"
+				 geometryType="Orthodrome" staticUKC="0" dynamicUKC="0" />
+		</waypoint>
+
+		<waypoint id="19" revision="1" name="WP14" radius="0.5">
+			<position lat="37.700000" lon="-125.000000" />
+			<leg starboardXTD="2.0" portsideXTD="2.0" safetyContour="100" safetyDepth="50"
+				 geometryType="Orthodrome" staticUKC="0" dynamicUKC="0" />
+		</waypoint>
+
+		<!-- Arrival at Port of Oakland -->
+
+
+		<waypoint id="20" revision="1" name="WP15_Oakland" radius="0.5">
+			<position lat="37.779843" lon="-122.542350" />
+			<leg starboardXTD="2.0" portsideXTD="2.0" safetyContour="100" safetyDepth="50"
+				 geometryType="Orthodrome" staticUKC="0" dynamicUKC="0" />
+		</waypoint>
+		
+		<waypoint id="21" revision="1" name="WP15_Oakland" radius="0.5">
+			<position lat="37.808690" lon="-122.507046" />
+			<leg starboardXTD="2.0" portsideXTD="2.0" safetyContour="100" safetyDepth="50"
+				 geometryType="Orthodrome" staticUKC="0" dynamicUKC="0" />
+		</waypoint>
+		
+		<waypoint id="22" revision="1" name="WP15_Oakland" radius="0.5">
+			<position lat="37.820317" lon="-122.456509" />
+			<leg starboardXTD="2.0" portsideXTD="2.0" safetyContour="100" safetyDepth="50"
+				 geometryType="Orthodrome" staticUKC="0" dynamicUKC="0" />
+		</waypoint>
+
+		<waypoint id="23" revision="1" name="WP16_Oakland_Berth" radius="0.5">
+			<position lat="37.819875" lon=" -122.399761" />
+			<leg starboardXTD="2.0" portsideXTD="2.0" safetyContour="100" safetyDepth="50"
+				 geometryType="Orthodrome" staticUKC="0" dynamicUKC="0" />
+		</waypoint>
+		
+
+		<waypoint id="24" revision="1" name="WP16_Oakland_Berth" radius="0.5">
+			<position lat="37.801946" lon=" -122.370761" />
+			<leg starboardXTD="2.0" portsideXTD="2.0" safetyContour="100" safetyDepth="50"
+				 geometryType="Orthodrome" staticUKC="0" dynamicUKC="0" />
+		</waypoint>
+		
+
+		<waypoint id="25" revision="1" name="WP16_Oakland_Berth" radius="0.5">
+			<position lat="37.798566" lon="-122.331813" />
+			<leg starboardXTD="2.0" portsideXTD="2.0" safetyContour="100" safetyDepth="50"
+				 geometryType="Orthodrome" staticUKC="0" dynamicUKC="0" />
+		</waypoint>
+
+		<waypoint id="26" revision="1" name="WP16_Oakland_Berth" radius="0.5">
+			<position lat="37.792598" lon="-122.304519" />
+			<leg starboardXTD="2.0" portsideXTD="2.0" safetyContour="100" safetyDepth="50"
+				 geometryType="Orthodrome" staticUKC="0" dynamicUKC="0" />
+		</waypoint>
+	</waypoints>
+</route>
+

@@ -1,0 +1,64 @@
+<!-- Updated HTML Template -->
+<div class="chart-layout-container">
+  <!-- Main Chart Component -->
+  <div class="compact-chart-container" [class.without-panel]="!showAdditionalPanel">
+    <!-- Enhanced Header -->
+    <div class="compact-header">
+      <div class="chart-title">{{getChartTitle()}}</div>
+      <div class="header-controls">
+        <!-- Current power display when segment is selected and panel is hidden -->
+        <div class="current-power-display" *ngIf="selectedSegment && !showAdditionalPanel && !isVesselNotMoving">
+          <span class="current-power">{{getCurrentDisplayValue()}}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chart Content Area -->
+    <div class="chart-content-area" #chartContainer>
+      <!-- Ship not moving message overlay -->
+      <div class="ship-not-moving-overlay" *ngIf="isVesselNotMoving">
+        <div class="not-moving-message">
+          <div class="status-dot"></div>
+          <span>Waiting for vessel movement data</span>
+        </div>
+      </div>
+      
+      <div class="chart-svg-container">
+        <!-- D3 will insert SVG here -->
+      </div>
+    </div>
+
+    <!-- Show legend only when we have route data -->
+    <div class="compact-legend" *ngIf="!isVesselNotMoving && selectedVoyageOption?.routeSegments?.length">
+      <div class="legend-item-compact">
+        <div class="legend-line total"></div>
+        <span>{{ currentDisplayFormat === 'cost' ? 'Total cost' : currentDisplayFormat === 'fuel' ? 'Total fuel' : 'Delivered propulsion' }}</span>
+      </div>
+      <div class="legend-item-compact">
+        <div class="legend-line base"></div>
+        <span>Calm water {{ currentDisplayFormat === 'cost' ? 'cost' : 'resistance' }}</span>
+      </div>
+      <div class="legend-item-compact navigation-in-legend" *ngIf="selectedSegment">
+        <span class="nav-text">Use ← → arrow keys to navigate segments</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Power Analysis Component -->
+  <div class="power-analysis-component" [class.hidden]="!showAdditionalPanel">
+    <!-- Ship not moving in panel -->
+    <div class="ship-not-moving-panel" *ngIf="isVesselNotMoving">
+      <!-- <div class="panel-status-dot"></div>
+      <span>Ship not moving</span> -->
+    </div>
+    
+    <div class="power-bars-container" *ngIf="selectedSegment && !isVesselNotMoving">
+      <div class="d3-chart-container" #powerChartContainer>
+      </div>
+    </div>
+
+    <div class="no-selection-state" *ngIf="!selectedSegment && !isVesselNotMoving && selectedVoyageOption?.routeSegments?.length">
+      <span class="no-selection-text">Select a segment to view {{ currentDisplayFormat === 'cost' ? 'cost' : currentDisplayFormat === 'fuel' ? 'fuel' : 'power' }} analysis</span>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,472 @@
+/* Enhanced Power Analysis Component Styles */
+.chart-layout-container {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    align-items: flex-start;
+    height: auto;
+}
+
+/* Main Chart Container - maintains original size */
+.compact-chart-container {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    background: #F7F7F7;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: visible;
+}
+
+/* Chart container adjusts width when panel is shown */
+.compact-chart-container.with-panel {
+    flex: 0 0 calc(100% - 420px); /* Adjusted for wider panel */
+}
+
+/* Enhanced Power Analysis Component - Larger and more readable */
+.power-analysis-component {
+    width: 400px; /* Increased width */
+    height: 347px; /* Increased height */
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+    padding: 0;
+    position: relative;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+/* Animation for panel appearance */
+.power-analysis-component.visible {
+    display: flex;
+    animation: slideInRight 0.3s ease-out;
+}
+
+.power-analysis-component.hidden {
+    display: none;
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Enhanced Header */
+.compact-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #e2e8f0;
+    flex-shrink: 0;
+    height: 40px;
+}
+
+.chart-title {
+    font-size: 16px; /* Slightly larger */
+    font-weight: 600; /* Bolder */
+    color: #1e293b;
+    margin: 0;
+    letter-spacing: 0.5px;
+}
+
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.current-power-display {
+    display: flex;
+    align-items: center;
+}
+
+.current-power {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1e40af;
+    padding: 6px 12px; /* More padding */
+    background: linear-gradient(135deg, rgba(30, 64, 175, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+    border-radius: 8px;
+    border: 1px solid rgba(30, 64, 175, 0.2);
+    box-shadow: 0 2px 4px rgba(30, 64, 175, 0.1);
+}
+
+/* Enhanced button styles */
+.panel-toggle-button,
+.panel-close-button {
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    border: none;
+    border-radius: 8px;
+    width: 36px; /* Slightly larger */
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: white;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+
+.panel-toggle-button:hover,
+.panel-close-button:hover {
+    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+}
+
+.panel-close-button {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+}
+
+.panel-close-button:hover {
+    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+}
+
+/* Chart Content - maintains fixed size */
+.chart-content-area {
+    width: 100%;
+    height: 100%;
+    background: #F7F7F7;
+    border-radius: 8px;
+    position: relative;
+    overflow: visible;
+    margin-bottom: 20px;
+}
+
+.chart-svg-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: visible;
+}
+
+/* Enhanced Power Analysis Panel Content */
+.power-bars-container {
+    width: 100%;
+    flex: 1;
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    border: none;
+    display: block;
+    overflow: visible;
+}
+
+.d3-chart-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    overflow: visible;
+}
+
+.no-selection-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: #64748b;
+    font-size: 14px;
+    text-align: center;
+    padding: 24px;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border-radius: 8px;
+    margin: 16px;
+}
+
+.no-selection-state::before {
+    content: "📊";
+    font-size: 48px;
+    margin-bottom: 16px;
+    opacity: 0.5;
+}
+
+/* Enhanced Legend */
+.compact-legend {
+    display: flex;
+    justify-content: center;
+    gap: 24px; /* More spacing */
+    padding: 16px 0; /* More padding */
+    border-top: 1px solid #e2e8f0;
+    background: linear-gradient(135deg, rgba(248, 250, 252, 0.95) 0%, rgba(241, 245, 249, 0.95) 100%);
+    border-radius: 6px;
+    backdrop-filter: blur(4px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    flex-shrink: 0;
+    margin-top: auto;
+    min-height: 50px; /* Slightly taller */
+}
+
+.legend-item-compact {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* More spacing */
+    font-size: 12px; /* Slightly larger */
+    color: #475569;
+    font-weight: 500; /* Slightly bolder */
+}
+
+.legend-line {
+    width: 24px; /* Longer lines */
+    height: 3px; /* Thicker lines */
+    border-radius: 2px;
+}
+
+.legend-line.total {
+    background: linear-gradient(90deg, #3b82f6 0%, #1d4ed8 100%);
+}
+
+.legend-line.base {
+    background: transparent;
+    border-top: 3px dotted #6b7280;
+    height: 0px;
+    width: 24px;
+}
+
+.navigation-in-legend {
+    color: #64748b;
+    font-style: italic;
+    margin-left: 24px;
+    border-left: 1px solid #cbd5e1;
+    padding-left: 24px;
+}
+
+.panel-toggle-button.rotated {
+  transform: rotate(180deg);
+}
+
+.panel-toggle-button {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  border: none;
+  border-radius: 8px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: white;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+
+.panel-toggle-button:hover {
+  background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+}
+
+/* When rotated, maintain hover effects but keep rotation */
+.panel-toggle-button.rotated:hover {
+  background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+  transform: rotate(180deg) translateY(-2px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+}
+
+/* Update the chart container to start with panel by default */
+.compact-chart-container {
+  flex: 0 0 calc(100% - 420px); /* Start with panel space reserved */
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+  background: #F7F7F7;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: visible;
+}
+
+/* When panel is hidden, expand chart to full width */
+.compact-chart-container.without-panel {
+  flex: 1;
+}
+
+/* Power analysis component - visible by default */
+.power-analysis-component {
+  width: 400px;
+  height: 347px;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+  padding: 0;
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  overflow: hidden;
+  animation: slideInRight 0.3s ease-out;
+}
+
+/* Hide state for when panel is toggled off */
+.power-analysis-component.hidden {
+  display: none;
+}
+
+/* Enhanced styles for the contribution/resistance labels */
+.power-chart-labels {
+  position: relative;
+}
+
+.contribution-label {
+  color: #10b981;
+  font-weight: 600;
+  font-size: 10px;
+}
+
+.resistance-label {
+  color: #ef4444;
+  font-weight: 600;
+  font-size: 10px;
+}
+
+/* Enhanced Responsive Design */
+@media (max-width: 1200px) {
+    .chart-layout-container {
+        flex-direction: column;
+        gap: 16px;
+    }
+    
+    .compact-chart-container.with-panel {
+        flex: 1;
+    }
+    
+    .power-analysis-component {
+        width: 100%;
+        height: 350px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .chart-layout-container {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .power-analysis-component {
+        width: 100%;
+        height: 320px;
+    }
+}
+
+@media (max-width: 768px) {
+    .chart-layout-container {
+        gap: 8px;
+    }
+    
+    .compact-chart-container {
+        padding: 12px;
+    }
+    
+    .power-analysis-component {
+        padding: 8px;
+        height: 300px;
+    }
+    
+    .compact-legend {
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+    }
+    
+    .navigation-in-legend {
+        margin-left: 0;
+        border-left: none;
+        border-top: 1px solid #cbd5e1;
+        padding-left: 0;
+        padding-top: 8px;
+    }
+}
+
+/* Add these styles to your existing CSS */
+/* Add these styles to your existing CSS */
+
+/* Ship not moving overlay - matches main design */
+.ship-not-moving-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #f8fafc;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+.not-moving-message {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #64748b;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.status-dot {
+    width: 6px;
+    height: 6px;
+    background: #64748b;
+    border-radius: 50%;
+    opacity: 0.7;
+}
+
+/* Ship not moving panel - matches main design */
+.ship-not-moving-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    gap: 8px;
+    color: #64748b;
+    font-weight: 500;
+    font-size: 13px;
+    background: #f8fafc;
+    border-radius: 8px;
+    margin: 16px;
+}
+
+.panel-status-dot {
+    width: 6px;
+    height: 6px;
+    background: #64748b;
+    border-radius: 50%;
+    opacity: 0.7;
+}
+
+/* Remove the chart icon from no-selection state */
+.no-selection-state::before {
+    display: none;
+}

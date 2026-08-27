@@ -1,0 +1,163 @@
+<!-- results-panel.component.html - Improved integrated design -->
+<div class="results-panel">
+  <!-- Integrated Voyage Options Panel - Clean slide-in design -->
+  <div class="voyage-options-integrated-panel"
+       *ngIf="showVoyageOptionsModal && hasResults">
+    <div class="voyage-options-panel-container">
+      <div class="panel-header">
+        <div class="header-content">
+          <h2>
+            <i class="fa fa-list-alt" aria-hidden="true"></i>
+            Select option
+          </h2>
+          <div class="search-info">
+            <span class="results-count">{{ getAvailableOptionsCount() }} available options found</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="panel-content">
+        <div class="content-wrapper">
+          <section class="optimal-voyage-card" aria-labelledby="optimal-voyage-title">
+            <div>
+              <h3 id="optimal-voyage-title">Variable-speed option</h3>
+              <p *ngIf="!isOptimalLoading && !optimalVoyageOption">Preparing segment-specific speeds.</p>
+              <p *ngIf="isOptimalLoading">Calculating segment-specific speeds in the background.</p>
+              <p *ngIf="optimalVoyageOption">Segment-specific speeds are ready for the selected route option.</p>
+            </div>
+            <button type="button" class="optimal-voyage-button"
+                    (click)="calculateOptimalVoyage()"
+                    [disabled]="isOptimalLoading">
+              <span *ngIf="!isOptimalLoading">Recalculate</span>
+              <span *ngIf="isOptimalLoading">Calculating...</span>
+            </button>
+            <div class="optimal-voyage-result" *ngIf="optimalVoyageOption as option">
+              <span>{{ option.averageSpeed | number:'1.1-1' }} kn</span>
+              <span>{{ getConsumptionValue(option) | eaEnergyValue: '1.2-2' : 'MWh' : 'kWh' }}</span>
+              <button type="button" class="optimal-voyage-select" (click)="selectOptimalVoyage()">
+                View details
+              </button>
+            </div>
+            <p class="optimal-voyage-error" *ngIf="optimalError">{{ optimalError }}</p>
+          </section>
+          <app-voyage-options-table
+            [voyageOptions]="voyageOptions"
+            [etdTimes]="etdTimes"
+            [etaTimes]="etaTimes"
+            [selectedVoyageOption]="selectedVoyageOption"
+            [validationMessage]="validationMessage"
+            (voyageOptionSelected)="onVoyageOptionSelectedFromModal($event)">
+          </app-voyage-options-table>
+        </div>
+        
+        <div class="panel-footer">
+          <div class="footer-info">
+            <span class="selection-hint">
+              <i class="fa fa-mouse-pointer" aria-hidden="true"></i>
+              Click on any option to view detailed analysis
+            </span>
+          </div>
+       
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+  <div class="results-main-view" *ngIf="!showVoyageOptionsModal && hasResults">
+    <!-- Header with navigation controls -->
+    <div class="results-header">
+      <button class="back-to-options-btn" (click)="showVoyageOptionsModal = true">
+        <span class="back-icon">←</span>
+        Back to voyage options
+      </button>
+      
+      <!-- Navigation Controls -->
+      <div class="navigation-controls" *ngIf="!isSelectedOptionVariableSpeed(); else variableSpeedHeader">
+        <button class="nav-arrow-btn" 
+                (click)="navigateToPreviousOption()"
+                [disabled]="!canNavigateToPrevious()"
+                title="Previous Option (Left Arrow)">
+          <span class="nav-icon">‹</span>
+        </button>
+        
+        <div class="selected-option-indicator">
+          <span class="indicator-label">Selected:</span>
+          <span class="option-summary">
+            Option #{{ getCurrentAvailableOptionPosition() }} of {{ getAvailableOptionsCount() }} - {{ durationText }}
+          </span>
+        </div>
+        
+        <button class="nav-arrow-btn" 
+                (click)="navigateToNextOption()"
+                [disabled]="!canNavigateToNext()"
+                title="Next Option (Right Arrow)">
+          <span class="nav-icon">›</span>
+        </button>
+      </div>
+
+      <ng-template #variableSpeedHeader>
+        <div class="navigation-controls">
+          <div class="selected-option-indicator">
+            <span class="indicator-label">Selected:</span>
+            <span class="option-summary">
+              Variable-speed option - {{ durationText }}
+            </span>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+ 
+    <!-- Content Layout: Power Chart on top, Map + Details below -->
+    <!-- <div class="results-content"> -->
+      <!-- Power Chart Section (Full Width on Top) -->
+      <div class="power-chart-section">
+        <div class="power-chart-wrapper">
+          <!-- Power Chart -->
+          <div class="results-card power-chart-card">
+            <app-voyage-power-chart
+              [selectedVoyageOption]="selectedVoyageOption"
+              (segmentSelected)="onSegmentSelected($event)">
+            </app-voyage-power-chart>
+          </div>
+                     
+          <!-- Compass/Segment Details -->
+          <div class="results-card compass-card">
+            <app-segment-details
+              [selectedSegment]="selectedSegment"
+              [selectedSegmentIndex]="getSelectedSegmentIndex()">
+            </app-segment-details>
+          </div>
+        </div>
+      </div>
+       
+      <!-- Map and Details Section (Side by Side) -->
+      <div class="map-details-section">
+        <!-- Map Container -->
+        <div class="map-container">
+          <app-voyage-route-analysis
+            [selectedVoyageOption]="selectedVoyageOption"
+            (closeRequested)="onMapCloseRequested()">
+          </app-voyage-route-analysis>
+        </div>
+         
+        <!-- Voyage Details Panel -->
+        <div class="voyage-details-panel">
+          <app-voyage-details
+            [selectedVoyageOption]="selectedVoyageOption"
+            [selectedVoyageOptionIndex]="getSelectedVoyageOptionIndex()"
+            [selectedSegment]="selectedSegment"
+            [isVariableSpeedOption]="isSelectedOptionVariableSpeed()"
+            [durationText]="durationText">
+          </app-voyage-details>
+        </div>
+      </div>
+    </div>
+  <!-- </div> -->
+ 
+  <!-- No Results State -->
+  <div class="no-results-overlay" *ngIf="!hasResults && originalRequestData">
+    <app-no-results
+      [originalRequestData]="originalRequestData">
+    </app-no-results>
+  </div>
+</div>

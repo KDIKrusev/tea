@@ -1,0 +1,231 @@
+/* select-input.component.css - Cleaned and optimized with tablet responsiveness */
+
+.select-input {
+  margin-bottom: 20px;
+}
+
+.select-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.select-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.select-field {
+  width: 100%;
+  padding: 10px 40px 10px 14px;
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #333;
+  appearance: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.select-field:hover {
+  border-color: #c0c0c0;
+}
+
+.select-field:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.select-field:disabled {
+  background-color: #f5f5f5;
+  color: #999;
+  cursor: not-allowed;
+  border-color: #ddd;
+}
+
+.select-field option {
+  padding: 8px;
+  background-color: #fff;
+  color: #333;
+}
+
+.select-arrow {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  border-style: solid;
+  border-width: 5px 5px 0 5px;
+  border-color: #555 transparent transparent transparent;
+  transition: border-color 0.2s ease;
+}
+
+.select-field:disabled + .select-arrow {
+  border-color: #999 transparent transparent transparent;
+}
+
+/* Dark theme support */
+:host-context(.dark-theme) .select-label {
+  color: #e0e0e0;
+}
+
+:host-context(.dark-theme) .select-field {
+  background-color: #2d3035;
+  border-color: #444;
+  color: #e0e0e0;
+}
+
+:host-context(.dark-theme) .select-field:hover {
+  border-color: #555;
+}
+
+:host-context(.dark-theme) .select-field:focus {
+  border-color: #40a9ff;
+  box-shadow: 0 0 0 2px rgba(64, 169, 255, 0.25);
+}
+
+:host-context(.dark-theme) .select-field:disabled {
+  background-color: #1a1d23;
+  color: #666;
+  border-color: #333;
+}
+
+:host-context(.dark-theme) .select-field option {
+  background-color: #2d3035;
+  color: #e0e0e0;
+}
+
+:host-context(.dark-theme) .select-arrow {
+  border-color: #e0e0e0 transparent transparent transparent;
+}
+
+:host-context(.dark-theme) .select-field:disabled + .select-arrow {
+  border-color: #666 transparent transparent transparent;
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .select-field {
+    border-width: 2px;
+  }
+  
+  .select-field:focus {
+    border-color: #000;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* Responsive Design - Enhanced for tablets */
+
+/* Tablet Landscape - iPad Mini and similar (1024x768) */
+@media (max-width: 1024px) and (orientation: landscape) {
+  .select-input {
+    margin-bottom: 12px; /* Reduce spacing between select inputs */
+  }
+  
+  .select-label {
+    font-size: 12px;
+    margin-bottom: 6px;
+  }
+  
+  .select-field {
+    padding: 8px 35px 8px 12px; /* Reduce padding */
+    font-size: 13px;
+    border-radius: 3px;
+  }
+  
+  .select-arrow {
+    right: 12px;
+    border-width: 4px 4px 0 4px; /* Smaller arrow */
+  }
+  
+  .select-field option {
+    padding: 6px;
+  }
+}
+
+/* Additional breakpoint for iPad Mini specifically */
+@media (max-width: 1024px) and (max-height: 768px) {
+  .select-input {
+    margin-bottom: 8px; /* Even more compact spacing */
+  }
+  
+  .select-label {
+    font-size: 11px;
+    margin-bottom: 4px;
+  }
+  
+  .select-field {
+    padding: 6px 30px 6px 10px; /* Very compact padding */
+    font-size: 12px;
+    border-radius: 3px;
+  }
+  
+  .select-arrow {
+    right: 10px;
+    border-width: 3px 3px 0 3px; /* Even smaller arrow */
+  }
+  
+  .select-field option {
+    padding: 4px;
+  }
+}
+
+/* Small tablets in specific range */
+@media (max-width: 992px) and (min-width: 769px) {
+  .select-input {
+    margin-bottom: 10px;
+  }
+  
+  .select-label {
+    font-size: 11px;
+    margin-bottom: 5px;
+  }
+  
+  .select-field {
+    padding: 7px 32px 7px 11px;
+    font-size: 12px;
+  }
+  
+  .select-arrow {
+    right: 11px;
+    border-width: 3px 3px 0 3px;
+  }
+}
+
+/* Standard tablet and mobile */
+@media (max-width: 768px) {
+  .select-input {
+    margin-bottom: 15px;
+  }
+  
+  .select-label {
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+  
+  .select-field {
+    padding: 10px 40px 10px 14px;
+    font-size: 14px;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 480px) {
+  .select-field {
+    padding: 12px 40px 12px 14px;
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+  
+  .select-label {
+    font-size: 15px;
+  }
+}

@@ -1,0 +1,297 @@
+/* calendar.component.css - Cleaned and optimized with tablet responsiveness */
+
+.calendar-picker {
+  width: 320px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.calendar-content {
+  padding: 12px 16px;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.calendar-month {
+  font-size: 15px;
+  font-weight: 500;
+  color: #333;
+}
+
+.calendar-nav {
+  display: flex;
+  align-items: center;
+}
+
+.nav-btn {
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #333;
+  border-radius: 4px;
+}
+
+.nav-btn:hover {
+  background-color: #f0f0f0;
+}
+
+.nav-btn-today {
+  margin: 0 4px;
+  width: auto;
+  padding: 0 8px;
+  font-size: 13px;
+}
+
+.calendar-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 8px;
+}
+
+.calendar-weekday {
+  text-align: center;
+  font-size: 12px;
+  color: #666;
+  padding: 6px 0;
+  font-weight: 500;
+}
+
+.calendar-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+
+.calendar-day {
+  width: 100%;
+  aspect-ratio: 1/1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  color: #333;
+  cursor: pointer;
+  border-radius: 4px;
+  position: relative;
+}
+
+.calendar-day:hover:not(.calendar-day-selected) {
+  background-color: #f0f0f0;
+}
+
+.calendar-day-other {
+  color: #ccc;
+}
+
+.calendar-day-today {
+  color: #1976d2;
+  font-weight: 500;
+}
+
+.calendar-day-today::after {
+  content: '';
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background-color: #1976d2;
+  border-radius: 50%;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.calendar-day-selected {
+  background-color: #1976d2;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.calendar-day-selected:hover {
+  background-color: #1565c0; /* Slightly darker blue on hover */
+}
+
+.calendar-footer {
+  border-top: 1px solid #eaeaea;
+  padding: 12px 16px;
+  background-color: #f9f9f9;
+}
+
+.calendar-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.btn {
+  padding: 6px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-cancel {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.btn-apply {
+  background-color: #1976d2;
+  color: #fff;
+}
+
+/* Responsive Design - Enhanced for tablets */
+
+/* Tablet Landscape - iPad Mini and similar (1024x768) */
+@media (max-width: 1024px) and (orientation: landscape) {
+  .calendar-picker {
+    width: 280px; /* Reduce width for tablet */
+  }
+  
+  .calendar-content {
+    padding: 10px 12px;
+  }
+  
+  .calendar-header {
+    margin-bottom: 12px;
+  }
+  
+  .calendar-month {
+    font-size: 14px;
+  }
+  
+  .nav-btn {
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+  }
+  
+  .nav-btn-today {
+    padding: 0 6px;
+    font-size: 11px;
+  }
+  
+  .calendar-weekday {
+    font-size: 11px;
+    padding: 4px 0;
+  }
+  
+  .calendar-day {
+    font-size: 12px;
+  }
+  
+  .calendar-footer {
+    padding: 10px 12px;
+  }
+  
+  .btn {
+    padding: 5px 12px;
+    font-size: 12px;
+  }
+}
+
+/* Additional breakpoint for iPad Mini specifically */
+@media (max-width: 1024px) and (max-height: 768px) {
+  .calendar-picker {
+    width: 260px; /* Even smaller for iPad Mini */
+  }
+  
+  .calendar-content {
+    padding: 8px 10px;
+  }
+  
+  .calendar-header {
+    margin-bottom: 10px;
+  }
+  
+  .calendar-month {
+    font-size: 13px;
+  }
+  
+  .nav-btn {
+    width: 22px;
+    height: 22px;
+    font-size: 11px;
+  }
+  
+  .nav-btn-today {
+    padding: 0 5px;
+    font-size: 10px;
+  }
+  
+  .calendar-weekday {
+    font-size: 10px;
+    padding: 3px 0;
+  }
+  
+  .calendar-day {
+    font-size: 11px;
+  }
+  
+  .calendar-footer {
+    padding: 8px 10px;
+  }
+  
+  .btn {
+    padding: 4px 10px;
+    font-size: 11px;
+  }
+  
+  .calendar-days {
+    gap: 1px; /* Reduce gap between days */
+  }
+}
+
+/* Standard tablet and mobile */
+@media (max-width: 768px) {
+  .calendar-picker {
+    width: 300px;
+  }
+}
+
+/* Dark theme support */
+:host-context(.dark-theme) .calendar-picker {
+  background-color: #2d3035;
+}
+
+:host-context(.dark-theme) .calendar-footer {
+  background-color: #2d3035;
+  border-color: #444;
+}
+
+:host-context(.dark-theme) .calendar-month,
+:host-context(.dark-theme) .calendar-day,
+:host-context(.dark-theme) .nav-btn {
+  color: #e0e0e0;
+}
+
+:host-context(.dark-theme) .calendar-day-other {
+  color: #666;
+}
+
+:host-context(.dark-theme) .calendar-day:hover:not(.calendar-day-selected),
+:host-context(.dark-theme) .nav-btn:hover {
+  background-color: #3a3f48;
+}
+
+:host-context(.dark-theme) .calendar-day-selected:hover {
+  background-color: #1e3a5f; /* Darker blue for dark theme hover */
+}
+
+:host-context(.dark-theme) .btn-cancel {
+  background-color: #444;
+  color: #e0e0e0;
+}

@@ -1,0 +1,16 @@
+<div class="ea-vec-input-field">
+  <div *ngIf="loading" class="ea-vec-loading">
+    <span class="ea-vec-loading-text">Loading vessels...</span>
+  </div>
+
+  <div *ngIf="error" class="ea-vec-error-message">
+    {{ error }}
+  </div>
+
+  <app-select-input
+    [options]="vessels"
+    [(selected)]="selectedVessel"
+    [label]="'Vessel'"
+    (selectedChange)="onSelectedVesselChanged($event)">
+  </app-select-input>
+</div>

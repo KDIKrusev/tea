@@ -1,0 +1,1196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<route xmlns="http://www.cirm.org/RTZ/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.1" xmlns:stm="http://stmvalidation.eu/STM/1/0/0" xsi:schemaLocation="http://stmvalidation.eu/STM/1/0/0 stm_extensions.xsd">
+    <routeInfo routeName="Pori - Gothenburg(Flint)1" routeStatus="SafetyChecked" vesselName="TERN ISLAND" vesselMMSI="219029722" vesselIMO="9909649" vesselVoyage="urn:mrn:stm:voyage:id:transas:24033_1da871aa-75d7-4fa8-ab1d-4638573b0ff4">
+        <extensions>
+            <extension manufacturer="Furuno" name="AdditionalRouteInfo" version="1.0">
+                <property income="0" channelLimitMode="0" safetyContour="30" ukcLimit="30.000000"/>
+            </extension>
+            <extension xsi:type="stm:RouteInfoExtension" name="routeInfoEx" manufacturer="STM" version="1.0.0" routeStatusEnum="5" routeVersion="0F2BBF2C-34A5-4C45-97A4-0CD3A7187FF0" depPort="FIPOR" arrPort="SEGOT" startSeaPassage="LOC:WP73" endSeaPassage="PILOT_BOARDING_AREA:WP61">
+                <stm:routeChanges>
+                    <stm:historyItem author="NS" reason="creation" dateTime="2019-02-27T12:05:24Z"/>
+                    <stm:historyItem author="NS" reason="correction" dateTime="2024-11-01T13:24:33Z"/>
+                    <stm:historyItem author="NS" reason="correction" dateTime="2024-11-03T13:07:22Z"/>
+                    <stm:historyItem author="NS" reason="correction" dateTime="2024-11-08T11:21:02Z"/>
+                    <stm:historyItem author="NS" reason="correction" dateTime="2024-11-08T11:21:47Z"/>
+                    <stm:historyItem author="NS" reason="correction" dateTime="2024-11-08T11:33:48Z"/>
+                    <stm:historyItem author="NS" reason="correction" dateTime="2024-11-08T11:42:06Z"/>
+                    <stm:historyItem author="NS" reason="correction" dateTime="2024-11-08T11:42:49Z"/>
+                    <stm:historyItem author="NS" reason="correction" dateTime="2024-11-08T15:08:55Z"/>
+                    <stm:historyItem author="NS" reason="correction" dateTime="2024-11-08T15:08:58Z"/>
+                </stm:routeChanges>
+            </extension>
+            <extension name="routeInfoTrs" manufacturer="Transas" version="1.0.0" routeId="urn:mrn:transas:route:id:7f5cca6e-4261-463b-890d-fb2276916d32" routeStatusEx="1" totalLength="716.032"/>
+        </extensions>
+    </routeInfo>
+    <waypoints>
+        <defaultWaypoint radius="0.30">
+            <leg portsideXTD="0.02" starboardXTD="0.06" safetyContour="10.00" safetyDepth="10.00" draughtForward="6.50" draughtAft="6.50" staticUKC="0.00" dynamicUKC="5.50" geometryType="Loxodrome"/>
+            <extensions>
+                <extension value="Manual" name="auto_routing" manufacturer="Transas" version="1.0.0"/>
+            </extensions>
+        </defaultWaypoint>
+        <waypoint id="74" name="Pori Terminal">
+            <position lat="61.64081428" lon="21.40567228"/>
+            <leg/>
+        </waypoint>
+        <waypoint id="77" name="Kissahauta 3 beacon" radius="0.10">
+            <position lat="61.64282989" lon="21.40097721"/>
+            <leg portsideXTD="0.03" starboardXTD="0.03" draughtForward="7.20" draughtAft="7.20" dynamicUKC="5.88"/>
+        </waypoint>
+        <waypoint id="78" name="Kummelikari E 11 buoy">
+            <position lat="61.64429887" lon="21.38880925"/>
+            <leg starboardXTD="0.04" draughtForward="7.27" draughtAft="7.27" dynamicUKC="10.38"/>
+        </waypoint>
+        <waypoint id="79" name="Kumpeli">
+            <position lat="61.63716823" lon="21.35145410"/>
+            <leg starboardXTD="0.05" draughtForward="7.35" draughtAft="7.35" dynamicUKC="6.50"/>
+        </waypoint>
+        <waypoint id="81" name="Bn Kupeli">
+            <position lat="61.63013333" lon="21.33243333"/>
+            <leg portsideXTD="0.03" starboardXTD="0.04" draughtForward="7.35" draughtAft="7.35" dynamicUKC="2.90"/>
+        </waypoint>
+        <waypoint id="80" name="Pori Pilot North Station">
+            <position lat="61.61416158" lon="21.28933972"/>
+            <leg portsideXTD="0.15" starboardXTD="0.24" draughtForward="7.35" draughtAft="7.35" dynamicUKC="17.10"/>
+        </waypoint>
+        <waypoint id="82" name="W by Lindgrenin matala" radius="0.50">
+            <position lat="61.41779899" lon="20.84800640"/>
+            <leg portsideXTD="1.75" starboardXTD="2.09" safetyDepth="12.00" draughtForward="7.35" draughtAft="7.35" dynamicUKC="19.10"/>
+        </waypoint>
+        <waypoint id="90" name="Entering TSS" radius="0.50">
+            <position lat="60.52091108" lon="18.96044375"/>
+            <leg portsideXTD="2.22" starboardXTD="2.38" safetyDepth="12.00" draughtForward="7.29" draughtAft="7.29" dynamicUKC="17.16"/>
+        </waypoint>
+        <waypoint id="91" name="E Sodra Kvarken" radius="0.50">
+            <position lat="60.42580000" lon="18.97928333"/>
+            <leg portsideXTD="0.78" starboardXTD="0.54" safetyDepth="12.00" draughtForward="7.29" draughtAft="7.29" dynamicUKC="16.66"/>
+        </waypoint>
+        <waypoint id="92" name="Oldbergsrund" radius="0.50">
+            <position lat="60.31227610" lon="18.99990306"/>
+            <leg portsideXTD="0.47" starboardXTD="0.25" safetyDepth="12.00" draughtForward="7.29" draughtAft="7.29" dynamicUKC="5.96"/>
+        </waypoint>
+        <waypoint id="93" name="Leaving TSS" radius="0.50">
+            <position lat="60.25410684" lon="18.99957286"/>
+            <leg portsideXTD="0.37" starboardXTD="0.36" safetyDepth="12.00" draughtForward="7.29" draughtAft="7.29" dynamicUKC="13.66"/>
+        </waypoint>
+        <waypoint id="94" name="E Svartklubben" radius="0.50">
+            <position lat="60.18333333" lon="19.00000000"/>
+            <leg portsideXTD="1.07" starboardXTD="0.84" safetyDepth="12.00" draughtForward="7.29" draughtAft="7.29" dynamicUKC="221.16"/>
+        </waypoint>
+        <waypoint id="95" name="SE Solovjeva" radius="0.50">
+            <position lat="60.14950725" lon="19.05804917"/>
+            <leg portsideXTD="0.69" starboardXTD="0.71" safetyDepth="12.00" draughtForward="7.29" draughtAft="7.29" dynamicUKC="195.16"/>
+        </waypoint>
+        <waypoint id="98" name="Entering TSS" radius="0.50">
+            <position lat="59.77486054" lon="19.66300055"/>
+            <leg portsideXTD="2.79" starboardXTD="2.20" safetyDepth="12.00" draughtForward="7.29" draughtAft="7.29" dynamicUKC="21.16"/>
+        </waypoint>
+        <waypoint id="100" name="Troskeln Ostra" radius="0.50">
+            <position lat="59.66710834" lon="19.86825912"/>
+            <leg portsideXTD="0.80" starboardXTD="0.38" safetyDepth="12.00" draughtForward="7.29" draughtAft="7.29" dynamicUKC="14.06"/>
+        </waypoint>
+        <waypoint id="101" name="NE Svenska Bjorn" radius="0.50">
+            <position lat="59.58210357" lon="19.97381893"/>
+            <leg portsideXTD="0.44" starboardXTD="0.31" safetyDepth="12.00" draughtForward="7.29" draughtAft="7.29" dynamicUKC="12.66"/>
+        </waypoint>
+        <waypoint id="102" name="Leaving TSS" radius="0.50">
+            <position lat="59.49309505" lon="19.92726610"/>
+            <leg portsideXTD="0.80" starboardXTD="0.39" safetyDepth="12.00" draughtForward="7.29" draughtAft="7.29" dynamicUKC="3.96"/>
+        </waypoint>
+        <waypoint id="105" name="E Knolls Grund" radius="0.50">
+            <position lat="57.51563370" lon="17.72472880"/>
+            <leg portsideXTD="2.32" starboardXTD="2.76" safetyDepth="16.00" draughtForward="7.29" draughtAft="7.29" dynamicUKC="4.16"/>
+        </waypoint>
+        <waypoint id="106" name="W Gotland" radius="0.50">
+            <position lat="57.44969267" lon="17.66241098"/>
+            <leg portsideXTD="1.23" starboardXTD="1.38" safetyDepth="12.00" draughtForward="7.29" draughtAft="7.29" dynamicUKC="79.16"/>
+        </waypoint>
+        <waypoint id="108" name="NE Oland Sodra" radius="0.50">
+            <position lat="56.15297766" lon="16.75678880"/>
+            <leg portsideXTD="2.14" starboardXTD="1.73" safetyDepth="12.00" draughtForward="7.29" draughtAft="7.29" dynamicUKC="16.16"/>
+        </waypoint>
+        <waypoint id="109" name="Leaving TSS" radius="0.50">
+            <position lat="56.05558083" lon="16.50683042"/>
+            <leg portsideXTD="1.38" starboardXTD="1.32" safetyDepth="12.00" draughtForward="7.29" draughtAft="7.29" dynamicUKC="28.16"/>
+        </waypoint>
+        <waypoint id="163" name="Obs Malestation" radius="0.50">
+            <position lat="55.60204684" lon="15.14325495"/>
+            <leg portsideXTD="2.10" starboardXTD="1.55" safetyDepth="16.00" draughtForward="7.29" draughtAft="7.29" dynamicUKC="26.16"/>
+        </waypoint>
+        <waypoint id="110" name="Langagrund" radius="0.50">
+            <position lat="55.44919000" lon="14.59060609"/>
+            <leg portsideXTD="1.38" starboardXTD="1.11" safetyDepth="16.00" draughtForward="7.29" draughtAft="7.29" dynamicUKC="29.16"/>
+        </waypoint>
+        <waypoint id="111" name="Svartgrund" radius="0.50">
+            <position lat="55.22138333" lon="14.27671667"/>
+            <leg portsideXTD="1.20" starboardXTD="0.80" safetyDepth="12.00" draughtForward="7.29" draughtAft="7.29" dynamicUKC="27.16"/>
+        </waypoint>
+        <waypoint id="112" name="S Kasaberga" radius="0.50">
+            <position lat="55.22773333" lon="13.98438739"/>
+            <leg portsideXTD="1.60" starboardXTD="0.72" safetyDepth="12.00" draughtForward="7.29" draughtAft="7.29" dynamicUKC="27.16"/>
+        </waypoint>
+        <waypoint id="113" name="Enter Sound VTS Sector 2 (CH71)" radius="0.50">
+            <position lat="55.26012427" lon="12.96358335"/>
+            <leg portsideXTD="1.60" starboardXTD="2.13" safetyDepth="12.00" draughtForward="6.59" draughtAft="6.59" dynamicUKC="15.86"/>
+        </waypoint>
+        <waypoint id="114" name="M 43 buoy" radius="0.50">
+            <position lat="55.26253982" lon="12.87731315"/>
+            <leg portsideXTD="0.29" starboardXTD="0.59" draughtForward="6.59" draughtAft="6.59" dynamicUKC="3.06"/>
+        </waypoint>
+        <waypoint id="115" name="Sandflyttan" radius="0.50">
+            <position lat="55.29831483" lon="12.71125250"/>
+            <leg portsideXTD="0.28" starboardXTD="0.50" draughtForward="6.59" draughtAft="6.59" dynamicUKC="3.96"/>
+        </waypoint>
+        <waypoint id="116" name="Falseterborev light" radius="0.50">
+            <position lat="55.30684705" lon="12.67299527"/>
+            <leg portsideXTD="0.29" starboardXTD="0.17" draughtForward="6.59" draughtAft="6.59" dynamicUKC="2.46"/>
+        </waypoint>
+        <waypoint id="117" name="N Falseterborev light" radius="0.50">
+            <position lat="55.33319979" lon="12.65894628"/>
+            <leg portsideXTD="0.27" starboardXTD="0.14" draughtForward="6.59" draughtAft="6.59" dynamicUKC="3.86"/>
+        </waypoint>
+        <waypoint id="118" name="E M 41 buoy" radius="0.50">
+            <position lat="55.41441182" lon="12.69516210"/>
+            <leg portsideXTD="0.28" starboardXTD="0.34" draughtForward="6.59" draughtAft="6.59" dynamicUKC="2.06"/>
+        </waypoint>
+        <waypoint id="119" name="NW Bredgrund light" radius="0.50">
+            <position lat="55.49859282" lon="12.71145808"/>
+            <leg portsideXTD="0.28" starboardXTD="0.29" draughtForward="6.59" draughtAft="6.59" dynamicUKC="1.66"/>
+        </waypoint>
+        <waypoint id="120" name="SW Flintrannan bn" radius="0.50">
+            <position lat="55.51458944" lon="12.73677976"/>
+            <leg portsideXTD="0.10" starboardXTD="0.05" draughtForward="6.53" draughtAft="6.53" dynamicUKC="0.81"/>
+        </waypoint>
+        <waypoint id="121" name="NE Flintrannan no" radius="0.50">
+            <position lat="55.61890457" lon="12.89472421"/>
+            <leg portsideXTD="0.07" starboardXTD="0.03" draughtForward="6.53" draughtAft="6.53" dynamicUKC="0.81"/>
+        </waypoint>
+        <waypoint id="123" name="E Malmo Redd buoy" radius="0.50">
+            <position lat="55.63957059" lon="12.96335059"/>
+            <leg portsideXTD="0.26" starboardXTD="0.24" draughtForward="6.59" draughtAft="6.59" dynamicUKC="3.56"/>
+        </waypoint>
+        <waypoint id="125" name="NW Malmo Pilot Stn" radius="0.50">
+            <position lat="55.71584832" lon="12.88280418"/>
+            <leg portsideXTD="0.23" starboardXTD="0.33" draughtForward="6.59" draughtAft="6.59" dynamicUKC="2.86"/>
+        </waypoint>
+        <waypoint id="126" name="E Valgrundet" radius="0.50">
+            <position lat="55.82046420" lon="12.76400556"/>
+            <leg portsideXTD="0.58" starboardXTD="0.23" draughtForward="6.59" draughtAft="6.59" dynamicUKC="2.66"/>
+        </waypoint>
+        <waypoint id="127" name="Vasterflacket" radius="0.50">
+            <position lat="55.84800250" lon="12.75193743"/>
+            <leg portsideXTD="0.41" starboardXTD="0.21" draughtForward="6.59" draughtAft="6.59" dynamicUKC="13.56"/>
+        </waypoint>
+        <waypoint id="128" name="SE Ven Island" radius="0.50">
+            <position lat="55.88130277" lon="12.73890578"/>
+            <leg portsideXTD="0.23" starboardXTD="0.14" draughtForward="6.59" draughtAft="6.59" dynamicUKC="7.56"/>
+        </waypoint>
+        <waypoint id="129" name="E Ven Island" radius="0.50">
+            <position lat="55.91146405" lon="12.75248842"/>
+            <leg portsideXTD="0.25" starboardXTD="0.30" draughtForward="6.59" draughtAft="6.59" dynamicUKC="14.56"/>
+        </waypoint>
+        <waypoint id="131" name="M7 buoy" radius="0.50">
+            <position lat="55.98074515" lon="12.69317117"/>
+            <leg portsideXTD="0.59" starboardXTD="0.63" draughtForward="6.59" draughtAft="6.59" dynamicUKC="6.16"/>
+        </waypoint>
+        <waypoint id="132" name="M5 buoy" radius="0.50">
+            <position lat="56.01988333" lon="12.67318333"/>
+            <leg portsideXTD="0.14" starboardXTD="0.37" draughtForward="6.59" draughtAft="6.59" dynamicUKC="17.56"/>
+        </waypoint>
+        <waypoint id="133" name="M4 buoy" radius="0.50">
+            <position lat="56.05473292" lon="12.65537957"/>
+            <leg portsideXTD="0.12" starboardXTD="0.31" draughtForward="6.59" draughtAft="6.59" dynamicUKC="7.76"/>
+        </waypoint>
+        <waypoint id="134" name="M2 buoy" radius="0.50">
+            <position lat="56.10186667" lon="12.57338333"/>
+            <leg portsideXTD="0.11" starboardXTD="0.25" draughtForward="6.59" draughtAft="6.59" dynamicUKC="9.06"/>
+        </waypoint>
+        <waypoint id="135" name="M1 buoy" radius="0.50">
+            <position lat="56.12780000" lon="12.52820000"/>
+            <leg portsideXTD="0.19" starboardXTD="0.28" draughtForward="6.59" draughtAft="6.59" dynamicUKC="18.56"/>
+        </waypoint>
+        <waypoint id="136" name="W Synbadan Lt" radius="0.50">
+            <position lat="56.15706980" lon="12.47244609"/>
+            <leg portsideXTD="0.37" starboardXTD="0.57" draughtForward="6.59" draughtAft="6.59" dynamicUKC="10.66"/>
+        </waypoint>
+        <waypoint id="137" name="SW Oresunds N" radius="0.50">
+            <position lat="56.17894430" lon="12.44292781"/>
+            <leg portsideXTD="0.38" starboardXTD="0.40" draughtForward="6.59" draughtAft="6.59" dynamicUKC="10.06"/>
+        </waypoint>
+        <waypoint id="138" name="Leaving Sound VTS Area" radius="0.50">
+            <position lat="56.30113635" lon="12.38692044"/>
+            <leg portsideXTD="0.69" starboardXTD="0.43" draughtForward="6.59" draughtAft="6.59" dynamicUKC="8.56"/>
+        </waypoint>
+        <waypoint id="140" name="TSS Lilla Middelgrund" radius="0.50">
+            <position lat="56.91103202" lon="12.11471802"/>
+            <leg portsideXTD="1.01" starboardXTD="2.14" safetyDepth="12.00" draughtForward="6.59" draughtAft="6.59" dynamicUKC="12.36"/>
+        </waypoint>
+        <waypoint id="141" name="Out TSS" radius="0.50">
+            <position lat="56.95470000" lon="12.08605000"/>
+            <leg portsideXTD="0.59" starboardXTD="0.59" safetyDepth="12.00" draughtForward="6.59" draughtAft="6.59" dynamicUKC="9.16"/>
+        </waypoint>
+        <waypoint id="142" name="TSS Fladen" radius="0.50">
+            <position lat="57.20302964" lon="11.92531202"/>
+            <leg portsideXTD="0.53" starboardXTD="1.78" safetyDepth="12.00" draughtForward="6.59" draughtAft="6.59" dynamicUKC="9.96"/>
+        </waypoint>
+        <waypoint id="143" name="Fladen Lt" radius="0.50">
+            <position lat="57.23656634" lon="11.89309979"/>
+            <leg portsideXTD="0.37" starboardXTD="0.34" safetyDepth="12.00" draughtForward="6.59" draughtAft="6.59" dynamicUKC="25.86"/>
+        </waypoint>
+        <waypoint id="144" name="SW Nidingen" radius="0.50">
+            <position lat="57.26092376" lon="11.85540939"/>
+            <leg portsideXTD="0.52" starboardXTD="0.39" safetyDepth="12.00" draughtForward="6.59" draughtAft="6.59" dynamicUKC="25.86"/>
+        </waypoint>
+        <waypoint id="146" name="W Hallands Svarskar" radius="0.50">
+            <position lat="57.36203333" lon="11.72191667"/>
+            <leg portsideXTD="1.97" starboardXTD="1.03" safetyDepth="12.00" draughtForward="6.59" draughtAft="6.59" dynamicUKC="5.96"/>
+        </waypoint>
+        <waypoint id="147" name="Vanguards grund" radius="0.50">
+            <position lat="57.53216989" lon="11.62901733"/>
+            <leg portsideXTD="1.77" starboardXTD="0.95" safetyDepth="12.00" draughtForward="6.59" draughtAft="6.59" dynamicUKC="12.86"/>
+        </waypoint>
+        <waypoint id="149" name="Pilot Boarding 1" radius="0.50">
+            <position lat="57.57500212" lon="11.64665295"/>
+            <leg portsideXTD="1.03" starboardXTD="0.35" draughtForward="6.59" draughtAft="6.59" dynamicUKC="21.86"/>
+        </waypoint>
+        <waypoint id="150" name="Sankberget" radius="1.00">
+            <position lat="57.60521700" lon="11.66385490"/>
+            <leg portsideXTD="0.66" starboardXTD="0.29" draughtForward="6.59" draughtAft="6.59" dynamicUKC="13.36"/>
+        </waypoint>
+        <waypoint id="151" name="Uppgrund" radius="1.00">
+            <position lat="57.63064897" lon="11.69343197"/>
+            <leg portsideXTD="0.36" starboardXTD="0.12" draughtForward="6.54" draughtAft="6.54" dynamicUKC="14.61"/>
+        </waypoint>
+        <waypoint id="152" name="Botto Vastra" radius="0.75">
+            <position lat="57.64846208" lon="11.70552323"/>
+            <leg portsideXTD="0.20" starboardXTD="0.04" draughtForward="6.54" draughtAft="6.54" dynamicUKC="10.51"/>
+        </waypoint>
+        <waypoint id="153" name="Brandnas" radius="0.75">
+            <position lat="57.65411460" lon="11.73797093"/>
+            <leg portsideXTD="0.09" starboardXTD="0.03" draughtForward="6.56" draughtAft="6.56" dynamicUKC="6.79"/>
+        </waypoint>
+        <waypoint id="154" name="Gaveskar" radius="0.75">
+            <position lat="57.65927118" lon="11.77147660"/>
+            <leg portsideXTD="0.09" starboardXTD="0.03" draughtForward="6.56" draughtAft="6.56" dynamicUKC="6.79"/>
+        </waypoint>
+        <waypoint id="155" name="Knippelholmen" radius="0.75">
+            <position lat="57.67871892" lon="11.81044767"/>
+            <leg portsideXTD="0.07" starboardXTD="0.04" draughtForward="6.56" draughtAft="6.56" dynamicUKC="6.29"/>
+        </waypoint>
+        <waypoint id="156" name="Alvsborg" radius="0.50">
+            <position lat="57.68231782" lon="11.84212450"/>
+            <leg portsideXTD="0.13" starboardXTD="0.05" draughtForward="6.56" draughtAft="6.56" dynamicUKC="6.29"/>
+        </waypoint>
+        <waypoint id="157" name="Tangudden" radius="0.50">
+            <position lat="57.68578157" lon="11.86466257"/>
+            <leg portsideXTD="0.14" starboardXTD="0.05" draughtForward="6.59" draughtAft="6.59" dynamicUKC="5.76"/>
+        </waypoint>
+        <waypoint id="158" name="Rya Nabbe" radius="0.05">
+            <position lat="57.68641485" lon="11.87162472"/>
+            <leg portsideXTD="0.06" starboardXTD="0.05" dynamicUKC="6.34"/>
+        </waypoint>
+        <waypoint id="160" name="Jetty 511" radius="0.01">
+            <position lat="57.69011283" lon="11.87749374"/>
+            <leg starboardXTD="0.02" dynamicUKC="6.50"/>
+        </waypoint>
+        <extensions>
+            <extension name="branches" manufacturer="Transas" version="1.0.0">
+                <branch id="2" name="">
+                    <defaultWaypoint radius="0.10">
+                        <leg portsideXTD="0.10" starboardXTD="0.10" safetyContour="30.00" safetyDepth="30.00" draughtForward="7.20" draughtAft="7.20" staticUKC="0.00" dynamicUKC="0.00" geometryType="Loxodrome"/>
+                        <extensions>
+                            <extension name="auto_routing" manufacturer="Transas" version="1.0.0" value="Manual"/>
+                        </extensions>
+                    </defaultWaypoint>
+                    <refWaypoint id="131073" radius="0.10" wp_id="257">
+                        <position lat="57.63064897" lon="11.69343197"/>
+                        <leg portsideXTD="0.10" starboardXTD="0.10" safetyContour="30.00" safetyDepth="30.00" dynamicUKC="0.00"/>
+                    </refWaypoint>
+                    <waypoint id="131074">
+                        <position lat="57.63361667" lon="11.69696667"/>
+                    </waypoint>
+                    <waypoint id="131075">
+                        <position lat="57.66905000" lon="11.68855000"/>
+                    </waypoint>
+                    <waypoint id="131076">
+                        <position lat="57.67785000" lon="11.71758333"/>
+                    </waypoint>
+                    <waypoint id="131077">
+                        <position lat="57.67573333" lon="11.73988333"/>
+                    </waypoint>
+                    <waypoint id="131078">
+                        <position lat="57.67921667" lon="11.79255000"/>
+                    </waypoint>
+                    <refWaypoint id="131079" radius="0.10" wp_id="261">
+                        <position lat="57.67871892" lon="11.81044767"/>
+                        <leg portsideXTD="0.10" starboardXTD="0.10" safetyContour="30.00" safetyDepth="30.00" dynamicUKC="0.00"/>
+                    </refWaypoint>
+                </branch>
+            </extension>
+            <extension name="geometry_change" manufacturer="Transas" version="1.0.0" last_change_time="2024-11-08T11:42:06.221173Z"/>
+        </extensions>
+    </waypoints>
+    <schedules>
+        <schedule id="0" name="Base Calculation">
+            <manual>
+                <scheduleElement waypointId="74" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="77" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z" speed="3.000"/>
+                <scheduleElement waypointId="78" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z" speed="6.000"/>
+                <scheduleElement waypointId="79" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z" speed="15.000"/>
+                <scheduleElement waypointId="81" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z" speed="15.000"/>
+                <scheduleElement waypointId="80" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z" speed="15.000"/>
+                <scheduleElement waypointId="82" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z" speed="15.000"/>
+                <scheduleElement waypointId="90" speed="15.000"/>
+                <scheduleElement waypointId="91" speed="15.000"/>
+                <scheduleElement waypointId="92" speed="15.000"/>
+                <scheduleElement waypointId="93" speed="15.000"/>
+                <scheduleElement waypointId="94" speed="15.000"/>
+                <scheduleElement waypointId="95" speed="15.000"/>
+                <scheduleElement waypointId="98" speed="15.000"/>
+                <scheduleElement waypointId="100" speed="15.000"/>
+                <scheduleElement waypointId="101" speed="15.000"/>
+                <scheduleElement waypointId="102" speed="15.000"/>
+                <scheduleElement waypointId="105" speed="15.000"/>
+                <scheduleElement waypointId="106" speed="15.000"/>
+                <scheduleElement waypointId="108" speed="15.000"/>
+                <scheduleElement waypointId="109" speed="15.000"/>
+                <scheduleElement waypointId="163" speed="15.000"/>
+                <scheduleElement waypointId="110" speed="15.000"/>
+                <scheduleElement waypointId="111" speed="15.000"/>
+                <scheduleElement waypointId="112" speed="15.000"/>
+                <scheduleElement waypointId="113" speed="15.000"/>
+                <scheduleElement waypointId="114" speed="15.000"/>
+                <scheduleElement waypointId="115" speed="15.000"/>
+                <scheduleElement waypointId="116" speed="15.000"/>
+                <scheduleElement waypointId="117" speed="15.000"/>
+                <scheduleElement waypointId="118" speed="15.000"/>
+                <scheduleElement waypointId="119" speed="15.000"/>
+                <scheduleElement waypointId="120" speed="9.000"/>
+                <scheduleElement waypointId="121" speed="9.000"/>
+                <scheduleElement waypointId="123" speed="15.000"/>
+                <scheduleElement waypointId="125" speed="15.000"/>
+                <scheduleElement waypointId="126" speed="15.000"/>
+                <scheduleElement waypointId="127" speed="15.000"/>
+                <scheduleElement waypointId="128" speed="15.000"/>
+                <scheduleElement waypointId="129" speed="15.000"/>
+                <scheduleElement waypointId="131" speed="15.000"/>
+                <scheduleElement waypointId="132" speed="15.000"/>
+                <scheduleElement waypointId="133" speed="15.000"/>
+                <scheduleElement waypointId="134" speed="15.000"/>
+                <scheduleElement waypointId="135" speed="15.000"/>
+                <scheduleElement waypointId="136" speed="15.000"/>
+                <scheduleElement waypointId="137" speed="15.000"/>
+                <scheduleElement waypointId="138" speed="15.000"/>
+                <scheduleElement waypointId="140" speed="15.000"/>
+                <scheduleElement waypointId="141" speed="15.000"/>
+                <scheduleElement waypointId="142" speed="15.000"/>
+                <scheduleElement waypointId="143" speed="15.000"/>
+                <scheduleElement waypointId="144" speed="15.000"/>
+                <scheduleElement waypointId="146" speed="15.000"/>
+                <scheduleElement waypointId="147" speed="15.000"/>
+                <scheduleElement waypointId="149" speed="15.000"/>
+                <scheduleElement waypointId="150" speed="15.000"/>
+                <scheduleElement waypointId="151" speed="15.000"/>
+                <scheduleElement waypointId="152" speed="15.000"/>
+                <scheduleElement waypointId="153" speed="15.000"/>
+                <scheduleElement waypointId="154" speed="15.000"/>
+                <scheduleElement waypointId="155" speed="15.000"/>
+                <scheduleElement waypointId="156" speed="15.000"/>
+                <scheduleElement waypointId="157" speed="15.000"/>
+                <scheduleElement waypointId="158" speed="3.000"/>
+                <extensions>
+                    <extension name="schedule_change" manufacturer="Transas" version="1.0.0" last_change_time="2022-10-21T23:58:27.292708Z"/>
+                </extensions>
+            </manual>
+            <calculated>
+                <scheduleElement waypointId="74" etd="1970-01-01T00:00:00Z"/>
+                <scheduleElement waypointId="77" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z" speed="3.000"/>
+                <scheduleElement waypointId="78" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z" speed="6.000"/>
+                <scheduleElement waypointId="79" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z" speed="15.000"/>
+                <scheduleElement waypointId="81" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z" speed="15.000"/>
+                <scheduleElement waypointId="80" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z" speed="15.000"/>
+                <scheduleElement waypointId="82" eta="1970-01-01T00:00:00Z" etd="1970-01-01T00:00:00Z" speed="15.000"/>
+                <scheduleElement waypointId="90" speed="15.000"/>
+                <scheduleElement waypointId="91" speed="15.000"/>
+                <scheduleElement waypointId="92" speed="15.000"/>
+                <scheduleElement waypointId="93" speed="15.000"/>
+                <scheduleElement waypointId="94" speed="15.000"/>
+                <scheduleElement waypointId="95" speed="15.000"/>
+                <scheduleElement waypointId="98" speed="15.000"/>
+                <scheduleElement waypointId="100" speed="15.000"/>
+                <scheduleElement waypointId="101" speed="15.000"/>
+                <scheduleElement waypointId="102" speed="15.000"/>
+                <scheduleElement waypointId="105" speed="15.000"/>
+                <scheduleElement waypointId="106" speed="15.000"/>
+                <scheduleElement waypointId="108" speed="15.000"/>
+                <scheduleElement waypointId="109" speed="15.000"/>
+                <scheduleElement waypointId="163" speed="15.000"/>
+                <scheduleElement waypointId="110" speed="15.000"/>
+                <scheduleElement waypointId="111" speed="15.000"/>
+                <scheduleElement waypointId="112" speed="15.000"/>
+                <scheduleElement waypointId="113" speed="15.000"/>
+                <scheduleElement waypointId="114" speed="15.000"/>
+                <scheduleElement waypointId="115" speed="15.000"/>
+                <scheduleElement waypointId="116" speed="15.000"/>
+                <scheduleElement waypointId="117" speed="15.000"/>
+                <scheduleElement waypointId="118" speed="15.000"/>
+                <scheduleElement waypointId="119" speed="15.000"/>
+                <scheduleElement waypointId="120" speed="9.000"/>
+                <scheduleElement waypointId="121" speed="9.000"/>
+                <scheduleElement waypointId="123" speed="15.000"/>
+                <scheduleElement waypointId="125" speed="15.000"/>
+                <scheduleElement waypointId="126" speed="15.000"/>
+                <scheduleElement waypointId="127" speed="15.000"/>
+                <scheduleElement waypointId="128" speed="15.000"/>
+                <scheduleElement waypointId="129" speed="15.000"/>
+                <scheduleElement waypointId="131" speed="15.000"/>
+                <scheduleElement waypointId="132" speed="15.000"/>
+                <scheduleElement waypointId="133" speed="15.000"/>
+                <scheduleElement waypointId="134" speed="15.000"/>
+                <scheduleElement waypointId="135" speed="15.000"/>
+                <scheduleElement waypointId="136" speed="15.000"/>
+                <scheduleElement waypointId="137" speed="15.000"/>
+                <scheduleElement waypointId="138" speed="15.000"/>
+                <scheduleElement waypointId="140" speed="15.000"/>
+                <scheduleElement waypointId="141" speed="15.000"/>
+                <scheduleElement waypointId="142" speed="15.000"/>
+                <scheduleElement waypointId="143" speed="15.000"/>
+                <scheduleElement waypointId="144" speed="15.000"/>
+                <scheduleElement waypointId="146" speed="15.000"/>
+                <scheduleElement waypointId="147" speed="15.000"/>
+                <scheduleElement waypointId="149" speed="15.000"/>
+                <scheduleElement waypointId="150" speed="15.000"/>
+                <scheduleElement waypointId="151" speed="15.000"/>
+                <scheduleElement waypointId="152" speed="15.000"/>
+                <scheduleElement waypointId="153" speed="15.000"/>
+                <scheduleElement waypointId="154" speed="15.000"/>
+                <scheduleElement waypointId="155" speed="15.000"/>
+                <scheduleElement waypointId="156" speed="15.000"/>
+                <scheduleElement waypointId="157" speed="15.000"/>
+                <scheduleElement waypointId="158" speed="3.000"/>
+                <extensions>
+                    <extension name="schedule_change" manufacturer="Transas" version="1.0.0" last_change_time="2024-11-08T11:34:59.998907Z"/>
+                </extensions>
+            </calculated>
+        </schedule>
+        <extensions>
+            <extension name="branches" manufacturer="Transas" version="1.0.0">
+                <branch id="2" name="">
+                    <schedule id="1" name="BaseCalc">
+                        <manual>
+                            <scheduleElement waypointId="131073" etd="2019-05-06T08:39:11Z"/>
+                            <scheduleElement waypointId="131079" eta="2019-05-06T09:00:16Z"/>
+                            <extensions>
+                                <extension name="schedule_change" manufacturer="Transas" version="1.0.0" last_change_time="2019-05-04T14:09:58.209694Z"/>
+                            </extensions>
+                        </manual>
+                        <calculated>
+                            <scheduleElement waypointId="131073" etd="2019-05-06T08:39:11Z"/>
+                            <scheduleElement waypointId="131074" eta="2019-05-06T08:39:30Z" etd="2019-05-06T08:39:30Z" speed="18.30"/>
+                            <scheduleElement waypointId="131075" eta="2019-05-06T08:46:26Z" etd="2019-05-06T08:46:26Z" speed="18.30"/>
+                            <scheduleElement waypointId="131076" eta="2019-05-06T08:50:00Z" etd="2019-05-06T08:50:00Z" speed="18.30"/>
+                            <scheduleElement waypointId="131077" eta="2019-05-06T08:52:27Z" etd="2019-05-06T08:52:27Z" speed="18.30"/>
+                            <scheduleElement waypointId="131078" eta="2019-05-06T08:58:05Z" etd="2019-05-06T08:58:05Z" speed="18.30"/>
+                            <scheduleElement waypointId="131079" eta="2019-05-06T09:00:16Z" speed="18.30"/>
+                            <extensions>
+                                <extension name="schedule_change" manufacturer="Transas" version="1.0.0" last_change_time="2019-05-04T14:10:00.693297Z"/>
+                            </extensions>
+                        </calculated>
+                    </schedule>
+                </branch>
+            </extension>
+        </extensions>
+    </schedules>
+    <extensions>
+        <extension name="ActivePath" manufacturer="Transas" version="1.0.0">
+            <path>
+                <wp_ids>
+                    <wp_id value="73"/>
+                    <wp_id value="88"/>
+                    <wp_id value="74"/>
+                    <wp_id value="77"/>
+                    <wp_id value="78"/>
+                    <wp_id value="79"/>
+                    <wp_id value="81"/>
+                    <wp_id value="80"/>
+                    <wp_id value="82"/>
+                    <wp_id value="84"/>
+                    <wp_id value="20"/>
+                    <wp_id value="89"/>
+                    <wp_id value="90"/>
+                    <wp_id value="91"/>
+                    <wp_id value="21"/>
+                    <wp_id value="92"/>
+                    <wp_id value="93"/>
+                    <wp_id value="22"/>
+                    <wp_id value="23"/>
+                    <wp_id value="24"/>
+                    <wp_id value="25"/>
+                    <wp_id value="26"/>
+                    <wp_id value="27"/>
+                    <wp_id value="28"/>
+                    <wp_id value="29"/>
+                    <wp_id value="30"/>
+                    <wp_id value="31"/>
+                    <wp_id value="87"/>
+                    <wp_id value="86"/>
+                    <wp_id value="32"/>
+                    <wp_id value="33"/>
+                    <wp_id value="34"/>
+                    <wp_id value="35"/>
+                    <wp_id value="85"/>
+                    <wp_id value="100"/>
+                    <wp_id value="36"/>
+                    <wp_id value="37"/>
+                    <wp_id value="38"/>
+                    <wp_id value="39"/>
+                    <wp_id value="40"/>
+                    <wp_id value="41"/>
+                    <wp_id value="42"/>
+                    <wp_id value="43"/>
+                    <wp_id value="44"/>
+                    <wp_id value="99"/>
+                    <wp_id value="45"/>
+                    <wp_id value="46"/>
+                    <wp_id value="47"/>
+                    <wp_id value="48"/>
+                    <wp_id value="49"/>
+                    <wp_id value="50"/>
+                    <wp_id value="51"/>
+                    <wp_id value="98"/>
+                    <wp_id value="52"/>
+                    <wp_id value="97"/>
+                    <wp_id value="53"/>
+                    <wp_id value="94"/>
+                    <wp_id value="95"/>
+                    <wp_id value="96"/>
+                    <wp_id value="54"/>
+                    <wp_id value="55"/>
+                    <wp_id value="56"/>
+                    <wp_id value="57"/>
+                    <wp_id value="58"/>
+                    <wp_id value="59"/>
+                    <wp_id value="60"/>
+                    <wp_id value="61"/>
+                    <wp_id value="62"/>
+                    <wp_id value="63"/>
+                    <wp_id value="64"/>
+                    <wp_id value="65"/>
+                    <wp_id value="66"/>
+                    <wp_id value="67"/>
+                    <wp_id value="68"/>
+                    <wp_id value="69"/>
+                    <wp_id value="70"/>
+                    <wp_id value="83"/>
+                    <wp_id value="72"/>
+                </wp_ids>
+            </path>
+        </extension>
+        <extension name="bwe_areas" manufacturer="Transas" version="1.0.0">
+            <area name="Ballast Waters (12 NM) (12 nautical mile zone)" info="Sweden" legs="0-30,31-81"/>
+            <area name="Ballast Waters (50 NM) (50 nautical mile zone)" info="Ballast water exchange prohibited exempt of vessels which conduct treated ballast water exchange in compliance with the regulation D-2 standard of BWMS" legs="0-81"/>
+            <area name="Ballast Waters (200 NM) (200 nautical mile zone)" info="Ballast water exchange shall be allowed in compliance with the regulations B-4, D-1 standard of BWMS.Treated ballast water exchange is allowed pursuant to the regulation D-2" legs="0-81"/>
+            <area name="Regional Special Areas (Baltic Sea)" info="Regional Special Area" legs="0-81"/>
+        </extension>
+        <extension name="checklist" manufacturer="Transas" version="1.0.0">
+            <activity ref_id="150" name="Call VTS Oxelosund 30min. notice before entering VTS area." time="-30" state="1"/>
+            <activity ref_id="150" name="Call VTS Oxelosund Entering VTS area" time="0" state="1"/>
+            <activity ref_id="123" name="5 Hours notice to OXelosund Pilot " time="-300" state="1"/>
+            <activity ref_id="123" name="3 Hours notice to Oxelosund Pilot" time="-180" state="1"/>
+        </extension>
+        <extension name="dangers" manufacturer="Transas" version="1.0.0">
+            <danger ref_id="80" type="reppoint" name="" text="Communication channel: [09]
+Information: West Coast VTS, VHF 09. See www.fintraffic.fi/en &gt; Maritime Traffic"/>
+            <danger ref_id="80" type="reppoint" name="Pori N" text="Information: www.pilotorder.fi"/>
+            <danger ref_id="80" type="reppoint" name="Pori N" text="Information: www.pilotorder.fi"/>
+            <danger ref_id="82" type="reppoint" name="" text="Communication channel: [09]
+Information: West Coast VTS, VHF 09. See www.fintraffic.fi/en &gt; Maritime Traffic"/>
+            <danger ref_id="112" type="reppoint" name="" text="Communication channel: [71]
+Information: SOUNDREP VTS SECTOR 2"/>
+            <danger ref_id="112" type="reppoint" name="" text="Communication channel: [71]
+Information: SOUNDREP VTS SECTOR 2"/>
+            <danger ref_id="112" type="reppoint" name="" text="Communication channel: [71]
+Information: SOUNDREP VTS SECTOR 2"/>
+            <danger ref_id="113" type="reppoint" name="" text="Communication channel: [71]
+Information: SOUNDREP VTS SECTOR 2"/>
+            <danger ref_id="113" type="reppoint" name="" text="Communication channel: [71]
+Information: SOUNDREP VTS SECTOR 2"/>
+            <danger ref_id="113" type="reppoint" name="" text="Communication channel: [71]
+Information: SOUNDREP VTS SECTOR 2"/>
+            <danger ref_id="137" type="reppoint" name="" text="Communication channel: [73]
+Information: SOUNDREP VTS SECTOR 1"/>
+            <danger ref_id="137" type="reppoint" name="" text="Communication channel: [73]
+Information: SOUNDREP VTS SECTOR 1"/>
+            <danger ref_id="137" type="reppoint" name="" text="Communication channel: [73]
+Information: SOUNDREP VTS SECTOR 1"/>
+            <danger ref_id="138" type="reppoint" name="" text="Communication channel: [73]
+Information: SOUNDREP VTS SECTOR 1"/>
+            <danger ref_id="138" type="reppoint" name="" text="Communication channel: [73]
+Information: SOUNDREP VTS SECTOR 1"/>
+            <danger ref_id="138" type="reppoint" name="" text="Communication channel: [73]
+Information: SOUNDREP VTS SECTOR 1"/>
+            <danger ref_id="138" type="reppoint" name="" text="Communication channel: [73]
+Information: SOUNDREP VTS SECTOR 1"/>
+            <danger ref_id="138" type="reppoint" name="" text="Communication channel: [73]
+Information: SOUNDREP VTS SECTOR 1"/>
+            <danger ref_id="138" type="reppoint" name="" text="Communication channel: [73]
+Information: SOUNDREP VTS SECTOR 1"/>
+            <danger ref_id="146" type="reppoint" name="T" text="Communication channel: [13]
+Information: For further information see Administration Area"/>
+            <danger ref_id="146" type="reppoint" name="T" text="Communication channel: [13]
+Information: For further information see Administration Area"/>
+            <danger ref_id="146" type="reppoint" name="T" text="Communication channel: [13]
+Information: For further information see Nautical Publication Information"/>
+            <danger ref_id="146" type="reppoint" name="T" text="Communication channel: [13]
+Information: For further information see Nautical Publication Information"/>
+            <danger ref_id="146" type="reppoint" name="" text="Communication channel: [13]
+Information: For further information see Nautical Publication Information"/>
+            <danger ref_id="147" type="reppoint" name="T" text="Communication channel: [13]
+Information: For further information see Administration Area"/>
+            <danger ref_id="147" type="reppoint" name="T" text="Communication channel: [13]
+Information: For further information see Administration Area"/>
+            <danger ref_id="147" type="reppoint" name="T" text="Communication channel: [13]
+Information: For further information see Nautical Publication Information"/>
+            <danger ref_id="147" type="reppoint" name="T" text="Communication channel: [13]
+Information: For further information see Nautical Publication Information"/>
+            <danger ref_id="147" type="reppoint" name="" text="Communication channel: [13]
+Information: For further information see Nautical Publication Information"/>
+            <danger ref_id="147" type="reppoint" name="No 1" text=""/>
+            <danger ref_id="147" type="reppoint" name="No 1" text=""/>
+            <danger ref_id="147" type="reppoint" name="No 1" text=""/>
+            <danger ref_id="149" type="reppoint" name="No 1" text=""/>
+            <danger ref_id="149" type="reppoint" name="No 1" text=""/>
+            <danger ref_id="150" type="reppoint" name="1" text="Communication channel: [13]
+Information: For further information see Administration Area"/>
+            <danger ref_id="150" type="reppoint" name="1" text="Communication channel: [13]
+Information: For further information see Administration Area"/>
+            <danger ref_id="155" type="reppoint" name="3" text="Communication channel: [13]
+Information: For further information see Administration Area"/>
+            <danger ref_id="155" type="reppoint" name="3" text="Communication channel: [13]
+Information: For further information see Administration Area"/>
+            <danger ref_id="156" type="reppoint" name="3" text="Communication channel: [13]
+Information: For further information see Administration Area"/>
+            <danger ref_id="156" type="reppoint" name="3" text="Communication channel: [13]
+Information: For further information see Nautical Publication Information"/>
+            <danger ref_id="156" type="reppoint" name="3" text="Communication channel: [13]
+Information: For further information see Administration Area"/>
+            <danger ref_id="79" type="area" text="Restricted area"/>
+            <danger ref_id="81" type="area" text="Restricted area"/>
+            <danger ref_id="81" type="area" text="Restricted area"/>
+            <danger ref_id="80" type="area" text="Restricted area"/>
+            <danger ref_id="80" type="area" text="Restricted area"/>
+            <danger ref_id="82" type="area" text="Restricted area"/>
+            <danger ref_id="94" type="area" text="Traffic separation zone"/>
+            <danger ref_id="94" type="area" text="Traffic separation zone"/>
+            <danger ref_id="94" type="area" text="Traffic separation zone"/>
+            <danger ref_id="94" type="area" text="Traffic separation zone"/>
+            <danger ref_id="95" type="area" text="Military practice area"/>
+            <danger ref_id="95" type="area" text="Military practice area"/>
+            <danger ref_id="95" type="area" text="Military practice area"/>
+            <danger ref_id="95" type="area" text="Military practice area"/>
+            <danger ref_id="95" type="area" text="Military practice area"/>
+            <danger ref_id="98" type="area" text="Traffic separation zone"/>
+            <danger ref_id="98" type="area" text="Traffic separation zone"/>
+            <danger ref_id="98" type="area" text="Traffic separation zone"/>
+            <danger ref_id="98" type="area" text="Traffic separation zone"/>
+            <danger ref_id="105" type="area" text="Traffic separation zone"/>
+            <danger ref_id="105" type="area" text="Traffic separation zone"/>
+            <danger ref_id="105" type="area" text="Traffic separation zone"/>
+            <danger ref_id="105" type="area" text="Traffic separation zone"/>
+            <danger ref_id="106" type="area" text="Traffic separation zone"/>
+            <danger ref_id="106" type="area" text="Restricted area"/>
+            <danger ref_id="106" type="area" text="Restricted area"/>
+            <danger ref_id="106" type="area" text="Restricted area"/>
+            <danger ref_id="106" type="area" text="Restricted area"/>
+            <danger ref_id="163" type="area" text="Caution area"/>
+            <danger ref_id="110" type="area" text="Inshore traffic zone"/>
+            <danger ref_id="110" type="area" text="Inshore traffic zone"/>
+            <danger ref_id="110" type="area" text="Inshore traffic zone"/>
+            <danger ref_id="110" type="area" text="Inshore traffic zone"/>
+            <danger ref_id="111" type="area" text="Inshore traffic zone"/>
+            <danger ref_id="111" type="area" text="Inshore traffic zone"/>
+            <danger ref_id="111" type="area" text="Inshore traffic zone"/>
+            <danger ref_id="111" type="area" text="Inshore traffic zone"/>
+            <danger ref_id="113" type="area" text="Caution area"/>
+            <danger ref_id="113" type="area" text="Caution area"/>
+            <danger ref_id="114" type="area" text="Caution area"/>
+            <danger ref_id="114" type="area" text="Caution area"/>
+            <danger ref_id="120" type="area" text="Restricted area"/>
+            <danger ref_id="120" type="area" text="Restricted area"/>
+            <danger ref_id="120" type="area" text="Restricted area"/>
+            <danger ref_id="125" type="area" text="Anchorage area"/>
+            <danger ref_id="125" type="area" text="Anchorage area"/>
+            <danger ref_id="131" type="area" text="Restricted area"/>
+            <danger ref_id="131" type="area" text="Restricted area"/>
+            <danger ref_id="131" type="area" text="Restricted area"/>
+            <danger ref_id="133" type="area" text="Restricted area"/>
+            <danger ref_id="134" type="area" text="Restricted area"/>
+            <danger ref_id="134" type="area" text="Restricted area"/>
+            <danger ref_id="136" type="area" text="Traffic separation zone"/>
+            <danger ref_id="136" type="area" text="Traffic separation zone"/>
+            <danger ref_id="136" type="area" text="Traffic separation zone"/>
+            <danger ref_id="136" type="area" text="Traffic separation zone"/>
+            <danger ref_id="136" type="area" text="Restricted area"/>
+            <danger ref_id="136" type="area" text="Restricted area"/>
+            <danger ref_id="137" type="area" text="Traffic separation zone"/>
+            <danger ref_id="137" type="area" text="Traffic separation zone"/>
+            <danger ref_id="137" type="area" text="Traffic separation zone"/>
+            <danger ref_id="137" type="area" text="Traffic separation zone"/>
+            <danger ref_id="137" type="area" text="Traffic separation zone"/>
+            <danger ref_id="137" type="area" text="Traffic separation zone"/>
+            <danger ref_id="137" type="area" text="Traffic separation zone"/>
+            <danger ref_id="137" type="area" text="Traffic separation zone"/>
+            <danger ref_id="137" type="area" text="Inshore traffic zone"/>
+            <danger ref_id="137" type="area" text="Inshore traffic zone"/>
+            <danger ref_id="137" type="area" text="Inshore traffic zone"/>
+            <danger ref_id="137" type="area" text="Inshore traffic zone"/>
+            <danger ref_id="137" type="area" text="Restricted area"/>
+            <danger ref_id="137" type="area" text="Restricted area"/>
+            <danger ref_id="138" type="area" text="Restricted area"/>
+            <danger ref_id="138" type="area" text="Restricted area"/>
+            <danger ref_id="138" type="area" text="Restricted area"/>
+            <danger ref_id="147" type="area" text="Restricted area"/>
+            <danger ref_id="147" type="area" text="Restricted area"/>
+            <danger ref_id="147" type="area" text="Anchorage area"/>
+            <danger ref_id="147" type="area" text="Anchorage area"/>
+            <danger ref_id="147" type="area" text="Anchorage area"/>
+            <danger ref_id="147" type="area" text="Anchorage area"/>
+            <danger ref_id="149" type="area" text="Anchorage area"/>
+            <danger ref_id="149" type="area" text="Anchorage area"/>
+            <danger ref_id="150" type="area" text="Caution area"/>
+            <danger ref_id="151" type="area" text="Restricted area"/>
+            <danger ref_id="151" type="area" text="Restricted area"/>
+            <danger ref_id="151" type="area" text="Restricted area"/>
+            <danger ref_id="151" type="area" text="Caution area"/>
+            <danger ref_id="152" type="area" text="Restricted area"/>
+            <danger ref_id="152" type="area" text="Restricted area"/>
+            <danger ref_id="152" type="area" text="Restricted area"/>
+            <danger ref_id="152" type="area" text="Caution area"/>
+            <danger ref_id="153" type="area" text="Restricted area"/>
+            <danger ref_id="153" type="area" text="Restricted area"/>
+            <danger ref_id="153" type="area" text="Restricted area"/>
+            <danger ref_id="153" type="area" text="Restricted area"/>
+            <danger ref_id="153" type="area" text="Restricted area"/>
+            <danger ref_id="153" type="area" text="Caution area"/>
+            <danger ref_id="153" type="area" text="Caution area"/>
+            <danger ref_id="155" type="area" text="Restricted area"/>
+            <danger ref_id="155" type="area" text="Restricted area"/>
+            <danger ref_id="155" type="area" text="Caution area"/>
+            <danger ref_id="156" type="area" text="Restricted area"/>
+            <danger ref_id="156" type="area" text="Restricted area"/>
+            <danger ref_id="156" type="area" text="Caution area"/>
+            <danger ref_id="157" type="area" text="Restricted area"/>
+            <danger ref_id="157" type="area" text="Caution area"/>
+            <danger ref_id="158" type="area" text="Restricted area"/>
+            <danger ref_id="158" type="area" text="Restricted area"/>
+        </extension>
+        <extension name="e-publications" manufacturer="Transas" version="1.0.0">
+            <item name="e-NP18 Baltic Pilot Vol 1" edition="18/2018" update_info="28-02-2021" chart_status="ok"/>
+            <item name="e-NP19 Baltic Pilot Vol 2" edition="17/2018" update_info="28-02-2021" chart_status="ok"/>
+            <item name="e-NP20 Baltic Pilot Vol 3" edition="14/2019" update_info="28-02-2021" chart_status="ok"/>
+        </extension>
+        <extension name="enc_charts" manufacturer="Transas" version="1.0.0">
+            <item name="DK20149C" issue_date="45555.0423726852" format="SENC" edition="1" update_to="WK45-24" chart_status="ok"/>
+            <item name="DK20157C" issue_date="45555.0423726852" format="SENC" edition="1" update_to="WK45-24" chart_status="ok"/>
+            <item name="DK20949C" issue_date="45555.0423726852" format="SENC" edition="1" update_to="WK45-24" chart_status="ok"/>
+            <item name="DK30549D" issue_date="45477.0423726852" correction_date="45569.0423726852" format="SENC" edition="1" update_info="6" update_to="WK45-24" chart_status="ok"/>
+            <item name="DK30557D" issue_date="45562.0423726852" correction_date="45574.0423726852" format="SENC" edition="2" update_info="1" update_to="WK45-24" chart_status="ok"/>
+            <item name="DK30949D" issue_date="45477.0423726852" correction_date="45576.0423726852" format="SENC" edition="1" update_info="5" update_to="WK45-24" chart_status="ok"/>
+            <item name="DK40551E" issue_date="45546.0423726852" correction_date="45569.0423726852" format="SENC" edition="1" update_info="1" update_to="WK45-24" chart_status="ok"/>
+            <item name="DK40751E" issue_date="45546.0423726852" correction_date="45576.0423726852" format="SENC" edition="1" update_info="2" update_to="WK45-24" chart_status="ok"/>
+            <item name="DK40949E" issue_date="45565.0423726852" format="SENC" edition="1" update_to="WK45-24" chart_status="ok"/>
+            <item name="DK40951E" issue_date="45546.0423726852" correction_date="45569.0423726852" format="SENC" edition="1" update_info="1" update_to="WK45-24" chart_status="ok"/>
+            <item name="DK5HLSNS" issue_date="45436.0423726852" format="SENC" edition="24" update_to="WK45-24" chart_status="ok"/>
+            <item name="FI29ARCW" issue_date="45440.0423726852" correction_date="45586.0423726852" format="SENC" edition="7" update_info="3" update_to="WK45-24" chart_status="ok"/>
+            <item name="FI29NBAL" issue_date="43241.0423726852" correction_date="45517.0423726852" format="SENC" edition="8" update_info="24" update_to="WK45-24" chart_status="ok"/>
+            <item name="FI29SOBS" issue_date="42803.0423726852" correction_date="45544.0423726852" format="SENC" edition="5" update_info="54" update_to="WK45-24" chart_status="ok"/>
+            <item name="FI3ALNDS" issue_date="43251.0423726852" correction_date="45586.0423726852" format="SENC" edition="4" update_info="28" update_to="WK45-24" chart_status="ok"/>
+            <item name="FI4EIHM6" issue_date="42382.0423726852" correction_date="45586.0423726852" format="SENC" edition="4" update_info="16" update_to="WK45-24" chart_status="ok"/>
+            <item name="FI4EIIQ5" issue_date="43606.0423726852" correction_date="45440.0423726852" format="SENC" edition="7" update_info="9" update_to="WK45-24" chart_status="ok"/>
+            <item name="FI4EIOAC" issue_date="45254.0423726852" format="SENC" edition="5" update_to="WK45-24" chart_status="ok"/>
+            <item name="FI4EIPEC" issue_date="45265.0423726852" correction_date="45481.0423726852" format="SENC" edition="5" update_info="7" update_to="WK45-24" chart_status="ok"/>
+            <item name="FI5A060A" issue_date="45265.0423726852" correction_date="45545.0423726852" format="SENC" edition="3" update_info="6" update_to="WK45-24" chart_status="ok"/>
+            <item name="DE110000" issue_date="45126.0423726852" correction_date="45350.0423726852" format="SENC" edition="9" update_info="1" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE2BHS0W" issue_date="45575.0423726852" format="SENC" edition="25" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE2BHS1C" issue_date="45568.0423726852" format="SENC" edition="79" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE2BHS1S" issue_date="45569.0423726852" format="SENC" edition="77" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE2BI9TS" issue_date="45520.0423726852" correction_date="45558.0423726852" format="SENC" edition="103" update_info="2" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE2BI9U8" issue_date="45330.0423726852" format="SENC" edition="28" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE300005" issue_date="45468.0423726852" correction_date="45558.0423726852" format="SENC" edition="43" update_info="1" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE300006" issue_date="45222.0423726852" correction_date="45252.0423726852" format="SENC" edition="21" update_info="2" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE300007" issue_date="45589.0423726852" format="SENC" edition="42" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE300008" issue_date="45520.0423726852" correction_date="45527.0423726852" format="SENC" edition="41" update_info="1" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE300009" issue_date="45013.0423726852" correction_date="45544.0423726852" format="SENC" edition="36" update_info="6" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE300010" issue_date="44935.0423726852" correction_date="45583.0423726852" format="SENC" edition="30" update_info="4" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE300011" issue_date="44929.0423726852" correction_date="45538.0423726852" format="SENC" edition="41" update_info="7" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE3CHWHC" issue_date="44638.0423726852" correction_date="45548.0423726852" format="SENC" edition="28" update_info="5" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE3CHWHG" issue_date="44740.0423726852" correction_date="45575.0423726852" format="SENC" edition="33" update_info="7" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE3CHWHK" issue_date="45568.0423726852" format="SENC" edition="29" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE3CHWHO" issue_date="45463.0423726852" correction_date="45534.0423726852" format="SENC" edition="39" update_info="1" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE3CHWHS" issue_date="45463.0423726852" correction_date="45534.0423726852" format="SENC" edition="42" update_info="1" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE3CI0XC" issue_date="45559.0423726852" format="SENC" edition="45" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE3CI0XS" issue_date="45558.0423726852" correction_date="45587.0423726852" format="SENC" edition="48" update_info="2" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE3CI0XW" issue_date="45260.0423726852" correction_date="45534.0423726852" format="SENC" edition="36" update_info="2" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE3CI5DC" issue_date="45559.0423726852" format="SENC" edition="22" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE3CIEA8" issue_date="44111.0423726852" format="SENC" edition="14" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE3DI5DA" issue_date="44721.0423726852" correction_date="45532.0423726852" format="SENC" edition="23" update_info="6" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE3DI7LA" issue_date="45575.0423726852" format="SENC" edition="48" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE4CHWHK" issue_date="45568.0423726852" format="SENC" edition="76" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE4CHWHO" issue_date="45460.0423726852" correction_date="45533.0423726852" format="SENC" edition="31" update_info="1" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE4CHWHS" issue_date="45460.0423726852" correction_date="45533.0423726852" format="SENC" edition="33" update_info="1" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE4CI5DW" issue_date="44917.0423726852" correction_date="45583.0423726852" format="SENC" edition="34" update_info="6" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE4CI5E0" issue_date="45443.0423726852" correction_date="45587.0423726852" format="SENC" edition="47" update_info="5" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE4CI9U4" issue_date="44854.0423726852" correction_date="45527.0423726852" format="SENC" edition="14" update_info="1" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE4DHWHE" issue_date="45457.0423726852" correction_date="45548.0423726852" format="SENC" edition="62" update_info="4" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE4DHWHG" issue_date="45457.0423726852" correction_date="45575.0423726852" format="SENC" edition="37" update_info="3" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE4DHWHI" issue_date="45443.0423726852" correction_date="45575.0423726852" format="SENC" edition="31" update_info="3" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE4DHYPE" issue_date="45530.0423726852" correction_date="45572.0423726852" format="SENC" edition="100" update_info="2" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE4DI0XC" issue_date="45149.0423726852" correction_date="45572.0423726852" format="SENC" edition="30" update_info="2" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE4DI0XE" issue_date="45365.0423726852" correction_date="45573.0423726852" format="SENC" edition="87" update_info="1" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE4DI35C" issue_date="45559.0423726852" format="SENC" edition="55" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE4DI5DA" issue_date="44893.0423726852" correction_date="45532.0423726852" format="SENC" edition="36" update_info="7" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE4DI5DC" issue_date="45559.0423726852" format="SENC" edition="55" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE4DI9U0" issue_date="44911.0423726852" format="SENC" edition="10" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE4DI9U2" issue_date="44910.0423726852" correction_date="45527.0423726852" format="SENC" edition="9" update_info="1" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE4DIIQ4" issue_date="45226.0423726852" format="SENC" edition="26" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE4DIKY2" issue_date="44966.0423726852" correction_date="45219.0423726852" format="SENC" edition="20" update_info="1" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE4EI0XS" issue_date="45468.0423726852" correction_date="45533.0423726852" format="SENC" edition="22" update_info="1" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE4EI0XT" issue_date="45504.0423726852" correction_date="45583.0423726852" format="SENC" edition="25" update_info="1" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE4EI0XU" issue_date="45240.0423726852" correction_date="45336.0423726852" format="SENC" edition="13" update_info="1" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE4EI7LA" issue_date="45575.0423726852" correction_date="45593.0423726852" format="SENC" edition="84" update_info="1" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE4EI7LB" issue_date="45415.0423726852" correction_date="45471.0423726852" format="SENC" edition="83" update_info="2" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE4EIEA5" issue_date="44799.0423726852" correction_date="45544.0423726852" format="SENC" edition="12" update_info="1" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE4EIEA6" issue_date="44799.0423726852" format="SENC" edition="11" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE4EIFE6" issue_date="44799.0423726852" correction_date="45091.0423726852" format="SENC" edition="20" update_info="2" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE4EIFE7" issue_date="44564.0423726852" format="SENC" edition="9" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE4EIFE8" issue_date="44564.0423726852" format="SENC" edition="10" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE4EIGI6" issue_date="44677.0423726852" correction_date="45244.0423726852" format="SENC" edition="26" update_info="1" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE4EIGI7" issue_date="44564.0423726852" correction_date="45544.0423726852" format="SENC" edition="16" update_info="2" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE4EIGI8" issue_date="44564.0423726852" format="SENC" edition="10" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE4EIHM4" issue_date="45359.0423726852" correction_date="45593.0423726852" format="SENC" edition="68" update_info="1" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE4EIHM5" issue_date="44600.0423726852" correction_date="45103.0423726852" format="SENC" edition="39" update_info="2" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE4EIHM6" issue_date="44497.0423726852" format="SENC" edition="18" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE4EIIQ3" issue_date="45103.0423726852" correction_date="45583.0423726852" format="SENC" edition="44" update_info="6" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE4EIJU3" issue_date="44966.0423726852" correction_date="45252.0423726852" format="SENC" edition="34" update_info="2" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE500002" issue_date="44511.0423726852" correction_date="45548.0423726852" format="SENC" edition="9" update_info="2" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE5EHYPF" issue_date="45469.0423726852" correction_date="45572.0423726852" format="SENC" edition="72" update_info="2" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE5EI7LA" issue_date="45575.0423726852" format="SENC" edition="87" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE5GHYPE" issue_date="45469.0423726852" format="SENC" edition="27" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE5GI0XE" issue_date="45541.0423726852" format="SENC" edition="35" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE5HI7LB" issue_date="45415.0423726852" correction_date="45590.0423726852" format="SENC" edition="71" update_info="5" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE5IHZTE" issue_date="45541.0423726852" correction_date="45572.0423726852" format="SENC" edition="19" update_info="1" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE5II7LB" issue_date="45317.0423726852" format="SENC" edition="38" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE6DI7LA" issue_date="45415.0423726852" correction_date="45590.0423726852" format="SENC" edition="145" update_info="7" update_to="WK45-24" chart_status="ok"/>
+            <item name="SE6EHYPF" issue_date="45468.0423726852" correction_date="45505.0423726852" format="SENC" edition="75" update_info="1" update_to="WK45-24" chart_status="ok"/>
+        </extension>
+        <extension name="marpol_areas" manufacturer="Transas" version="1.0.0">
+            <area name="Oil and oily waters from cargo spaces (Baltic Sea)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution from cargo spaces by oil or oil waters is required" legs="0-79"/>
+            <area name="Oil and oily waters from machinery spaces (Baltic Sea)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution from mashinery spaces by oil or oil waters is required" legs="0-79"/>
+            <area name="Not comminuted or disinfected sewage (Baltic Sea)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution by Not comminuted or disinfected sewage is required" legs="0-79"/>
+            <area name="Comminuted and disinfected sewage (Baltic Sea)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution by comminuted and disinfected sewage is required" legs="0-79"/>
+            <area name="Food waste comminuted or ground (12 nautical mile zone)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution by food waste comminuted or ground is required" legs="0-79"/>
+            <area name="Food waste not comminuted or ground (Baltic Sea)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution by food waste not comminuted or ground is required" legs="0-79"/>
+            <area name="Cargo residues not contained in wash water (Baltic Sea)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution by cargo residues not contained in wash water is required" legs="0-79"/>
+            <area name="Cargo residues contained in wash water (12 nautical mile zone)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution by cargo residues contained in wash water is required" legs="0-79"/>
+            <area name="Cleaning agents and additives contained in cargo hold wash water (12 nautical mile zone)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution by cleaning agents and additives contained in cargo hold wash water is required" legs="0-79"/>
+            <area name="Carcasses of animals carried on board as cargo and which died during the voyage (Baltic Sea)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution by carcasses of animals carried on board as cargo and which died during the voyage is required" legs="0-79"/>
+            <area name="Sulphur Oxides (Baltic Sea - Emission Control Area)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution by sulphur oxides is required" legs="0-79"/>
+            <area name="Sulphur Oxides (TAHKOLUOTO)" info="The EU Directive establishes 0.1% maximum sulphur requirement for fuels used by ships at berth, meaning securely moored or anchored in EU ports" legs="0-5"/>
+            <area name="Nitrogen Oxides (Baltic Sea - Emission Control Area)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution by nitrous oxides is required" legs="0-79"/>
+            <area name="Particularly sensitive sea areas (Baltic Sea Area)" info="Particularly Sensitive Sea Areas. Areas of the marine environment that needs special protection through action by the International Maritime Organization (IMO)" legs="0-79"/>
+            <area name="Noxious liquid substances (12 nautical mile zone)" info="Areas in which the adoption of special mandatory methods for the prevention of sea pollution by noxious liquid substances in bulk is required" legs="0-79"/>
+            <area name="Sulphur Oxides (MALMO)" info="The EU Directive establishes 0.1% maximum sulphur requirement for fuels used by ships at berth, meaning securely moored or anchored in EU ports" legs="42-43"/>
+            <area name="Sulphur Oxides (GOTEBORG)" info="The EU Directive establishes 0.1% maximum sulphur requirement for fuels used by ships at berth, meaning securely moored or anchored in EU ports" legs="73-79"/>
+        </extension>
+        <extension name="nav_areas" manufacturer="Transas" version="1.0.0">
+            <navarea id="US-NIV-772-2022" area="NORTH ATLANTIC" title="NAVAREA IV 772. NAVAREA IV WARNINGS IN FORCE AS OF 051344Z AUG" category="in-force bulletin"/>
+            <navarea id="US-NIV-766-2022" area="NORTH ATLANTIC" title="NAVAREA IV 766. ICEBERG BULLETIN 050001Z AUG" category="iceberg outside advertised limits"/>
+            <navarea danger="yes" id="FR-NII-243-2022" area="IROISE. IROISE - NAVTEX STATION" title="NAVAREA II 243. NAVTEX STATION CORSEN UNAVAILABLE" category="NAVTEX"/>
+            <navarea danger="yes" id="GB-NI-108-2022" area="NORTH SEA. Aberdeen to Rotterdam" title="NAVAREA I 108. Towing floating turbine 
+Affected charts: GB 4140 (INT 140)" category="unwieldy tow"/>
+            <navarea id="GB-NI-106-2022" area="" title="NAVAREA I 106. RIGLIST. Correct at 010500 UTC Aug 22" category="offshore structures"/>
+            <navarea id="GB-NI-105-2022" area="" title="NAVAREA I 105. NAVAREA I WARNINGS IN FORCE" category="in-force bulletin"/>
+            <navarea id="FR-NII-242-2022" area="" title="NAVAREA II 242. NAVAREA II WARNINGS IN FORCE" category="in-force bulletin"/>
+            <navarea id="NO-NXIX-99-2022" area="" title="NAVAREA XIX 99. NAVAREA XIX WARNINGS INFORCE AT 291830 UTC JUL 22" category="in-force bulletin"/>
+            <navarea danger="yes" id="GB-NI-104-2022" area="NORWEGIAN SEA. Floro Westwards" title="NAVAREA I 104. Seismic survey in progress 
+Affected charts: GB 2182D (INT 1040)" category="seismic surveys"/>
+            <navarea danger="yes" id="GB-NI-100-2022" area="NORTH SEA, UK SECTOR. Thames Gas Field" title="NAVAREA I 100. Safety Zone 
+Affected charts: GB 1503 (INT 1509)" category="offshore structures"/>
+            <navarea danger="yes" id="GB-NI-101-2022" area="NORTH SEA, UK SECTOR. Cawdor Oil Field North-westwards" title="NAVAREA I 101. Safety Zone 
+Affected charts: GB 272" category="offshore structures"/>
+            <navarea id="US-NIV-652-2022" area="NORTH ATLANTIC" title="NAVAREA IV 652. CABLE OPERATIONS" category="cable laying operations"/>
+            <navarea id="NO-NXIX-88-2022" area="NORWEGIAN SEA" title="NAVAREA XIX 88. SEISMIC SURVEY" category="seismic surveys"/>
+            <navarea id="GB-NI-87-2022" area="NORTH SEA. Long Forties Eastwards.  Culzean Gas Field." title="NAVAREA I 87. Seismic survey in progress 
+Affected charts: GB 2182B (INT 1042)" category="seismic surveys"/>
+            <navarea danger="yes" id="GB-NI-75-2022" area="NORTH SEA, NORWEGIAN SECTOR. Bergen Bank" title="NAVAREA I 75. Seismic survey in progress 
+Affected charts: GB 294" category="seismic surveys"/>
+            <navarea danger="yes" id="GB-NI-68-2022" area="â€‹SCOTLAND EAST COAST. Moray Firth" title="NAVAREA I 68. Buoys permanently discontinued 
+Affected charts: GB 115 (INT 1503)" category="buoys"/>
+            <navarea id="GB-NI-59-2022" area="NORTH SEA, NORWEGIAN SECTOR. Floro Westwards to Bergen Bank" title="NAVAREA I 59. Seismic survey in progress 
+Affected charts: GB 4140 (INT 140)" category="seismic surveys"/>
+            <navarea danger="yes" id="US-NIV-362-2022" area="EASTERN CARIBBEAN SEA. MARTINIQUE" title="NAVAREA IV 362. MEASURES TO COMBAT COVID-19" category="regulations"/>
+            <navarea danger="yes" id="GB-NI-31-2021" area="" title="NAVAREA I 31. NOTIFICATION OF INITIAL OPERATIONAL CAPABILITY OF IRIDIUM SAFETYCAST SERVICES" category="acoustic recorder"/>
+        </extension>
+        <extension name="overhead" manufacturer="Transas" version="1.0.0">
+            <overhead ref_id="74" air_draught="34.5" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="77" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="78" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="79" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="81" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="80" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="82" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="90" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="91" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="92" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="93" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="94" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="95" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="98" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="100" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="101" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="102" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="105" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="106" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="108" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="109" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="163" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="110" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="111" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="112" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="113" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="114" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="115" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="116" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="117" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="118" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="119" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="120" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="121" air_draught="33.9" overhead="0" overhead_status="no_data"/>
+            <overhead ref_id="123" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="125" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="126" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="127" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="128" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="129" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="131" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="132" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="133" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="134" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="135" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="136" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="137" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="138" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="140" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="141" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="142" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="143" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="144" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="146" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="147" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="149" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="150" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="151" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="152" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="153" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="154" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="155" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="156" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="157" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="158" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+            <overhead ref_id="160" air_draught="33.9" overhead="0" overhead_status="no_object"/>
+        </extension>
+        <extension name="port_data" manufacturer="Transas" version="1.0.0">
+            <item name="Tromso" country="Norway" type="Port" cargotype="Oil, General/Dry" from="0" to="1"/>
+            <item name="Harstad" country="Norway" type="Port" cargotype="Oil, General/Dry" from="54" to="55"/>
+            <item name="Bodo" country="Norway" type="Port" cargotype="Oil, General/Dry" from="90" to="91"/>
+        </extension>
+        <extension name="portcdm_services" manufacturer="Transas" version="1.0.0">
+            <waypoint name="departure" amss="" broker="" vis_connector=""/>
+            <waypoint name="arrival" amss="" broker="" vis_connector=""/>
+        </extension>
+        <extension name="publications" manufacturer="Transas" version="1.0.0">
+            <item name="ADLL Area 1-2 Northern Europe and The Baltic" update_to="20/2020" last_expires="28-02-21" chart_status="ok"/>
+            <item name="ADRS1345 Area 1 - UK, Europe, Africa and parts of Asia" update_to="20/2020" last_expires="28-02-21" chart_status="ok"/>
+            <item name="ADRS2 Area 1 - UK, Europe, Africa and parts of Asia" update_to="20/2020" last_expires="28-02-21" chart_status="ok"/>
+            <item name="ADRS6 Area 3 - Baltic and Northern Waters" update_to="20/2020" last_expires="28-02-21" chart_status="ok"/>
+            <item name="ATT Area 1-4 - Europe, Northern Waters and Mediterranean" update_to="20/2020" last_expires="28-02-21" chart_status="ok"/>
+        </extension>
+        <extension name="refpoints" manufacturer="Transas" version="1.0.0">
+            <refpoint ref_id="78" name="Leppäkari alempi" lat="3699.09416666667" lon="1283.41266666667"/>
+            <refpoint ref_id="79" name="Kupeli" lat="3698.03816666667" lon="1280.08683333333"/>
+            <refpoint ref_id="81" name="Kupeli" lat="3698.03816666667" lon="1280.08683333333"/>
+            <refpoint ref_id="90" name="GRUNDKALLEN" lat="3629.76266666667" lon="1130.98866666667"/>
+            <refpoint ref_id="91" name="SÖDRA KVARKEN" lat="3625.6775" lon="1144.97616666667"/>
+            <refpoint ref_id="92" name="Märketskallen" lat="3618.47766666667" lon="1141.82816666667"/>
+            <refpoint ref_id="93" name="UNDERSTEN" lat="3616.49783333333" lon="1135.16633333333"/>
+            <refpoint ref_id="94" name="Solovjeva" lat="3611.21" lon="1150.21633333333"/>
+            <refpoint ref_id="95" name="Solovjeva" lat="3611.21" lon="1150.21633333333"/>
+            <refpoint ref_id="98" name="Flötjan" lat="3588.49816666667" lon="1186.922"/>
+            <refpoint ref_id="100" name="Tröskeln Östra" lat="3579.69533333333" lon="1195.18983333333"/>
+            <refpoint ref_id="101" name="Svenska Björn" lat="3572.88133333333" lon="1201.1275"/>
+            <refpoint ref_id="102" name="Svenska Björn" lat="3572.88133333333" lon="1201.1275"/>
+            <refpoint ref_id="108" name="ÖLANDS SÖDRA GRUND" lat="3364.18066666667" lon="1000.8375"/>
+            <refpoint ref_id="109" name="ÖLANDS SÖDRA GRUND" lat="3364.18066666667" lon="1000.8375"/>
+            <refpoint ref_id="114" name="" lat="3320.23207830185" lon="768.662456894355"/>
+            <refpoint ref_id="116" name="FALSTERBOREV" lat="3318.52766666667" lon="759.354333333333"/>
+            <refpoint ref_id="118" name="Skanör" lat="3325.01733333333" lon="769.683833333333"/>
+            <refpoint ref_id="119" name="" lat="3329.97511563682" lon="765.946443534881"/>
+            <refpoint ref_id="120" name="Flintrännan SV" lat="3331.09333333333" lon="764.684"/>
+            <refpoint ref_id="121" name="Flintrännan NO" lat="3336.84183333333" lon="773.401"/>
+            <refpoint ref_id="123" name="Malmö vågbrytarbank" lat="3337.49416666667" lon="778.570833333333"/>
+            <refpoint ref_id="127" name="Grasrannan" lat="3351.69716666667" lon="767.679333333333"/>
+            <refpoint ref_id="128" name="Vens S udde" lat="3353.52266666667" lon="762.673166666667"/>
+            <refpoint ref_id="129" name="Haken" lat="3354.55833333333" lon="763.488833333333"/>
+            <refpoint ref_id="136" name="Svinbådan" lat="3369.02466666667" lon="752.4075"/>
+            <refpoint ref_id="138" name="Kullen Västra" lat="3378.146" lon="746.805"/>
+            <refpoint ref_id="143" name="FLADEN" lat="3432.92416666667" lon="709.7025"/>
+            <refpoint ref_id="149" name="TRUBADUREN" lat="3455.684" lon="697.976333333333"/>
+            <refpoint ref_id="151" name="Buskärs Knöte" lat="3458.30583333333" lon="700.975333333333"/>
+            <refpoint ref_id="152" name="Böttö" lat="3458.9515" lon="703.173833333333"/>
+            <refpoint ref_id="153" name="No 1" lat="3459.33133333333" lon="704.128666666667"/>
+            <refpoint ref_id="154" name="Gäveskär" lat="3459.68633333333" lon="706.147"/>
+            <refpoint ref_id="155" name="No 27" lat="3460.86183333333" lon="708.177166666667"/>
+            <refpoint ref_id="156" name="No 33" lat="3460.86666666667" lon="710.545333333333"/>
+        </extension>
+        <extension name="remarks" manufacturer="Transas" version="1.0.0">
+            <point ref_id="74" text="UKC 10% ships draught alongside"/>
+            <point ref_id="77" text="UKC 14.4 m @ spd 3 kts / Security level 1"/>
+            <point ref_id="78" text="UKC 10.3 m @ Spd 15 kts / Security level 1"/>
+            <point ref_id="79" text="UKC 6.5 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="81" text="UKC 2.9 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="80" text="UKC 7.1 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="82" text="UKC 19.1 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="90" text="UKC 17.1 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="91" text="UKC 16.6 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="92" text="UKC 5.9 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="93" text="UKC 13.6 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="94" text="UKC &gt; 50 m , Security level 1"/>
+            <point ref_id="95" text="UKC &gt; 50 m , Security level 1"/>
+            <point ref_id="98" text="UKC 21.1 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="100" text="UKC 14.0 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="101" text="UKC 12.6 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="102" text="UKC 3.9 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="105" text="UKC 4.1 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="106" text="UKC &gt; 50 m , Security level 1"/>
+            <point ref_id="108" text="UKC 16.1 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="109" text="UKC 28.1 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="163" text="UKC 26.1 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="110" text="UKC 29.1 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="111" text="UKC 27.1 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="112" text="UKC 27.1 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="113" text="UKC 15.8 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="114" text="UKC 3.0 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="115" text="UKC 3.9 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="116" text="UKC 2.4 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="117" text="UKC 3.8 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="118" text="UKC 2.0 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="119" text="UKC 1.6 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="120" text="UKC 0.8 m @ spd 9 kts / Security level 1"/>
+            <point ref_id="121" text="UKC 0.8 m @ spd 9 kts / Security level 1"/>
+            <point ref_id="123" text="UKC 3.5 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="125" text="UKC 2.8 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="126" text="UKC 2.6 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="127" text="UKC 13.5 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="128" text="UKC 7.5 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="129" text="UKC 14.5 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="131" text="UKC 6.1 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="132" text="UKC 17.5 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="133" text="UKC 7.7 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="134" text="UKC 9.0 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="135" text="UKC 18.5 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="136" text="UKC 10.6 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="137" text="UKC 10.0 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="138" text="UKC 8.5 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="140" text="UKC 12.3 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="141" text="UKC 9.1 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="142" text="UKC 9.1 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="143" text="UKC 25.8 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="144" text="UKC 25.8 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="146" text="UKC 5.9 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="147" text="UKC 12.8 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="149" text="UKC 21.8 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="150" text="UKC 13.3 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="151" text="UKC 14.6 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="152" text="UKC 10.5 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="153" text="UKC 6.7 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="154" text="UKC 6.7 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="155" text="UKC 6.2 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="156" text="UKC 6.2 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="157" text="UKC 5.7 m @ spd 15 kts / Security level 1"/>
+            <point ref_id="158" text="Reduced speed berth appraoch"/>
+            <point ref_id="160" text="UKC 10% ships draught alongside"/>
+        </extension>
+        <extension name="routeInfo" manufacturer="Transas" version="1.0.0" routeName="Anchorage B -  Staholmen crew change" vesselName="TERNVIK" vesselMMSI="219083000" vesselIMO="9221267" vesselVoyage="urn:mrn:stm:voyage:id:transas:b595fe2a-6b76-4de4-9853-e5a97baa19ff"/>
+        <extension check_time="2024-11-08T15:08:37Z" name="route_check_info" manufacturer="Transas" version="1.0.0"/>
+        <extension name="ukccalc" manufacturer="Transas" version="1.0.0">
+            <ukc ref_id="74" draught="6.50" static_draught="8.90" squat="0.00" depth="0.00" ukc="5.50" ukc_status="ok" passage_type="coastal_waters" catzoc="unassesed" catzoc_status=""/>
+            <ukc ref_id="77" draught="7.20" static_draught="7.10" squat="0.12" wave_respond="0.30" depth="13.50" depth_status="manual" ukc="5.88" ukc_status="ok" passage_type="coastal_waters" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="78" draught="7.27" static_draught="7.10" squat="0.50" wave_respond="0.30" depth="18.20" depth_status="manual" ukc="10.38" ukc_status="ok" passage_type="coastal_waters" catzoc="c" catzoc_status="ok"/>
+            <ukc ref_id="79" draught="7.35" static_draught="7.10" squat="3.10" wave_respond="0.30" depth="15.70" depth_status="manual" ukc="6.50" ukc_status="ok" passage_type="coastal_waters" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="81" draught="7.35" static_draught="7.10" squat="3.10" wave_respond="0.30" depth="12.10" depth_status="manual" ukc="2.90" ukc_status="ok" passage_type="coastal_waters" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="80" draught="7.35" static_draught="7.10" squat="1.55" wave_respond="1.00" depth="27.00" depth_status="manual" ukc="17.10" ukc_status="ok" passage_type="open_sea" catzoc="c" catzoc_status="ok"/>
+            <ukc ref_id="82" draught="7.35" static_draught="7.10" squat="1.55" wave_respond="1.00" depth="29.00" depth_status="manual" ukc="19.10" ukc_status="ok" passage_type="open_sea" catzoc="c" catzoc_status="ok"/>
+            <ukc ref_id="90" draught="7.29" static_draught="7.10" squat="1.55" wave_respond="1.00" depth="27.00" depth_status="manual" ukc="17.16" ukc_status="ok" passage_type="open_sea" catzoc="c" catzoc_status="ok"/>
+            <ukc ref_id="91" draught="7.29" static_draught="7.10" squat="1.55" wave_respond="1.00" depth="26.50" depth_status="manual" ukc="16.66" ukc_status="ok" passage_type="open_sea" catzoc="b" catzoc_status="ok"/>
+            <ukc ref_id="92" draught="7.29" static_draught="7.10" squat="1.55" wave_respond="1.00" depth="15.80" depth_status="manual" ukc="5.96" ukc_status="ok" passage_type="open_sea" catzoc="b" catzoc_status="ok"/>
+            <ukc ref_id="93" draught="7.29" static_draught="7.10" squat="1.55" wave_respond="1.00" depth="23.50" depth_status="manual" ukc="13.66" ukc_status="ok" passage_type="open_sea" catzoc="b" catzoc_status="ok"/>
+            <ukc ref_id="94" draught="7.29" static_draught="7.10" squat="1.55" wave_respond="1.00" depth="231.00" depth_status="manual" ukc="221.16" ukc_status="ok" passage_type="open_sea" catzoc="b" catzoc_status="ok"/>
+            <ukc ref_id="95" draught="7.29" static_draught="7.10" squat="1.55" wave_respond="1.00" depth="205.00" depth_status="manual" ukc="195.16" ukc_status="ok" passage_type="open_sea" catzoc="b" catzoc_status="ok"/>
+            <ukc ref_id="98" draught="7.29" static_draught="7.10" squat="1.55" wave_respond="1.00" depth="31.00" depth_status="manual" ukc="21.16" ukc_status="ok" passage_type="open_sea" catzoc="c" catzoc_status="ok"/>
+            <ukc ref_id="100" draught="7.29" static_draught="7.10" squat="1.55" wave_respond="1.00" depth="23.90" depth_status="manual" ukc="14.06" ukc_status="ok" passage_type="open_sea" catzoc="c" catzoc_status="ok"/>
+            <ukc ref_id="101" draught="7.29" static_draught="7.10" squat="1.55" wave_respond="1.00" depth="22.50" depth_status="manual" ukc="12.66" ukc_status="ok" passage_type="open_sea" catzoc="a2" catzoc_status="ok"/>
+            <ukc ref_id="102" draught="7.29" static_draught="7.10" squat="1.55" wave_respond="1.00" depth="13.80" depth_status="manual" ukc="3.96" ukc_status="ok" passage_type="open_sea" catzoc="c" catzoc_status="ok"/>
+            <ukc ref_id="105" draught="7.29" static_draught="7.10" squat="1.55" wave_respond="2.00" depth="15.00" depth_status="manual" ukc="4.16" ukc_status="ok" passage_type="open_sea" catzoc="c" catzoc_status="ok"/>
+            <ukc ref_id="106" draught="7.29" static_draught="7.10" squat="1.55" wave_respond="2.00" depth="90.00" depth_status="manual" ukc="79.16" ukc_status="ok" passage_type="open_sea" catzoc="b" catzoc_status="ok"/>
+            <ukc ref_id="108" draught="7.29" static_draught="7.10" squat="1.55" wave_respond="1.00" depth="26.00" depth_status="manual" ukc="16.16" ukc_status="ok" passage_type="open_sea" catzoc="b" catzoc_status="ok"/>
+            <ukc ref_id="109" draught="7.29" static_draught="7.10" squat="1.55" wave_respond="1.00" depth="38.00" depth_status="manual" ukc="28.16" ukc_status="ok" passage_type="open_sea" catzoc="b" catzoc_status="ok"/>
+            <ukc ref_id="163" draught="7.29" static_draught="7.10" squat="1.55" wave_respond="2.00" depth="37.00" depth_status="manual" ukc="26.16" ukc_status="ok" passage_type="open_sea" catzoc="b" catzoc_status="ok"/>
+            <ukc ref_id="110" draught="7.29" static_draught="7.10" squat="1.55" wave_respond="1.00" depth="39.00" depth_status="manual" ukc="29.16" ukc_status="ok" passage_type="open_sea" catzoc="b" catzoc_status="ok"/>
+            <ukc ref_id="111" draught="7.29" static_draught="7.10" squat="1.55" wave_respond="1.00" depth="37.00" depth_status="manual" ukc="27.16" ukc_status="ok" passage_type="open_sea" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="112" draught="7.29" static_draught="7.10" squat="1.55" wave_respond="1.00" depth="37.00" depth_status="manual" ukc="27.16" ukc_status="ok" passage_type="open_sea" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="113" draught="6.59" static_draught="7.10" squat="1.55" wave_respond="1.00" depth="25.00" depth_status="manual" ukc="15.86" ukc_status="ok" passage_type="open_sea" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="114" draught="6.59" static_draught="7.10" squat="1.55" wave_respond="0.30" depth="11.50" depth_status="manual" ukc="3.06" ukc_status="ok" passage_type="open_sea" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="115" draught="6.59" static_draught="7.10" squat="1.55" wave_respond="0.30" depth="12.40" depth_status="manual" ukc="3.96" ukc_status="ok" passage_type="open_sea" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="116" draught="6.59" static_draught="7.10" squat="1.55" wave_respond="0.30" depth="10.90" depth_status="manual" ukc="2.46" ukc_status="ok" passage_type="open_sea" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="117" draught="6.59" static_draught="7.10" squat="1.55" wave_respond="0.30" depth="12.30" depth_status="manual" ukc="3.86" ukc_status="ok" passage_type="open_sea" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="118" draught="6.59" static_draught="7.10" squat="1.55" wave_respond="0.30" depth="10.50" depth_status="manual" ukc="2.06" ukc_status="ok" passage_type="open_sea" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="119" draught="6.59" static_draught="7.10" squat="1.55" wave_respond="0.30" depth="10.10" depth_status="manual" ukc="1.66" ukc_status="ok" passage_type="open_sea" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="120" draught="6.53" static_draught="6.80" squat="0.56" wave_respond="0.10" depth="8.00" depth_status="manual" ukc="0.81" ukc_status="ok" passage_type="open_sea" catzoc="c" catzoc_status="ok"/>
+            <ukc ref_id="121" draught="6.53" static_draught="6.80" squat="0.56" wave_respond="0.10" depth="8.00" depth_status="manual" ukc="0.81" ukc_status="ok" passage_type="open_sea" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="123" draught="6.59" static_draught="7.10" squat="1.55" wave_respond="0.30" depth="12.00" depth_status="manual" ukc="3.56" ukc_status="ok" passage_type="open_sea" catzoc="c" catzoc_status="ok"/>
+            <ukc ref_id="125" draught="6.59" static_draught="7.10" squat="1.55" wave_respond="0.30" depth="11.30" depth_status="manual" ukc="2.86" ukc_status="ok" passage_type="open_sea" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="126" draught="6.59" static_draught="7.10" squat="1.55" wave_respond="0.30" depth="11.10" depth_status="manual" ukc="2.66" ukc_status="ok" passage_type="open_sea" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="127" draught="6.59" static_draught="7.10" squat="1.55" wave_respond="0.30" depth="22.00" depth_status="manual" ukc="13.56" ukc_status="ok" passage_type="open_sea" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="128" draught="6.59" static_draught="7.10" squat="1.55" wave_respond="0.30" depth="16.00" depth_status="manual" ukc="7.56" ukc_status="ok" passage_type="open_sea" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="129" draught="6.59" static_draught="7.10" squat="1.55" wave_respond="0.30" depth="23.00" depth_status="manual" ukc="14.56" ukc_status="ok" passage_type="open_sea" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="131" draught="6.59" static_draught="7.10" squat="1.55" wave_respond="0.30" depth="14.60" depth_status="manual" ukc="6.16" ukc_status="ok" passage_type="open_sea" catzoc="c" catzoc_status="ok"/>
+            <ukc ref_id="132" draught="6.59" static_draught="7.10" squat="1.55" wave_respond="0.30" depth="26.00" depth_status="manual" ukc="17.56" ukc_status="ok" passage_type="open_sea" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="133" draught="6.59" static_draught="7.10" squat="1.55" wave_respond="0.30" depth="16.20" depth_status="manual" ukc="7.76" ukc_status="ok" passage_type="open_sea" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="134" draught="6.59" static_draught="7.10" squat="1.55" wave_respond="0.30" depth="17.50" depth_status="manual" ukc="9.06" ukc_status="ok" passage_type="open_sea" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="135" draught="6.59" static_draught="7.10" squat="1.55" wave_respond="0.30" depth="27.00" depth_status="manual" ukc="18.56" ukc_status="ok" passage_type="open_sea" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="136" draught="6.59" static_draught="7.10" squat="1.55" wave_respond="0.30" depth="19.10" depth_status="manual" ukc="10.66" ukc_status="ok" passage_type="open_sea" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="137" draught="6.59" static_draught="7.10" squat="1.55" wave_respond="0.30" depth="18.50" depth_status="manual" ukc="10.06" ukc_status="ok" passage_type="open_sea" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="138" draught="6.59" static_draught="7.10" squat="1.55" wave_respond="0.30" depth="17.00" depth_status="manual" ukc="8.56" ukc_status="ok" passage_type="open_sea" catzoc="b" catzoc_status="ok"/>
+            <ukc ref_id="140" draught="6.59" static_draught="7.10" squat="1.55" wave_respond="1.00" depth="21.50" depth_status="manual" ukc="12.36" ukc_status="ok" passage_type="open_sea" catzoc="unassesed" catzoc_status="ok"/>
+            <ukc ref_id="141" draught="6.59" static_draught="7.10" squat="1.55" wave_respond="1.00" depth="18.30" depth_status="manual" ukc="9.16" ukc_status="ok" passage_type="open_sea" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="142" draught="6.59" static_draught="7.10" squat="1.55" wave_respond="1.00" depth="19.10" depth_status="manual" ukc="9.96" ukc_status="ok" passage_type="open_sea" catzoc="c" catzoc_status="ok"/>
+            <ukc ref_id="143" draught="6.59" static_draught="7.10" squat="1.55" wave_respond="1.00" depth="35.00" depth_status="manual" ukc="25.86" ukc_status="ok" passage_type="open_sea" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="144" draught="6.59" static_draught="7.10" squat="1.55" wave_respond="1.00" depth="35.00" depth_status="manual" ukc="25.86" ukc_status="ok" passage_type="open_sea" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="146" draught="6.59" static_draught="7.10" squat="1.55" wave_respond="1.00" depth="15.10" depth_status="manual" ukc="5.96" ukc_status="ok" passage_type="open_sea" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="147" draught="6.59" static_draught="7.10" squat="1.55" wave_respond="1.00" depth="22.00" depth_status="manual" ukc="12.86" ukc_status="ok" passage_type="open_sea" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="149" draught="6.59" static_draught="7.10" squat="1.55" wave_respond="1.00" depth="31.00" depth_status="manual" ukc="21.86" ukc_status="ok" passage_type="open_sea" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="150" draught="6.59" static_draught="7.10" squat="1.55" wave_respond="0.50" depth="22.00" depth_status="manual" ukc="13.36" ukc_status="ok" passage_type="open_sea" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="151" draught="6.54" static_draught="7.10" squat="1.55" wave_respond="0.30" depth="23.00" depth_status="manual" ukc="14.61" ukc_status="ok" passage_type="open_sea" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="152" draught="6.54" static_draught="7.10" squat="1.55" wave_respond="0.30" depth="18.90" depth_status="manual" ukc="10.51" ukc_status="ok" passage_type="open_sea" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="153" draught="6.56" static_draught="7.10" squat="1.55" wave_respond="0.30" depth="15.20" depth_status="manual" ukc="6.79" ukc_status="ok" passage_type="open_sea" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="154" draught="6.56" static_draught="7.10" squat="1.55" wave_respond="0.30" depth="15.20" depth_status="manual" ukc="6.79" ukc_status="ok" passage_type="open_sea" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="155" draught="6.56" static_draught="7.10" squat="1.55" wave_respond="0.30" depth="14.70" depth_status="manual" ukc="6.29" ukc_status="ok" passage_type="open_sea" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="156" draught="6.56" static_draught="7.10" squat="1.55" wave_respond="0.30" depth="14.70" depth_status="manual" ukc="6.29" ukc_status="ok" passage_type="open_sea" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="157" draught="6.59" static_draught="7.10" squat="1.55" wave_respond="0.30" depth="14.20" depth_status="manual" ukc="5.76" ukc_status="ok" passage_type="open_sea" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="158" draught="6.50" static_draught="7.10" squat="0.06" wave_respond="0.30" depth="13.20" depth_status="manual" ukc="6.34" ukc_status="ok" passage_type="open_sea" catzoc="a1" catzoc_status="ok"/>
+            <ukc ref_id="160" draught="6.50" static_draught="7.10" squat="0.00" wave_respond="0.00" depth="13.00" depth_status="manual" ukc="6.50" ukc_status="ok" passage_type="open_sea" catzoc="a1" catzoc_status="ok"/>
+        </extension>
+        <extension name="voyage_info" manufacturer="Transas" version="1.0.0" voyage_no="24033" start_point="Pori" end_point="Gothenburg " transit_point="Flint" arrival_draft="6.8" depart_draft="7.1" dbirth_refid="74" dbirth_name="" dpilot_refid="80" dpilot_name="" abirth_refid="160" abirth_name="" apilot_refid="149" apilot_name=""/>
+        <extension name="voyage_status" manufacturer="Transas" version="1.0.0" value="2"/>
+    </extensions>
+</route>

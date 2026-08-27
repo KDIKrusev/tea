@@ -1,0 +1,154 @@
+<div class="ea-vec-voyage-option-details-container">
+  <div *ngIf="selectedVoyageOption" class="ea-vec-content-wrapper">
+    
+    <div class="ea-vec-section-container">
+      <div class="ea-vec-section-title">Voyage details</div>
+      <div class="ea-vec-details-section">
+        <div class="ea-vec-details-row">
+          <span class="ea-vec-details-label">Departure:</span>
+          <span class="ea-vec-details-value">
+            {{ selectedVoyageOption.etd | date:'dd/MM/yyyy':'UTC' }}
+            {{ selectedVoyageOption.etd | date:'HH:mm':'UTC' }}
+          </span>
+        </div>
+        <div class="ea-vec-details-row">
+          <span class="ea-vec-details-label">Arrival:</span>
+          <span class="ea-vec-details-value">
+          {{ selectedVoyageOption.eta | date:'dd/MM/yyyy':'UTC' }}
+          {{ selectedVoyageOption.eta | date:'HH:mm':'UTC' }}
+        </span>
+        </div>
+        <div class="ea-vec-details-row">
+          <span class="ea-vec-details-label">Average speed:</span>
+          <span class="ea-vec-details-value">{{ selectedVoyageOption.averageSpeed | number: '1.0-1' }}kn</span>
+        </div>
+        <div class="ea-vec-details-row">
+          <span class="ea-vec-details-label">Duration:</span>
+          <span class="ea-vec-details-value">{{ durationText || formatDuration(selectedVoyageOption.durationInSeconds) }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ea-vec-section-container" *ngIf="shouldShowVariableSpeedSegmentDetails() && selectedSegment as segment">
+      <div class="ea-vec-section-title">Selected segment</div>
+      <div class="ea-vec-details-section">
+        <div class="ea-vec-details-row">
+          <span class="ea-vec-details-label">Segment speed:</span>
+          <span class="ea-vec-details-value">{{ segment.averageSpeed | number: '1.0-1' }}kn</span>
+        </div>
+        <div class="ea-vec-details-row">
+          <span class="ea-vec-details-label">Average power:</span>
+          <span class="ea-vec-details-value">{{ segment.avgTotalPower | eaPowerValue: '1.1-1' }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ea-vec-section-container">
+      <div class="ea-vec-section-title">{{ sectionTitle }}</div>
+      <div class="ea-vec-details-section">
+        
+        <div class="ea-vec-details-row">
+          <span class="ea-vec-details-label">Calm water resistance:</span>
+          <span class="ea-vec-details-value">
+            {{ formatConsumption(getCalmWaterConsumption()) }}
+          </span>
+        </div>
+        
+        <!-- Resistances group -->
+        <div *ngIf="hasResistances()" class="ea-vec-energy-group ea-vec-resistance-group">
+          <div class="ea-vec-energy-group-header">
+            <span class="ea-vec-energy-group-icon">+</span>
+            <span class="ea-vec-energy-group-title">Weather resistances</span>
+          </div>
+          
+          <!-- Wind resistance -->
+          <div *ngIf="getRelativeWind() > 0" class="ea-vec-details-row">
+            <span class="ea-vec-details-label">Winds:</span>
+            <span class="ea-vec-details-value">
+              {{ formatConsumption(getWindConsumption()) }}
+              <span class="ea-vec-percentage-value ea-vec-resistance-value">(+{{ getRelativeWind() | number: '1.0-1' }}%)</span>
+            </span>
+          </div>
+          
+          <!-- Current resistance -->
+          <div *ngIf="getRelativeCurrent() > 0" class="ea-vec-details-row">
+            <span class="ea-vec-details-label">Currents:</span>
+            <span class="ea-vec-details-value">
+              {{ formatConsumption(getCurrentConsumption()) }}
+              <span class="ea-vec-percentage-value ea-vec-resistance-value">(+{{ getRelativeCurrent() | number: '1.0-1' }}%)</span>
+            </span>
+          </div>
+          
+          <!-- Wave resistance -->
+          <div *ngIf="getRelativeWave() > 0" class="ea-vec-details-row">
+            <span class="ea-vec-details-label">Waves:</span>
+            <span class="ea-vec-details-value">
+              {{ formatConsumption(getWaveConsumption()) }}
+              <span class="ea-vec-percentage-value ea-vec-resistance-value">(+{{ getRelativeWave() | number: '1.0-1' }}%)</span>
+            </span>
+          </div>
+          
+          <!-- Sail resistance (only show if positive) -->
+          <div *ngIf="getRelativeSail() > 0" class="ea-vec-details-row">
+            <span class="ea-vec-details-label">Sails:</span>
+            <span class="ea-vec-details-value">
+              {{ formatConsumption(getSailConsumption()) }}
+              <span class="ea-vec-percentage-value ea-vec-resistance-value">(+{{ getRelativeSail() | number: '1.0-1' }}%)</span>
+            </span>
+          </div>
+        </div>
+        
+        <!-- Contributions group -->
+        <div *ngIf="hasContributions()" class="ea-vec-energy-group ea-vec-contribution-group">
+          <div class="ea-vec-energy-group-header">
+            <span class="ea-vec-energy-group-icon">−</span>
+            <span class="ea-vec-energy-group-title">Weather contributions</span>
+          </div>
+          
+          <!-- Wind contribution -->
+          <div *ngIf="getRelativeWind() < 0" class="ea-vec-details-row">
+            <span class="ea-vec-details-label">Winds:</span>
+            <span class="ea-vec-details-value">
+              {{ formatConsumption(getWindConsumption()) }}
+              <span class="ea-vec-percentage-value ea-vec-contribution-value">({{ getRelativeWind() | number: '1.0-1' }}%)</span>
+            </span>
+          </div>
+          
+          <!-- Current contribution -->
+          <div *ngIf="getRelativeCurrent() < 0" class="ea-vec-details-row">
+            <span class="ea-vec-details-label">Currents:</span>
+            <span class="ea-vec-details-value">
+              {{ formatConsumption(getCurrentConsumption()) }}
+              <span class="ea-vec-percentage-value ea-vec-contribution-value">({{ getRelativeCurrent() | number: '1.0-1' }}%)</span>
+            </span>
+          </div>
+          
+          <!-- Wave contribution -->
+          <div *ngIf="getRelativeWave() < 0" class="ea-vec-details-row">
+            <span class="ea-vec-details-label">Waves:</span>
+            <span class="ea-vec-details-value">
+              {{ formatConsumption(getWaveConsumption()) }}
+              <span class="ea-vec-percentage-value ea-vec-contribution-value">({{ getRelativeWave() | number: '1.0-1' }}%)</span>
+            </span>
+          </div>
+          
+          <!-- Sail contribution (only show if negative) -->
+          <div *ngIf="getRelativeSail() < 0" class="ea-vec-details-row">
+            <span class="ea-vec-details-label">Sails:</span>
+            <span class="ea-vec-details-value">
+              {{ formatConsumption(getSailConsumption()) }}
+              <span class="ea-vec-percentage-value ea-vec-contribution-value">({{ getRelativeSail() | number: '1.0-1' }}%)</span>
+            </span>
+          </div>
+        </div>
+        
+        <!-- Total row -->
+        <div class="ea-vec-details-row ea-vec-total-row">
+          <span class="ea-vec-details-label">Total:</span>
+          <span class="ea-vec-details-value ea-vec-total-value">{{ formatConsumption(getTotalConsumption()) }}</span>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>

@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<route xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.cirm.org/RTZ/1/0" xsi:schemaLocation="http://www.cirm.org/rtz/RTZ Schema version 1_0.xsd" version="1.0">
+  <routeInfo routeName="Måløy - Mongstad JK Krakhelle" />
+  <waypoints>
+    <waypoint id="306" revision="1" name="Ulvesund" radius="0">
+      <position lat="61.991554" lon="5.165412" />
+    </waypoint>
+    <waypoint id="307" revision="1" name="Hjartneset" radius="0.3">
+      <position lat="61.97997" lon="5.150089" />
+      <leg starboardXTD="0.08" portsideXTD="0.08" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="308" revision="1" name="Kyrkjenesflua" radius="0.3">
+      <position lat="61.972643" lon="5.148955" />
+      <leg starboardXTD="0.07" portsideXTD="0.07" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="309" revision="1" name="Ulven" radius="0.3">
+      <position lat="61.963382" lon="5.144918" />
+      <leg starboardXTD="0.05" portsideXTD="0.05" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="310" revision="1" radius="0.3">
+      <position lat="61.956512" lon="5.146563" />
+      <leg starboardXTD="0.05" portsideXTD="0.05" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="311" revision="1" name="Leistholmen" radius="0.3">
+      <position lat="61.947159" lon="5.140572" />
+      <leg starboardXTD="0.05" portsideXTD="0.05" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="312" revision="1" name="Maloysundet" radius="0.3">
+      <position lat="61.935007" lon="5.123983" />
+      <leg starboardXTD="0.08" portsideXTD="0.08" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="313" revision="1" name="Maloystraumen" radius="0.3">
+      <position lat="61.927543" lon="5.121216" />
+      <leg starboardXTD="0.02" portsideXTD="0.02" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="314" revision="1" name="Kariskjer" radius="0.3">
+      <position lat="61.917511" lon="5.11273" />
+      <leg starboardXTD="0.1" portsideXTD="0.1" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="315" revision="1" name="Gjermundsfluda" radius="0.3">
+      <position lat="61.912958" lon="5.114125" />
+      <leg starboardXTD="0.1" portsideXTD="0.1" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="316" revision="1" name="Gangsoy" radius="0.3">
+      <position lat="61.887807" lon="5.170249" />
+      <leg starboardXTD="0.05" portsideXTD="0.05" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="317" revision="1" name="Gangsoyskjeret" radius="0.3">
+      <position lat="61.876637" lon="5.170449" />
+      <leg starboardXTD="0.05" portsideXTD="0.05" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="318" revision="1" name="Skaten" radius="0.3">
+      <position lat="61.874773" lon="5.212976" />
+      <leg starboardXTD="0.07" portsideXTD="0.07" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="319" revision="1" name="Hornelflua" radius="0.3">
+      <position lat="61.864601" lon="5.256661" />
+      <leg starboardXTD="0.04" portsideXTD="0.04" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="320" revision="1" name="Hornelneset" radius="0.3">
+      <position lat="61.861202" lon="5.266113" />
+      <leg starboardXTD="0.06" portsideXTD="0.06" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="321" revision="1" name="Hornelen" radius="0.3">
+      <position lat="61.835938" lon="5.261293" />
+      <leg starboardXTD="0.07" portsideXTD="0.07" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="322" revision="1" name="Hornelen" radius="0.3">
+      <position lat="61.831716" lon="5.253674" />
+      <leg starboardXTD="0.07" portsideXTD="0.07" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="323" revision="1" name="Bardvikneset" radius="0.3">
+      <position lat="61.817023" lon="5.153902" />
+      <leg starboardXTD="0.1" portsideXTD="0.1" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="324" revision="29" name="Skadvengen" radius="0.3">
+      <position lat="61.739741" lon="4.937715" />
+      <leg starboardXTD="0.1" portsideXTD="0.1" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="6" revision="0" radius="0.3">
+      <position lat="61.725355" lon="4.939984" />
+      <leg starboardXTD="0.1" portsideXTD="0.1" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="326" revision="31" name="Rognane" radius="0.3">
+      <position lat="61.708129" lon="4.94874" />
+      <leg starboardXTD="0.1" portsideXTD="0.1" geometryType="Loxodrome" />
+    </waypoint>
+    <waypoint id="327" revision="88" name="Hollenderane" radius="0.3">
+      <position lat="61.671339" lon="4.958612" />
+      <leg starboardXTD="0.1" portsideXTD="0.1" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="329" revision="1" name="Dragjaskjerflu" radius="0.3">
+      <position lat="61.651224" lon="4.981067" />
+      <leg starboardXTD="0.1" portsideXTD="0.1" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="330" revision="1" name="Vestre Tekneskjerflua" radius="0.3">
+      <position lat="61.636872" lon="4.981224" />
+      <leg starboardXTD="0.06" portsideXTD="0.06" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="331" revision="1" name="Arebrot" radius="0.3">
+      <position lat="61.623139" lon="4.982249" />
+      <leg starboardXTD="0.06" portsideXTD="0.06" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="332" revision="1" name="Naeroyflua" radius="0.3">
+      <position lat="61.615956" lon="4.979473" />
+      <leg starboardXTD="0.08" portsideXTD="0.08" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="333" revision="1" name="Grasskjeret" radius="0.3">
+      <position lat="61.604223" lon="4.960862" />
+      <leg starboardXTD="0.07" portsideXTD="0.07" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="334" revision="1" name="Stabben" radius="0.3">
+      <position lat="61.600234" lon="4.957766" />
+      <leg starboardXTD="0.06" portsideXTD="0.06" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="335" revision="1" name="Mortingbaen" radius="0.3">
+      <position lat="61.59737" lon="4.952546" />
+      <leg starboardXTD="0.05" portsideXTD="0.05" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="336" revision="1" name="Nekkoyosen" radius="0.3">
+      <position lat="61.578035" lon="4.951196" />
+      <leg starboardXTD="0.07" portsideXTD="0.07" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="337" revision="1" name="Oddane" radius="0.3">
+      <position lat="61.554704" lon="4.999006" />
+      <leg starboardXTD="0.1" portsideXTD="0.1" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="338" revision="30" name="Askrova" radius="0.3">
+      <position lat="61.512219" lon="5.001146" />
+      <leg starboardXTD="0.1" portsideXTD="0.1" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="339" revision="15" name="Askrova" radius="0.3">
+      <position lat="61.507831" lon="4.996887" />
+      <leg starboardXTD="0.06" portsideXTD="0.06" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="340" revision="1" name="Tansoyosen" radius="0.3">
+      <position lat="61.497852" lon="4.983438" />
+      <leg starboardXTD="0.06" portsideXTD="0.06" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="341" revision="1" name="Trefotskjer" radius="0.3">
+      <position lat="61.477709" lon="4.977046" />
+      <leg starboardXTD="0.07" portsideXTD="0.07" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="342" revision="1" name="Blana" radius="0.3">
+      <position lat="61.418477" lon="4.847443" />
+      <leg starboardXTD="0.1" portsideXTD="0.1" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="343" revision="1" name="Tussen" radius="0.3">
+      <position lat="61.379868" lon="4.814059" />
+      <leg starboardXTD="0.1" portsideXTD="0.1" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="344" revision="1" name="Midtflu" radius="0.1">
+      <position lat="61.341629" lon="4.798424" />
+      <leg starboardXTD="0.1" portsideXTD="0.1" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="345" revision="1" name="Alden" radius="0.3">
+      <position lat="61.320195" lon="4.800202" />
+      <leg starboardXTD="0.1" portsideXTD="0.1" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="261" revision="1" name="Skardholmen" radius="0.3">
+      <position lat="61.29095" lon="4.80114" />
+      <leg starboardXTD="0.1" portsideXTD="0.1" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="262" revision="1" name="Stabben bn" radius="0.3">
+      <position lat="61.280033" lon="4.814471" />
+      <leg starboardXTD="0.1" portsideXTD="0.1" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="263" revision="1" name="Kraka lt" radius="0.3">
+      <position lat="61.266925" lon="4.854657" />
+      <leg starboardXTD="0.1" portsideXTD="0.1" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="264" revision="1" name="Sakrisskjeret light" radius="0.3">
+      <position lat="61.220404" lon="4.94689" />
+      <leg starboardXTD="0.1" portsideXTD="0.1" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="265" revision="1" name="Kraksnova" radius="0.3">
+      <position lat="61.200391" lon="5.00618" />
+      <leg starboardXTD="0.1" portsideXTD="0.1" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="266" revision="1" name="Seljeskorneset" radius="0.3">
+      <position lat="61.164663" lon="5.01868" />
+      <leg starboardXTD="0.06" portsideXTD="0.06" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="267" revision="1" name="Seglsteinen lt" radius="0.3">
+      <position lat="61.155558" lon="5.02112" />
+      <leg starboardXTD="0.06" portsideXTD="0.06" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="268" revision="1" name="Lasken" radius="0.3">
+      <position lat="61.147817" lon="5.020827" />
+      <leg starboardXTD="0.06" portsideXTD="0.06" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="269" revision="1" name="Meltevikskjer lt" radius="0.3">
+      <position lat="61.118033" lon="5.029" />
+      <leg starboardXTD="0.06" portsideXTD="0.06" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="270" revision="1" name="Djupvikneset" radius="0.3">
+      <position lat="61.107776" lon="5.028077" />
+      <leg starboardXTD="0.06" portsideXTD="0.06" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="271" revision="1" name="Skorane" radius="0.3">
+      <position lat="61.097165" lon="5.020531" />
+      <leg starboardXTD="0.06" portsideXTD="0.06" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="272" revision="1" name="Krakeneset" radius="0.3">
+      <position lat="61.051569" lon="4.944484" />
+      <leg starboardXTD="0.1" portsideXTD="0.1" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="273" revision="1" name="Rossoyna varde" radius="0.3">
+      <position lat="60.993689" lon="4.777936" />
+      <leg starboardXTD="0.1" portsideXTD="0.1" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="274" revision="82" name="Kvernebaen" radius="0.3">
+      <position lat="60.958577" lon="4.751021" />
+      <leg starboardXTD="0.1" portsideXTD="0.1" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="82" revision="1" name="Sogneoksen - report channel 80" radius="0.3">
+      <position lat="60.94755" lon="4.752133" />
+      <leg starboardXTD="0.1" portsideXTD="0.1" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="144" revision="1" name="Krakeskallane 13m" radius="0.3">
+      <position lat="60.939459" lon="4.758194" />
+      <leg starboardXTD="0.07" portsideXTD="0.07" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="159" revision="1" radius="0.3">
+      <position lat="60.926516" lon="4.76206" />
+      <leg starboardXTD="0.1" portsideXTD="0.1" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="145" revision="1" name="Fiskholmen" radius="0.3">
+      <position lat="60.903502" lon="4.759513" />
+      <leg starboardXTD="0.1" portsideXTD="0.1" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="1" revision="0" radius="0.3">
+      <position lat="60.881982" lon="4.77338" />
+      <leg starboardXTD="0.08" portsideXTD="0.08" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="81" revision="215" name="Røytingskjæra" radius="0.3">
+      <position lat="60.870254" lon="4.819226" />
+      <leg starboardXTD="0.08" portsideXTD="0.08" geometryType="Loxodrome" />
+    </waypoint>
+    <waypoint id="2" revision="0" radius="0.3">
+      <position lat="60.863562" lon="4.853806" />
+      <leg starboardXTD="0.1" portsideXTD="0.1" safetyContour="30" safetyDepth="30" geometryType="Loxodrome" staticUKC="0" dynamicUKC="0" />
+    </waypoint>
+    <waypoint id="3" revision="0" radius="0.3">
+      <position lat="60.822368" lon="5.039481" />
+      <leg starboardXTD="0.1" portsideXTD="0.1" geometryType="Loxodrome" />
+    </waypoint>
+    <waypoint id="4" revision="0" radius="0.3">
+      <position lat="60.812141" lon="5.063693" />
+      <leg starboardXTD="0.1" portsideXTD="0.1" geometryType="Loxodrome" />
+    </waypoint>
+    <waypoint id="5" revision="0" radius="0">
+      <position lat="60.804149" lon="5.062384" />
+      <leg starboardXTD="0.1" portsideXTD="0.1" geometryType="Loxodrome" />
+    </waypoint>
+  </waypoints>
+</route>

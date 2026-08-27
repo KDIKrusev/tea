@@ -1,0 +1,8 @@
+<!-- result-option.component.html - Cleaned and optimized -->
+<button class="result-option" 
+        (click)="onSelect()"
+        [attr.aria-label]="result.label">
+  <div class="result-icon" [ngClass]="result.icon" [attr.aria-hidden]="true"></div>
+  <div class="result-text">{{ result.label }}</div>
+  <div class="result-arrow" aria-hidden="true"></div>
+</button>

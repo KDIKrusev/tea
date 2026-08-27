@@ -1,0 +1,961 @@
+/* voyage-map.component.css - Enhanced spatial overlay visualization with radio button behavior */
+
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+/* ===================================================================
+   MAP WRAPPER & CONTAINER - IMPROVED
+   =================================================================== */
+
+.map-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #252830;
+  border-radius: 0;
+  overflow: hidden;
+  transition: border-radius 0.2s ease;
+  min-height: 400px;
+}
+
+.map-wrapper-mini {
+  position: relative;
+  top: auto;
+  left: auto;
+  right: auto;
+  bottom: auto;
+  height: 100%;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  min-height: 300px;
+}
+
+.map-container {
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  position: relative;
+  min-height: inherit;
+  background-color: #252830;
+}
+
+/* ===================================================================
+   MAP CONTROLS & OVERLAYS - ENHANCED
+   =================================================================== */
+
+.map-overlay {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 500;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.map-expand-btn {
+  background-color: rgba(255, 255, 255, 0.95);
+  border: none;
+  border-radius: 8px;
+  padding: 10px 12px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(6px);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.map-expand-btn:hover {
+  background-color: rgba(255, 255, 255, 1);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
+}
+
+.map-expand-btn:active {
+  transform: translateY(0);
+}
+
+.map-expand-btn:focus {
+  outline: 2px solid #3498db;
+  outline-offset: 2px;
+}
+
+.map-expand-btn i {
+  font-size: 16px;
+}
+
+.map-info-panel {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  backdrop-filter: blur(6px);
+  z-index: 450;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.route-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+}
+
+/* ===================================================================
+   LOADING & ERROR STATES - ENHANCED
+   =================================================================== */
+
+.map-loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(37, 40, 48, 0.95);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+}
+
+.loading-spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid #444;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 16px;
+  box-shadow: 0 0 20px rgba(52, 152, 219, 0.3);
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 8px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.map-error {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(231, 76, 60, 0.95);
+  color: white;
+  padding: 18px 24px;
+  border-radius: 10px;
+  font-size: 14px;
+  z-index: 1000;
+  max-width: 85%;
+  text-align: center;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.map-error i {
+  margin-right: 8px;
+  font-size: 16px;
+}
+
+.retry-btn {
+  margin-top: 12px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.retry-btn:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+.retry-btn i {
+  margin-right: 6px;
+}
+
+/* ===================================================================
+   OPENLAYERS OVERRIDES & CUSTOMIZATIONS - GREATLY IMPROVED
+   =================================================================== */
+
+:host ::ng-deep .ol-viewport {
+  background-color: #252830 ;
+  width: 100% ;
+  height: 100% ;
+}
+
+:host ::ng-deep .ol-overlaycontainer-stopevent {
+  font-family: inherit;
+}
+
+/* IMPROVED: Better zoom control styling */
+:host ::ng-deep .ol-zoom {
+  top: 12px ;
+  left: 12px ;
+  border: none ;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25) ;
+  border-radius: 8px ;
+  overflow: hidden;
+  background: none ;
+}
+
+:host ::ng-deep .ol-zoom button {
+  background-color: rgba(255, 255, 255, 0.95) ;
+  border: none ;
+  color: #333 ;
+  font-weight: bold;
+  font-size: 16px ;
+  width: 40px ;
+  height: 40px ;
+  backdrop-filter: blur(6px);
+  transition: all 0.2s ease;
+  display: flex ;
+  align-items: center ;
+  justify-content: center ;
+}
+
+:host ::ng-deep .ol-zoom button:hover {
+  background-color: rgba(255, 255, 255, 1) ;
+  transform: scale(1.05);
+}
+
+:host ::ng-deep .ol-zoom button:focus {
+  outline: 2px solid #3498db ;
+  outline-offset: 2px ;
+}
+
+:host ::ng-deep .ol-zoom .ol-zoom-in {
+  border-top-left-radius: 8px ;
+  border-top-right-radius: 8px ;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1) ;
+}
+
+:host ::ng-deep .ol-zoom .ol-zoom-out {
+  border-bottom-left-radius: 8px ;
+  border-bottom-right-radius: 8px ;
+}
+
+:host ::ng-deep .ol-attribution {
+  bottom: 8px ;
+  right: 8px ;
+  background: rgba(255, 255, 255, 0.8) ;
+  border-radius: 4px ;
+  font-size: 10px ;
+  padding: 2px 4px ;
+  backdrop-filter: blur(4px);
+}
+
+:host ::ng-deep .ol-attribution button {
+  background: none ;
+  border: none ;
+  font-size: 10px ;
+}
+
+/* ===================================================================
+   ENHANCED SPATIAL OVERLAY VISUALIZATIONS - RADIO BUTTON BEHAVIOR
+   =================================================================== */
+
+/* Enhanced route styling */
+:host ::ng-deep .voyage-map-route {
+  stroke: #3498db;
+  stroke-width: 4;
+  stroke-opacity: 0.9;
+  fill: none;
+  transition: stroke-width 0.2s ease;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+:host ::ng-deep .voyage-map-route:hover {
+  stroke-width: 5;
+  stroke-opacity: 1;
+}
+
+/* ===================================================================
+   VESSEL Course OVERLAY - SIMPLIFIED SINGLE REPRESENTATION
+   =================================================================== */
+
+:host ::ng-deep .vessel-course-overlay {
+  pointer-events: none;
+  z-index: 40 ;
+}
+
+/* Simplified vessel icon - single unified representation */
+:host ::ng-deep .vessel-course-overlay .vessel-unified {
+  filter: drop-shadow(0 4px 12px rgba(231, 76, 60, 0.8));
+  z-index: 45 ;
+  transition: all 0.3s ease;
+}
+
+:host ::ng-deep .vessel-course-overlay .vessel-unified:hover {
+  filter: drop-shadow(0 6px 16px rgba(231, 76, 60, 1));
+  transform: scale(1.1);
+}
+
+/* ===================================================================
+   WIND VECTOR OVERLAY - RIGHT SIDE WITH INCREASED SEPARATION
+   =================================================================== */
+
+:host ::ng-deep .wind-vector-overlay {
+  pointer-events: none;
+  z-index: 30 ;
+}
+
+/* Wind connection lines - horizontal connection to right side */
+:host ::ng-deep .wind-vector-overlay .wind-connection {
+  opacity: 0.6;
+  z-index: 28 ;
+  transition: opacity 0.2s ease;
+}
+
+:host ::ng-deep .wind-vector-overlay .wind-connection:hover {
+  opacity: 0.8;
+}
+
+/* Wind vector lines - prominent on right side */
+:host ::ng-deep .wind-vector-overlay .wind-line {
+  filter: drop-shadow(0 3px 8px rgba(41, 128, 185, 0.7));
+  z-index: 31 ;
+  transition: all 0.3s ease;
+}
+
+:host ::ng-deep .wind-vector-overlay .wind-line:hover {
+  filter: drop-shadow(0 5px 12px rgba(41, 128, 185, 0.9));
+}
+
+/* Wind arrows - clear directional indicators on right side */
+:host ::ng-deep .wind-vector-overlay .wind-arrow {
+  filter: drop-shadow(0 4px 10px rgba(41, 128, 185, 0.8));
+  z-index: 33 ;
+  transition: all 0.3s ease;
+}
+
+:host ::ng-deep .wind-vector-overlay .wind-arrow:hover {
+  filter: drop-shadow(0 6px 14px rgba(41, 128, 185, 1));
+  transform: scale(1.1);
+}
+
+/* Wind labels - informational text on right side */
+:host ::ng-deep .wind-vector-overlay .wind-label {
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.8));
+  z-index: 32 ;
+}
+
+/* ===================================================================
+   CURRENT VECTOR OVERLAY - LEFT SIDE WITH INCREASED SEPARATION
+   =================================================================== */
+
+:host ::ng-deep .current-vector-overlay {
+  pointer-events: none;
+  z-index: 25 ;
+}
+
+/* Current connection lines - horizontal connection to left side */
+:host ::ng-deep .current-vector-overlay .current-connection {
+  opacity: 0.6;
+  z-index: 23 ;
+  transition: opacity 0.2s ease;
+}
+
+:host ::ng-deep .current-vector-overlay .current-connection:hover {
+  opacity: 0.8;
+}
+
+/* Current vector lines - prominent on left side */
+:host ::ng-deep .current-vector-overlay .current-line {
+  filter: drop-shadow(0 3px 8px rgba(39, 174, 96, 0.7));
+  z-index: 26 ;
+  transition: all 0.3s ease;
+}
+
+:host ::ng-deep .current-vector-overlay .current-line:hover {
+  filter: drop-shadow(0 5px 12px rgba(39, 174, 96, 0.9));
+}
+
+/* Current arrows - clear directional indicators on left side */
+:host ::ng-deep .current-vector-overlay .current-arrow {
+  filter: drop-shadow(0 4px 10px rgba(39, 174, 96, 0.8));
+  z-index: 28 ;
+  transition: all 0.3s ease;
+}
+
+:host ::ng-deep .current-vector-overlay .current-arrow:hover {
+  filter: drop-shadow(0 6px 14px rgba(39, 174, 96, 1));
+  transform: scale(1.1);
+}
+
+/* Current labels - informational text on left side */
+:host ::ng-deep .current-vector-overlay .current-label {
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.8));
+  z-index: 27 ;
+}
+
+/* ===================================================================
+   WEATHER POINT OVERLAY - ABOVE ROUTE WITH INCREASED SEPARATION
+   =================================================================== */
+
+:host ::ng-deep .weather-point-overlay {
+  pointer-events: none;
+  z-index: 15 ;
+}
+
+:host ::ng-deep .weather-point-overlay .weather-point {
+  filter: drop-shadow(0 5px 15px rgba(243, 156, 18, 0.8));
+  z-index: 16 ;
+  transition: all 0.3s ease;
+}
+
+:host ::ng-deep .weather-point-overlay .weather-point:hover {
+  filter: drop-shadow(0 7px 20px rgba(243, 156, 18, 1));
+  transform: scale(1.15);
+}
+
+/* ===================================================================
+   ENHANCED OVERLAY LEGEND - SINGLE ACTIVE OVERLAY DISPLAY
+   =================================================================== */
+
+:host ::ng-deep .map-overlay-legend {
+  position: absolute ;
+  bottom: 15px ;
+  right: 15px ;
+  background: rgba(255, 255, 255, 0.98) ;
+  padding: 18px 22px ;
+  border-radius: 12px ;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3) ;
+  font-size: 13px ;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif ;
+  backdrop-filter: blur(10px) ;
+  z-index: 1000 ;
+  min-width: 200px ;
+  border: 1px solid rgba(0, 0, 0, 0.1) ;
+  transition: all 0.2s ease ;
+}
+
+:host ::ng-deep .map-overlay-legend:hover {
+  transform: translateY(-2px) ;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4) ;
+}
+
+:host ::ng-deep .map-overlay-legend.enhanced-legend {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 250, 252, 0.95) 100%) ;
+  border: 1px solid rgba(0, 0, 0, 0.08) ;
+}
+
+/* Enhanced legend items with better spacing for single active overlay */
+:host ::ng-deep .map-overlay-legend .legend-item {
+  transition: all 0.2s ease ;
+  padding: 8px 6px ;
+  border-radius: 8px ;
+  margin: 8px 0 ;
+  background: rgba(0, 0, 0, 0.02) ;
+}
+
+:host ::ng-deep .map-overlay-legend .legend-item:hover {
+  background-color: rgba(0, 0, 0, 0.08) ;
+  transform: translateX(4px) ;
+}
+
+/* ===================================================================
+   ENHANCED POINT STYLING - IMPROVED INTERACTION
+   =================================================================== */
+
+:host ::ng-deep .map-point-feature {
+  cursor: grab;
+  transition: all 0.2s ease;
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.4));
+}
+
+:host ::ng-deep .map-point-feature:hover {
+  transform: scale(1.15);
+  filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.5));
+}
+
+:host ::ng-deep .map-point-feature.dragging {
+  cursor: grabbing;
+  transform: scale(1.25);
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.6));
+}
+
+/* ===================================================================
+   OVERLAY CONTAINER IMPROVEMENTS - OPTIMIZED Z-INDEX HIERARCHY
+   =================================================================== */
+
+:host ::ng-deep .ol-overlay-container {
+  pointer-events: none;
+}
+
+:host ::ng-deep .ol-overlay-container .ol-overlay {
+  pointer-events: auto;
+}
+
+/* Enhanced z-index hierarchy for clear visual separation */
+:host ::ng-deep .ol-overlaycontainer {
+  z-index: 100;
+}
+
+:host ::ng-deep .ol-overlaycontainer-stopevent {
+  z-index: 200;
+}
+
+/* ===================================================================
+   MINI MODE SPECIFIC OVERRIDES
+   =================================================================== */
+
+.map-wrapper-mini :host ::ng-deep .ol-zoom {
+  display: none ;
+}
+
+.map-wrapper-mini :host ::ng-deep .ol-attribution {
+  display: none ;
+}
+
+.map-wrapper-mini :host ::ng-deep .ol-viewport {
+  cursor: default ;
+}
+
+.map-wrapper-mini :host ::ng-deep .map-overlay-legend {
+  display: none ;
+}
+
+/* ===================================================================
+   ENHANCED INTERACTION FEEDBACK
+   =================================================================== */
+
+:host ::ng-deep .ol-viewport:not(.map-wrapper-mini) {
+  cursor: default;
+}
+
+:host ::ng-deep .ol-viewport.ol-drag-pan {
+  cursor: grab;
+}
+
+:host ::ng-deep .ol-viewport.ol-drag-pan:active {
+  cursor: grabbing;
+}
+
+/* ===================================================================
+   SPATIAL POSITIONING VISUAL HIERARCHY - RADIO BUTTON OPTIMIZED
+   =================================================================== */
+
+/* Vessel course elements - highest priority when active */
+:host ::ng-deep .ol-overlay[data-type="vessel-course"] {
+  z-index: 1000 ;
+}
+
+/* Wind vectors - high priority when active */
+:host ::ng-deep .ol-overlay[data-type="wind-vector"] {
+  z-index: 950 ;
+}
+
+/* Current vectors - high priority when active */
+:host ::ng-deep .ol-overlay[data-type="current-vector"] {
+  z-index: 950 ;
+}
+
+/* Weather points - high priority when active */
+:host ::ng-deep .ol-overlay[data-type="weather-point"] {
+  z-index: 950 ;
+}
+
+/* Connection lines - supporting elements */
+:host ::ng-deep .ol-overlay[data-type="connection"] {
+  z-index: 900 ;
+}
+
+/* ===================================================================
+   ENHANCED VISIBILITY & CONTRAST IMPROVEMENTS - SINGLE OVERLAY FOCUS
+   =================================================================== */
+
+/* Active overlay gets maximum contrast and visibility */
+:host ::ng-deep .ol-overlay-vessel-course {
+  filter: drop-shadow(3px 3px 8px rgba(0, 0, 0, 0.9)) contrast(1.3) saturate(1.2);
+}
+
+:host ::ng-deep .ol-overlay-wind-vector {
+  filter: drop-shadow(3px 3px 8px rgba(0, 0, 0, 0.8)) contrast(1.2) saturate(1.1);
+}
+
+:host ::ng-deep .ol-overlay-current-vector {
+  filter: drop-shadow(3px 3px 8px rgba(0, 0, 0, 0.8)) contrast(1.2) saturate(1.1);
+}
+
+:host ::ng-deep .ol-overlay-weather-point {
+  filter: drop-shadow(4px 4px 12px rgba(0, 0, 0, 0.9)) contrast(1.3) saturate(1.2);
+}
+
+/* ===================================================================
+   RESPONSIVE DESIGN - ENHANCED WITH SINGLE OVERLAY CONSIDERATIONS
+   =================================================================== */
+
+@media (max-width: 768px) {
+  .map-expand-btn {
+    padding: 12px 14px;
+    font-size: 16px;
+  }
+  
+  .map-overlay {
+    top: 12px;
+    right: 12px;
+    gap: 8px;
+  }
+  
+  .map-info-panel {
+    bottom: 12px;
+    left: 12px;
+    font-size: 11px;
+    padding: 6px 10px;
+  }
+  
+  .map-error {
+    padding: 16px 20px;
+    font-size: 13px;
+    max-width: 90%;
+  }
+  
+  :host ::ng-deep .ol-zoom {
+    top: 10px ;
+    left: 10px ;
+  }
+  
+  :host ::ng-deep .ol-zoom button {
+    width: 36px ;
+    height: 36px ;
+    font-size: 14px ;
+  }
+  
+  :host ::ng-deep .map-overlay-legend {
+    bottom: 12px ;
+    right: 12px ;
+    padding: 14px 18px ;
+    font-size: 12px ;
+    min-width: 180px ;
+  }
+  
+  /* Scale active overlay elements appropriately on mobile */
+  :host ::ng-deep .vessel-course-overlay .vessel-unified {
+    transform: scale(0.9);
+  }
+  
+  :host ::ng-deep .wind-vector-overlay .wind-arrow {
+    transform: scale(0.9);
+  }
+  
+  :host ::ng-deep .current-vector-overlay .current-arrow {
+    transform: scale(0.9);
+  }
+  
+  :host ::ng-deep .weather-point-overlay .weather-point {
+    transform: scale(0.9);
+  }
+}
+
+@media (max-width: 480px) {
+  .map-expand-btn {
+    padding: 10px;
+    font-size: 14px;
+  }
+  
+  .map-expand-btn i {
+    font-size: 18px;
+  }
+  
+  .map-wrapper {
+    min-height: 300px;
+  }
+  
+  .map-wrapper-mini {
+    min-height: 250px;
+  }
+  
+  :host ::ng-deep .ol-zoom button {
+    width: 32px ;
+    height: 32px ;
+    font-size: 12px ;
+  }
+  
+  :host ::ng-deep .map-overlay-legend {
+    padding: 12px 16px ;
+    font-size: 11px ;
+    min-width: 160px ;
+  }
+  
+  /* Further scale down active overlay while maintaining clarity */
+  :host ::ng-deep .vessel-course-overlay .vessel-unified {
+    transform: scale(0.8);
+  }
+  
+  :host ::ng-deep .wind-vector-overlay .wind-arrow {
+    transform: scale(0.8);
+  }
+  
+  :host ::ng-deep .current-vector-overlay .current-arrow {
+    transform: scale(0.8);
+  }
+  
+  :host ::ng-deep .weather-point-overlay .weather-point {
+    transform: scale(0.8);
+  }
+}
+
+/* ===================================================================
+   ACCESSIBILITY & MOTION - ENHANCED FOR SINGLE OVERLAY
+   =================================================================== */
+
+@media (prefers-contrast: high) {
+  .map-expand-btn {
+    border: 2px solid #000;
+    background-color: #fff;
+    color: #000;
+  }
+  
+  .map-error {
+    border: 2px solid #fff;
+    background-color: #c0392b;
+  }
+  
+  .map-info-panel {
+    border: 1px solid #fff;
+    background-color: #000;
+  }
+  
+  :host ::ng-deep .voyage-map-route {
+    stroke: #0066cc;
+    stroke-width: 6;
+  }
+  
+  :host ::ng-deep .ol-zoom button {
+    border: 1px solid #000 ;
+    background-color: #fff ;
+    color: #000 ;
+  }
+  
+  /* Maximum contrast for active overlay */
+  :host ::ng-deep .ol-overlay-vessel-course {
+    filter: drop-shadow(4px 4px 10px rgba(0, 0, 0, 1)) contrast(1.5) saturate(1.3);
+  }
+  
+  :host ::ng-deep .ol-overlay-wind-vector {
+    filter: drop-shadow(4px 4px 8px rgba(0, 0, 0, 1)) contrast(1.4) saturate(1.2);
+  }
+  
+  :host ::ng-deep .ol-overlay-current-vector {
+    filter: drop-shadow(4px 4px 8px rgba(0, 0, 0, 1)) contrast(1.4) saturate(1.2);
+  }
+  
+  :host ::ng-deep .ol-overlay-weather-point {
+    filter: drop-shadow(5px 5px 12px rgba(0, 0, 0, 1)) contrast(1.5) saturate(1.3);
+  }
+  
+  :host ::ng-deep .map-overlay-legend {
+    border: 2px solid #000 ;
+    background: #fff ;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-spinner {
+    animation: none;
+  }
+  
+  .map-expand-btn,
+  .retry-btn,
+  .map-wrapper,
+  :host ::ng-deep .voyage-map-route,
+  :host ::ng-deep .ol-zoom button,
+  :host ::ng-deep .map-point-feature,
+  :host ::ng-deep .map-overlay-legend,
+  :host ::ng-deep .map-overlay-legend .legend-item,
+  :host ::ng-deep .vessel-course-overlay .vessel-unified,
+  :host ::ng-deep .wind-vector-overlay .wind-arrow,
+  :host ::ng-deep .current-vector-overlay .current-arrow,
+  :host ::ng-deep .weather-point-overlay .weather-point {
+    transition: none;
+  }
+  
+  :host ::ng-deep .map-point-feature:hover,
+  :host ::ng-deep .map-point-feature.dragging,
+  :host ::ng-deep .map-overlay-legend:hover,
+  :host ::ng-deep .map-overlay-legend .legend-item:hover,
+  :host ::ng-deep .vessel-course-overlay .vessel-unified:hover,
+  :host ::ng-deep .wind-vector-overlay .wind-arrow:hover,
+  :host ::ng-deep .current-vector-overlay .current-arrow:hover,
+  :host ::ng-deep .weather-point-overlay .weather-point:hover {
+    transform: none ;
+  }
+}
+
+/* ===================================================================
+   DARK MODE - ENHANCED FOR SINGLE OVERLAY VISIBILITY
+   =================================================================== */
+
+@media (prefers-color-scheme: dark) {
+  .map-expand-btn {
+    background-color: rgba(40, 44, 52, 0.95);
+    color: #e0e0e0;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .map-expand-btn:hover {
+    background-color: rgba(40, 44, 52, 1);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+  
+  .map-info-panel {
+    background-color: rgba(20, 24, 32, 0.9);
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+  
+  :host ::ng-deep .ol-zoom button {
+    background-color: rgba(40, 44, 52, 0.95) ;
+    color: #e0e0e0 ;
+    border: 1px solid rgba(255, 255, 255, 0.1) ;
+  }
+  
+  :host ::ng-deep .ol-zoom button:hover {
+    background-color: rgba(40, 44, 52, 1) ;
+    border-color: rgba(255, 255, 255, 0.2) ;
+  }
+  
+  :host ::ng-deep .map-overlay-legend {
+    background: rgba(40, 44, 52, 0.95) ;
+    color: #e0e0e0 ;
+    border: 1px solid rgba(255, 255, 255, 0.1) ;
+  }
+  
+  :host ::ng-deep .map-overlay-legend.enhanced-legend {
+    background: linear-gradient(135deg, rgba(40, 44, 52, 0.98) 0%, rgba(32, 36, 44, 0.95) 100%) ;
+    border: 1px solid rgba(255, 255, 255, 0.08) ;
+  }
+  
+  :host ::ng-deep .map-overlay-legend .legend-item:hover {
+    background-color: rgba(255, 255, 255, 0.08) ;
+  }
+}
+
+/* ===================================================================
+   PERFORMANCE OPTIMIZATIONS - SINGLE OVERLAY RENDERING
+   =================================================================== */
+
+.map-container {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+:host ::ng-deep .ol-layer {
+  transform: translateZ(0);
+}
+
+:host ::ng-deep .ol-viewport {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* GPU acceleration for active overlay elements */
+:host ::ng-deep .ol-overlay-vessel-course,
+:host ::ng-deep .ol-overlay-wind-vector,
+:host ::ng-deep .ol-overlay-current-vector,
+:host ::ng-deep .ol-overlay-weather-point {
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* ===================================================================
+   ENHANCED SPATIAL POSITIONING - RADIO BUTTON OPTIMIZED
+   =================================================================== */
+
+/* Ensure legend doesn't interfere with zoom controls */
+:host ::ng-deep .map-overlay-legend {
+  margin-right: 60px ;
+  margin-bottom: 60px ;
+}
+
+/* Ensure active overlay is readable above map tiles */
+:host ::ng-deep .ol-overlay {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Enhanced text visibility for active overlay labels */
+:host ::ng-deep .ol-overlay text {
+  paint-order: stroke fill;
+  stroke-width: 3px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ===================================================================
+   ENHANCED FOCUS INDICATORS FOR SINGLE OVERLAY
+   =================================================================== */
+
+:host ::ng-deep .ol-overlay:focus-within {
+  outline: 3px solid #3498db;
+  outline-offset: 6px;
+  border-radius: 6px;
+}
+
+/* ===================================================================
+   SINGLE OVERLAY VISUAL GROUPING
+   =================================================================== */
+
+/* Enhanced visual cues for active overlay type */
+:host ::ng-deep .spatial-group-vessel {
+  filter: hue-rotate(0deg) brightness(1.1);
+}
+
+:host ::ng-deep .spatial-group-wind {
+  filter: hue-rotate(210deg) brightness(1.1);
+}
+
+:host ::ng-deep .spatial-group-current {
+  filter: hue-rotate(120deg) brightness(1.1);
+}
+
+:host ::ng-deep .spatial-group-weather {
+  filter: hue-rotate(30deg) brightness(1.1);
+}

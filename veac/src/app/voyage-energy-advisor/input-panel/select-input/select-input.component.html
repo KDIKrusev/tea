@@ -1,0 +1,18 @@
+<!-- select-input.component.html - Cleaned and optimized -->
+<div class="select-input">
+  <label class="select-label" *ngIf="label">
+    {{ label }}
+  </label>
+  
+  <div class="select-wrapper">
+    <select class="select-field"
+            [(ngModel)]="selected"
+            (change)="onChange()"
+            [attr.aria-label]="label">
+      <option *ngFor="let option of options" [ngValue]="option">
+        {{ option }}
+      </option>
+    </select>
+    <div class="select-arrow" aria-hidden="true"></div>
+  </div>
+</div>

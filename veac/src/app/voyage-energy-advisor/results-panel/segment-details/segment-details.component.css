@@ -1,0 +1,238 @@
+/* segment-details.component.css - Cleaned and optimized */
+
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: #F7F7F7;
+}
+
+.segment-details {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 12px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Overlay information panels */
+.details-overlay {
+  position: absolute;
+  z-index: 5;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 6px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(4px);
+}
+
+.time-info {
+  top: 12px;
+  left: 12px;
+  font-weight: 500;
+  color: #333;
+}
+
+.coordinates-info {
+  top: 12px;
+  right: 12px;
+  text-align: right;
+  color: #666;
+}
+
+.vessel-speed-info {
+  top: 48px;
+  right: 12px;
+  text-align: right;
+}
+
+.wind-info {
+  bottom: 12px;
+  left: 12px;
+}
+
+.current-info {
+  bottom: 12px;
+  right: 12px;
+}
+
+.info-label {
+  font-size: 11px;
+  color: #666;
+  margin-bottom: 2px;
+}
+
+.info-value {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  color: #333;
+}
+
+.weather-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 4px;
+  flex-shrink: 0;
+}
+
+.wind-icon {
+  transform: rotate(270deg);
+}
+
+.current-icon {
+  transform: rotate(270deg);
+}
+
+/* Compass container */
+.compass-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-width: 280px;
+  max-height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.compass-container obc-compass {
+  width: 100%;
+  height: 100%;
+}
+
+/* Empty state */
+.segment-details-empty {
+  background-color: #f9f9f9;
+  border: 2px dashed #ddd;
+  border-radius: 8px;
+}
+
+.empty-message {
+  text-align: center;
+  color: #999;
+}
+
+.empty-message p {
+  margin: 0;
+  font-size: 14px;
+  font-style: italic;
+}
+
+/* Dark theme support */
+:host-context(.dark-theme) {
+  background-color: #252830;
+}
+
+:host-context(.dark-theme) .segment-details {
+  background-color: #252830;
+}
+
+:host-context(.dark-theme) .details-overlay {
+  background-color: rgba(45, 48, 53, 0.9);
+  color: #e0e0e0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+:host-context(.dark-theme) .time-info {
+  color: #e0e0e0;
+}
+
+:host-context(.dark-theme) .coordinates-info {
+  color: #b0b0b0;
+}
+
+:host-context(.dark-theme) .info-label {
+  color: #b0b0b0;
+}
+
+:host-context(.dark-theme) .info-value {
+  color: #e0e0e0;
+}
+
+:host-context(.dark-theme) .segment-details-empty {
+  background-color: #1a1d23;
+  border-color: #444;
+}
+
+:host-context(.dark-theme) .empty-message {
+  color: #666;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .segment-details {
+    padding: 8px;
+  }
+
+  .details-overlay {
+    font-size: 11px;
+    padding: 4px 6px;
+  }
+
+  .time-info,
+  .coordinates-info {
+    top: 8px;
+  }
+
+  .time-info {
+    left: 8px;
+  }
+
+  .coordinates-info {
+    right: 8px;
+  }
+
+  .vessel-speed-info {
+    top: 42px;
+    right: 8px;
+  }
+
+  .wind-info,
+  .current-info {
+    bottom: 8px;
+  }
+
+  .wind-info {
+    left: 8px;
+  }
+
+  .current-info {
+    right: 8px;
+  }
+
+  .compass-container {
+    max-width: 240px;
+    max-height: 240px;
+  }
+
+  .weather-icon {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .details-overlay {
+    background-color: rgba(255, 255, 255, 0.95);
+    border: 1px solid #000;
+  }
+
+  .time-info,
+  .info-value {
+    color: #000;
+  }
+}
+
+/* Print styles */
+@media print {
+  .details-overlay {
+    background-color: white;
+    border: 1px solid #ccc;
+  }
+}

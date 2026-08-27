@@ -1,0 +1,56 @@
+<!-- date-time.component.html - Enhanced with embedded modals -->
+<div class="dateTime-container">
+  <div class="dateTime-heading" *ngIf="heading">{{ heading }}</div>
+  
+  <!-- Date selection field -->
+  <div class="dateTime-field">
+    <div class="dateTime-input" (click)="openDatePicker($event)">
+      <div class="dateTime-icon">
+        <i class="calendar-icon"></i>
+      </div>
+      <div class="dateTime-text">
+        {{ dateFormatted || defaultDateText }}
+      </div>
+    </div>
+  </div>
+  
+  <!-- Time selection field -->
+  <div class="dateTime-field">
+    <div class="dateTime-input time-input" (click)="openTimePicker($event)">
+      <div class="dateTime-icon">
+        <i class="time-icon"></i>
+      </div>
+      <div class="dateTime-text">
+        {{ timeFormatted }}
+      </div>
+      <div class="time-tolerance" *ngIf="timeFormatted !== 'Any time'">
+        <span>±</span>
+        <span class="tolerance-value">{{ hoursTolerance }} </span>
+        <span>h</span>
+        <span class="dropdown-arrow"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Date Picker Modal Template - Now embedded in this component -->
+<ng-template #datePickerModal let-modal>
+  <app-calendar
+    [selectedDate]="selectedDate"
+    [modalRef]="modal"
+    (dateSelected)="onCalendarDateSelected($event)"
+    (applySelection)="applyDateSelection()"
+    (modalDismiss)="onModalDismiss()">
+  </app-calendar>
+</ng-template>
+
+<!-- Time Picker Modal Template - Now embedded in this component -->
+<ng-template #timePickerModal let-modal>
+  <app-time-picker
+    [selectedTime]="selectedTime"
+    [tolerance]="hoursTolerance"
+    [modalRef]="modal"
+    (timeSelected)="onTimeSelected($event)"
+    (modalDismiss)="onModalDismiss()">
+  </app-time-picker>
+</ng-template>

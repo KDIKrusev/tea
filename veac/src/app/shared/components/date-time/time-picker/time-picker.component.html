@@ -1,0 +1,68 @@
+<!-- time-picker.component.html - Updated with interactive tolerance dropdown -->
+<div class="time-picker">
+  <!-- Header with selected time and tolerance -->
+  <div class="time-picker-header">
+    <div class="selected-time">
+      {{ selectedTime ? formatTime(selectedTime) : 'Any time' }}
+    </div>
+    <div class="tolerance-container">
+      <div class="tolerance-display" (click)="toggleToleranceDropdown()">
+        <span>±</span>
+        <span class="tolerance-value">{{ tolerance }}</span>
+        <span>h</span>
+        <span class="dropdown-arrow" [class.dropdown-arrow-up]="showToleranceDropdown"></span>
+      </div>
+      
+      <!-- Tolerance dropdown options -->
+      <div class="tolerance-dropdown" *ngIf="showToleranceDropdown">
+        <div *ngFor="let option of toleranceOptions" 
+             class="tolerance-option"
+             [class.tolerance-option-selected]="option === tolerance"
+             (click)="selectTolerance(option)">
+          ± {{ option }} hour{{ option !== 1 ? 's' : '' }}
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Search input -->
+  <div class="search-container">
+    <input 
+      type="text"
+      class="search-input"
+      placeholder="Search time..."
+      [value]="searchText"
+      (input)="onSearchChange($event)">
+  </div>
+  
+  <!-- Time options list -->
+  <div class="time-list">
+    <!-- Any time option -->
+    <div class="time-option"
+         [class.time-option-selected]="!selectedTime"
+         (click)="selectAnyTime()">
+      Any time
+    </div>
+    
+    <!-- Filtered time options -->
+    <div *ngFor="let time of filteredTimeOptions"
+         class="time-option"
+         [class.time-option-selected]="isSelectedTime(time)"
+         (click)="selectTime(time)">
+      {{ time.display }}
+    </div>
+  </div>
+  
+  <!-- Footer with only action buttons -->
+  <div class="time-picker-footer">
+    <div class="action-buttons">
+      <button class="btn btn-cancel" (click)="cancel()">Cancel</button>
+      <button class="btn btn-apply" (click)="applySelection()">Ok</button>
+    </div>
+  </div>
+</div>
+
+<!-- Backdrop to close dropdown when clicking outside -->
+<div class="tolerance-backdrop" 
+     *ngIf="showToleranceDropdown" 
+     (click)="closeToleranceDropdown()"></div>

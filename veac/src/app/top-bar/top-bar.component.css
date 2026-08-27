@@ -1,0 +1,201 @@
+.vea-top-bar {
+  width: 100%;
+  height: 48px;
+  padding: 0 16px;
+  background-color: #F7F7F7;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.vea-top-bar-left {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.vea-top-bar-logo {
+  height: 40px;
+  margin-right: 16px;
+}
+
+.vea-top-bar-system-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+.vea-top-bar-right {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.vea-top-bar-datetime {
+  font-size: 12px;
+  line-height: 16px;
+  color: #666;
+}
+
+.vea-top-bar-date {
+  margin-right: 12px;
+}
+
+.vea-top-bar-time {
+  margin-right: 8px;
+}
+
+.vea-top-bar-separator {
+  width: 1px;
+  height: 32px;
+  background-color: #ddd;
+  margin: 0 18px;
+}
+
+.vea-build-versions {
+  width: 22px;
+}
+
+.vea-palette-container {
+  display: flex;
+  align-items: center;
+}
+
+.vea-top-bar-palette {
+  z-index: 9500;
+}
+
+.vea-top-bar-navigation {
+  display: flex;
+  align-items: center;
+  margin-left: 40px;
+}
+
+.vea-nav-tabs-container {
+  display: flex;
+  background-color: #e8e8e8;
+  border-radius: 6px;
+  padding: 2px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.vea-nav-tab {
+  background-color: transparent;
+  border: none;
+  padding: 8px 20px;
+  margin: 0;
+  font-size: 12px;
+  font-weight: 500;
+  color: #666;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  position: relative;
+  min-width: 100px;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+}
+
+.vea-nav-tab:first-child {
+  margin-right: 2px;
+}
+
+.vea-nav-tab:hover {
+  background-color: #f5f5f5;
+  color: #333;
+  text-decoration: none;
+}
+
+.vea-nav-tab.active {
+  background-color: #2196F3 !important;
+  color: white !important;
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(33, 150, 243, 0.3);
+}
+
+.vea-nav-tab.active:hover {
+  background-color: #1976D2 !important;
+  color: white !important;
+}
+
+.vea-nav-tab-text {
+  display: block;
+  line-height: 1.2;
+}
+
+
+/* Hamburger Menu Styles */
+.vea-hamburger-menu {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.vea-hamburger-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: background 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vea-hamburger-btn:hover {
+  background: #e8e8e8;
+}
+
+.vea-hamburger-icon {
+  font-size: 20px;
+  color: #666;
+  line-height: 1;
+}
+
+.vea-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: white;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  min-width: 180px;
+  overflow: hidden;
+  z-index: 10001;
+}
+
+.vea-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 16px;
+  background: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+  transition: background 0.2s ease;
+}
+
+.vea-menu-item:hover {
+  background: #f5f5f5;
+}
+
+.vea-menu-item i {
+  font-size: 16px;
+  color: #666;
+  width: 20px;
+  text-align: center;
+}
+
+.vea-menu-item + .vea-menu-item {
+  border-top: 1px solid #e8e8e8;
+}
+
