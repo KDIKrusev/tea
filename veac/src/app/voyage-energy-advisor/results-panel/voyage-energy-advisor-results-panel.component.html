@@ -18,36 +18,12 @@
       
       <div class="panel-content">
         <div class="content-wrapper">
-          <section class="optimal-voyage-card" aria-labelledby="optimal-voyage-title">
-            <div>
-              <h3 id="optimal-voyage-title">Variable-speed option</h3>
-              <p *ngIf="!isOptimalLoading && !optimalVoyageOption">Preparing segment-specific speeds.</p>
-              <p *ngIf="isOptimalLoading">Calculating segment-specific speeds in the background.</p>
-              <p *ngIf="optimalVoyageOption">Segment-specific speeds are ready for the selected route option.</p>
-            </div>
-            <button type="button" class="optimal-voyage-button"
-                    (click)="calculateOptimalVoyage()"
-                    [disabled]="isOptimalLoading">
-              <span *ngIf="!isOptimalLoading">Recalculate</span>
-              <span *ngIf="isOptimalLoading">Calculating...</span>
-            </button>
-            <div class="optimal-voyage-result" *ngIf="optimalVoyageOption as option">
-              <span>{{ option.averageSpeed | number:'1.1-1' }} kn</span>
-              <span>{{ getConsumptionValue(option) | eaEnergyValue: '1.2-2' : 'MWh' : 'kWh' }}</span>
-              <button type="button" class="optimal-voyage-select" (click)="selectOptimalVoyage()">
-                View details
-              </button>
-            </div>
-            <p class="optimal-voyage-error" *ngIf="optimalError">{{ optimalError }}</p>
-          </section>
-          <app-voyage-options-table
-            [voyageOptions]="voyageOptions"
-            [etdTimes]="etdTimes"
-            [etaTimes]="etaTimes"
+          <app-voyage-options-list
+            [voyageOptionSets]="voyageOptionSets"
             [selectedVoyageOption]="selectedVoyageOption"
             [validationMessage]="validationMessage"
             (voyageOptionSelected)="onVoyageOptionSelectedFromModal($event)">
-          </app-voyage-options-table>
+          </app-voyage-options-list>
         </div>
         
         <div class="panel-footer">

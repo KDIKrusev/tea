@@ -10,3 +10,4 @@ export * from './current-vessel-position.model';
 
 // Voyage Data
 export * from './voyage-option.model';
+export * from './voyage-option-set.model';

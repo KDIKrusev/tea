@@ -50,12 +50,26 @@ public class VoyageEnergyAdvisorServiceTests
             }
         };
 
-        var voyageOptions = new List<VoyageEnergyAdvisorVoyageOption>
+        var voyageOptionSets = new List<VoyageEnergyAdvisorVoyageOptionSet>
         {
-            new VoyageEnergyAdvisorVoyageOption(), new VoyageEnergyAdvisorVoyageOption()
+            new()
+            {
+                IsValid = true,
+                VariablePowerOption = new VoyageEnergyAdvisorVoyageOption { IsValid = true },
+                VariableSpeedOption = new VoyageEnergyAdvisorVoyageOption { IsValid = true, IsVariableSpeedOption = true }
+            },
+            new()
+            {
+                IsValid = true,
+                VariablePowerOption = new VoyageEnergyAdvisorVoyageOption { IsValid = true },
+                VariableSpeedOption = null,
+                VariableSpeedUnavailableReason = "No constant propulsion power can satisfy the requested ETA."
+            }
         };
 
-        _builderMock.Setup(b => b.PrepareVoyageOptions(It.IsAny<VoyageEnergyAdvisorRequest>())).ReturnsAsync(voyageOptions);
+        _builderMock
+            .Setup(b => b.PrepareVoyageOptionSets(It.IsAny<VoyageEnergyAdvisorRequest>()))
+            .ReturnsAsync(voyageOptionSets);
         _builderMock
             .Setup(b => b.ToValidRequest(It.IsAny<VoyageEnergyAdvisorRequest>()))
             .Returns((VoyageEnergyAdvisorRequest req) => (VoyageEnergyAdvisorRequest?)req);
@@ -64,110 +78,13 @@ public class VoyageEnergyAdvisorServiceTests
         var result = await _service.GetVoyageOptions(request);
 
         // Assert
-        Assert.Equal(voyageOptions.Count, result.VoyageOptions.Count);
-    }
+        Assert.Equal(voyageOptionSets.Count, result.VoyageOptionSets.Count);
+        Assert.Same(voyageOptionSets[0].VariablePowerOption, result.VoyageOptionSets[0].VariablePowerOption);
 
-    private static VoyageEnergyAdvisorOptimalVoyageRequest GetValidOptimalVoyageRequest()
-    {
-        return new VoyageEnergyAdvisorOptimalVoyageRequest
-        {
-            Etd = DateTime.UtcNow.AddHours(1),
-            Eta = DateTime.UtcNow.AddHours(11),
-            SpeedMin = 1.0,
-            SpeedMax = 10.0,
-            Route = new Route
-            {
-                RouteName = "Optimal Route",
-                Waypoints = new List<GeoCoordinate>
-                {
-                    new GeoCoordinate(60.0, 5.0),
-                    new GeoCoordinate(61.0, 6.0)
-                }
-            }
-        };
-    }
-
-    [Fact]
-    public async Task GetOptimalVoyageOption_ThrowsOptimalVoyageRequestException_WhenEtaIsBeforeEtd()
-    {
-        var request = GetValidOptimalVoyageRequest();
-        request.Eta = request.Etd.AddHours(-1);
-
-        await Assert.ThrowsAsync<OptimalVoyageRequestException>(() => _service.GetOptimalVoyageOption(request));
-    }
-
-    [Fact]
-    public async Task GetOptimalVoyageOption_ThrowsOptimalVoyageRequestException_WhenRouteIsEmpty()
-    {
-        var request = GetValidOptimalVoyageRequest();
-        request.Route = new Route { RouteName = "Empty", Waypoints = new List<GeoCoordinate>() };
-
-        await Assert.ThrowsAsync<OptimalVoyageRequestException>(() => _service.GetOptimalVoyageOption(request));
-    }
-
-    [Fact]
-    public async Task GetOptimalVoyageOption_ThrowsOptimalVoyageRequestException_WhenSpeedMinIsNotPositive()
-    {
-        var request = GetValidOptimalVoyageRequest();
-        request.SpeedMin = 0;
-
-        await Assert.ThrowsAsync<OptimalVoyageRequestException>(() => _service.GetOptimalVoyageOption(request));
-    }
-
-    [Fact]
-    public async Task GetOptimalVoyageOption_ThrowsOptimalVoyageRequestException_WhenSpeedMaxIsNotGreaterThanSpeedMin()
-    {
-        var request = GetValidOptimalVoyageRequest();
-        request.SpeedMin = 5.0;
-        request.SpeedMax = 5.0;
-
-        await Assert.ThrowsAsync<OptimalVoyageRequestException>(() => _service.GetOptimalVoyageOption(request));
-    }
-
-    [Fact]
-    public async Task GetOptimalVoyageOption_ThrowsOptimalVoyageRequestException_WhenRequiredSpeedIsBelowSpeedMin()
-    {
-        // SpeedMin/SpeedMax are 1.0/10.0; a required speed below SpeedMin must be rejected.
-        var request = GetValidOptimalVoyageRequest();
-
-        _builderMock
-            .Setup(b => b.CalculateRequiredAverageSpeed(It.IsAny<double>(), It.IsAny<DateTime>(), It.IsAny<DateTime>()))
-            .Returns(0.5);
-
-        await Assert.ThrowsAsync<OptimalVoyageRequestException>(() => _service.GetOptimalVoyageOption(request));
-    }
-
-    [Fact]
-    public async Task GetOptimalVoyageOption_ThrowsOptimalVoyageRequestException_WhenRequiredSpeedIsAboveSpeedMax()
-    {
-        // SpeedMin/SpeedMax are 1.0/10.0; a required speed above SpeedMax must be rejected.
-        var request = GetValidOptimalVoyageRequest();
-
-        _builderMock
-            .Setup(b => b.CalculateRequiredAverageSpeed(It.IsAny<double>(), It.IsAny<DateTime>(), It.IsAny<DateTime>()))
-            .Returns(20.0);
-
-        await Assert.ThrowsAsync<OptimalVoyageRequestException>(() => _service.GetOptimalVoyageOption(request));
-    }
-
-    [Fact]
-    public async Task GetOptimalVoyageOption_DelegatesToBuilder_WhenRequestIsValid()
-    {
-        var request = GetValidOptimalVoyageRequest();
-        var expectedOption = new VoyageEnergyAdvisorVoyageOption { IsValid = true, AverageSpeed = 5.5 };
-
-        _builderMock
-            .Setup(b => b.CalculateRequiredAverageSpeed(It.IsAny<double>(), It.IsAny<DateTime>(), It.IsAny<DateTime>()))
-            .Returns(5.5);
-
-        _builderMock
-            .Setup(b => b.BuildOptimalVoyageOption(request, 5.5))
-            .ReturnsAsync(expectedOption);
-
-        var result = await _service.GetOptimalVoyageOption(request);
-
-        Assert.Same(expectedOption, result);
-        _builderMock.Verify(b => b.BuildOptimalVoyageOption(request, 5.5), Times.Once);
+        // A slot without a feasible constant-power solution must not take the rest of the response down.
+        Assert.NotNull(result.VoyageOptionSets[0].VariableSpeedOption);
+        Assert.Null(result.VoyageOptionSets[1].VariableSpeedOption);
+        Assert.NotNull(result.VoyageOptionSets[1].VariableSpeedUnavailableReason);
     }
 
 }

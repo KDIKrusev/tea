@@ -1,8 +1,8 @@
-import { VoyageOption } from '../entities/voyage-option.model';
+import { VoyageOptionSet } from '../entities/voyage-option-set.model';
 
 export interface voyageEnergyAdvisorResponse {
     voyageDistance: number;
-    voyageOptions: VoyageOption[];
+    voyageOptionSets: VoyageOptionSet[];
     correlationId: string;
     fuelPricePerKg: number;
     emissionFactorCO2PerKg: number;

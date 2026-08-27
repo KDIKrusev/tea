@@ -1,13 +1,12 @@
-﻿namespace VoyageEnergyAdvisor.WebApi.Dtos
+namespace VoyageEnergyAdvisor.WebApi.Dtos
 {
     public class VoyageEnergyAdvisorResponseDto
     {
-        public string CorrelationId { get; set; } = new Guid().ToString(); // Todo: In use?
         public double VoyageDistance { get; set; }
-        public List<VoyageEnergyAdvisorVoyageOptionDto> VoyageOptions { get; set; } = new();
+
+        // Each ETD/ETA slot with both the constant-speed and the constant-power way of sailing it.
+        public List<VoyageEnergyAdvisorVoyageOptionSetDto> VoyageOptionSets { get; set; } = new();
 
         public string ValidationMessage { get; set; } = null!;
-        
     }
 }
-    

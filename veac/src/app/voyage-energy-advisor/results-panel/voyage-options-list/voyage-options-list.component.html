@@ -1,0 +1,149 @@
+<div class="vo-list">
+  <div class="vo-list-head">
+    <h3 class="vo-list-title">Voyage options</h3>
+    <span class="vo-list-hint" *ngIf="hasValidOptions()">
+      Ranked by {{ consumptionLabel | lowercase }} &middot; expand a slot to compare how to sail it
+    </span>
+  </div>
+
+  <div class="vo-warning" *ngIf="!hasValidOptions() && validationMessage">
+    <span class="vo-warning-icon" aria-hidden="true">⚠</span>
+    <span class="vo-warning-text">{{ validationMessage }}</span>
+  </div>
+
+  <div class="vo-rows" *ngIf="hasValidOptions()">
+
+    <!-- Column labels, stated once instead of repeated on every row -->
+    <div class="vo-header">
+      <span></span>
+      <span>Departure</span>
+      <span>Arrival</span>
+      <span class="vo-num">Duration</span>
+      <span class="vo-num">Speed</span>
+      <span class="vo-num">{{ consumptionLabel }}</span>
+      <span class="vo-num">vs best</span>
+      <span class="vo-num">Variable speed</span>
+      <span></span>
+    </div>
+
+    <div class="vo-row"
+         *ngFor="let row of rows; let i = index"
+         [class.vo-row-best]="i === 0"
+         [class.vo-row-selected]="isRowSelected(row)"
+         [class.vo-row-open]="isExpanded(row)">
+
+      <!-- Summary: which slot to take -->
+      <button type="button" class="vo-summary" (click)="toggleRow(row, $event)"
+              [attr.aria-expanded]="isExpanded(row)">
+        <span class="vo-rank" [class.vo-rank-best]="i === 0">{{ i + 1 }}</span>
+
+        <span class="vo-time-value">{{ row.constantPower.etd | date:'dd MMM HH:mm':'UTC' }}</span>
+        <span class="vo-time-value">{{ row.constantPower.eta | date:'dd MMM HH:mm':'UTC' }}</span>
+
+        <span class="vo-num vo-muted">{{ formatDuration(row.constantPower.durationInSeconds) }}</span>
+        <span class="vo-num vo-muted">{{ formatSpeed(row.constantPower) }}</span>
+
+        <span class="vo-num vo-headline-value">
+          {{ row.consumption | eaEnergyValue: '1.2-2' : consumptionUnit : consumptionUnitSmall }}
+        </span>
+
+        <span class="vo-num vo-relative" [class.vo-relative-best]="i === 0">
+          {{ formatRelative(row.relativeToBest) }}
+        </span>
+
+        <span class="vo-num">
+          <span class="vo-vs-chip"
+                *ngIf="row.variableSpeedDelta !== null; else noVariableSpeed"
+                [class.vo-vs-chip-saving]="row.variableSpeedDelta! < 0"
+                [class.vo-vs-chip-penalty]="row.variableSpeedDelta! >= 0">
+            {{ row.variableSpeedDelta! < 0 ? '▼' : '▲' }}{{ absValue(row.variableSpeedDelta!) | number: '1.1-1' }}%
+          </span>
+          <ng-template #noVariableSpeed>
+            <span class="vo-vs-chip vo-vs-chip-missing"
+                  [title]="row.variableSpeedUnavailableReason || 'No constant-power solution for this slot.'">
+              n/a
+            </span>
+          </ng-template>
+        </span>
+
+        <span class="vo-chevron" aria-hidden="true">{{ isExpanded(row) ? '⌃' : '⌄' }}</span>
+      </button>
+
+      <!-- Detail: how to sail it. Stacked so the two variants' numbers line up column by column. -->
+      <div class="vo-variants" *ngIf="isExpanded(row)">
+
+        <div class="vo-variant"
+             [class.vo-variant-selected]="isVariantSelected(row.constantPower)"
+             [class.vo-variant-winner]="row.variableSpeedDelta !== null && row.variableSpeedDelta! >= 0"
+             (click)="selectVariant(row.constantPower)">
+          <span class="vo-tag">CP</span>
+          <span class="vo-variant-name">
+            Constant power
+            <small>Steady speed, power follows the weather</small>
+          </span>
+          <span class="vo-num vo-variant-metric">
+            <small>Speed</small>{{ formatSpeed(row.constantPower) }}
+          </span>
+          <span class="vo-num vo-variant-value">
+            {{ getConsumptionValue(row.constantPower) | eaEnergyValue: '1.2-2' : consumptionUnit : consumptionUnitSmall }}
+          </span>
+          <span class="vo-num vo-variant-metric">
+            <small>Fuel</small>{{ row.constantPower.totalResistanceFuelConsumption / 1000 | number: '1.0-1' }} t
+          </span>
+          <span class="vo-num vo-variant-metric">
+            <small>Cost</small>${{ (row.constantPower.totalResistanceCost ?? 0) / 1000 | number: '1.0-1' }}K
+          </span>
+          <span class="vo-variant-action">View details →</span>
+        </div>
+
+        <div class="vo-variant"
+             *ngIf="row.variableSpeed; else variableSpeedMissing"
+             [class.vo-variant-selected]="isVariantSelected(row.variableSpeed)"
+             [class.vo-variant-winner]="row.variableSpeedDelta !== null && row.variableSpeedDelta! < 0"
+             (click)="selectVariant(row.variableSpeed)">
+          <span class="vo-tag vo-tag-vs">VS</span>
+          <span class="vo-variant-name">
+            Variable speed
+            <small>Steady power, speed follows the weather</small>
+          </span>
+          <span class="vo-num vo-variant-metric">
+            <small>Speed</small>{{ formatSpeed(row.variableSpeed) }}
+          </span>
+          <span class="vo-num vo-variant-value">
+            {{ getConsumptionValue(row.variableSpeed) | eaEnergyValue: '1.2-2' : consumptionUnit : consumptionUnitSmall }}
+            <span class="vo-variant-delta"
+                  [class.vo-variant-delta-saving]="row.variableSpeedDelta! < 0"
+                  [class.vo-variant-delta-penalty]="row.variableSpeedDelta! >= 0">
+              {{ row.variableSpeedDelta! < 0 ? '▼' : '▲' }}{{ absValue(row.variableSpeedDelta!) | number: '1.1-1' }}%
+            </span>
+          </span>
+          <span class="vo-num vo-variant-metric">
+            <small>Fuel</small>{{ row.variableSpeed.totalResistanceFuelConsumption / 1000 | number: '1.0-1' }} t
+          </span>
+          <span class="vo-num vo-variant-metric">
+            <small>Cost</small>${{ (row.variableSpeed.totalResistanceCost ?? 0) / 1000 | number: '1.0-1' }}K
+          </span>
+          <span class="vo-variant-action">View details →</span>
+        </div>
+
+        <ng-template #variableSpeedMissing>
+          <div class="vo-variant vo-variant-missing">
+            <span class="vo-tag vo-tag-vs">VS</span>
+            <span class="vo-variant-name">
+              Variable speed
+              <small>Not available for this slot</small>
+            </span>
+            <span class="vo-variant-reason">
+              {{ row.variableSpeedUnavailableReason || 'No constant propulsion power satisfies this arrival time.' }}
+            </span>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+
+  <p class="vo-skipped" *ngIf="hasValidOptions() && skippedCombinationCount > 0">
+    {{ skippedCombinationCount }} more departure/arrival combination{{ skippedCombinationCount === 1 ? '' : 's' }}
+    fell outside the requested speed range and {{ skippedCombinationCount === 1 ? 'was' : 'were' }} left out.
+  </p>
+</div>

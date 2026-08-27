@@ -39,9 +39,6 @@ export class VoyageService {
   private selectedRouteSubject = new BehaviorSubject<Route | null>(null);
   private resultsAvailableSubject = new BehaviorSubject<boolean>(false);
   private responseReceivedSubject = new BehaviorSubject<voyageEnergyAdvisorResponse | null>(null);
-  private optimalVoyageOptionSubject = new BehaviorSubject<VoyageOption | null>(null);
-  private optimalLoadingSubject = new BehaviorSubject<boolean>(false);
-  private optimalErrorSubject = new BehaviorSubject<string | null>(null);
   private selectedSegmentIndexSubject = new BehaviorSubject<number>(0);
   private showFuelConsumptionSubject = new BehaviorSubject<boolean>(false);
   private currentView: 'planning' | 'live' = 'planning';
@@ -69,9 +66,6 @@ export class VoyageService {
   public liveRoute$ = this.liveRouteSubject.asObservable();
   public resultsAvailable$ = this.resultsAvailableSubject.asObservable();
   public responseReceived$ = this.responseReceivedSubject.asObservable();
-  public optimalVoyageOption$ = this.optimalVoyageOptionSubject.asObservable();
-  public optimalLoading$ = this.optimalLoadingSubject.asObservable();
-  public optimalError$ = this.optimalErrorSubject.asObservable();
   public selectedSegmentIndex$ = this.selectedSegmentIndexSubject.asObservable();
   
   public selectedCoordinates$: Observable<SelectedCoordinates | null> = this.selectedCoordinatesSubject.asObservable();
@@ -79,7 +73,6 @@ export class VoyageService {
 
   private lastRequestCorrelationId: string = '';
   private cancelSubject = new Subject<void>();
-  private optimalVoyageRequestedFromSearch = false;
 
   public errorMessage: string | null = null;
   public isLoading: boolean = false;
@@ -308,21 +301,9 @@ export class VoyageService {
   clearResults(): void {
     this.voyageOriginalRequest = null;
     this.responseReceivedSubject.next(null);
-    this.clearOptimalVoyageOption();
     this.resultsAvailableSubject.next(false);
     // Reset UI state when clearing results
     this.resetUIState();
-  }
-
-  clearOptimalVoyageOption(): void {
-    this.optimalVoyageRequestedFromSearch = false;
-    this.optimalVoyageOptionSubject.next(null);
-    this.optimalLoadingSubject.next(false);
-    this.optimalErrorSubject.next(null);
-  }
-
-  wasOptimalVoyageRequestedFromSearch(): boolean {
-    return this.optimalVoyageRequestedFromSearch;
   }
 
   public showGenericLoadError(customMessage?: string): void {
@@ -379,122 +360,6 @@ export class VoyageService {
     }
   }
 
-  async getOptimalVoyageOption(
-    etd: number,
-    eta: number,
-    speedMin: number,
-    speedMax: number,
-    route: Route
-  ): Promise<VoyageOption> {
-    console.log('CLIENT_OPTIMAL_CALL', {
-      etd,
-      eta,
-      speedMin,
-      speedMax,
-      routeName: route?.routeName,
-      waypointCount: route?.waypoints?.length ?? 0
-    });
-    const response = await this.voyageApiService.getOptimalVoyage({
-      etd,
-      eta,
-      speedMin: VoyageUtils.processOutgoingSpeed(speedMin, this.unitsOfMeasurementService),
-      speedMax: VoyageUtils.processOutgoingSpeed(speedMax, this.unitsOfMeasurementService),
-      route
-    });
-    console.log('CLIENT_OPTIMAL_RAW_RESPONSE', response?.optimalVoyageOption?.routeSegments?.map((segment, index) => ({
-      index,
-      averageSpeed: segment.averageSpeed,
-      totalPower: segment.avgTotalPower,
-      calmWaterPower: segment.avgCalmWaterPower
-    })));
-
-    const option = response.optimalVoyageOption;
-    option.isVariableSpeedOption = true;
-    option.averageSpeed = VoyageUtils.processIncomingSpeed(option.averageSpeed, this.unitsOfMeasurementService);
-    option.routeSegments = option.routeSegments.map(segment => ({
-      ...segment,
-      averageSpeed: VoyageUtils.processIncomingSpeed(segment.averageSpeed, this.unitsOfMeasurementService)
-    }));
-
-    return option;
-  }
-
-  async startOptimalVoyageCalculation(
-    etd: number,
-    eta: number,
-    speedMin: number,
-    speedMax: number,
-    route: Route
-  ): Promise<VoyageOption | null> {
-    this.optimalLoadingSubject.next(true);
-    this.optimalErrorSubject.next(null);
-    this.optimalVoyageOptionSubject.next(null);
-
-    try {
-      const option = await this.getOptimalVoyageOption(etd, eta, speedMin, speedMax, route);
-      this.optimalVoyageOptionSubject.next(option);
-      return option;
-    } catch (error) {
-      console.error('Optimal voyage request failed', error);
-      this.optimalErrorSubject.next('Unable to calculate the variable-speed option.');
-      return null;
-    } finally {
-      this.optimalLoadingSubject.next(false);
-    }
-  }
-
-  startOptimalVoyageCalculationFromSearch(requestData: any): boolean {
-    const route = this.getPlanningRoute();
-    let etd = requestData?.etd?.timestamp;
-    let eta = requestData?.eta?.timestamp;
-    const speedMin = requestData?.speed?.min;
-    const speedMax = requestData?.speed?.max;
-
-    if (!route || speedMin == null || speedMax == null) {
-      this.clearOptimalVoyageOption();
-      return false;
-    }
-
-    if (etd == null || eta == null) {
-      const voyageDistance = this.calculateRouteDistanceMeters(route);
-      const targetSpeed = (speedMin + speedMax) / 2;
-      const targetSpeedMetersPerSecond = VoyageUtils.processOutgoingSpeed(targetSpeed, this.unitsOfMeasurementService);
-      const durationMilliseconds = targetSpeedMetersPerSecond > 0
-        ? (voyageDistance / targetSpeedMetersPerSecond) * 1000
-        : 0;
-
-      if (etd != null && eta == null && durationMilliseconds > 0) {
-        eta = Math.round(etd + durationMilliseconds);
-      } else if (eta != null && etd == null && durationMilliseconds > 0) {
-        etd = Math.round(eta - durationMilliseconds);
-      }
-    }
-
-    if (etd == null || eta == null) {
-      this.clearOptimalVoyageOption();
-      console.log('VARIABLE_SPEED_SEARCH_SKIPPED', {
-        hasRoute: !!route,
-        etd,
-        eta,
-        speedMin,
-        speedMax
-      });
-      return false;
-    }
-
-    console.log('VARIABLE_SPEED_SEARCH_START', {
-      etd,
-      eta,
-      speedMin,
-      speedMax,
-      routeName: route.routeName,
-      waypointCount: route.waypoints?.length ?? 0
-    });
-    this.optimalVoyageRequestedFromSearch = true;
-    void this.startOptimalVoyageCalculation(etd, eta, speedMin, speedMax, route);
-    return true;
-  }
-
   private calculateRouteDistanceMeters(route: Route): number {
     if (!route?.waypoints || route.waypoints.length < 2) {
       return 0;
@@ -539,7 +404,18 @@ export class VoyageService {
       this.setEmissionFactorCO2PerKg(message.emissionFactorCO2PerKg);
     }
 
-    message.voyageOptions.forEach((option: VoyageOption) => {
+    // Both ways of sailing a slot need the same unit/timestamp normalisation, so walk every option in
+    // every set rather than a single flat list.
+    message.voyageOptionSets.forEach(set => {
+      set.eta = VoyageUtils.processIncomingTimestamp(set.eta);
+      set.etd = VoyageUtils.processIncomingTimestamp(set.etd);
+      set.averageSpeed = VoyageUtils.processIncomingSpeed(set.averageSpeed, this.unitsOfMeasurementService);
+    });
+
+    const allOptions: VoyageOption[] = message.voyageOptionSets.flatMap(set =>
+      [set.variablePowerOption, set.variableSpeedOption].filter((o): o is VoyageOption => !!o));
+
+    allOptions.forEach((option: VoyageOption) => {
       option.eta = VoyageUtils.processIncomingTimestamp(option.eta);
       option.etd = VoyageUtils.processIncomingTimestamp(option.etd);
       option.averageSpeed = VoyageUtils.processIncomingSpeed(option.averageSpeed, this.unitsOfMeasurementService);

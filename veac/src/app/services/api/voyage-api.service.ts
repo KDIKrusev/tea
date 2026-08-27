@@ -11,7 +11,6 @@ import { Route } from '../../models/entities/route.model';
 import { Vessel } from '../../models/entities/vessel.model';
 import { ConfigService } from './config.service';
 import { takeUntil } from 'rxjs/operators';
-import { VoyageOption } from '../../models/entities/voyage-option.model';
 
 @Injectable({
   providedIn: 'root'
@@ -46,21 +45,6 @@ export class VoyageApiService {
     return firstValueFrom(
       this.httpClient.post<voyageEnergyAdvisorResponse>(url, requestBody)
         .pipe(takeUntil(cancelToken$))
-    );
-  }
-
-  getOptimalVoyage(
-    requestBody: {
-      etd: number;
-      eta: number;
-      speedMin: number;
-      speedMax: number;
-      route: Route;
-    }
-  ): Promise<{ optimalVoyageOption: VoyageOption }> {
-    const url = `${this.configService.getApiBaseUrl()}/api/v1/voyageEnergyAdvisor/optimal`;
-    return firstValueFrom(
-      this.httpClient.post<{ optimalVoyageOption: VoyageOption }>(url, requestBody)
     );
   }
 

@@ -32,16 +32,33 @@ namespace VoyageEnergyAdvisor.Core.Services.VoyageEnergyAdvisorService
 
         private const double MinSpeed = 0.51444;
 
-        // Optimal voyage (constant propulsion power) search bounds.
+        // Variable-speed (constant propulsion power) search bounds.
         private const int MaxPowerIterations = 12;
         private const int MaxSpeedIterationsPerSegment = 12;
         private const double SpeedTolerance = 0.01; // m/s
         private const double TimeTolerance = 1.0; // seconds
         private const double PowerBalanceTolerance = 1.0; // Watts
 
-        // Optimal voyage power/speed search band: the outer power search and the per-segment speed search
+        // Variable-speed power/speed search band: the outer power search and the per-segment speed search
         // are bounded to +-80% of the required average speed, rather than the request's SpeedMin/SpeedMax.
         private const double AverageSpeedSearchBandFraction = 0.8;
+
+        // Progress reporting. The client shows a single bar, so every phase of a request has to map onto one
+        // monotonically increasing scale. WeatherService reports inside [WeatherReportedMinPercent,
+        // WeatherReportedMaxPercent]; AddTrueWeatherToRouteSegments remaps that onto whatever band its caller
+        // asks for, so a request with more phases can make room for them without touching WeatherService.
+        private const double WeatherReportedMinPercent = 5.0;
+        private const double WeatherReportedMaxPercent = 85.0;
+
+        // The bands PrepareVoyageOptionSets hands to each of its four phases.
+        private const double OptionSetsWeatherStartPercent = 5.0;
+        private const double OptionSetsWeatherEndPercent = 55.0;
+        private const double OptionSetsSolveStartPercent = 55.0;
+        private const double OptionSetsSolveEndPercent = 80.0;
+        private const double OptionSetsVariableSpeedEnrichStartPercent = 80.0;
+        private const double OptionSetsVariableSpeedEnrichEndPercent = 90.0;
+        private const double OptionSetsConstantSpeedEnrichStartPercent = 90.0;
+        private const double OptionSetsConstantSpeedEnrichEndPercent = 100.0;
 
         public async Task<IEnumerable<VoyageEnergyAdvisorVoyageOption>> PrepareVoyageOptions(
             VoyageEnergyAdvisorRequest request)
@@ -56,26 +73,128 @@ namespace VoyageEnergyAdvisor.Core.Services.VoyageEnergyAdvisorService
             return validOptions.Concat(invalidOptions);
         }
 
+        // Builds every ETD/ETA slot with both ways of sailing it, off a single weather fetch.
+        // The two families are enriched separately on purpose: the Add*ToVoyageOptions steps normalise
+        // EnergyConsumptionRelative / FuelConsumptionRelative / CostRelative against the cheapest option in
+        // the set they are given, and variable-speed options are cheaper by construction - mixing them into
+        // one set would silently move the baseline the existing constant-speed figures are reported against.
+        public async Task<IReadOnlyList<VoyageEnergyAdvisorVoyageOptionSet>> PrepareVoyageOptionSets(
+            VoyageEnergyAdvisorRequest request)
+        {
+            var voyageOptionsList = FilterOnSpeed(
+                GetVoyageOptionsArray(request), request.SpeedMin, request.SpeedMax).ToList();
+
+            var invalidOptions = voyageOptionsList.Where(e => !e.IsValid).ToList();
+            var validOptions = voyageOptionsList.Where(e => e.IsValid).ToList();
+
+            // One batched weather request covering every valid slot (see AddTrueWeatherToRouteSegments).
+            validOptions = (await PrepareGeometryAndWeather(
+                validOptions, request.Route,
+                OptionSetsWeatherStartPercent, OptionSetsWeatherEndPercent)).ToList();
+
+            // Cloned before enrichment, so the twins start from clean segments and the two families never
+            // share mutable state.
+            var variableSpeedTwins = BuildVariableSpeedTwins(
+                validOptions, OptionSetsSolveStartPercent, OptionSetsSolveEndPercent);
+
+            // The two enrichment passes take consecutive bands, so the bar keeps climbing to 100 instead of
+            // running the same 85..100 stretch twice.
+            EnrichWithPowerFuelAndCost(
+                variableSpeedTwins.Where(twin => twin.IsValid),
+                OptionSetsVariableSpeedEnrichStartPercent, OptionSetsVariableSpeedEnrichEndPercent).ToList();
+
+            var constantSpeedOptions = EnrichWithPowerFuelAndCost(
+                validOptions,
+                OptionSetsConstantSpeedEnrichStartPercent, OptionSetsConstantSpeedEnrichEndPercent).ToList();
+
+            var sets = new List<VoyageEnergyAdvisorVoyageOptionSet>(voyageOptionsList.Count);
+
+            // constantSpeedOptions holds the same instances as validOptions, in the same order, and
+            // BuildVariableSpeedTwins is aligned one-to-one with its input, so pairing by index is safe.
+            for (var i = 0; i < constantSpeedOptions.Count; i++)
+            {
+                var constantSpeedOption = constantSpeedOptions[i];
+                var twin = variableSpeedTwins[i];
+
+                sets.Add(new VoyageEnergyAdvisorVoyageOptionSet
+                {
+                    Etd = constantSpeedOption.Etd,
+                    Eta = constantSpeedOption.Eta,
+                    DurationInSeconds = constantSpeedOption.DurationInSeconds,
+                    AverageSpeed = constantSpeedOption.AverageSpeed,
+                    IsValid = true,
+                    VariablePowerOption = constantSpeedOption,
+                    VariableSpeedOption = twin.IsValid ? twin : null,
+                    VariableSpeedUnavailableReason = twin.IsValid ? null : twin.UnavailableReason
+                });
+            }
+
+            foreach (var invalidOption in invalidOptions)
+            {
+                sets.Add(new VoyageEnergyAdvisorVoyageOptionSet
+                {
+                    Etd = invalidOption.Etd,
+                    Eta = invalidOption.Eta,
+                    DurationInSeconds = invalidOption.DurationInSeconds,
+                    AverageSpeed = invalidOption.AverageSpeed,
+                    IsValid = false,
+                    VariablePowerOption = invalidOption,
+                    VariableSpeedOption = null
+                });
+            }
+
+            return sets;
+        }
+
         public async Task<IEnumerable<VoyageEnergyAdvisorVoyageOption>> PopulateVoyageOptions(IEnumerable<VoyageEnergyAdvisorVoyageOption> validOptions, Route route)
         {
-            validOptions = AddRouteSegments(validOptions, route);
-            validOptions = AddTimeToRouteSegments(validOptions);
-            validOptions = AddCourseToRouteSegments(validOptions);
-            validOptions = await AddTrueWeatherToRouteSegments(validOptions);
-            validOptions = AddApparentWeatherToRouteSegments(validOptions);
-            validOptions = AddCalmWaterPowerToRouteSegments(validOptions);
-            validOptions = AddWindPowerToRouteSegments(validOptions);
-            validOptions = AddWavePowerToRouteSegments(validOptions);
-            validOptions = AddCurrentPowerToRouteSegments(validOptions);
-            validOptions = AddSailPowerToRouteSegments(validOptions);
-            validOptions = AddTotalPowerToRouteSegments(validOptions);
-            validOptions = AddFuelConsumptionToRouteSegments(validOptions);
-            validOptions = AddCostToRouteSegments(validOptions);
-            validOptions = AddTotalPowerAndEnergyToVoyageOptions(validOptions);
-            validOptions = AddTotalFuelConsumptionToVoyageOptions(validOptions);
-            validOptions = AddTotalCostToVoyageOptions(validOptions);
-            validOptions = AddFavorableWeatherIndexToVoyageOptions(validOptions);
-            return validOptions;
+            return EnrichWithPowerFuelAndCost(await PrepareGeometryAndWeather(validOptions, route));
+        }
+
+        // Phase A + B of the pipeline: everything that does not depend on how the voyage is sailed, only on
+        // where and when. Shared by the constant-speed and the constant-power (variable speed) options.
+        // AddTrueWeatherToRouteSegments batches the lookups of every option passed in into a single weather
+        // request, so callers should hand it the whole set of options at once rather than one at a time.
+        public async Task<IEnumerable<VoyageEnergyAdvisorVoyageOption>> PrepareGeometryAndWeather(
+            IEnumerable<VoyageEnergyAdvisorVoyageOption> voyageOptions, Route route,
+            double startPercent = WeatherReportedMinPercent,
+            double endPercent = WeatherReportedMaxPercent)
+        {
+            voyageOptions = AddRouteSegments(voyageOptions, route);
+            voyageOptions = AddTimeToRouteSegments(voyageOptions);
+            voyageOptions = AddCourseToRouteSegments(voyageOptions);
+            return await AddTrueWeatherToRouteSegments(voyageOptions, startPercent, endPercent);
+        }
+
+        // Phase D of the pipeline: everything derived from each segment's speed and weather.
+        // The Add*ToVoyageOptions steps at the end normalise EnergyConsumptionRelative / FuelConsumptionRelative /
+        // CostRelative against the cheapest option *in the set passed in*, so constant-speed and variable-speed
+        // options must be enriched in separate calls to keep each family on its own baseline.
+        public IEnumerable<VoyageEnergyAdvisorVoyageOption> EnrichWithPowerFuelAndCost(
+            IEnumerable<VoyageEnergyAdvisorVoyageOption> voyageOptions,
+            double startPercent = 85,
+            double endPercent = 100)
+        {
+            // The three reporting steps split the caller's band in the same proportions the fixed
+            // 85/95/97/100 scale used before, so a default call reports exactly as it always did.
+            var band = endPercent - startPercent;
+            var energyEnd = startPercent + band * 0.67;
+            var fuelEnd = startPercent + band * 0.87;
+
+            voyageOptions = AddApparentWeatherToRouteSegments(voyageOptions);
+            voyageOptions = AddCalmWaterPowerToRouteSegments(voyageOptions);
+            voyageOptions = AddWindPowerToRouteSegments(voyageOptions);
+            voyageOptions = AddWavePowerToRouteSegments(voyageOptions);
+            voyageOptions = AddCurrentPowerToRouteSegments(voyageOptions);
+            voyageOptions = AddSailPowerToRouteSegments(voyageOptions);
+            voyageOptions = AddTotalPowerToRouteSegments(voyageOptions);
+            voyageOptions = AddFuelConsumptionToRouteSegments(voyageOptions);
+            voyageOptions = AddCostToRouteSegments(voyageOptions);
+            voyageOptions = AddTotalPowerAndEnergyToVoyageOptions(voyageOptions, startPercent, energyEnd);
+            voyageOptions = AddTotalFuelConsumptionToVoyageOptions(voyageOptions, energyEnd, fuelEnd);
+            voyageOptions = AddTotalCostToVoyageOptions(voyageOptions, fuelEnd, endPercent);
+            voyageOptions = AddFavorableWeatherIndexToVoyageOptions(voyageOptions);
+            return voyageOptions;
         }
 
         public VoyageEnergyAdvisorRequest? ToValidRequest(VoyageEnergyAdvisorRequest request)
@@ -170,9 +289,11 @@ namespace VoyageEnergyAdvisor.Core.Services.VoyageEnergyAdvisorService
 
         public IEnumerable<VoyageEnergyAdvisorVoyageOption> AddRouteSegments(IEnumerable<VoyageEnergyAdvisorVoyageOption> voyageOptions, Route route)
         {
+            // Splitting is pure and identical for every option, so it is done once rather than per option.
+            var splittedRoute = route.SplitToSegments(10000.0); // TODO max 10 km long segments
+
             return voyageOptions.Select(e =>
             {
-                var splittedRoute = route.SplitToSegments(10000.0); // TODO max 10 km long segments
                 var routeSegments = new List<VoyageEnergyAdvisorVoyageOptionRouteSegment>();
                 for (int i = 1; i < splittedRoute.Waypoints.Count(); i++)
                 {
@@ -250,17 +371,17 @@ namespace VoyageEnergyAdvisor.Core.Services.VoyageEnergyAdvisorService
         }
 
         public IEnumerable<VoyageEnergyAdvisorVoyageOption> AddTotalCostToVoyageOptions(
-           IEnumerable<VoyageEnergyAdvisorVoyageOption> voyageOptions
+           IEnumerable<VoyageEnergyAdvisorVoyageOption> voyageOptions,
+           double startPercent = 97,
+           double endPercent = 100
        )
         {
             var voyageOptionsList = voyageOptions.ToList();
             int total = voyageOptionsList.Count;
             int processed = 0;
 
-            double startPercent = 97;
-            double endPercent = 100;
 
-            var optionsWithTotalCost = voyageOptions.Select(voyageOption =>
+            var optionsWithTotalCost = voyageOptionsList.Select(voyageOption =>
             {
                 if (voyageOption.IsValid)
                 {
@@ -378,7 +499,9 @@ namespace VoyageEnergyAdvisor.Core.Services.VoyageEnergyAdvisorService
         }
 
         public async Task<IEnumerable<VoyageEnergyAdvisorVoyageOption>> AddTrueWeatherToRouteSegments(
-        IEnumerable<VoyageEnergyAdvisorVoyageOption> voyageOptions)
+        IEnumerable<VoyageEnergyAdvisorVoyageOption> voyageOptions,
+        double startPercent = WeatherReportedMinPercent,
+        double endPercent = WeatherReportedMaxPercent)
         {
             if (voyageOptions == null) throw new ArgumentNullException(nameof(voyageOptions));
 
@@ -402,7 +525,8 @@ namespace VoyageEnergyAdvisor.Core.Services.VoyageEnergyAdvisorService
 
             var allWeatherData = (await weatherService.GetWeather(
                         weatherRequest,
-                        async (progress, message) => await progressService.UpdateProgress(progress, message)))
+                        async (progress, message) => await progressService.UpdateProgress(
+                            RemapWeatherProgress(progress, startPercent, endPercent), message)))
                 .ToList()
                 .ToLookup(e => GetLookupKey(
                     e.Time,
@@ -429,10 +553,6 @@ namespace VoyageEnergyAdvisor.Core.Services.VoyageEnergyAdvisorService
                        {
                            routeSegment.TrueWeather = trueWeatherInstance.Weather;
                        }
-                       else
-                       {
-                           var test = routeSegment;
-                       }
                    }
                    return routeSegment;
                }).ToList();
@@ -440,6 +560,15 @@ namespace VoyageEnergyAdvisor.Core.Services.VoyageEnergyAdvisorService
             });
         }
 
+
+        // WeatherService always reports inside [WeatherReportedMinPercent, WeatherReportedMaxPercent];
+        // rescale that onto the band the caller reserved for the weather phase of its own request.
+        private static double RemapWeatherProgress(double reportedPercent, double startPercent, double endPercent)
+        {
+            var fraction = (reportedPercent - WeatherReportedMinPercent) /
+                           (WeatherReportedMaxPercent - WeatherReportedMinPercent);
+            return startPercent + Math.Clamp(fraction, 0.0, 1.0) * (endPercent - startPercent);
+        }
 
         private static (DateTime Time, double Lat, double Lon) GetLookupKey(DateTime time, double latitude, double longitude)
         {
@@ -693,7 +822,9 @@ namespace VoyageEnergyAdvisor.Core.Services.VoyageEnergyAdvisorService
         }
 
         public IEnumerable<VoyageEnergyAdvisorVoyageOption> AddTotalPowerAndEnergyToVoyageOptions(
-            IEnumerable<VoyageEnergyAdvisorVoyageOption> voyageOptions
+            IEnumerable<VoyageEnergyAdvisorVoyageOption> voyageOptions,
+            double startPercent = 85,
+            double endPercent = 95
         )
         {
 
@@ -701,10 +832,8 @@ namespace VoyageEnergyAdvisor.Core.Services.VoyageEnergyAdvisorService
             int total = voyageOptionsList.Count;
             int processed = 0;
 
-            double startPercent = 85;
-            double endPercent = 95;
 
-            var optionsWithTotalEnergy = voyageOptions.Select(voyageOption =>
+            var optionsWithTotalEnergy = voyageOptionsList.Select(voyageOption =>
             {
                 if (voyageOption.IsValid)
                 {
@@ -767,17 +896,16 @@ namespace VoyageEnergyAdvisor.Core.Services.VoyageEnergyAdvisorService
         }
 
         public IEnumerable<VoyageEnergyAdvisorVoyageOption> AddTotalFuelConsumptionToVoyageOptions(
-         IEnumerable<VoyageEnergyAdvisorVoyageOption> voyageOptions
+         IEnumerable<VoyageEnergyAdvisorVoyageOption> voyageOptions,
+         double startPercent = 95,
+         double endPercent = 100
        )
         {
             var voyageOptionsList = voyageOptions.ToList();
             int total = voyageOptionsList.Count;
             int processed = 0;
 
-            double startPercent = 95; 
-            double endPercent = 100;   
-
-            var optionsWithTotalFuel = voyageOptions.Select(voyageOption =>
+            var optionsWithTotalFuel = voyageOptionsList.Select(voyageOption =>
             {
                 if (voyageOption.IsValid)
                 {
@@ -993,28 +1121,64 @@ namespace VoyageEnergyAdvisor.Core.Services.VoyageEnergyAdvisorService
             return bestSpeed;
         }
 
+        // Scalar equivalent of AddApparentWeather -> Add{CalmWater,Wind,Wave,Current,Sail}Power -> AddTotalPower
+        // for a single (segment, speed) pair. The speed search calls this
+        // O(MaxPowerIterations * segments * MaxSpeedIterationsPerSegment) times per voyage option, so it
+        // deliberately bypasses the collection-based pipeline and the allocations it makes per probe.
+        // Any change to the Add*Power methods above must be mirrored here.
         private double GetSegmentResistancePowerAtSpeed(VoyageEnergyAdvisorVoyageOptionRouteSegment segment, double candidateSpeed)
         {
-            IEnumerable<VoyageEnergyAdvisorVoyageOption> probeOptions = new[]
+            var calmWaterResistancePower = calmWaterResistanceService.GetCalmWaterResistancePower(candidateSpeed);
+
+            var trueWeather = segment.TrueWeather;
+            if (trueWeather == null)
             {
-                new VoyageEnergyAdvisorVoyageOption
-                {
-                    RouteSegments = new List<VoyageEnergyAdvisorVoyageOptionRouteSegment>
-                    {
-                        segment with { AverageSpeed = candidateSpeed }
-                    }
-                }
-            };
+                // Mirrors AddApparentWeatherToRouteSegments: with no true weather no apparent weather is
+                // derived, so none of the weather resistance terms contribute.
+                return calmWaterResistancePower;
+            }
 
-            probeOptions = AddApparentWeatherToRouteSegments(probeOptions);
-            probeOptions = AddCalmWaterPowerToRouteSegments(probeOptions);
-            probeOptions = AddWindPowerToRouteSegments(probeOptions);
-            probeOptions = AddWavePowerToRouteSegments(probeOptions);
-            probeOptions = AddCurrentPowerToRouteSegments(probeOptions);
-            probeOptions = AddSailPowerToRouteSegments(probeOptions);
-            probeOptions = AddTotalPowerToRouteSegments(probeOptions);
+            var course = segment.Course.GetValueOrDefault();
+            var trueWindSpeed = trueWeather.WindSpeed.GetValueOrDefault();
+            var trueWindFromDirection = trueWeather.WindFromDirection.GetValueOrDefault();
+            var trueCurrentSpeed = trueWeather.CurrentSpeed.GetValueOrDefault();
+            var trueCurrentFromDirection = trueWeather.CurrentFromDirection.GetValueOrDefault();
 
-            return probeOptions.First().RouteSegments[0].AvgTotalResistancePower.GetValueOrDefault();
+            var apparentWindSpeed = VoyageEnergyAdvisorApparentWeatherHelper.GetApparentWindSpeed(
+                trueWindSpeed, trueWindFromDirection, course, candidateSpeed);
+            var apparentWindFromDirection = VoyageEnergyAdvisorApparentWeatherHelper.GetApparentWindFromDirection(
+                trueWindSpeed, trueWindFromDirection, course, candidateSpeed);
+            var relativeCurrentSpeed = VoyageEnergyAdvisorApparentWeatherHelper.GetRelativeCurrentSpeed(
+                trueCurrentSpeed, trueCurrentFromDirection, course, candidateSpeed);
+            var relativeCurrentFromDirection = VoyageEnergyAdvisorApparentWeatherHelper.GetRelativeCurrentFromDirection(
+                trueCurrentSpeed, trueCurrentFromDirection, course, candidateSpeed);
+            var relativeWaveFromDirection = VoyageEnergyAdvisorApparentWeatherHelper.GetRelativeWaveFromDirection(
+                trueWeather.WaveFromDirection.GetValueOrDefault(), course);
+
+            // As in AddWindPowerToRouteSegments: the calm-water part of the wind resistance is already
+            // covered by calmWaterResistancePower, so it is subtracted out here.
+            var windResistancePower =
+                windResistanceService.GetWindResistancePower(apparentWindSpeed, apparentWindFromDirection, candidateSpeed) -
+                windResistanceService.GetWindResistancePower(candidateSpeed, 0, candidateSpeed);
+
+            var waveResistancePower = waveResistanceService.GetWaveResistancePower(
+                trueWeather.WavePeakPeriod.GetValueOrDefault(),
+                trueWeather.WaveHeight.GetValueOrDefault(),
+                relativeWaveFromDirection,
+                candidateSpeed);
+
+            var currentResistancePower = currentResistanceService.GetCurrentResistancePower(
+                relativeCurrentSpeed, relativeCurrentFromDirection, candidateSpeed);
+
+            // Note: minus here to change from "contribution" to "resistance" (as in AddSailPowerToRouteSegments).
+            var sailResistancePower = -sailContributionService.GetSailContributionPower(
+                apparentWindSpeed, apparentWindFromDirection, candidateSpeed);
+
+            return calmWaterResistancePower
+                   + windResistancePower
+                   + waveResistancePower
+                   + currentResistancePower
+                   + sailResistancePower;
         }
 
         private (IReadOnlyList<double> SegmentSpeeds, double TotalDurationSeconds) SolveSegmentSpeedsAndDuration(
@@ -1061,7 +1225,7 @@ namespace VoyageEnergyAdvisor.Core.Services.VoyageEnergyAdvisorService
 
             if (fastestDurationSeconds > allowedVoyageDurationSeconds + TimeTolerance)
             {
-                throw new OptimalVoyageRequestException(
+                throw new VariableSpeedSolutionException(
                     $"No constant propulsion power can satisfy the requested ETA, even at {speedUpperBound:F2} m/s. " +
                     $"The fastest achievable voyage takes {fastestDurationSeconds / 3600.0:F2} hours, but only " +
                     $"{allowedVoyageDurationSeconds / 3600.0:F2} hours are available between ETD and ETA.");
@@ -1095,53 +1259,93 @@ namespace VoyageEnergyAdvisor.Core.Services.VoyageEnergyAdvisorService
             return (bestFeasibleSpeeds, bestFeasiblePower);
         }
 
-        public async Task<VoyageEnergyAdvisorVoyageOption> BuildOptimalVoyageOption(
-            VoyageEnergyAdvisorOptimalVoyageRequest request, double requiredAverageSpeed)
+        // Phase C of the pipeline, and the only step that is unique to the variable-speed options.
+        // Takes options that have already been through PrepareGeometryAndWeather and returns, for each of
+        // them, an independent twin whose segments carry the steady-state speeds of the lowest constant
+        // propulsion power that still meets the slot's ETA.
+        //
+        // The result is aligned one-to-one with the input, so callers can pair a twin with its source by
+        // index. A slot with no feasible constant-power solution yields a twin with IsValid == false and
+        // UnavailableReason set, rather than failing the whole set - one impossible slot in a grid of
+        // options must not take the other slots down with it.
+        //
+        // The twins deliberately reuse the source's true weather: they start from the same segments at the
+        // same times, so their weather lookups would be identical and no extra weather fetch is needed.
+        public IReadOnlyList<VoyageEnergyAdvisorVoyageOption> BuildVariableSpeedTwins(
+            IEnumerable<VoyageEnergyAdvisorVoyageOption> weatherEnrichedOptions,
+            double startPercent = 55,
+            double endPercent = 80)
         {
-            var voyageOption = new VoyageEnergyAdvisorVoyageOption
+            if (weatherEnrichedOptions == null) throw new ArgumentNullException(nameof(weatherEnrichedOptions));
+
+            var sourceOptions = weatherEnrichedOptions.ToList();
+            var twins = new List<VoyageEnergyAdvisorVoyageOption>();
+            var processed = 0;
+
+            foreach (var sourceOption in sourceOptions)
             {
-                Etd = request.Etd,
-                Eta = request.Eta,
-                AverageSpeed = requiredAverageSpeed,
-                DurationInSeconds = (request.Eta - request.Etd).TotalSeconds,
-                IsValid = true
+                var twin = CloneForVariableSpeed(sourceOption);
+
+                if (!sourceOption.IsValid || twin.RouteSegments.Count == 0 || twin.DurationInSeconds <= 0)
+                {
+                    twin.IsValid = false;
+                    twin.UnavailableReason = "The voyage option is not valid, so no constant-power solution was attempted.";
+                    twins.Add(twin);
+                    ReportSolveProgress(++processed, sourceOptions.Count, startPercent, endPercent);
+                    continue;
+                }
+
+                try
+                {
+                    var (segmentSpeeds, _) = FindMinimumFeasibleConstantPower(
+                        twin.RouteSegments, twin.DurationInSeconds);
+
+                    twin.RouteSegments = twin.RouteSegments
+                        .Select((segment, i) => segment with { AverageSpeed = segmentSpeeds[i] })
+                        .ToList();
+
+                    // Segment times shift once the speeds are no longer uniform.
+                    // Note: the true weather is intentionally *not* re-fetched for the shifted times - the
+                    // variable-speed option is evaluated against the same weather as its constant-speed twin.
+                    AddTimeToRouteSegments(new[] { twin }).ToList();
+                }
+                catch (VariableSpeedSolutionException ex)
+                {
+                    twin.IsValid = false;
+                    twin.UnavailableReason = ex.UserMessage;
+                }
+
+                twins.Add(twin);
+                ReportSolveProgress(++processed, sourceOptions.Count, startPercent, endPercent);
+            }
+
+            return twins;
+        }
+
+        // The constant-power search is the slowest phase of a set request and reports nothing on its own,
+        // which left the progress bar frozen between the weather and enrichment phases.
+        private void ReportSolveProgress(int processed, int total, double startPercent, double endPercent)
+        {
+            progressService
+                .UpdateProgressDynamic(processed, total, startPercent, endPercent, "Solving variable-speed options")
+                .ConfigureAwait(false);
+        }
+
+        // Independent copy: every Add* step in the pipeline mutates the option and its segments in place, so
+        // a twin sharing segments with its source would corrupt it. TrueWeather is shared by reference on
+        // purpose - it is only ever read, while ApparentWeather is replaced with a fresh instance downstream.
+        private static VoyageEnergyAdvisorVoyageOption CloneForVariableSpeed(VoyageEnergyAdvisorVoyageOption source)
+        {
+            return new VoyageEnergyAdvisorVoyageOption
+            {
+                Etd = source.Etd,
+                Eta = source.Eta,
+                AverageSpeed = source.AverageSpeed,
+                DurationInSeconds = source.DurationInSeconds,
+                IsValid = source.IsValid,
+                IsVariableSpeedOption = true,
+                RouteSegments = source.RouteSegments.Select(segment => segment with { }).ToList()
             };
-
-            IEnumerable<VoyageEnergyAdvisorVoyageOption> voyageOptions = new List<VoyageEnergyAdvisorVoyageOption> { voyageOption };
-            voyageOptions = AddRouteSegments(voyageOptions, request.Route);
-            voyageOptions = AddTimeToRouteSegments(voyageOptions);
-            voyageOptions = AddCourseToRouteSegments(voyageOptions);
-            voyageOptions = await AddTrueWeatherToRouteSegments(voyageOptions);
-
-            voyageOption = voyageOptions.First();
-
-            var (segmentSpeeds, _) = FindMinimumFeasibleConstantPower(
-                voyageOption.RouteSegments,
-                (request.Eta - request.Etd).TotalSeconds);
-
-            voyageOption.RouteSegments = voyageOption.RouteSegments
-                .Select((segment, i) => segment with { AverageSpeed = segmentSpeeds[i] })
-                .ToList();
-
-            // Re-run the same enrichment pipeline used for regular voyage options, now that every segment has
-            // its solved steady-state speed, so the result carries the identical breakdown of fields.
-            voyageOptions = new List<VoyageEnergyAdvisorVoyageOption> { voyageOption };
-            voyageOptions = AddTimeToRouteSegments(voyageOptions);
-            voyageOptions = AddApparentWeatherToRouteSegments(voyageOptions);
-            voyageOptions = AddCalmWaterPowerToRouteSegments(voyageOptions);
-            voyageOptions = AddWindPowerToRouteSegments(voyageOptions);
-            voyageOptions = AddWavePowerToRouteSegments(voyageOptions);
-            voyageOptions = AddCurrentPowerToRouteSegments(voyageOptions);
-            voyageOptions = AddSailPowerToRouteSegments(voyageOptions);
-            voyageOptions = AddTotalPowerToRouteSegments(voyageOptions);
-            voyageOptions = AddFuelConsumptionToRouteSegments(voyageOptions);
-            voyageOptions = AddCostToRouteSegments(voyageOptions);
-            voyageOptions = AddTotalPowerAndEnergyToVoyageOptions(voyageOptions);
-            voyageOptions = AddTotalFuelConsumptionToVoyageOptions(voyageOptions);
-            voyageOptions = AddTotalCostToVoyageOptions(voyageOptions);
-            voyageOptions = AddFavorableWeatherIndexToVoyageOptions(voyageOptions);
-
-            return voyageOptions.First();
         }
 
     }

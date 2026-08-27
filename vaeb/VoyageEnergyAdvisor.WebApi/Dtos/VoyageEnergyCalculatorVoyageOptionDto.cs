@@ -6,6 +6,7 @@
         public long Etd { get; set; }
         public long Eta { get; set; }
         public bool IsValid { get; set; }
+        public bool IsVariableSpeedOption { get; set; }
         public double? AverageSpeed { get; set; }   // Todo Shall not be nullable
         public double? DurationInSeconds { get; set; } // Todo Shall not be nullable
         public List<VoyageEnergyAdvisorVoyageOptionRouteSegmentDto> RouteSegments { get; set; } = new();

@@ -4,17 +4,17 @@ import { CommonModule } from '@angular/common';
 import { VoyageService } from '../../services/state/voyage-scheduler.service';
 import { voyageEnergyAdvisorResponse } from '../../models/api/voyage-energy-advisor-response.model';
 import { VoyageOption } from '../../models/entities/voyage-option.model';
+import { VoyageOptionSet } from '../../models/entities/voyage-option-set.model';
 import { RouteSegment } from '../../models/entities/route-segment.model';
 import { VoyageOriginalRequest } from '../../models/api/voyage-original-request.model';
 
 // Import child components
 import { VoyagePowerChartComponent } from './voyage-power-chart/voyage-power-chart.component';
 import { SegmentDetailsComponent } from './segment-details/segment-details.component';
-import { VoyageOptionsTableComponent } from './voyage-options-table/voyage-options-table.component';
+import { VoyageOptionsListComponent } from './voyage-options-list/voyage-options-list.component';
 import { VoyageDetailsComponent } from './voyage-details/voyage-details.component';
 import { NoResultsComponent } from './no-results/no-results.component';
 import { VoyageRouteAnalysisComponent } from './voyage-route-analysis/voyage-route-analysis.component';
-import { EaEnergyValuePipe } from '../../shared/pipes/ea-energy-value-pipe';
 
 @Component({
   selector: 'app-voyage-energy-advisor-results-panel',
@@ -23,26 +23,23 @@ import { EaEnergyValuePipe } from '../../shared/pipes/ea-energy-value-pipe';
     CommonModule,
     VoyagePowerChartComponent,
     SegmentDetailsComponent,
-    VoyageOptionsTableComponent,
+    VoyageOptionsListComponent,
     VoyageDetailsComponent,
     NoResultsComponent,
-    VoyageRouteAnalysisComponent,
-    EaEnergyValuePipe
+    VoyageRouteAnalysisComponent
   ],
   templateUrl: './voyage-energy-advisor-results-panel.component.html',
   styleUrls: ['./voyage-energy-advisor-results-panel.component.css'],
 })
 export class VoyageEnergyAdvisorResultsPanelComponent implements OnInit, OnDestroy {
+  public voyageOptionSets: VoyageOptionSet[] = [];
+
+  /** The constant-speed option of every set. Drives navigation, indices and the optimal-cell highlight. */
   public voyageOptions: VoyageOption[] = [];
   public durationText!: string;
   public selectedSegment: RouteSegment | null = null;
-  public etdTimes: number[] = [];
-  public etaTimes: number[] = [];
   public originalRequestData!: VoyageOriginalRequest;
   public validationMessage?: string;
-  public optimalVoyageOption: VoyageOption | null = null;
-  public isOptimalLoading = false;
-  public optimalError: string | null = null;
   private noAvailableOptions!: boolean;
   private responseReceivedSubscription!: Subscription;
   private subscriptions: Subscription[] = [];
@@ -58,15 +55,6 @@ export class VoyageEnergyAdvisorResultsPanelComponent implements OnInit, OnDestr
       });
 
     this.subscriptions.push(
-      this.voyageService.optimalVoyageOption$.subscribe(option => {
-        this.optimalVoyageOption = option;
-      }),
-      this.voyageService.optimalLoading$.subscribe(isLoading => {
-        this.isOptimalLoading = isLoading;
-      }),
-      this.voyageService.optimalError$.subscribe(error => {
-        this.optimalError = error;
-      }),
       this.voyageService.selectedSegment$.subscribe(selection => {
         if (!selection || !this.selectedVoyageOption?.routeSegments) return;
         this.selectedSegment = this.selectedVoyageOption.routeSegments[selection.segmentIndex] ?? null;
@@ -182,35 +170,23 @@ private findOptimalOptionForCurrentMode(): void {
 
 
 private onResponseReceived(response: voyageEnergyAdvisorResponse | null): void {
-    if (!response || !response.voyageOptions || !response.voyageOptions.length) {
+    if (!response || !response.voyageOptionSets || !response.voyageOptionSets.length) {
+      this.voyageOptionSets = [];
       this.voyageOptions = [];
       this.noAvailableOptions = true;
       this.showVoyageOptionsModal = false;
       this.validationMessage = response?.validationMessage;
     } else {
       this.noAvailableOptions = false;
-      this.voyageOptions = response.voyageOptions;
+      this.voyageOptionSets = response.voyageOptionSets;
+      this.voyageOptions = this.voyageOptionSets.map(set => set.variablePowerOption);
       this.validationMessage = response.validationMessage;
-      this.etdTimes = [...new Set(this.voyageOptions.map(option => option.etd))].sort();
-      this.etaTimes = [...new Set(this.voyageOptions.map(option => option.eta))].sort();
       this.originalRequestData = this.voyageService.getOriginalRequestData();
 
       // Use current display mode to find optimal option
       this.findOptimalOptionForCurrentMode();
       this.showVoyageOptionsModal = true;
       this.onSelectedVoyageOptionChanged();
-      console.log('VARIABLE_SPEED_TRIGGER', {
-        selected: this.selectedVoyageOption,
-        route: this.voyageService.getPlanningRoute(),
-        originalRequest: this.originalRequestData,
-        speedMin: this.originalRequestData?.speed?.min ?? this.originalRequestData?.speedMin,
-        speedMax: this.originalRequestData?.speed?.max ?? this.originalRequestData?.speedMax,
-        routeName: this.voyageService.getPlanningRoute()?.routeName,
-        waypointCount: this.voyageService.getPlanningRoute()?.waypoints?.length ?? 0
-      });
-      if (!this.voyageService.wasOptimalVoyageRequestedFromSearch() && !this.isOptimalLoading && !this.optimalVoyageOption) {
-        void this.calculateOptimalVoyage();
-      }
     }
   }
 
@@ -223,56 +199,6 @@ private onResponseReceived(response: voyageEnergyAdvisorResponse | null): void {
   public onVoyageOptionSelectedFromModal(voyageOption: VoyageOption): void {
     // Use service method to set option and hide modal
     this.voyageService.selectVoyageOption(voyageOption, true);
-    this.onSelectedVoyageOptionChanged();
-  }
-
-  public async calculateOptimalVoyage(): Promise<void> {
-    const selected = this.selectedVoyageOption;
-    const route = this.voyageService.getPlanningRoute();
-    const originalRequest = this.originalRequestData;
-    const speedMin = originalRequest?.speed?.min ?? originalRequest?.speedMin;
-    const speedMax = originalRequest?.speed?.max ?? originalRequest?.speedMax;
-
-    if (!route || !originalRequest || !selected.isValid || speedMin == null || speedMax == null) {
-      this.optimalError = 'A valid speed range is required for the variable-speed calculation.';
-      return;
-    }
-
-    this.isOptimalLoading = true;
-    this.optimalError = null;
-    console.log('VARIABLE_SPEED_REQUEST', {
-      etd: selected.etd,
-      eta: selected.eta,
-      speedMin,
-      speedMax,
-      routeName: route?.routeName,
-      routeWaypoints: route?.waypoints?.length ?? 0
-    });
-    try {
-      this.optimalVoyageOption = await this.voyageService.startOptimalVoyageCalculation(
-        selected.etd,
-        selected.eta,
-        speedMin,
-        speedMax,
-        route
-      );
-      console.log('VARIABLE_SPEED_RESPONSE_SEGMENTS', this.optimalVoyageOption?.routeSegments?.map((segment, index) => ({
-        index,
-        averageSpeed: segment.averageSpeed,
-        totalPower: segment.avgTotalPower,
-        calmWaterPower: segment.avgCalmWaterPower
-      })));
-    } catch (error) {
-      console.error('Optimal voyage request failed', error);
-      this.optimalError = 'Unable to calculate the variable-speed option.';
-    } finally {
-      this.isOptimalLoading = false;
-    }
-  }
-
-  public selectOptimalVoyage(): void {
-    if (!this.optimalVoyageOption) return;
-    this.voyageService.selectVoyageOption(this.optimalVoyageOption, true);
     this.onSelectedVoyageOptionChanged();
   }
 

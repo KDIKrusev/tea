@@ -7,6 +7,5 @@ namespace VoyageEnergyAdvisor.Core.Services.VoyageEnergyAdvisorService
     {
          Task<VoyageEnergyAdvisorResponse> GetVoyageOptions(VoyageEnergyAdvisorRequest VoyageEnergyAdvisorRequestInfo);
          Task<VoyageEnergyAdvisorLiveResponse> GetLiveData(VoyageEnergyAdvisorLiveRequest request);
-         Task<VoyageEnergyAdvisorVoyageOption> GetOptimalVoyageOption(VoyageEnergyAdvisorOptimalVoyageRequest request);
     }
 }

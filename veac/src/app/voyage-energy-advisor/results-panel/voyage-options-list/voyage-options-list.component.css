@@ -1,0 +1,406 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.vo-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 8px 8px 16px;
+  box-sizing: border-box;
+  color: #2c3540;
+}
+
+/* One shared column rhythm: the header, every summary row and every expanded variant line up on it,
+   so the width is filled with data instead of gaps. */
+.vo-header,
+.vo-summary {
+  display: grid;
+  grid-template-columns:
+    30px                 /* rank            */
+    minmax(110px, 1fr)   /* departure       */
+    minmax(110px, 1fr)   /* arrival         */
+    minmax(72px, 0.6fr)  /* duration        */
+    minmax(96px, 0.8fr)  /* speed           */
+    minmax(110px, 1fr)   /* active metric   */
+    minmax(64px, 0.5fr)  /* vs best         */
+    minmax(84px, 0.7fr)  /* variable speed  */
+    22px;                /* chevron         */
+  align-items: center;
+  gap: 12px;
+}
+
+/* ---- Header ------------------------------------------------------------ */
+
+.vo-list-head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.vo-list-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1f2a36;
+}
+
+.vo-list-hint {
+  font-size: 12px;
+  color: #7a8794;
+}
+
+.vo-header {
+  padding: 0 14px 6px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #93a0ad;
+}
+
+.vo-warning {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+  background-color: #fff8e1;
+  border: 1px solid #f0c36d;
+  border-radius: 6px;
+  color: #7a5b12;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.vo-warning-icon {
+  font-size: 18px;
+  line-height: 1.2;
+}
+
+/* ---- Rows -------------------------------------------------------------- */
+
+.vo-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.vo-row {
+  border: 1px solid #e2e7ec;
+  border-left: 3px solid #e2e7ec;
+  border-radius: 6px;
+  background: #fff;
+  overflow: hidden;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.vo-row-best {
+  border-left-color: #3f9f63;
+}
+
+.vo-row-selected {
+  border-color: #2D5BA6;
+  border-left-color: #2D5BA6;
+  box-shadow: 0 0 0 1px rgba(45, 91, 166, 0.18);
+}
+
+.vo-summary {
+  width: 100%;
+  padding: 11px 14px;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.vo-summary:hover {
+  background-color: #f6f8fa;
+}
+
+/* Keyboard users get a ring; a mouse click should not leave one behind. */
+.vo-summary:focus {
+  outline: none;
+}
+
+.vo-summary:focus-visible {
+  outline: 2px solid #2D5BA6;
+  outline-offset: -2px;
+}
+
+.vo-row-best .vo-summary {
+  background-color: #f2f9f4;
+}
+
+.vo-row-best .vo-summary:hover {
+  background-color: #eaf5ee;
+}
+
+.vo-num {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.vo-muted {
+  font-size: 13px;
+  color: #5c6a78;
+}
+
+.vo-rank {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #eef1f4;
+  color: #5c6a78;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.vo-rank-best {
+  background: #3f9f63;
+  color: #fff;
+}
+
+.vo-time-value {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1f2a36;
+  white-space: nowrap;
+}
+
+.vo-headline-value {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1f2a36;
+}
+
+.vo-relative {
+  font-size: 12px;
+  color: #7a8794;
+}
+
+.vo-relative-best {
+  color: #3f9f63;
+  font-weight: 600;
+}
+
+/* Variable-speed verdict, readable without expanding the row */
+.vo-vs-chip {
+  display: inline-block;
+  padding: 3px 7px;
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.vo-vs-chip-saving {
+  background: #e3f2e8;
+  color: #2F6B45;
+}
+
+.vo-vs-chip-penalty {
+  background: #f7ecea;
+  color: #A6432D;
+}
+
+.vo-vs-chip-missing {
+  background: #f0f2f4;
+  color: #93a0ad;
+  cursor: help;
+}
+
+.vo-chevron {
+  text-align: right;
+  color: #93a0ad;
+  font-size: 14px;
+  line-height: 1;
+}
+
+/* ---- Expanded comparison ---------------------------------------------- */
+
+.vo-variants {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 14px 14px;
+  border-top: 1px solid #eef1f4;
+}
+
+/* Stacked full-width bars rather than side-by-side cards: the two variants' numbers then sit in the
+   same columns, which is what makes them comparable at a glance. */
+.vo-variant {
+  display: grid;
+  grid-template-columns:
+    30px                  /* tag             */
+    minmax(190px, 1.6fr)  /* name            */
+    minmax(110px, 1fr)    /* speed           */
+    minmax(150px, 1.2fr)  /* active metric   */
+    minmax(90px, 0.8fr)   /* fuel            */
+    minmax(90px, 0.8fr)   /* cost            */
+    minmax(96px, 0.8fr);  /* action          */
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid #e2e7ec;
+  border-radius: 5px;
+  background: #fcfdfe;
+  cursor: pointer;
+  transition: border-color 0.15s, background-color 0.15s, box-shadow 0.15s;
+}
+
+.vo-variant:hover {
+  border-color: #b9c9e2;
+  background: #f4f8fd;
+}
+
+/* The cheaper of the two ways to sail this slot */
+.vo-variant-winner {
+  border-color: #a8d5b9;
+  background: #f4faf6;
+}
+
+.vo-variant-selected {
+  border-color: #2D5BA6;
+  box-shadow: 0 0 0 1px rgba(45, 91, 166, 0.2);
+  background: #f5f8fd;
+}
+
+.vo-variant-missing,
+.vo-variant-missing:hover {
+  grid-template-columns: 30px minmax(190px, 1.6fr) 1fr;
+  cursor: default;
+  background: #fafbfc;
+  border-color: #eef1f4;
+  border-style: dashed;
+}
+
+.vo-tag {
+  justify-self: start;
+  padding: 3px 5px;
+  border-radius: 3px;
+  background: #E3E7ED;
+  color: #4A5668;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  line-height: 1;
+}
+
+.vo-tag-vs {
+  background: #D8EBE0;
+  color: #2F6B45;
+}
+
+.vo-variant-name {
+  display: flex;
+  flex-direction: column;
+  font-size: 13px;
+  font-weight: 600;
+  color: #2c3540;
+  line-height: 1.3;
+}
+
+.vo-variant-name small {
+  font-size: 11px;
+  font-weight: 400;
+  color: #8a97a4;
+}
+
+/* Each figure carries its own label so the stacked bars stay readable without a second header */
+.vo-variant-metric {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-size: 13px;
+  font-weight: 500;
+  color: #3c4854;
+  line-height: 1.3;
+}
+
+.vo-variant-metric small {
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: #a2adb8;
+}
+
+.vo-variant-value {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  gap: 7px;
+  font-size: 17px;
+  font-weight: 600;
+  color: #1f2a36;
+}
+
+.vo-variant-delta {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.vo-variant-delta-saving {
+  color: #2F6B45;
+}
+
+.vo-variant-delta-penalty {
+  color: #A6432D;
+}
+
+.vo-variant-action {
+  text-align: right;
+  font-size: 12px;
+  font-weight: 600;
+  color: #2D5BA6;
+  white-space: nowrap;
+}
+
+.vo-variant-reason {
+  font-size: 12px;
+  line-height: 1.5;
+  color: #8a97a4;
+}
+
+.vo-skipped {
+  margin: 12px 2px 0;
+  font-size: 12px;
+  color: #93a0ad;
+}
+
+/* ---- Narrow layouts ---------------------------------------------------- */
+
+@media (max-width: 1000px) {
+  .vo-header {
+    display: none;
+  }
+
+  .vo-summary {
+    grid-template-columns: 26px minmax(96px, 1fr) minmax(96px, 1fr) minmax(100px, 1fr) 80px 22px;
+    row-gap: 4px;
+  }
+
+  /* Duration and speed drop out of the summary; they are still in the expanded bars. */
+  .vo-summary > .vo-muted {
+    display: none;
+  }
+
+  .vo-variant,
+  .vo-variant-missing {
+    grid-template-columns: 30px 1fr 1fr;
+    row-gap: 8px;
+  }
+
+  .vo-variant-name {
+    grid-column: 2 / -1;
+  }
+}

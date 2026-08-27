@@ -11,8 +11,25 @@ namespace VoyageEnergyAdvisor.Core.Services.VoyageEnergyAdvisorService
     {
         Task<IEnumerable<VoyageEnergyAdvisorVoyageOption>> PrepareVoyageOptions(VoyageEnergyAdvisorRequest request);
 
+        Task<IReadOnlyList<VoyageEnergyAdvisorVoyageOptionSet>> PrepareVoyageOptionSets(VoyageEnergyAdvisorRequest request);
+
         Task<IEnumerable<VoyageEnergyAdvisorVoyageOption>> PopulateVoyageOptions(
             IEnumerable<VoyageEnergyAdvisorVoyageOption> validOptions, Route route);
+
+        Task<IEnumerable<VoyageEnergyAdvisorVoyageOption>> PrepareGeometryAndWeather(
+            IEnumerable<VoyageEnergyAdvisorVoyageOption> voyageOptions, Route route,
+            double startPercent = 5,
+            double endPercent = 85);
+
+        IEnumerable<VoyageEnergyAdvisorVoyageOption> EnrichWithPowerFuelAndCost(
+            IEnumerable<VoyageEnergyAdvisorVoyageOption> voyageOptions,
+            double startPercent = 85,
+            double endPercent = 100);
+
+        IReadOnlyList<VoyageEnergyAdvisorVoyageOption> BuildVariableSpeedTwins(
+            IEnumerable<VoyageEnergyAdvisorVoyageOption> weatherEnrichedOptions,
+            double startPercent = 55,
+            double endPercent = 80);
 
         VoyageEnergyAdvisorRequest? ToValidRequest(VoyageEnergyAdvisorRequest request);
 
@@ -31,7 +48,9 @@ namespace VoyageEnergyAdvisor.Core.Services.VoyageEnergyAdvisorService
             IEnumerable<VoyageEnergyAdvisorVoyageOption> voyageOptions);
 
         Task<IEnumerable<VoyageEnergyAdvisorVoyageOption>> AddTrueWeatherToRouteSegments(
-            IEnumerable<VoyageEnergyAdvisorVoyageOption> voyageOptions);
+            IEnumerable<VoyageEnergyAdvisorVoyageOption> voyageOptions,
+            double startPercent = 5,
+            double endPercent = 85);
 
         IEnumerable<VoyageEnergyAdvisorVoyageOption> AddApparentWeatherToRouteSegments(
             IEnumerable<VoyageEnergyAdvisorVoyageOption> voyageOptions);
@@ -55,7 +74,9 @@ namespace VoyageEnergyAdvisor.Core.Services.VoyageEnergyAdvisorService
             IEnumerable<VoyageEnergyAdvisorVoyageOption> voyageOptions);
 
         IEnumerable<VoyageEnergyAdvisorVoyageOption> AddTotalPowerAndEnergyToVoyageOptions(
-            IEnumerable<VoyageEnergyAdvisorVoyageOption> voyageOptions);
+            IEnumerable<VoyageEnergyAdvisorVoyageOption> voyageOptions,
+            double startPercent = 85,
+            double endPercent = 95);
 
         IEnumerable<VoyageEnergyAdvisorVoyageOption> AddFavorableWeatherIndexToVoyageOptions(
             IEnumerable<VoyageEnergyAdvisorVoyageOption> voyageOptions);
@@ -69,8 +90,5 @@ namespace VoyageEnergyAdvisor.Core.Services.VoyageEnergyAdvisorService
 
         double SolveSegmentSpeedForConstantPower(
             VoyageEnergyAdvisorVoyageOptionRouteSegment segment, double constantPropulsionPower, double speedMin, double speedMax);
-
-        Task<VoyageEnergyAdvisorVoyageOption> BuildOptimalVoyageOption(
-            VoyageEnergyAdvisorOptimalVoyageRequest request, double requiredAverageSpeed);
     }
 }

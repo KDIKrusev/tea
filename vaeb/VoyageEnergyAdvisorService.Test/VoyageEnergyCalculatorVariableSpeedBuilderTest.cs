@@ -26,9 +26,9 @@ using WeatherData = VoyageEnergyAdvisor.Core.CommonModels.WeatherData;
 namespace VoyageEnergyAdvisorService.Test
 {
     // Dedicated mocks with speed-dependent (rather than flat) resistance values, so the power-balance
-    // convergence of the optimal-voyage search can be verified against a closed-form expected result.
+    // convergence of the constant-power search can be verified against a closed-form expected result.
     [Collection("Non-Parallel Tests")]
-    public class VoyageEnergyAdvisorOptimalVoyageBuilderTest
+    public class VoyageEnergyAdvisorVariableSpeedBuilderTest
     {
         private readonly Mock<IWeatherService> _weatherService = new();
         private readonly Mock<ICalmWaterResistanceService> _calmWaterResistanceService = new();
@@ -46,7 +46,7 @@ namespace VoyageEnergyAdvisorService.Test
         // by assignment rather than re-configuring the mock (avoiding any Moq setup-override ambiguity).
         private double _windContributionWatts;
 
-        public VoyageEnergyAdvisorOptimalVoyageBuilderTest()
+        public VoyageEnergyAdvisorVariableSpeedBuilderTest()
         {
             _calmWaterResistanceService
                 .Setup(x => x.GetCalmWaterResistancePower(It.IsAny<double>()))
@@ -105,11 +105,40 @@ namespace VoyageEnergyAdvisorService.Test
                 _progressService.Object);
         }
 
+        /// <summary>
+        /// Runs a single ETD/ETA slot through the three phases the /update pipeline uses and returns its
+        /// variable-speed twin. An infeasible slot comes back with IsValid == false and a reason, which is
+        /// how the pipeline reports it, so callers can assert on either outcome.
+        /// </summary>
+        private static async Task<VoyageEnergyAdvisorVoyageOption> SolveVariableSpeedOption(
+            VoyageEnergyAdvisorVoyageOptionsBuilder builder,
+            Route route,
+            DateTime etd,
+            DateTime eta,
+            double requiredAverageSpeed)
+        {
+            var seedOption = new VoyageEnergyAdvisorVoyageOption
+            {
+                Etd = etd,
+                Eta = eta,
+                AverageSpeed = requiredAverageSpeed,
+                DurationInSeconds = (eta - etd).TotalSeconds,
+                IsValid = true
+            };
+
+            var preparedOptions = (await builder.PrepareGeometryAndWeather(new[] { seedOption }, route)).ToList();
+            var twin = builder.BuildVariableSpeedTwins(preparedOptions).Single();
+
+            return twin.IsValid
+                ? builder.EnrichWithPowerFuelAndCost(new[] { twin }).First()
+                : twin;
+        }
+
         private static Route GetShortSingleSegmentRoute()
         {
             return new Route
             {
-                RouteName = "Optimal Test Route",
+                RouteName = "Variable Speed Test Route",
                 Waypoints = new List<GeoCoordinate>
                 {
                     new GeoCoordinate(0.0, 0.0),
@@ -202,7 +231,7 @@ namespace VoyageEnergyAdvisorService.Test
         }
 
         [Fact]
-        public async Task BuildOptimalVoyageOption_CalmWaterOnly_ConvergesNearRequiredPower()
+        public async Task BuildVariableSpeedTwins_CalmWaterOnly_ConvergesNearRequiredPower()
         {
             var builder = CreateBuilder();
             var route = GetShortSingleSegmentRoute();
@@ -212,16 +241,7 @@ namespace VoyageEnergyAdvisorService.Test
             var etd = DateTime.UtcNow.AddHours(1);
             var eta = etd.AddSeconds(distance / requiredSpeed);
 
-            var request = new VoyageEnergyAdvisorOptimalVoyageRequest
-            {
-                Etd = etd,
-                Eta = eta,
-                SpeedMin = 1,
-                SpeedMax = 20,
-                Route = route
-            };
-
-            var result = await builder.BuildOptimalVoyageOption(request, requiredSpeed);
+            var result = await SolveVariableSpeedOption(builder, route, etd, eta, requiredSpeed);
 
             Assert.True(result.IsValid);
             Assert.NotEmpty(result.RouteSegments);
@@ -232,7 +252,7 @@ namespace VoyageEnergyAdvisorService.Test
         }
 
         [Fact]
-        public async Task BuildOptimalVoyageOption_FavorableWind_RequiresLowerPowerThanCalmWaterOnly()
+        public async Task BuildVariableSpeedTwins_FavorableWind_RequiresLowerPowerThanCalmWaterOnly()
         {
             _windContributionWatts = -300;
 
@@ -244,16 +264,7 @@ namespace VoyageEnergyAdvisorService.Test
             var etd = DateTime.UtcNow.AddHours(1);
             var eta = etd.AddSeconds(distance / requiredSpeed);
 
-            var request = new VoyageEnergyAdvisorOptimalVoyageRequest
-            {
-                Etd = etd,
-                Eta = eta,
-                SpeedMin = 1,
-                SpeedMax = 20,
-                Route = route
-            };
-
-            var result = await builder.BuildOptimalVoyageOption(request, requiredSpeed);
+            var result = await SolveVariableSpeedOption(builder, route, etd, eta, requiredSpeed);
 
             Assert.True(result.IsValid);
             // Expected constant power ~= 500 - 300 = 200W, comfortably below the calm-water-only 500W baseline.
@@ -262,7 +273,7 @@ namespace VoyageEnergyAdvisorService.Test
         }
 
         [Fact]
-        public async Task BuildOptimalVoyageOption_AdverseWind_RequiresHigherPowerThanCalmWaterOnly()
+        public async Task BuildVariableSpeedTwins_AdverseWind_RequiresHigherPowerThanCalmWaterOnly()
         {
             _windContributionWatts = 300;
 
@@ -274,16 +285,7 @@ namespace VoyageEnergyAdvisorService.Test
             var etd = DateTime.UtcNow.AddHours(1);
             var eta = etd.AddSeconds(distance / requiredSpeed);
 
-            var request = new VoyageEnergyAdvisorOptimalVoyageRequest
-            {
-                Etd = etd,
-                Eta = eta,
-                SpeedMin = 1,
-                SpeedMax = 20,
-                Route = route
-            };
-
-            var result = await builder.BuildOptimalVoyageOption(request, requiredSpeed);
+            var result = await SolveVariableSpeedOption(builder, route, etd, eta, requiredSpeed);
 
             Assert.True(result.IsValid);
             // Expected constant power ~= 500 + 300 = 800W, comfortably above the calm-water-only 500W baseline.
@@ -292,7 +294,7 @@ namespace VoyageEnergyAdvisorService.Test
         }
 
         [Fact]
-        public async Task BuildOptimalVoyageOption_ThrowsOptimalVoyageRequestException_WhenPowerBandCannotMeetEta()
+        public async Task BuildVariableSpeedTwins_MarksTwinUnavailable_WhenPowerBandCannotMeetEta()
         {
             // Adverse wind resistance so large that even at the top of the +-80% search band
             // (see AverageSpeedSearchBandFraction), calm-water-derived power can't overcome it.
@@ -306,21 +308,16 @@ namespace VoyageEnergyAdvisorService.Test
             var etd = DateTime.UtcNow.AddHours(1);
             var eta = etd.AddSeconds(distance / requiredSpeed);
 
-            var request = new VoyageEnergyAdvisorOptimalVoyageRequest
-            {
-                Etd = etd,
-                Eta = eta,
-                SpeedMin = 1,
-                SpeedMax = 20,
-                Route = route
-            };
+            var twin = await SolveVariableSpeedOption(builder, route, etd, eta, requiredSpeed);
 
-            await Assert.ThrowsAsync<OptimalVoyageRequestException>(
-                () => builder.BuildOptimalVoyageOption(request, requiredAverageSpeed: requiredSpeed));
+            // An infeasible slot must degrade to a reason rather than failing the whole set of options.
+            Assert.False(twin.IsValid);
+            Assert.NotNull(twin.UnavailableReason);
+            Assert.Contains("constant propulsion power", twin.UnavailableReason!);
         }
 
         [Fact]
-        public async Task GetOptimalVoyageOption_WithVaryingWeatherAlongRoute_KeepsResistancePowerConsistentAcrossSegments()
+        public async Task BuildVariableSpeedTwins_WithVaryingWeatherAlongRoute_KeepsResistancePowerConsistentAcrossSegments()
         {
             // Sweep true wind direction from 120 to 240 degrees along the route's longitude. This range is
             // deliberately kept clear of the eastbound route's course (~90) and course+180 (~270): hitting
@@ -356,14 +353,9 @@ namespace VoyageEnergyAdvisorService.Test
                     windDirection == 0 ? 0.0 : (windDirection - 180.0) * 3.0);
 
             var builder = CreateBuilder();
-            var service = new VoyageEnergyAdvisor.Core.Services.VoyageEnergyAdvisorService.VoyageEnergyAdvisorService(
-                builder,
-                new Mock<IAisService>().Object,
-                new Mock<ILogger<VoyageEnergyAdvisor.Core.Services.VoyageEnergyAdvisorService.VoyageEnergyAdvisorService>>().Object);
-
             var route = new Route
             {
-                RouteName = "Multi-Segment Optimal Test Route",
+                RouteName = "Multi-Segment Variable Speed Test Route",
                 Waypoints = new List<GeoCoordinate>
                 {
                     new GeoCoordinate(0.0, 0.0),
@@ -376,16 +368,7 @@ namespace VoyageEnergyAdvisorService.Test
             var etd = DateTime.UtcNow.AddHours(1);
             var eta = etd.AddSeconds(distance / requiredSpeed);
 
-            var request = new VoyageEnergyAdvisorOptimalVoyageRequest
-            {
-                Etd = etd,
-                Eta = eta,
-                SpeedMin = 1,
-                SpeedMax = 20,
-                Route = route
-            };
-
-            var option = await service.GetOptimalVoyageOption(request);
+            var option = await SolveVariableSpeedOption(builder, route, etd, eta, requiredSpeed);
 
             Assert.True(option.IsValid);
             Assert.True(option.RouteSegments.Count > 1,
@@ -455,14 +438,9 @@ namespace VoyageEnergyAdvisorService.Test
                 });
 
             var builder = CreateBuilder();
-            var service = new VoyageEnergyAdvisor.Core.Services.VoyageEnergyAdvisorService.VoyageEnergyAdvisorService(
-                builder,
-                new Mock<IAisService>().Object,
-                new Mock<ILogger<VoyageEnergyAdvisor.Core.Services.VoyageEnergyAdvisorService.VoyageEnergyAdvisorService>>().Object);
-
             var route = new Route
             {
-                RouteName = "Multi-Segment Optimal Test Route",
+                RouteName = "Multi-Segment Variable Speed Test Route",
                 Waypoints = new List<GeoCoordinate>
                 {
                     new GeoCoordinate(0.0, 0.0),
@@ -475,16 +453,7 @@ namespace VoyageEnergyAdvisorService.Test
             var etd = DateTime.UtcNow.AddHours(1);
             var eta = etd.AddSeconds(distance / requiredSpeed);
 
-            var request = new VoyageEnergyAdvisorOptimalVoyageRequest
-            {
-                Etd = etd,
-                Eta = eta,
-                SpeedMin = 1,
-                SpeedMax = 20,
-                Route = route
-            };
-
-            var option = await service.GetOptimalVoyageOption(request);
+            var option = await SolveVariableSpeedOption(builder, route, etd, eta, requiredSpeed);
 
             Assert.True(option.IsValid);
             Assert.True(option.RouteSegments.Count > 1,

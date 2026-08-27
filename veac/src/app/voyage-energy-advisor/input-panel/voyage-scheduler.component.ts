@@ -169,10 +169,9 @@ export class VoyageSchedulerComponent implements OnInit, OnDestroy {
     const searchParams = this.buildSearchParameters();
 
     this.hasResults = true;
-  this.voyageSchedulerService.clearOptimalVoyageOption();
-    console.log('VARIABLE_SPEED_SEARCH_TRIGGER');
-    this.voyageSchedulerService.startOptimalVoyageCalculationFromSearch(searchParams);
-    
+
+    // A single /update call now returns both the constant-speed and the variable-speed option for every
+    // slot, so there is no second request to fire here.
     this.voyageSchedulerService.submitVoyageRequest(searchParams)
       .then(response => {
         this.hasResults = true;

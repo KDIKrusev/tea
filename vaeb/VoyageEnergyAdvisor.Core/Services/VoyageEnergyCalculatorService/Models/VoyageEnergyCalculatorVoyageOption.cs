@@ -65,5 +65,11 @@ namespace VoyageEnergyAdvisor.Core.Services.VoyageEnergyAdvisorService.Models
         public double? CostRelative { get; set; }
 
         public bool IsLiveMode { get; set; }
+
+        // True for options solved at constant propulsion power (speed varies along the route).
+        public bool IsVariableSpeedOption { get; set; }
+
+        // Set instead of a result when no feasible constant-power solution exists for this slot.
+        public string? UnavailableReason { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 import { voyageEnergyAdvisorRequest } from '../../models/api/voyage-energy-advisor-request.model';
 import { voyageEnergyAdvisorResponse } from '../../models/api/voyage-energy-advisor-response.model';
+import { VoyageOption } from '../../models/entities/voyage-option.model';
 import { Route } from '../../models/entities/route.model';
 import { UnitsOfMeasurementService } from '../utilities/units-of-measurement.service';
 
@@ -29,7 +30,20 @@ export class VoyageUtils {
   }
 
   static transformResponse(response: voyageEnergyAdvisorResponse): voyageEnergyAdvisorResponse {
-    response.voyageOptions = response.voyageOptions.map(option => ({
+    response.voyageOptionSets = (response.voyageOptionSets ?? []).map(set => ({
+      ...set,
+      etd: set.etd * 1000,
+      eta: set.eta * 1000,
+      variablePowerOption: VoyageUtils.scaleOptionTimestamps(set.variablePowerOption),
+      variableSpeedOption: set.variableSpeedOption
+        ? VoyageUtils.scaleOptionTimestamps(set.variableSpeedOption)
+        : null
+    }));
+    return response;
+  }
+
+  private static scaleOptionTimestamps(option: VoyageOption): VoyageOption {
+    return {
       ...option,
       etd: option.etd * 1000,
       eta: option.eta * 1000,
@@ -38,14 +52,13 @@ export class VoyageUtils {
         startTime: segment.startTime * 1000,
         endTime: segment.endTime * 1000
       }))
-    }));
-    return response;
+    };
   }
 
   static emptyResponse(correlationId: string): voyageEnergyAdvisorResponse {
     return {
       voyageDistance: 0,
-      voyageOptions: [],
+      voyageOptionSets: [],
       correlationId,
       fuelPricePerKg: 0,
       emissionFactorCO2PerKg: 0

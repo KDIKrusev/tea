@@ -8,6 +8,12 @@ namespace VoyageEnergyAdvisor.WebApi;
 
 public static class VoyageEnergyAdvisorDtoHelpers
 {
+    // How many ETD and ETA points the voyage options grid is built from, so the grid is
+    // ReturnArrayDimension x ReturnArrayDimension slots before the speed filter removes the infeasible
+    // ones. Each surviving slot is solved twice (constant speed and constant power), so the solver cost
+    // grows with the square of this number. Must be >= 2: GetTimeOptions divides by (n - 1).
+    private const int ReturnArrayDimension = 3;
+
     public static VoyageEnergyAdvisorResponseDto GetResponseDto(
      VoyageEnergyAdvisorResponse response)
     {
@@ -15,7 +21,22 @@ public static class VoyageEnergyAdvisorDtoHelpers
         {
             VoyageDistance = response.VoyageDistance,
             ValidationMessage = response.ValidationMessage,
-            VoyageOptions = response.VoyageOptions.Select(option => option.ToDto()).ToList()
+            VoyageOptionSets = response.VoyageOptionSets.Select(set => set.ToDto()).ToList()
+        };
+    }
+
+    private static VoyageEnergyAdvisorVoyageOptionSetDto ToDto(this VoyageEnergyAdvisorVoyageOptionSet set)
+    {
+        return new VoyageEnergyAdvisorVoyageOptionSetDto
+        {
+            Etd = new DateTimeOffset(DateTime.SpecifyKind(set.Etd, DateTimeKind.Utc)).ToUnixTimeMilliseconds(),
+            Eta = new DateTimeOffset(DateTime.SpecifyKind(set.Eta, DateTimeKind.Utc)).ToUnixTimeMilliseconds(),
+            DurationInSeconds = set.DurationInSeconds,
+            AverageSpeed = set.AverageSpeed,
+            IsValid = set.IsValid,
+            VariablePowerOption = set.VariablePowerOption.ToDto(),
+            VariableSpeedOption = set.VariableSpeedOption?.ToDto(),
+            VariableSpeedUnavailableReason = set.VariableSpeedUnavailableReason
         };
     }
 
@@ -26,6 +47,7 @@ public static class VoyageEnergyAdvisorDtoHelpers
             Etd = new DateTimeOffset(DateTime.SpecifyKind(option.Etd, DateTimeKind.Utc)).ToUnixTimeMilliseconds(),
             Eta = new DateTimeOffset(DateTime.SpecifyKind(option.Eta, DateTimeKind.Utc)).ToUnixTimeMilliseconds(),
             IsValid = option.IsValid,
+            IsVariableSpeedOption = option.IsVariableSpeedOption,
             AverageSpeed = option.AverageSpeed,
             DurationInSeconds = option.DurationInSeconds,
 
@@ -144,7 +166,7 @@ public static class VoyageEnergyAdvisorDtoHelpers
         {
             SpeedMin = request.SpeedMin,
             SpeedMax = request.SpeedMax,
-            ReturnArrayDimension = 5, //request.ReturnArrayDimension,
+            ReturnArrayDimension = ReturnArrayDimension,
             EtdMin = request.EtdMin >= 0
                 ? DateTimeOffset.FromUnixTimeMilliseconds(request.EtdMin / 1000).DateTime
                 : null,
@@ -166,32 +188,6 @@ public static class VoyageEnergyAdvisorDtoHelpers
     }
 
 
-
-    public static VoyageEnergyAdvisorOptimalVoyageRequest GetOptimalVoyageRequestFromDto(
-        VoyageEnergyAdvisorOptimalVoyageRequestDto request)
-    {
-        return new VoyageEnergyAdvisorOptimalVoyageRequest()
-        {
-            Etd = DateTimeOffset.FromUnixTimeMilliseconds(request.Etd).UtcDateTime,
-            Eta = DateTimeOffset.FromUnixTimeMilliseconds(request.Eta).UtcDateTime,
-            SpeedMin = request.SpeedMin,
-            SpeedMax = request.SpeedMax,
-            Route = new Route
-            {
-                RouteName = request.Route.RouteName,
-                Waypoints = request.Route.Waypoints.Select(e => new GeoCoordinate(e.Latitude, e.Longitude)).ToList()
-            },
-        };
-    }
-
-    public static VoyageEnergyAdvisorOptimalVoyageResponseDto GetOptimalVoyageResponseDto(
-        VoyageEnergyAdvisorVoyageOption option)
-    {
-        return new VoyageEnergyAdvisorOptimalVoyageResponseDto
-        {
-            OptimalVoyageOption = option.ToDto()
-        };
-    }
 
     public static VoyageEnergyAdvisorLiveRequest GetLiveRequestFromDto(VoyageEnergyAdvisorLiveRequestDto request)
     {

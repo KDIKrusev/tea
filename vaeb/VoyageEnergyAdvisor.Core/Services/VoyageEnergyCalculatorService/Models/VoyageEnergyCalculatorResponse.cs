@@ -1,9 +1,11 @@
-﻿namespace VoyageEnergyAdvisor.Core.Services.VoyageEnergyAdvisorService.Models
+namespace VoyageEnergyAdvisor.Core.Services.VoyageEnergyAdvisorService.Models
 {
     public class VoyageEnergyAdvisorResponse
     {
         public double VoyageDistance { get; set; }
-        public List<VoyageEnergyAdvisorVoyageOption> VoyageOptions { get; set; } = new();
+
+        // Each ETD/ETA slot with both ways of sailing it. See VoyageEnergyAdvisorVoyageOptionSet.
+        public List<VoyageEnergyAdvisorVoyageOptionSet> VoyageOptionSets { get; set; } = new();
 
         public string ValidationMessage { get; set; } = null!;
     }

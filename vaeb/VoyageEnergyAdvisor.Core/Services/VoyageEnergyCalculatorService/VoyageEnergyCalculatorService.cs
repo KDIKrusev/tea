@@ -21,14 +21,13 @@
 
             if (validRequest != null)
             {
-                var voyageOptions = await voyageEnergyAdvisorVoyageOptionsBuilder.PrepareVoyageOptions(validRequest);
-                var voyageOptionsList = voyageOptions.ToList();
-                var hasValidOptions = voyageOptionsList.Any(o => o.IsValid);
+                var voyageOptionSets = await voyageEnergyAdvisorVoyageOptionsBuilder.PrepareVoyageOptionSets(validRequest);
+                var hasValidOptions = voyageOptionSets.Any(o => o.IsValid);
 
                 var response = new VoyageEnergyAdvisorResponse()
                 {
                     VoyageDistance = validRequest.Route.GetVoyageDistance(),
-                    VoyageOptions = voyageOptionsList
+                    VoyageOptionSets = voyageOptionSets.ToList()
                 };
 
                 if (!hasValidOptions)
@@ -86,46 +85,5 @@
             };
         }
 
-        public async Task<VoyageEnergyAdvisorVoyageOption> GetOptimalVoyageOption(VoyageEnergyAdvisorOptimalVoyageRequest request)
-        {
-            ValidateOptimalVoyageRequest(request);
-
-            var voyageDistance = request.Route.GetVoyageDistance();
-            var requiredAverageSpeed = voyageEnergyAdvisorVoyageOptionsBuilder.CalculateRequiredAverageSpeed(
-                voyageDistance, request.Etd, request.Eta);
-
-            if (requiredAverageSpeed < request.SpeedMin || requiredAverageSpeed > request.SpeedMax)
-            {
-                throw new OptimalVoyageRequestException(
-                    $"The average speed of {requiredAverageSpeed:F2} m/s required to travel {voyageDistance:F0} m " +
-                    $"between ETD and ETA falls outside the requested speed range " +
-                    $"[{request.SpeedMin:F2}, {request.SpeedMax:F2}] m/s.");
-            }
-
-            return await voyageEnergyAdvisorVoyageOptionsBuilder.BuildOptimalVoyageOption(request, requiredAverageSpeed);
-        }
-
-        private static void ValidateOptimalVoyageRequest(VoyageEnergyAdvisorOptimalVoyageRequest request)
-        {
-            if (request.Eta <= request.Etd)
-            {
-                throw new OptimalVoyageRequestException("ETA must be after ETD.");
-            }
-
-            if (request.Route?.Waypoints == null || request.Route.Waypoints.Count == 0)
-            {
-                throw new OptimalVoyageRequestException("Route must not be null or empty.");
-            }
-
-            if (request.SpeedMin <= 0)
-            {
-                throw new OptimalVoyageRequestException("SpeedMin must be greater than zero.");
-            }
-
-            if (request.SpeedMax <= request.SpeedMin)
-            {
-                throw new OptimalVoyageRequestException("SpeedMax must be greater than SpeedMin.");
-            }
-        }
     }
 }
